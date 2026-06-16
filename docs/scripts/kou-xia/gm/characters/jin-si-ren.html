@@ -28,6 +28,7 @@ p{margin-bottom:.8em}
 .section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
 .n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
 .n-tip{background:var(--gold-lt);border-color:#e0a800}
 .n-dark{background:#2d0000;color:#ffcccc;border-color:#ff4444;padding:1em 1.4em}
 .n-dark strong{color:#fff}
@@ -36,9 +37,9 @@ th{background:var(--red);color:#fff;padding:.5em .8em;text-align:left;font-weigh
 td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
 tr:nth-child(even) td{background:#faf5ee}
 .tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
-.tag-todo{background:#fff3cd;color:#856404}
 .tag-high{background:#ffd5d5;color:#7a0000}
 .tag-conf{background:#d4edda;color:#155724}
+.tag-info{background:#cce;color:#003}
 .char-hero{background:linear-gradient(135deg,#3d0000,#8b0000);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
 .char-hero .hero-pub{font-size:.85em;color:#ffaaaa;letter-spacing:.5px;margin-bottom:.3em}
 .char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
@@ -79,13 +80,17 @@ tr:nth-child(even) td{background:#faf5ee}
 </nav>
 <div class="wrapper">
 
+  <div class="notice n-info" style="margin-bottom:1em;font-size:.85em">
+    <strong>來源：</strong> 已依 <code>input-text/# 【金四刃】文字劇本.md</code> 更新（2026-06-17）。王思涵真名已更正為「阳敏芝」，凶案時間線、道具已確認。所有 TODO 已消除。
+  </div>
+
   <div class="char-hero">
     <div class="hero-pub">公開身份</div>
     <div class="hero-name">金四刃</div>
-    <div class="hero-alias">真名 何乃武</div>
-    <div class="hero-desc">大夏皇族旁系後裔，以江湖武者「金四刃」身份行走，實為寇俠組織此次聚會的聯絡人。</div>
+    <div class="hero-alias">公開化名 金四刀 · 真名 何乃武</div>
+    <div class="hero-desc">26歲，大夏皇族旁系九世孫，以高級將領「金四刀」身份在寇俠鹤須軍行事。此行隨冷降塵到盤兴口，希望拿到兵符。凶案期間被嚴逸擊暈，是全場最無辜的旁觀者。</div>
     <div class="hero-badges">
-      <span class="hero-badge hb-kou">寇俠（核心）</span>
+      <span class="hero-badge hb-kou">寇俠（固定陣營）</span>
       <span class="hero-badge hb-royal">大夏皇族後裔</span>
       <span class="hero-badge hb-easter">壓軸彩蛋核心</span>
     </div>
@@ -93,20 +98,20 @@ tr:nth-child(even) td{background:#faf5ee}
 
   <div class="notice n-dark">
     <strong>GM Summary：</strong>
-    金四刃是寇俠組織核心，同時是全場「壓軸彩蛋」的另一半——他失散多年的妹妹就是凶手嚴氏（何乃清）。雙方均不知情。這個真相必須作為復盤的最後高潮揭露，GM 需要在整場遊戲中確保兩人都不提前知曉。
+    金四刃是寇俠組織的高級將領，同時是全場「壓軸彩蛋」的另一半——他失散多年的妹妹何乃清，就是凶手嚴氏（栾绛）。雙方均不知情。金四刃在遊戲中已因嚴氏脖頸的青色胎記而察覺可能性，在廚房追問過她是否姓何。這個真相必須作為復盤的最後高潮揭露，GM 需要全程確保兩人都不提前知曉。
   </div>
 
   <h2>身份層次</h2>
   <div class="id-layers">
     <div class="id-layer id-pub">
       <div class="layer-label">公開身份</div>
-      <div class="layer-value">金四刃</div>
-      <div class="layer-sub">江湖武者，寇俠聯絡人</div>
+      <div class="layer-value">金四刀（化名）</div>
+      <div class="layer-sub">寇俠鹤須軍高級將領<br>（對外均用化名，「金四刃」為劇本封面名）</div>
     </div>
     <div class="id-layer id-true">
       <div class="layer-label">真實身份</div>
       <div class="layer-value">何乃武</div>
-      <div class="layer-sub">大夏最後一代皇族旁系後裔<br>尋找失散妹妹何乃清</div>
+      <div class="layer-sub">大夏皇族旁系九世孫<br>生父：何彦（濟陽縣令，被嚴逸所殺）<br>妹妹：何乃清 = 嚴氏</div>
     </div>
   </div>
 
@@ -114,29 +119,61 @@ tr:nth-child(even) td{background:#faf5ee}
   <div class="stats">
     <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">30</div></div>
     <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">5–8</div></div>
-    <div class="stat-box"><div class="stat-label">技能</div><div class="stat-val">可升</div></div>
+    <div class="stat-box"><div class="stat-label">陣營</div><div class="stat-val">固定</div></div>
   </div>
 
-  <h2>在主線凶案中的角色</h2>
+  <h2>關鍵 OCR 修正（已確認）</h2>
+  <div class="section">
+    <div class="notice n-danger">
+      <strong>重要更正：</strong> 王思涵真名為「<strong>阳敏芝</strong>」（谷阳府阳氏千金），<strong>非</strong>先前 OCR 誤讀的「旭敏芝」。此修正影響所有涉及王思涵真名的 GM 材料，包括 wang-si-han.md 及 relationship-map.html。
+    </div>
+  </div>
+
+  <h2>在主線凶案中的角色（已確認）</h2>
   <div class="section">
     <ul>
-      <li>金四刃與謀殺案<strong>沒有直接關係</strong></li>
+      <li>金四刃與謀殺案<strong>沒有直接關係</strong>——他是全場最無辜的旁觀者</li>
+      <li>20:50 前往庫房途中，被嚴逸從背後擊暈脖頸，直到天亮才醒</li>
+      <li>他持有冷降塵在 19:50 給他的【鶴須軍虎賁衛兵符】</li>
       <li>但嚴逸（殘手）此行的核心目標是<strong>確認並消滅他</strong></li>
-      <li>凶案（殺死冷降塵）是為了防止其洩露綉衣使要針對金四刃的行動計畫</li>
       <li>他的存活是結局A（寇俠勝）的關鍵條件之一</li>
     </ul>
+  </div>
+
+  <h2>凶案時間線（金四刃視角，已確認）</h2>
+  <div class="section">
+    <table>
+      <tr><th>時間</th><th>事件</th></tr>
+      <tr><td>19:35</td><td>找阳敏芝（王思涵）但她不在房中，返回</td></tr>
+      <tr><td>19:50</td><td>去見冷降塵，獲得【鶴須軍虎賁衛兵符】</td></tr>
+      <tr><td>20:00</td><td>拿著兵符出冷降塵房間，看到嚴氏下樓，注意到脖頸青色胎記</td></tr>
+      <tr><td>~20:00</td><td>跟進廚房，問「是否姓何」，嚴氏拒絕，約好半時辰後庫房相見</td></tr>
+      <tr><td>20:20</td><td>去阳敏芝（王思涵）房間詢問，她閉口不談，拂袖而去，打翻茶杯</td></tr>
+      <tr><td>20:50</td><td>出門前往庫房，被人（嚴逸）擊暈脖頸，昏迷至天亮</td></tr>
+    </table>
+  </div>
+
+  <h2>道具清單（已從 input-text 確認）</h2>
+  <div class="section">
+    <table>
+      <tr><th>道具</th><th>說明</th></tr>
+      <tr><td>120兩銀兩卡</td><td>可用於玩家間交易或與NPC交易</td></tr>
+      <tr><td>【武功卡】×1</td><td>個人武功</td></tr>
+      <tr><td>【天賦卡——浩然正氣】×1</td><td>個人技能，謹慎使用</td></tr>
+      <tr><td>【物品卡——武林秘籍】×1</td><td>小時候和妹妹何乃清一起翻到並練習過的秘籍，封面有些殘破</td></tr>
+      <tr><td>【鶴須軍虎賁衛兵符】×1</td><td>冷降塵在19:50給的；是個人勝利條件的第一塊兵符</td></tr>
+    </table>
   </div>
 
   <h2>陣營與勝利條件</h2>
   <div class="section">
     <table>
       <tr><th>項目</th><th>內容</th></tr>
-      <tr><td>初始陣營</td><td>寇俠（核心）</td></tr>
-      <tr><td>已知目標</td><td>保護寇俠組織運作；確認盟友身份</td></tr>
-      <tr><td>個人動機</td><td>尋找失散多年的妹妹何乃清</td></tr>
-      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 需人工核對原始劇本</span></td></tr>
-      <tr><td>結局A（寇俠勝）</td><td>寇俠組織暫時安全；若得知嚴氏身份，則留下心結</td></tr>
-      <tr><td>結局B（綉衣使勝）</td><td>戰敗，若存活則繼續流亡；若嚴氏揭曉身份，兄妹陰陽相隔</td></tr>
+      <tr><td>陣營</td><td>寇俠（<strong>固定，不可更改</strong>）</td></tr>
+      <tr><td>個人動機</td><td>尋找失散妹妹何乃清；光復大夏；集齊所有兵符</td></tr>
+      <tr><td>個人勝利條件</td><td><strong>集齊所有兵符</strong>（前提是寇俠方贏得勝利）</td></tr>
+      <tr><td>結局A（寇俠勝）</td><td>若存活，個人勝利可觸發；若得知嚴氏身份，觸發情感衝擊</td></tr>
+      <tr><td>結局B（綉衣使勝）</td><td>若存活，踏上更艱難的流亡之路；若阵亡，含恨而終</td></tr>
     </table>
   </div>
 
@@ -146,10 +183,12 @@ tr:nth-child(even) td{background:#faf5ee}
       <div>
         <h3 style="color:#155724">✓ 金四刃知道</h3>
         <ul>
-          <li>他是何乃武，大夏皇族後裔</li>
-          <li>他是寇俠組織聯絡人</li>
-          <li>他有一個失散的妹妹何乃清</li>
-          <li>具體知情事項 <span class="tag tag-todo">TODO 從劇本確認</span></li>
+          <li>他是何乃武，大夏皇族旁系九世孫</li>
+          <li>他是寇俠鹤須軍高級將領「金四刀」</li>
+          <li>他有一個失散的妹妹何乃清（脖頸有青色胎記）</li>
+          <li>冷降塵給了他【鶴須軍虎賁衛兵符】</li>
+          <li>嚴氏脖頸有青色胎記，他已在廚房問過她是否姓何</li>
+          <li>他的戀人阳敏芝在此地以王思涵身份出現，但閉口不談</li>
         </ul>
       </div>
       <div>
@@ -158,6 +197,7 @@ tr:nth-child(even) td{background:#faf5ee}
           <li><strong>嚴氏就是他的妹妹何乃清</strong>（最大彩蛋）</li>
           <li>嚴氏是凶手</li>
           <li>嚴逸（殘手）的真實意圖是消滅他</li>
+          <li>他在20:50被嚴逸擊暈，整個凶案發生時他是昏迷狀態</li>
         </ul>
       </div>
       <div>
@@ -165,6 +205,7 @@ tr:nth-child(even) td{background:#faf5ee}
         <ul>
           <li>嚴氏 = 何乃清 = 他失散多年的妹妹</li>
           <li>嚴氏不知道他就是她的哥哥</li>
+          <li>【武林秘籍】就是他和妹妹小時候一起翻到的秘籍——嚴氏身上的「截然不同的功法」可能與此有關</li>
           <li>兄妹真相是全場壓軸，復盤最後揭露</li>
         </ul>
       </div>
@@ -175,23 +216,38 @@ tr:nth-child(even) td{background:#faf5ee}
   <div class="section">
     <table>
       <tr><th>關聯角色</th><th>金四刃視角</th><th>GM真相</th><th>信心度</th></tr>
-      <tr><td><strong>嚴氏</strong></td><td>陌生人或警戒對象（綉衣使方）</td><td><strong>失散妹妹何乃清——雙方均不知</strong></td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td><strong>嚴逸</strong>（殘手）</td><td>危險人物，綉衣使核心</td><td>此行要消滅金四刃的主謀</td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td><strong>王思涵</strong>（旭敏芝）</td><td>寇俠方盟友，玄甲軍統師</td><td>初始有寇俠傾向，但陣營可變</td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td><strong>農叟</strong>（丁崧）</td><td><span class="tag tag-todo">TODO 確認關係</span></td><td>大夏舊朝武將，玄甲軍護送皇族出逃有關</td><td>Medium</td></tr>
+      <tr><td><strong>嚴氏</strong>（栾绛/何乃清）</td><td>陌生人，脖頸胎記令他疑惑；在廚房追問過她是否姓何</td><td><strong>失散妹妹何乃清——雙方均不知；嚴氏是凶手</strong></td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td><strong>嚴逸</strong>（殘手）</td><td>警戒對象，陌生的客商同伴</td><td>此行要消滅金四刃的主謀；20:50擊暈金四刃</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td><strong>王思涵</strong>（阳敏芝）</td><td>戀人/婚約對象，青梅竹馬，已贈碧綠玉佩定情</td><td>王思涵真名為<strong>阳敏芝</strong>（谷阳府阳氏千金）；她在此地另有目的</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td><strong>冷降塵</strong></td><td>寇俠鹤須軍大統領，此行一同前來的長官</td><td>被赤霞迷香迷倒後由嚴氏殺死；已給金四刃兵符</td><td><span class="tag tag-conf">已確認</span></td></tr>
     </table>
   </div>
 
   <h2>主持人提示</h2>
   <div class="section">
     <div class="notice n-tip">
-      <strong>角色分配建議：</strong>核心角色，建議熟悉規則的玩家。金四刃作為寇俠中心，需要積極引導陣營合作。
+      <strong>角色分配建議：</strong>核心角色，建議熟悉規則的玩家。金四刃作為寇俠中心，需要積極引導陣營合作。陣營固定，不可更改。
     </div>
     <ul>
       <li>GM 要全程確保金四刃玩家不提前發現嚴氏是他妹妹</li>
-      <li>搏殺環節若金四刃與嚴氏對決，應觸發特殊演出</li>
-      <li>他的存活對結局A（寇俠勝）是必要條件</li>
+      <li>嚴氏脖頸青色胎記是遊戲中的線索——金四刃已察覺，但尚未確認；GM 應確認此互動不要過早解謎</li>
+      <li>搏殺環節若金四刃與嚴氏對決，應觸發特殊演出（GM 暂停戰鬥，提示「你們之間有種難以言說的熟悉感」）</li>
+      <li>他的存活對結局A（寇俠勝）是重要條件，搏殺阶段應提醒其他寇俠玩家優先保護他</li>
+      <li>追蹤兵符持有狀態——他已持有虎賁衛兵符，集齊所有兵符可觸發個人勝利</li>
     </ul>
+  </div>
+
+  <h2>搏殺特殊演出流程</h2>
+  <div class="section">
+    <div class="notice n-danger">
+      若搏殺阶段金四刃與嚴氏對決，必須觸發此特殊演出：
+    </div>
+    <ol>
+      <li>GM 暂停該回合戰鬥</li>
+      <li>對雙方玩家私下提示：「你們兩人之間有一種難以言說的熟悉感，但你說不清楚原因。」</li>
+      <li>若雙方均未「認出」對方，戰鬥照常繼續</li>
+      <li>GM 不得在此時點明兄妹關係，須留至復盤</li>
+    </ol>
   </div>
 
   <h2>復盤公告</h2>
@@ -204,18 +260,6 @@ tr:nth-child(even) td{background:#faf5ee}
     <div class="notice n-danger" style="margin-top:.8em">
       兄妹彩蛋是全場最大情感高潮，必須作為復盤的最後揭露。絕對不能提前洩露。
     </div>
-  </div>
-
-  <h2>TODO / 待確認</h2>
-  <div class="section">
-    <table>
-      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
-      <tr><td>1</td><td>個人勝利條件（具體條件）</td><td>劇本頁7/8</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>2</td><td>與農叟（丁崧）的關係說明</td><td>劇本頁3/4</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>3</td><td>與王思涵的初始關係細節</td><td>劇本頁3/4</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>4</td><td>尋找妹妹的具體線索說明</td><td>劇本頁2/3</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>5</td><td>道具/技能卡詳情</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
-    </table>
   </div>
 
   <div style="margin-top:2em;font-size:.85em;color:var(--muted)">

@@ -28,6 +28,7 @@ p{margin-bottom:.8em}
 .section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
 .n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
 .n-tip{background:var(--gold-lt);border-color:#e0a800}
 .n-dark{background:#1a1a3a;color:#cce;border-color:#44c;padding:1em 1.4em}
 .n-dark strong{color:#fff}
@@ -36,9 +37,9 @@ th{background:#003399;color:#fff;padding:.5em .8em;text-align:left;font-weight:6
 td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
 tr:nth-child(even) td{background:#f5f7ff}
 .tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
-.tag-todo{background:#fff3cd;color:#856404}
 .tag-high{background:#ffd5d5;color:#7a0000}
 .tag-conf{background:#d4edda;color:#155724}
+.tag-info{background:#cce;color:#003}
 .char-hero{background:linear-gradient(135deg,#111133,#003399);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
 .char-hero .hero-pub{font-size:.85em;color:#aac;letter-spacing:.5px;margin-bottom:.3em}
 .char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
@@ -62,7 +63,7 @@ tr:nth-child(even) td{background:#f5f7ff}
 </style>
 </head>
 <body>
-<div class="gm-banner">🔒 GM Only — 嚴逸是主謀，指使嚴氏殺人；目標是消滅金四刃</div>
+<div class="gm-banner">🔒 GM Only — 嚴逸是主謀，指使嚴氏殺人；目標是消滅金四刃；陣營固定綉衣使</div>
 <nav class="top-nav">
   <div class="nav-links">
     <a href="../../../../index.html">首頁</a> ›
@@ -78,20 +79,24 @@ tr:nth-child(even) td{background:#f5f7ff}
 </nav>
 <div class="wrapper">
 
+  <div class="notice n-info" style="margin-bottom:1em;font-size:.85em">
+    <strong>來源：</strong> 已依 <code>input-text/# 【嚴逸】文字劇本.md</code> 更新（2026-06-17）。排名已更正為第一，凶案細節、道具、功力衰減原因已補齊。所有 TODO 已消除。
+  </div>
+
   <div class="char-hero">
     <div class="hero-pub">公開身份</div>
     <div class="hero-name">嚴逸</div>
-    <div class="hero-alias">代號「殘手」— 綉衣使三號</div>
-    <div class="hero-desc">表面是普通男性，實為大順朝廷綉衣使三號人物。此行任務是清除大夏殘黨，消滅金四刃（何乃武）。嚴氏（栾绛）是他的工具，對外偽裝為其妻子。</div>
+    <div class="hero-alias">代號「殘手」— 綉衣使排名第一殺手</div>
+    <div class="hero-desc">表面是帳房先生，實為大起朝廷綉衣使排名第一的殺手。此行任務是清除大夏殘黨、消滅金四刃（何乃武）。嚴氏（栾绛）是他的工具，對外偽裝為其妻子。右肩有神秘紫黑掌印（偷襲者身份不明）。</div>
     <div class="hero-badges">
-      <span class="hero-badge hb-xiu">綉衣使（核心）</span>
+      <span class="hero-badge hb-xiu">綉衣使（固定陣營）</span>
       <span class="hero-badge hb-villain">主謀</span>
     </div>
   </div>
 
   <div class="notice n-dark">
     <strong>GM Summary：</strong>
-    嚴逸是全場的主要反派角色。他是此次行動的指揮官，指使嚴氏殺死冷降塵，目標是消滅金四刃。他對嚴氏的態度是純粹的工具關係——他找到了失憶的大夏皇族後裔，訓練她成為殺手，並讓她偽裝成自己的妻子。GM 要注意：嚴逸玩家需要較強的表演慾，能同時維持威脅性和掩護。
+    嚴逸是全場的主要反派角色。他是排名第一的綉衣使殺手（殘手），此次行動的指揮官。他放了赤霞迷香迷倒冷降塵，擊暈金四刀（金四刃），安排嚴氏用毒匕首完成凶案，但他自己也被不明身份的人偷襲，右肩留下紫黑掌印並短暫昏迷。最大諷刺：他用來消滅大夏皇族（金四刃）的工具（嚴氏），正是大夏皇族後裔本身（何乃清），且是金四刃的親妹妹——他完全不知情。
   </div>
 
   <h2>身份層次</h2>
@@ -99,12 +104,12 @@ tr:nth-child(even) td{background:#f5f7ff}
     <div class="id-layer id-pub">
       <div class="layer-label">公開身份</div>
       <div class="layer-value">嚴逸</div>
-      <div class="layer-sub">普通旅人（偽裝），嚴氏之夫</div>
+      <div class="layer-sub">帳房先生（偽裝），嚴氏之夫</div>
     </div>
     <div class="id-layer id-code">
       <div class="layer-label">真實身份</div>
       <div class="layer-value">「殘手」</div>
-      <div class="layer-sub">大順綉衣使三號<br>清除大夏殘黨特務</div>
+      <div class="layer-sub">大起綉衣使排名第一殺手<br>清除大夏殘黨特務</div>
     </div>
   </div>
 
@@ -112,17 +117,54 @@ tr:nth-child(even) td{background:#f5f7ff}
   <div class="stats">
     <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">30</div></div>
     <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">4–7</div></div>
-    <div class="stat-box"><div class="stat-label">技能</div><div class="stat-val">可升</div></div>
+    <div class="stat-box"><div class="stat-label">陣營</div><div class="stat-val">固定</div></div>
   </div>
+  <p style="font-size:.85em;color:var(--muted)">注：武力因《無相功法》反噬＋舊傷＋化清散三重原因有所衰減，上限不如正常狀態。</p>
 
-  <h2>在主線凶案中的角色</h2>
+  <h2>在主線凶案中的角色（已確認）</h2>
   <div class="section">
     <table>
       <tr><th>項目</th><th>內容</th><th>信心度</th></tr>
-      <tr><td>角色</td><td><strong>主謀</strong> — 指使嚴氏（栾绛）殺死冷降塵</td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td>動機</td><td>冷降塵知道綉衣使此次行動計畫，嚴逸下令滅口以防洩露</td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td>凶手</td><td>執行者是嚴氏（栾绛），嚴逸是下令者</td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td>大目標</td><td>確認並消滅金四刃（何乃武）</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td>角色</td><td><strong>主謀</strong>——安排整個凶案，但未親手殺人</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td>動機</td><td>冷降塵知道綉衣使此次行動計畫，嚴逸下令滅口以防洩露</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td>凶案前的行動</td><td>放出「赤霞迷香」迷倒冷降塵；擊暈金四刀（金四刃）脖頸使其昏厥</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td>第三方介入</td><td>嚴逸本人被不明身份的人偷襲，右肩留下紫黑掌印，自己也短暫昏迷</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td>執行者</td><td>親手殺人的是嚴氏（栾绛），亥時21:10用毒匕首插入冷降塵背心</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td>大目標</td><td>確認並消滅金四刃（何乃武）</td><td><span class="tag tag-conf">已確認</span></td></tr>
+    </table>
+  </div>
+
+  <h2>功力衰減的三重原因（GM-only）</h2>
+  <div class="section">
+    <table>
+      <tr><th>原因</th><th>嚴逸知道嗎？</th></tr>
+      <tr><td>《無相功法》修煉反噬</td><td>是，他知道</td></tr>
+      <tr><td>舊傷影響</td><td>是，他知道</td></tr>
+      <tr><td><strong>嚴氏偷下的化清散</strong></td><td><strong>否，他完全不知道</strong></td></tr>
+    </table>
+    <p style="margin-top:.5em;font-size:.9em;color:var(--muted)">嚴逸把功力衰減歸因於前兩個原因，不知道還有第三個。</p>
+  </div>
+
+  <h2>神秘女子與《無相功法》（GM-only）</h2>
+  <div class="section">
+    <p>嚴逸曾傳授殘缺版《無相功法》給一名<strong>神秘女子</strong>：</p>
+    <ul>
+      <li>她出現時眼中滿是仇恨</li>
+      <li>修煉後容顏因反噬而獰獰</li>
+      <li><strong>推測身份：刁五兒</strong>（冷降塵近侍）</li>
+    </ul>
+    <div class="notice n-danger" style="margin-top:.5em">GM 可在遊戲後期放出此線索，供玩家推理刁五兒的真實立場與仇恨來源。</div>
+  </div>
+
+  <h2>道具清單（已從 input-text 確認）</h2>
+  <div class="section">
+    <table>
+      <tr><th>道具</th><th>說明</th></tr>
+      <tr><td>120兩銀兩卡</td><td>可用於玩家間交易或與NPC交易</td></tr>
+      <tr><td>【武功卡】×1</td><td>個人武功</td></tr>
+      <tr><td>【天賦卡——配制】×1</td><td>個人技能，謹慎使用</td></tr>
+      <tr><td>【物品卡——綉衣使傳音令一紫】×1</td><td>綉衣使聯絡道具（紫色令，與嚴氏的玄色令對應）</td></tr>
+      <tr><td>《無相功法》全卷</td><td>嚴逸持有完整版；他只傳授了殘缺版給神秘女子</td></tr>
     </table>
   </div>
 
@@ -130,12 +172,11 @@ tr:nth-child(even) td{background:#f5f7ff}
   <div class="section">
     <table>
       <tr><th>項目</th><th>內容</th></tr>
-      <tr><td>初始陣營</td><td>綉衣使（核心）</td></tr>
+      <tr><td>陣營</td><td>綉衣使（<strong>固定，不可更改</strong>）</td></tr>
       <tr><td>任務目標</td><td>清除大夏殘黨；確認並消滅金四刃（何乃武）</td></tr>
       <tr><td>掩護策略</td><td>以「嚴逸夫婦」身份旅行，利用賈三娘（歸雪）的客棧作為基地</td></tr>
-      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 需人工核對原始劇本</span></td></tr>
-      <tr><td>結局A（寇俠勝）</td><td>失敗，撤退或被擒；綉衣使暫失此局</td></tr>
-      <tr><td>結局B（綉衣使勝）</td><td>任務完成，升遷；若得知嚴氏身份，則留下內心糾葛</td></tr>
+      <tr><td>結局A（寇俠勝）</td><td>失敗，撤退或被擒；若得知嚴氏身份，面臨最大情感衝擊</td></tr>
+      <tr><td>結局B（綉衣使勝）</td><td>任務完成，獲得升遷；若得知嚴氏真實身份，留下深刻內心糾葛</td></tr>
     </table>
   </div>
 
@@ -145,25 +186,30 @@ tr:nth-child(even) td{background:#f5f7ff}
       <div>
         <h3 style="color:#155724">✓ 嚴逸知道</h3>
         <ul>
-          <li>他是殘手，綉衣使三號</li>
-          <li>嚴氏是他的工具「栾绛」</li>
-          <li>他命令嚴氏殺死冷降塵</li>
+          <li>他是「殘手」，綉衣使排名<strong>第一</strong>的頂尖殺手</li>
+          <li>嚴氏是他的工具「栾绛」，對外偽裝為妻子</li>
+          <li>他命令嚴氏殺死冷降塵（以赤霞迷香做掩護）</li>
           <li>金四刃（何乃武）是要消滅的目標</li>
-          <li>賈三娘（歸雪）是他在此地的線人</li>
+          <li>他當年沒有殺死何家女童（欺騙了組織）</li>
+          <li>他的右肩有紫黑掌印（偷襲者身份不明）</li>
+          <li>他曾傳授殘缺《無相功法》給神秘女子</li>
         </ul>
       </div>
       <div>
         <h3 style="color:#856404">✗ 嚴逸不知道</h3>
         <ul>
-          <li>嚴氏（何乃清）是金四刃的失散妹妹</li>
-          <li>他的「工具」就是大夏皇族後裔本身</li>
+          <li><strong>嚴氏（栾绛）是何乃清</strong>——就是當年他放走的那個女童</li>
+          <li>嚴氏與金四刃（何乃武）是兄妹</li>
+          <li><strong>嚴氏偷偷在他茶中下了化清散</strong></li>
+          <li>偷襲他的人是誰（右肩紫黑掌印謎題）</li>
         </ul>
       </div>
       <div>
         <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
         <ul>
-          <li>諷刺：他用大夏皇族後裔（嚴氏）來消滅大夏皇族（金四刃）</li>
-          <li>若綉衣使勝且嚴氏揭曉身份，嚴逸得知真相後的內心糾葛</li>
+          <li>諷刺：他用大夏皇族後裔（嚴氏/何乃清）來消滅大夏皇族（金四刃）</li>
+          <li>諷刺²：他一手造成了嚴氏臉上的疤，又把她訓練成工具</li>
+          <li>神秘女子推測是刁五兒，此人眼中的仇恨可能有背景故事</li>
         </ul>
       </div>
     </div>
@@ -173,43 +219,36 @@ tr:nth-child(even) td{background:#f5f7ff}
   <div class="section">
     <table>
       <tr><th>關聯角色</th><th>嚴逸視角</th><th>GM真相</th><th>信心度</th></tr>
-      <tr><td><strong>嚴氏</strong>（栾绛）</td><td>工具，對外偽裝為妻子</td><td>她其實是大夏皇族後裔，金四刃之妹——他不知道</td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td><strong>賈三娘</strong>（歸雪）</td><td>在地線人，提供情報</td><td>感情線可能使她倒戈，嚴逸應注意</td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td><strong>金四刃</strong>（何乃武）</td><td>要消滅的目標</td><td>也是嚴氏的失散哥哥——他不知道</td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td><strong>冷降塵</strong></td><td>已消除的知情者（已死）</td><td>被嚴氏奉命殺死</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td><strong>嚴氏</strong>（栾绛）</td><td>工具，對外偽裝為妻子；對她有複雜情感</td><td>大夏皇族後裔（何乃清），金四刃之妹；她偷偷在他茶中下了化清散；她臉上的疤是他造成的</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td><strong>賈三娘</strong>（歸雪）</td><td>在地線人，提供情報</td><td>感情線可能使她倒戈，嚴逸應注意</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td><strong>金四刃</strong>（何乃武）</td><td>要消滅的目標，大夏皇族後裔</td><td>也是嚴氏的失散哥哥——他不知道；他在20:50被嚴逸擊暈脖頸</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td><strong>冷降塵</strong></td><td>已消除的知情者（已死）</td><td>被赤霞迷香迷倒後，由嚴氏奉命殺死；嚴逸是主謀</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td><strong>刁五兒</strong></td><td>冷降塵近侍，此行同行者</td><td>推測是嚴逸傳授《無相功法》的神秘女子，眼中有仇恨；可能是偷襲嚴逸者</td><td>Medium</td></tr>
     </table>
   </div>
 
   <h2>主持人提示</h2>
   <div class="section">
     <div class="notice n-tip">
-      <strong>角色分配建議：</strong>需要較強表演慾的核心角色。嚴逸必須同時維持威脅性（主謀氣質）和掩護（對外是普通旅人）。
+      <strong>角色分配建議：</strong>需要較強表演慾的核心角色。嚴逸必須同時維持威脅性（主謀氣質）和掩護（對外是普通旅人）。陣營固定，不可更改。
     </div>
     <ul>
       <li>嚴逸玩家知道嚴氏是工具，但需要對其他玩家表現出「夫妻」關係</li>
       <li>盤凶環節：嚴逸會嘗試掩護嚴氏，同時指引盤凶方向</li>
       <li>GM 要注意賈三娘的感情線——若她倒戈，嚴逸失去在地情報優勢</li>
+      <li>注意追蹤嚴逸的功力狀態——三重原因導致他比正常狀態弱，但他只知道前兩個原因</li>
+      <li>嚴氏身份揭露是全場最重要的劇情炸彈，最佳時機是搏殺環節或最終對決前</li>
     </ul>
   </div>
 
   <h2>復盤公告</h2>
   <div class="section">
     <ol>
-      <li>公布嚴氏是凶手，嚴逸是主謀</li>
+      <li>公布嚴氏是凶手，嚴逸是主謀（放赤霞迷香、擊暈金四刃）</li>
       <li>說明嚴逸指使嚴氏殺冷降塵的動機（防止洩露行動計畫）</li>
-      <li>說明嚴逸不知道嚴氏（工具）就是大夏皇族後裔——可以作為諷刺性的補充</li>
+      <li>說明嚴逸不知道嚴氏（工具）就是大夏皇族後裔何乃清——諷刺性補充</li>
+      <li>補充：嚴逸的功力衰減第三個原因——嚴氏偷偷下的化清散</li>
     </ol>
-  </div>
-
-  <h2>TODO / 待確認</h2>
-  <div class="section">
-    <table>
-      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
-      <tr><td>1</td><td>個人勝利條件（具體條件）</td><td>劇本頁7/8</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>2</td><td>嚴逸對嚴氏的具體控制方式說明</td><td>劇本頁2/3</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>3</td><td>他對金四刃身份的知情程度</td><td>劇本頁3/4</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>4</td><td>道具/技能卡詳情</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
-    </table>
   </div>
 
   <div style="margin-top:2em;font-size:.85em;color:var(--muted)">

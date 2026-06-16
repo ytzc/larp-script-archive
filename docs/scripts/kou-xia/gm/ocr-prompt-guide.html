@@ -244,6 +244,78 @@
     若 AI 嘗試「補全」原文沒有的內容，請手動刪除並保留 <code>[需要補拍]</code> 標記。
   </div>
 
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="input-text">二、Input-Text 人工整理版工作流程</h2>
+
+  <div class="notice notice-info">
+    <strong>最高優先源：</strong>若玩家或 GM 能直接提供文字版劇本（人工整理版），應以此為最高優先來源，完全取代 OCR 結果。本節說明如何使用此類文字稿。
+  </div>
+
+  <p>當能取得人工整理的文字劇本（例如玩家直接從電子書或掃描後自行校對的版本）時，請依以下原則處理：</p>
+
+  <h3>📂 工作流程</h3>
+  <div class="step-block">
+    <h3><span class="step-num">1</span> 放置來源文字</h3>
+    <p>將人工整理的文字稿放入 <code>input-text/</code> 目錄（此目錄已加入 <code>.gitignore</code>，不會被 commit）。</p>
+    <p>命名範例：<code>input-text/嚴氏文字劇本.md</code>、<code>input-text/# 【嚴逸】文字劇本.md</code></p>
+  </div>
+  <div class="step-block">
+    <h3><span class="step-num">2</span> 優先級規則</h3>
+    <ul>
+      <li><strong>input-text &gt; PDF OCR</strong>：凡 input-text 有提供的內容，一律以此為準</li>
+      <li><strong>不保留 OCR 標記</strong>：input-text 覆蓋的段落，移除所有 <code>[需要人工確認]</code>、<code>[需要補拍]</code> 標記</li>
+      <li><strong>保留原文語言</strong>：簡體中文劇本保留簡體，不轉換繁體</li>
+    </ul>
+  </div>
+  <div class="step-block">
+    <h3><span class="step-num">3</span> 告訴 Claude 使用 input-text</h3>
+    <p>使用以下提示詞讓 Claude Code 正確處理 input-text 文字稿：</p>
+    <div class="copy-hint">📋 提示詞範本（複製後貼入 Claude Code 對話）</div>
+    <div class="prompt-block">input-text/ 目錄下有人工整理的文字劇本，這是最高優先的來源，優先於任何 PDF OCR 結果。
+
+請根據以下規則更新角色 md 檔：
+
+1. 來源：input-text/[角色名]文字劇本.md
+2. 目標：docs/scripts/kou-xia/scripts/[slug].md
+3. 規則：
+   - 完整使用 input-text 的內容，不保留舊 OCR 版本的任何不確定標記
+   - 保留原文語言（簡體/繁體依原稿）
+   - 正文部分（情景一~三）逐字轉錄，不改寫不補全
+   - GM整理備註部分可根據正文推導，並標注哪些是直接引用、哪些是推論
+4. Front matter 請加入：
+   - 來源檔案：input-text/[檔名]
+   - 來源類型：人工整理文字劇本
+   - 整理狀態：以 input-text 人工整理版更新
+   - 更新日期：[今日日期]</div>
+  </div>
+  <div class="step-block">
+    <h3><span class="step-num">4</span> 同步更新 HTML</h3>
+    <p>更新 md 後，需同步更新對應的 HTML 頁面：</p>
+    <ul>
+      <li><strong>Player HTML</strong>（<code>player/scripts/[slug].html</code>）：僅包含「正文」內容，移除所有 OCR 標記</li>
+      <li><strong>GM 角色 HTML</strong>（<code>gm/characters/[slug].html</code>）：移除 TODO 區塊，填入已確認的細節</li>
+      <li><strong>關係圖</strong>（<code>gm/relationship-map.html</code>）：更正被 OCR 誤讀的角色名稱、排名等</li>
+      <li><strong>CHECK_REPORT.md</strong>：在「七、input-text 人工整理版更新記錄」區段記錄更新內容</li>
+    </ul>
+  </div>
+
+  <h3>⚠️ 注意事項</h3>
+  <ul>
+    <li><code>input-text/</code> 目錄已加入 <code>.gitignore</code>，不會被 commit 到 GitHub</li>
+    <li>input-text 文字稿本身也可能有少量誤字（人工整理時的疏漏），若發現明顯錯字，可用同文件其他處的一致說法加以更正，並在 GM 備註中標注</li>
+    <li>跨角色資訊（如真名、關係）以最明確的那份 input-text 為準——例如金四刃劇本對王思涵真名的說法比 wang-si-han.md 更可靠</li>
+  </ul>
+
+  <h3>✅ 已完成的 input-text 更新（2026-06-17）</h3>
+  <table class="marker-table">
+    <thead><tr><th>角色</th><th>來源</th><th>重要更正</th></tr></thead>
+    <tbody>
+      <tr><td>嚴氏</td><td>input-text/嚴氏文字劇本.md</td><td>臉疤確認為嚴逸掌風所致；凶器確認；作案時間21:10</td></tr>
+      <tr><td>嚴逸</td><td>input-text/# 【嚴逸】文字劇本.md</td><td>排名更正為第一（非三號）；凶案細節補齊；道具確認</td></tr>
+      <tr><td>金四刃</td><td>input-text/# 【金四刃】文字劇本.md</td><td>王思涵真名更正為阳敏芝（非旭敏芝）；個人勝利條件確認</td></tr>
+    </tbody>
+  </table>
+
 </main>
 
 <footer class="site-footer">

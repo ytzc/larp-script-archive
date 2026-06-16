@@ -42,9 +42,9 @@ td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
 tr:nth-child(even) td{background:#faf5ee}
 
 .tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
-.tag-todo{background:#fff3cd;color:#856404}
 .tag-high{background:#ffd5d5;color:#7a0000}
 .tag-conf{background:#d4edda;color:#155724}
+.tag-info{background:#cce;color:#003}
 
 /* character hero */
 .char-hero{background:linear-gradient(135deg,#2d0000,#5a0000);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
@@ -95,11 +95,15 @@ tr:nth-child(even) td{background:#faf5ee}
 
 <div class="wrapper">
 
+  <div class="notice n-info" style="margin-bottom:1em;font-size:.85em">
+    <strong>來源：</strong> 已依 <code>input-text/嚴氏文字劇本.md</code> 更新（2026-06-17）。所有 TODO 標記已消除，以人工整理版取代。
+  </div>
+
   <div class="char-hero">
     <div class="hero-pub">公開身份</div>
     <div class="hero-name">嚴氏</div>
     <div class="hero-alias">代號 栾绛 · 真名 何乃清</div>
-    <div class="hero-desc">22歲，嚴逸之妻，臉上有疤痕（輕紗遮擋），身上有藍綠色痕跡。</div>
+    <div class="hero-desc">22歲，嚴逸之妻，臉上有紅色疤痕（赤紗遮擋），脖頸有青色胎記（辨認線索）。</div>
     <div class="hero-badges">
       <span class="hero-badge hb-killer">凶手</span>
       <span class="hero-badge hb-xiu">綉衣使</span>
@@ -109,7 +113,7 @@ tr:nth-child(even) td{background:#faf5ee}
 
   <div class="notice n-dark">
     <strong>GM Summary：</strong>
-    嚴氏是本遊戲複雜度最高、情感衝擊最強的角色。她同時是<strong>凶手</strong>（奉命殺死冷降塵）、<strong>悲劇受害者</strong>（幼年失憶、被訓練為殺手的大夏皇族後裔），以及<strong>最大彩蛋的核心</strong>（金四刃之失散妹妹——雙方均不知情）。GM 必須熟悉她的所有面向，才能在復盤時完整呈現情感衝擊。
+    嚴氏是本遊戲複雜度最高、情感衝擊最強的角色。她同時是<strong>凶手</strong>（亥時21:10用毒匕首插入冷降塵背心）、<strong>悲劇受害者</strong>（幼年全家被嚴逸所殺，臉被嚴逸掌風所傷，卻被告知是「胎記」，從此被訓練成殺手），以及<strong>最大彩蛋的核心</strong>（金四刃之失散妹妹何乃清——雙方均不知情）。
   </div>
 
   <h2>身份層次</h2>
@@ -134,31 +138,56 @@ tr:nth-child(even) td{background:#faf5ee}
   <h2>GM 戰鬥數值</h2>
   <div class="stats">
     <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">20</div></div>
-    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">—</div></div>
+    <div class="stat-box"><div class="stat-label">陣營</div><div class="stat-val">自由</div></div>
   </div>
-  <p style="font-size:.85em;color:var(--muted)">（HP20 來自 DM手册；武力值待確認）</p>
 
   <h2>隱藏背景（GM 真相）</h2>
   <div class="section">
     <ol>
-      <li><strong>大夏皇族後裔</strong>：嚴氏出生時的真實身份是何乃清，大夏皇族血脈。</li>
-      <li><strong>幼年失憶</strong>：4歲前的記憶全部消失。<span class="tag tag-todo">TODO 確認原因</span></li>
-      <li><strong>被殘手找到</strong>：嚴逸（殘手）找到失憶的她，給予「栾绛」身份並訓練她成為殺手。</li>
-      <li><strong>臉上疤痕</strong>：殘手稱之為「幼年就有的記號」——可能與大夏皇族身份有關。<span class="tag tag-todo">TODO 確認</span></li>
-      <li><strong>身上藍綠色痕跡</strong>：來源不明，可能與皇族血統有關。<span class="tag tag-todo">TODO 確認</span></li>
+      <li><strong>大夏皇族後裔</strong>：嚴氏出生時的真實身份是何乃清，大夏皇族血脈，何彦之女。</li>
+      <li><strong>幼年創傷</strong>：何家19口被嚴逸（殘手）殺害，她是唯一倖存者。嚴逸臨時收招，但掌風仍重創她左臉，留下紅色疤痕。事後嚴逸告訴她「那是你小時候就有的胎記」，從此她相信了謊言。</li>
+      <li><strong>被殘手收留並訓練</strong>：嚴逸把失憶、受傷的她帶走，給了她「栾绛」這個身份，訓練她成為殺手，以「妻子」身份作為掩護。</li>
+      <li><strong>臉上紅色疤痕</strong>：<strong>嚴逸掌風所致</strong>（非胎記）——嚴逸一手造成了這個傷，又謊稱是「胎記」。嚴氏不知真相。</li>
+      <li><strong>脖頸青色胎記</strong>：天生胎記，是辨認她為何乃清的關鍵線索。金四刃在遊戲中已因此追問過她是否姓何。</li>
+      <li><strong>化清散</strong>：嚴氏偷偷在嚴逸茶中下「化清散」，以化解《無相功法》的積毒。嚴逸完全不知情。這是嚴逸功力衰減的第三個原因。</li>
       <li><strong>與金四刃的關係</strong>：她是金四刃（何乃武）的親妹妹——<strong>雙方均不知情</strong>。</li>
     </ol>
   </div>
 
-  <h2>凶案角色</h2>
+  <h2>凶案角色（已從 input-text 確認）</h2>
   <div class="section">
     <table>
-      <tr><th>項目</th><th>內容</th><th>來源</th><th>信心度</th></tr>
-      <tr><td>凶手身份</td><td>確認。嚴氏執行了殺死冷降塵的任務。</td><td>DM手册</td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td>動機</td><td>奉殘手（嚴逸）指令，消除知情者冷降塵，防止洩露綉衣使行動計畫</td><td>DM手册</td><td><span class="tag tag-conf">High</span></td></tr>
-      <tr><td>凶器</td><td>詳見盒裝線索卡 <span class="tag tag-todo">TODO 確認</span></td><td>—</td><td>—</td></tr>
-      <tr><td>作案時機</td><td><span class="tag tag-todo">TODO 具體時間點需確認</span></td><td>—</td><td>—</td></tr>
-      <tr><td>知情程度</td><td>她知道自己殺了人，被殘手告知這是必要任務</td><td>角色劇本</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><th>項目</th><th>內容</th><th>信心度</th></tr>
+      <tr><td>凶手身份</td><td>確認。嚴氏親手執行了殺死冷降塵的任務。</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td>動機</td><td>奉殘手（嚴逸）指令，消除知情者冷降塵，防止洩露綉衣使行動計畫</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td>凶器</td><td>綉衣使特製毒藥茶靈塗抹的匕首（插入背心）</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td>作案時間</td><td>亥時 21:10（庫房內，冷降塵已被赤霞迷香迷倒，無力抵抗）</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td>現場</td><td>客棧庫房後窗打開狀態；她嗅到赤霞迷香後閉氣進入；行事後聽到腳步聲逃離</td><td><span class="tag tag-conf">已確認</span></td></tr>
+      <tr><td>知情程度</td><td>她知道自己殺了人，這是奉命執行的任務</td><td><span class="tag tag-conf">已確認</span></td></tr>
+    </table>
+  </div>
+
+  <h2>凶案時間線（嚴氏視角）</h2>
+  <div class="section">
+    <table>
+      <tr><th>時間</th><th>事件</th></tr>
+      <tr><td>20:00</td><td>下樓取茶水，廚房遇金四刀追問「是否姓何」；化清散紙揉入懷中</td></tr>
+      <tr><td>20:20</td><td>回房，告訴嚴逸「透氣」，嚴逸隨後離開</td></tr>
+      <tr><td>21:10</td><td>前往庫房，後窗已開，聞到赤霞迷香後閉氣進入</td></tr>
+      <tr><td>21:10</td><td>庫房內發現冷降塵趴地（已被嚴逸放的赤霞迷暈）→ 用毒匕首插入背心</td></tr>
+      <tr><td>21:10後</td><td>聽到腳步聲逃離，少量赤霞影響下昏睡至天亮</td></tr>
+      <tr><td>次日晨</td><td>剔除鞋底碎石（消除去過庫房的痕跡）才出房門</td></tr>
+    </table>
+  </div>
+
+  <h2>道具清單（已從 input-text 確認）</h2>
+  <div class="section">
+    <table>
+      <tr><th>道具</th><th>說明</th></tr>
+      <tr><td>70兩銀兩卡</td><td>可用於玩家間交易或與NPC交易</td></tr>
+      <tr><td>【武功卡】×1</td><td>個人武功</td></tr>
+      <tr><td>【天賦卡——迷醉】×1</td><td>個人技能，謹慎使用</td></tr>
+      <tr><td>【物品卡——綉衣使傳音令一玄】×1</td><td>綉衣使聯絡道具（玄色令）</td></tr>
     </table>
   </div>
 
@@ -167,9 +196,10 @@ tr:nth-child(even) td{background:#faf5ee}
     <table>
       <tr><th>項目</th><th>內容</th></tr>
       <tr><td>初始陣營</td><td>綉衣使（執行者）</td></tr>
+      <tr><td>陣營選擇</td><td><strong>自由選擇</strong>（非固定）——劇本明確標注，找回記憶後可能背叛綉衣使</td></tr>
       <tr><td>已知任務目標</td><td>確保殺人任務不被揭穿；協助嚴逸完成清除大夏殘黨的行動</td></tr>
-      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 頁7/8 OCR 不完整，需人工核對</span></td></tr>
-      <tr><td>搏殺後可能</td><td>若揭穿身份、恢復記憶——可能選擇背叛綉衣使或崩潰</td></tr>
+      <tr><td>結局A（寇俠勝）</td><td>若陣營自由選擇寇俠，可與哥哥金四刃並肩；若揭穿身份則情感衝擊極大</td></tr>
+      <tr><td>結局B（綉衣使勝）</td><td>任務完成；若得知自己是金四刃妹妹，內心矛盾</td></tr>
     </table>
   </div>
 
@@ -180,10 +210,10 @@ tr:nth-child(even) td{background:#faf5ee}
         <h3 style="color:#155724">✓ 嚴氏知道</h3>
         <ul>
           <li>她是栾绛，綉衣使殺手</li>
-          <li>嚴逸是殘手，是她的上司</li>
+          <li>嚴逸是殘手，是她的上司和名義「丈夫」</li>
           <li>她有失憶，殘手告訴她的過去就是她相信的全部</li>
-          <li>她殺了冷降塵（按殘手指令）</li>
-          <li>是否知道冷降塵的具體情報？<span class="tag tag-todo">TODO</span></li>
+          <li>她殺了冷降塵（按殘手指令，用毒匕首）</li>
+          <li>她在嚴逸茶中下了化清散（但沒告訴任何人）</li>
         </ul>
       </div>
       <div>
@@ -191,7 +221,8 @@ tr:nth-child(even) td{background:#faf5ee}
         <ul>
           <li>她自己的真實身份：何乃清</li>
           <li>金四刃（何乃武）是她的哥哥</li>
-          <li>她的幼年失憶的真實原因</li>
+          <li>她臉上的紅色疤痕是嚴逸掌風所致，不是胎記</li>
+          <li>嚴逸殺害了她的全家19口</li>
           <li>大夏皇族血統的完整背景</li>
         </ul>
       </div>
@@ -199,8 +230,8 @@ tr:nth-child(even) td{background:#faf5ee}
         <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
         <ul>
           <li>她是金四刃的失散妹妹（最大彩蛋）</li>
-          <li>她的幼年失憶可能與大夏覆亡有關</li>
-          <li>即便完成任務，結局仍是悲劇性的</li>
+          <li>她臉上的疤是嚴逸造成的——嚴逸一手傷了她，又訓練她成為工具</li>
+          <li>金四刃在遊戲中因脖頸青色胎記已察覺可能性，在廚房問過她是否姓何</li>
         </ul>
       </div>
     </div>
@@ -209,34 +240,30 @@ tr:nth-child(even) td{background:#faf5ee}
   <h2>關係表</h2>
   <div class="section">
     <table>
-      <tr><th>關聯角色</th><th>嚴氏視角</th><th>GM真相</th><th>來源</th><th>信心度</th></tr>
+      <tr><th>關聯角色</th><th>嚴氏視角</th><th>GM真相</th><th>信心度</th></tr>
       <tr>
         <td><strong>嚴逸</strong>（殘手）</td>
-        <td>丈夫＋上司，依賴感複雜</td>
-        <td>利用關係——殘手把失憶的她訓練成工具</td>
-        <td>DM手册</td>
-        <td><span class="tag tag-conf">High</span></td>
+        <td>丈夫＋上司，依賴感複雜；她偷偷在他茶中下了化清散</td>
+        <td>殺了她全家的凶手，把失憶的她訓練成工具；她臉上的疤也是他造成的</td>
+        <td><span class="tag tag-conf">已確認</span></td>
       </tr>
       <tr>
         <td><strong>金四刃</strong>（何乃武）</td>
-        <td>陌生人（或警戒對象）</td>
-        <td><strong>失散哥哥</strong>——雙方均不知</td>
-        <td>DM手册</td>
-        <td><span class="tag tag-conf">High</span></td>
+        <td>陌生人（他在廚房問過她是否姓何，令她緊張）</td>
+        <td><strong>失散哥哥</strong>——雙方均不知；金四刃因脖頸青色胎記已有所察覺</td>
+        <td><span class="tag tag-conf">已確認</span></td>
       </tr>
       <tr>
         <td><strong>賈三娘</strong>（歸雪）</td>
-        <td>線衣使同僚</td>
+        <td>綉衣使同僚，協同行動</td>
         <td>同在嚴逸指揮下；歸雪的感情線可能影響立場</td>
-        <td>DM手册</td>
-        <td><span class="tag tag-conf">High</span></td>
+        <td><span class="tag tag-conf">已確認</span></td>
       </tr>
       <tr>
         <td><strong>冷降塵</strong></td>
         <td>任務目標（已死）</td>
-        <td>被她奉命殺死；知情者，因知道綉衣使行動而被滅口</td>
-        <td>DM手册</td>
-        <td><span class="tag tag-conf">High</span></td>
+        <td>被她奉命用毒匕首殺死（亥時21:10）</td>
+        <td><span class="tag tag-conf">已確認</span></td>
       </tr>
     </table>
   </div>
@@ -249,7 +276,8 @@ tr:nth-child(even) td{background:#faf5ee}
     <ul>
       <li>搏殺環節中注意嚴氏與金四刃的位置——若發生直接對決，應觸發特殊演出</li>
       <li>她是凶手，盤凶環節壓力最大，需要一邊參與討論一邊自保</li>
-      <li>線衣使方核心成員，戰力較弱（HP20）但陣營意義重大</li>
+      <li>陣營可自由選擇，若她選擇寇俠，則與哥哥金四刃同陣營，情感張力更大</li>
+      <li>注意：她在嚴逸茶中下了化清散，這是嚴逸不知道的秘密，GM 應確保不提前洩露</li>
     </ul>
   </div>
 
@@ -257,26 +285,13 @@ tr:nth-child(even) td{background:#faf5ee}
   <div class="section">
     <ol>
       <li>宣布凶手：嚴氏（栾绛 / 何乃清）</li>
-      <li>說明作案動機（嚴逸指使，滅口冷降塵）</li>
-      <li>公布嚴氏真實身份（何乃清，大夏皇族後裔，失憶被訓練為殺手）</li>
+      <li>說明作案動機（嚴逸指使，亥時21:10用毒匕首插入冷降塵背心）</li>
+      <li>公布嚴氏真實身份（何乃清，大夏皇族後裔，失憶被訓練為殺手，臉上疤痕是嚴逸所傷）</li>
       <li><strong>壓軸彩蛋</strong>：嚴氏 = 金四刃之失散妹妹</li>
     </ol>
     <div class="notice n-danger" style="margin-top:.8em">
       揭露兄妹真相前，先確認兩位玩家的心理狀態是否穩定，確保最大情感衝擊。
     </div>
-  </div>
-
-  <h2>TODO / 待確認（開本前）</h2>
-  <div class="section">
-    <table>
-      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
-      <tr><td>1</td><td>幼年失憶原因：劇本 vs DM手册 是否一致</td><td>頁2-3</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>2</td><td>凶器確認：具體凶器及作案場所說明</td><td>頁6/8</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>3</td><td>個人勝利條件</td><td>頁7/8</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>4</td><td>臉疤和青色痕跡的後續：是否有線索卡對應</td><td>頁4/5</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>5</td><td>道具/技能卡：需人工核對盒裝道具</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>6</td><td>嚴氏在何時/何地殺死冷降塵：具體時間點</td><td>頁6</td><td><span class="tag tag-high">高</span></td></tr>
-    </table>
   </div>
 
   <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
