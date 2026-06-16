@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>角色 GM 筆記 — 寇侠 GM</title>
+<title>角色 GM 筆記索引 — 寇侠 GM</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -15,37 +15,37 @@
 }
 body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
 a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
-h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
-h3{font-size:1.08em;color:#333;margin:1.2em 0 .4em}
+h2{font-size:1.2em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:1.8em 0 .7em}
 p{margin-bottom:.8em}
-
 .gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
 .top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
 .top-nav .nav-links{display:flex;gap:1em;align-items:center}
 .top-nav a{color:var(--red)}
-
-.wrapper{max-width:900px;margin:0 auto;padding:1.5em 1em 5em}
-.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
-
+.wrapper{max-width:1060px;margin:0 auto;padding:1.5em 1em 5em}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
 .n-danger{background:var(--red-lt);border-color:var(--red-b)}
 .n-tip{background:var(--gold-lt);border-color:#e0a800}
+.n-urgent{background:#2d0000;color:#ffcccc;border-color:#ff4444;padding:1em 1.4em}
+.n-urgent strong{color:#fff}
 
 /* character card grid */
-.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1em;margin:1em 0}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1em;margin:1em 0}
 .char-card{border-radius:6px;overflow:hidden;box-shadow:var(--shadow);background:var(--white);display:flex;flex-direction:column}
 .char-card .card-header{padding:.9em 1.1em .7em;border-bottom:3px solid}
-.char-card .card-header .ch-name{font-size:1.2em;font-weight:700;margin-bottom:.15em}
-.char-card .card-header .ch-alias{font-size:.85em;color:#555}
-.char-card .card-header .ch-public{font-size:.82em;color:#777;margin-top:.2em}
-.char-card .card-body{padding:.8em 1.1em 1em;flex:1;font-size:.87em}
-.char-card .card-body .row{display:flex;gap:.4em;margin-bottom:.35em;align-items:flex-start}
-.char-card .card-body .lbl{font-size:.78em;color:var(--muted);white-space:nowrap;min-width:52px;padding-top:.1em}
-.char-card .card-body .val{color:var(--ink)}
-.char-card .card-footer{padding:.6em 1.1em;border-top:1px solid #ece4d8;background:var(--gray-lt);display:flex;gap:.6em}
-.char-card .card-footer a{font-size:.82em;padding:.25em .65em;border-radius:3px;background:var(--red);color:#fff}
+.card-header .ch-name{font-size:1.15em;font-weight:700;margin-bottom:.15em}
+.card-header .ch-alias{font-size:.83em;color:#555;font-style:italic}
+.card-header .ch-public{font-size:.8em;color:#777;margin-top:.2em}
+.char-card .card-body{padding:.7em 1.1em .9em;flex:1;font-size:.85em}
+.card-body .row{display:flex;gap:.4em;margin-bottom:.3em;align-items:flex-start}
+.card-body .lbl{font-size:.77em;color:var(--muted);white-space:nowrap;min-width:50px;padding-top:.1em}
+.card-body .val{color:var(--ink)}
+.char-card .card-footer{padding:.55em 1.1em;border-top:1px solid #ece4d8;background:var(--gray-lt);display:flex;gap:.5em;flex-wrap:wrap}
+.char-card .card-footer a{font-size:.8em;padding:.22em .6em;border-radius:3px;background:var(--red);color:#fff}
 .char-card .card-footer a:hover{background:#6a0000;text-decoration:none}
+.char-card .card-footer a.md-link{background:#555}
+.char-card .card-footer a.md-link:hover{background:#333}
 
+/* faction themes */
 .ch-xiu .card-header{border-color:var(--blue-b);background:var(--blue-lt)}
 .ch-xiu .card-header .ch-name{color:var(--blue)}
 .ch-kou .card-header{border-color:var(--red-b);background:var(--red-lt)}
@@ -54,13 +54,27 @@ p{margin-bottom:.8em}
 .ch-free .card-header .ch-name{color:#333}
 .ch-pivot .card-header{border-color:#884;background:#fffff0}
 .ch-pivot .card-header .ch-name{color:#664400}
+.ch-npc .card-header{border-color:#aaa;background:#e8e8e8}
+.ch-npc .card-header .ch-name{color:#444}
 
-.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.4em;vertical-align:middle}
+.tag{display:inline-block;font-size:.72em;padding:.1em .45em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
 .tag-xiu{background:var(--blue-lt);color:var(--blue)}
 .tag-kou{background:var(--red-lt);color:var(--red)}
 .tag-free{background:#eee;color:#555}
 .tag-killer{background:#2d0000;color:#ffaaaa}
+.tag-easter{background:#444;color:#fff}
+.tag-npc{background:#666;color:#fff}
 .tag-todo{background:#fff3cd;color:#856404}
+.tag-ocr{background:#ffe0b2;color:#663300}
+
+/* status table */
+.status-table{width:100%;border-collapse:collapse;font-size:.84em;margin:.8em 0}
+.status-table th{background:#5a0000;color:#fff;padding:.4em .7em;text-align:left}
+.status-table td{padding:.35em .7em;border-bottom:1px solid #e0d4c8;vertical-align:middle}
+.status-table tr:nth-child(even) td{background:#faf5ee}
+.dot-ok{color:#2d7a2d;font-size:1.1em}
+.dot-no{color:#aaa;font-size:1.1em}
+.dot-warn{color:#856404;font-size:1.1em}
 </style>
 </head>
 <body>
@@ -78,22 +92,68 @@ p{margin-bottom:.8em}
 
 <div class="wrapper">
 
-  <h1 style="margin:1em 0 .3em;font-size:1.6em;color:#5a0000">角色 GM 筆記</h1>
-  <p style="color:var(--muted);margin-bottom:1.5em">寇侠 · 已整理角色（3/10）· OCR 受限，需人工核對</p>
+  <h1 style="margin:1em 0 .3em;font-size:1.6em;color:#5a0000">角色 GM 筆記索引</h1>
+  <p style="color:var(--muted);margin-bottom:1em">寇侠 · 9 角色全覽（8 玩家角色 + 1 NPC）· GM Only</p>
 
   <div class="notice n-danger">
-    <strong>⚠️ GM Only</strong> — 本頁包含所有角色的真實身份、凶案真相與隱藏背景。
-    絕對不要將本頁或以下連結分享給任何玩家。
+    <strong>⚠️ GM Only</strong> — 本頁包含所有角色的真實身份、凶案真相與隱藏背景。絕對不要將本頁或任何角色詳細頁分享給玩家。<br>
+    <small style="color:#888">本站使用 client-side password gate，密碼可見於頁面原始碼，並非強安全機制。</small>
+  </div>
+
+  <div class="notice n-urgent">
+    <strong>🚨 最高優先待確認（開本前）：</strong>
+    <ol style="margin:.5em 0 0 1.2em">
+      <li><strong>賈三娘感情線對象</strong>（頁7 OCR 不可讀）——影響整場陣營走向</li>
+      <li><strong>各角色個人勝利條件</strong>（頁7/8 普遍 OCR 受限）</li>
+      <li><strong>嚴氏凶案具體時間點與凶器</strong>（頁6/8）</li>
+    </ol>
   </div>
 
   <div class="notice n-tip">
-    <strong>📌 最高優先待確認</strong>：賈三娘感情線對象（頁7 OCR 不可讀）——開本前必須人工核對物理小冊。
+    <strong>📌 張猛 NPC 重要說明：</strong>張猛（化名孟猛）是 GM/助理扮演的 NPC，在凶案環節扮演被害者冷降塵的屍體，身上藏有 3 張屍體線索卡 + 1 封書信。
   </div>
 
-  <h2>已整理角色</h2>
+  <h2>全部角色卡</h2>
 
   <div class="char-grid">
 
+    <!-- 金四刃 -->
+    <div class="char-card ch-kou">
+      <div class="card-header">
+        <div class="ch-name">金四刃 <span class="tag tag-kou">寇俠核心</span></div>
+        <div class="ch-alias">真名 何乃武</div>
+        <div class="ch-public">大夏皇族後裔 · 寇俠聯絡人</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">壓軸彩蛋核心：失散妹妹即嚴氏</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 5–8（技能可升）</span></div>
+        <div class="row"><span class="lbl">OCR</span><span class="val"><span class="tag tag-ocr">進行中</span></span></div>
+      </div>
+      <div class="card-footer">
+        <a href="jin-si-ren.html">詳細 HTML →</a>
+        <a href="jin-si-ren.md" class="md-link">GM md</a>
+      </div>
+    </div>
+
+    <!-- 嚴逸 -->
+    <div class="char-card ch-xiu">
+      <div class="card-header">
+        <div class="ch-name">嚴逸 <span class="tag tag-xiu">綉衣使</span></div>
+        <div class="ch-alias">代號「殘手」— 綉衣使三號</div>
+        <div class="ch-public">對外：普通旅人</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">主謀；指使嚴氏殺冷降塵；目標消滅金四刃</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 4–7（技能可升）</span></div>
+        <div class="row"><span class="lbl">OCR</span><span class="val"><span class="tag tag-ocr">進行中</span></span></div>
+      </div>
+      <div class="card-footer">
+        <a href="yan-yi.html">詳細 HTML →</a>
+        <a href="yan-yi.md" class="md-link">GM md</a>
+      </div>
+    </div>
+
+    <!-- 嚴氏 -->
     <div class="char-card ch-pivot">
       <div class="card-header">
         <div class="ch-name">嚴氏 <span class="tag tag-killer">凶手</span></div>
@@ -101,35 +161,17 @@ p{margin-bottom:.8em}
         <div class="ch-public">對外：嚴逸之妻 · 22歲</div>
       </div>
       <div class="card-body">
-        <div class="row"><span class="lbl">真實身份</span><span class="val">大夏皇族後裔，金四刃之失散妹妹</span></div>
-        <div class="row"><span class="lbl">陣營</span><span class="val">綉衣使（執行者）<span class="tag tag-xiu">綉衣使</span></span></div>
-        <div class="row"><span class="lbl">角色特點</span><span class="val">凶手 · 失憶 · 兄妹彩蛋核心</span></div>
-        <div class="row"><span class="lbl">OCR 品質</span><span class="val">★★★☆☆ 中等</span></div>
-        <div class="row"><span class="lbl">待確認</span><span class="val">凶器 · 個人勝利條件 · 失憶原因 <span class="tag tag-todo">TODO</span></span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">凶手 · 大夏皇族後裔 · 金四刃之失散妹妹（壓軸彩蛋）</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val">20 / 2–5（技能可升）</span></div>
+        <div class="row"><span class="lbl">OCR</span><span class="val">★★★☆☆ 已完成（受限）</span></div>
       </div>
       <div class="card-footer">
-        <a href="yan-shi.html">詳細 GM 筆記 →</a>
+        <a href="yan-shi.html">詳細 HTML →</a>
+        <a href="yan-shi.md" class="md-link">GM md</a>
       </div>
     </div>
 
-    <div class="char-card ch-free">
-      <div class="card-header">
-        <div class="ch-name">王思涵</div>
-        <div class="ch-alias">真名 旭敏芝（阳敏芝？）</div>
-        <div class="ch-public">對外：歌姬 · 21歲</div>
-      </div>
-      <div class="card-body">
-        <div class="row"><span class="lbl">真實身份</span><span class="val">玄甲軍統師</span></div>
-        <div class="row"><span class="lbl">陣營</span><span class="val">自由，可加入任一方 <span class="tag tag-free">自由</span></span></div>
-        <div class="row"><span class="lbl">角色特點</span><span class="val">最大陣營 X 因素 · 選邊影響搏殺勝負</span></div>
-        <div class="row"><span class="lbl">OCR 品質</span><span class="val">★★★☆☆ 中等</span></div>
-        <div class="row"><span class="lbl">待確認</span><span class="val">真實名字 · 與金四刃關係 · 勝利條件 <span class="tag tag-todo">TODO</span></span></div>
-      </div>
-      <div class="card-footer">
-        <a href="wang-si-han.html">詳細 GM 筆記 →</a>
-      </div>
-    </div>
-
+    <!-- 賈三娘 -->
     <div class="char-card ch-xiu">
       <div class="card-header">
         <div class="ch-name">賈三娘 <span class="tag tag-todo">感情線待確認</span></div>
@@ -137,40 +179,147 @@ p{margin-bottom:.8em}
         <div class="ch-public">對外：客棧老板娘 · 34歲</div>
       </div>
       <div class="card-body">
-        <div class="row"><span class="lbl">真實身份</span><span class="val">綉衣使密探「歸雪」</span></div>
-        <div class="row"><span class="lbl">陣營</span><span class="val">綉衣使（輔助）<span class="tag tag-xiu">綉衣使</span></span></div>
-        <div class="row"><span class="lbl">角色特點</span><span class="val">感情線可能倒戈寇俠 · 情報樞紐</span></div>
-        <div class="row"><span class="lbl">OCR 品質</span><span class="val">★★★☆☆ 中等</span></div>
-        <div class="row"><span class="lbl">待確認</span><span class="val"><strong>感情對象（最高優先）</strong> · 勝利條件 <span class="tag tag-todo">TODO</span></span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">綉衣使密探 · 感情線可能倒戈寇俠</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 5</span></div>
+        <div class="row"><span class="lbl">OCR</span><span class="val">★★★☆☆ 已完成（感情對象不可讀）</span></div>
       </div>
       <div class="card-footer">
-        <a href="jia-san-niang.html">詳細 GM 筆記 →</a>
+        <a href="jia-san-niang.html">詳細 HTML →</a>
+        <a href="jia-san-niang.md" class="md-link">GM md</a>
+      </div>
+    </div>
+
+    <!-- 王思涵 -->
+    <div class="char-card ch-free">
+      <div class="card-header">
+        <div class="ch-name">王思涵</div>
+        <div class="ch-alias">真名 旭敏芝（阳敏芝？）</div>
+        <div class="ch-public">對外：歌姬 · 21歲</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">玄甲軍統師 · 最大陣營 X 因素 · 名字待確認</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 5</span></div>
+        <div class="row"><span class="lbl">OCR</span><span class="val">★★★☆☆ 已完成（名字待確認）</span></div>
+      </div>
+      <div class="card-footer">
+        <a href="wang-si-han.html">詳細 HTML →</a>
+        <a href="wang-si-han.md" class="md-link">GM md</a>
+      </div>
+    </div>
+
+    <!-- 農叟 -->
+    <div class="char-card ch-free">
+      <div class="card-header">
+        <div class="ch-name">農叟</div>
+        <div class="ch-alias">真名 丁崧</div>
+        <div class="ch-public">對外：老農夫</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">大夏武將 · HP 全場最高（40）· 陣營影響搏殺勝負</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val">40 / 6</span></div>
+        <div class="row"><span class="lbl">OCR</span><span class="val"><span class="tag tag-ocr">進行中</span></span></div>
+      </div>
+      <div class="card-footer">
+        <a href="nong-sou.html">詳細 HTML →</a>
+        <a href="nong-sou.md" class="md-link">GM md</a>
+      </div>
+    </div>
+
+    <!-- 王順 -->
+    <div class="char-card ch-free">
+      <div class="card-header">
+        <div class="ch-name">王順</div>
+        <div class="ch-alias">真名 龐萬金</div>
+        <div class="ch-public">對外：普通旅人</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">丁崧（農叟）舊部 · 認出農叟後保護舊主</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 5</span></div>
+        <div class="row"><span class="lbl">OCR</span><span class="val">★★★☆☆ 已完成</span></div>
+      </div>
+      <div class="card-footer">
+        <a href="wang-shun.html">詳細 HTML →</a>
+        <a href="wang-shun.md" class="md-link">GM md</a>
+      </div>
+    </div>
+
+    <!-- 刁五兒 -->
+    <div class="char-card ch-free">
+      <div class="card-header">
+        <div class="ch-name">刁五兒 <span class="tag tag-easter">輕鬆彩蛋</span></div>
+        <div class="ch-alias">真名 冷鈺（實為女性）</div>
+        <div class="ch-public">對外：男性江湖人（女扮男裝）</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">冷佛林之女 · 為父復仇 · 真實性別是輕鬆彩蛋</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val">25 / 3–6（技能可升）</span></div>
+        <div class="row"><span class="lbl">OCR</span><span class="val">★★★☆☆ 已完成</span></div>
+      </div>
+      <div class="card-footer">
+        <a href="diao-wu-er.html">詳細 HTML →</a>
+        <a href="diao-wu-er.md" class="md-link">GM md</a>
+      </div>
+    </div>
+
+    <!-- 張猛 NPC -->
+    <div class="char-card ch-npc">
+      <div class="card-header">
+        <div class="ch-name">張猛 <span class="tag tag-npc">NPC</span></div>
+        <div class="ch-alias">化名 孟猛 · 真名 冷降尘（丁勇）</div>
+        <div class="ch-public">GM/助理扮演 · 扮演屍體 · 7頁</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">凶案環節扮演被害者屍體，身藏 3 張線索卡 + 1 封書信</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val">N/A（NPC）</span></div>
+        <div class="row"><span class="lbl">OCR</span><span class="val">★★★☆☆ 已完成（部分頁面過曝）</span></div>
+      </div>
+      <div class="card-footer">
+        <a href="zhang-meng.html">詳細 HTML →</a>
+        <a href="zhang-meng.md" class="md-link">GM md</a>
       </div>
     </div>
 
   </div>
 
-  <h2>未整理角色（7/10）</h2>
-  <div class="section">
-    <p style="color:var(--muted);font-size:.9em">以下角色的 PDF 尚未 OCR 處理，資訊來自 DM手册整理。</p>
-    <table style="width:100%;border-collapse:collapse;font-size:.88em;margin-top:.5em">
-      <thead><tr style="background:var(--red);color:#fff"><th style="padding:.4em .8em;text-align:left">角色</th><th style="padding:.4em .8em;text-align:left">陣營</th><th style="padding:.4em .8em;text-align:left">狀態</th></tr></thead>
-      <tbody>
-        <tr><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0">金四刃（何乃武）</td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0"><span class="tag tag-kou">寇俠</span> 領袖</td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0;color:#856404">待 OCR</td></tr>
-        <tr style="background:#faf5ee"><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0">嚴逸（殘手）</td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0"><span class="tag tag-xiu">綉衣使</span> 主謀</td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0;color:#856404">待 OCR</td></tr>
-        <tr><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0">農叟（丁崧）</td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0"><span class="tag tag-kou">寇俠</span></td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0;color:#856404">待 OCR</td></tr>
-        <tr style="background:#faf5ee"><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0">王順</td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0"><span class="tag tag-kou">寇俠</span></td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0;color:#856404">待 OCR</td></tr>
-        <tr><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0">刁五兒</td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0"><span class="tag tag-xiu">綉衣使</span></td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0;color:#856404">待 OCR</td></tr>
-        <tr style="background:#faf5ee"><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0">張猛</td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0"><span class="tag tag-free">自由</span></td><td style="padding:.4em .8em;border-bottom:1px solid #e8ddd0;color:#856404">待 OCR</td></tr>
-        <tr><td style="padding:.4em .8em">冷降塵</td><td style="padding:.4em .8em"><span style="color:#999">亡者</span></td><td style="padding:.4em .8em;color:#856404">待 OCR</td></tr>
-      </tbody>
-    </table>
+  <h2>完整狀態表</h2>
+
+  <table class="status-table">
+    <thead>
+      <tr>
+        <th>角色</th><th>陣營</th><th>extracted txt</th><th>player md</th><th>GM md</th><th>review md</th><th>GM HTML</th><th>OCR 品質</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>金四刃</td><td>寇俠</td><td class="dot-warn">⏳ 進行中</td><td class="dot-warn">⏳</td><td class="dot-warn">⏳</td><td class="dot-warn">⏳</td><td class="dot-ok">✓</td><td>進行中</td></tr>
+      <tr><td>嚴逸</td><td>綉衣使</td><td class="dot-warn">⏳ 進行中</td><td class="dot-warn">⏳</td><td class="dot-warn">⏳</td><td class="dot-warn">⏳</td><td class="dot-ok">✓</td><td>進行中</td></tr>
+      <tr><td>嚴氏</td><td>綉衣使</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>★★★☆☆</td></tr>
+      <tr><td>賈三娘</td><td>綉衣使</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>★★★☆☆</td></tr>
+      <tr><td>王思涵</td><td>自由</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>★★★☆☆</td></tr>
+      <tr><td>農叟</td><td>自由</td><td class="dot-warn">⏳ 進行中</td><td class="dot-warn">⏳</td><td class="dot-warn">⏳</td><td class="dot-warn">⏳</td><td class="dot-ok">✓</td><td>進行中</td></tr>
+      <tr><td>王順</td><td>自由</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>★★★☆☆</td></tr>
+      <tr><td>刁五兒</td><td>自由</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>★★★☆☆</td></tr>
+      <tr><td>張猛（NPC）</td><td>—</td><td class="dot-ok">✓</td><td class="dot-no">—</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>★★★☆☆</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:.83em;color:var(--muted)">⏳ = OCR agent 進行中，完成後更新為 ✓ &nbsp;·&nbsp; — = NPC 無玩家版本</p>
+
+  <h2>復盤公告順序（GM 參考）</h2>
+  <div style="background:var(--white);padding:1.2em 1.5em;border-radius:4px;box-shadow:var(--shadow);margin:.8em 0">
+    <ol style="margin:.4em 0 0 1.2em">
+      <li>宣布凶手：<strong>嚴氏（栾绛 / 何乃清）</strong>，說明動機（嚴逸指使，滅口冷降塵）</li>
+      <li>公布各角色真實身份（由簡到複雜）</li>
+      <li><strong>壓軸彩蛋</strong>：嚴氏與金四刃是失散兄妹</li>
+      <li><strong>輕鬆彩蛋</strong>：刁五兒真實性別是女性（冷鈺）</li>
+      <li>開放提問與分享感受</li>
+    </ol>
   </div>
 
   <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
-    <a href="../index.html">← 回 GM Area</a> &nbsp;|&nbsp;
+    <a href="../index.html">← GM Area</a> &nbsp;|&nbsp;
     <a href="../spoilers.html">劇情真相 →</a> &nbsp;|&nbsp;
-    <a href="../host-notes.html">主持人流程 →</a>
+    <a href="../host-notes.html">主持人流程 →</a> &nbsp;|&nbsp;
+    <a href="../todo.html">待辦清單 →</a>
   </div>
 
 </div>

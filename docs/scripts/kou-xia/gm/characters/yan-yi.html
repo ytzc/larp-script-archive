@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>嚴逸 GM 筆記 — 寇侠</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
+  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
+  --gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;
+  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
+  --shadow:0 1px 5px rgba(0,0,0,.1);
+}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
+p{margin-bottom:.8em}
+.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
+.top-nav .nav-links{display:flex;gap:1em;align-items:center}
+.top-nav .page-nav{display:flex;gap:1em;align-items:center;color:var(--muted)}
+.top-nav a{color:var(--red)}
+.wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-tip{background:var(--gold-lt);border-color:#e0a800}
+.n-dark{background:#1a1a3a;color:#cce;border-color:#44c;padding:1em 1.4em}
+.n-dark strong{color:#fff}
+table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
+th{background:#003399;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
+tr:nth-child(even) td{background:#f5f7ff}
+.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
+.tag-todo{background:#fff3cd;color:#856404}
+.tag-high{background:#ffd5d5;color:#7a0000}
+.tag-conf{background:#d4edda;color:#155724}
+.char-hero{background:linear-gradient(135deg,#111133,#003399);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.char-hero .hero-pub{font-size:.85em;color:#aac;letter-spacing:.5px;margin-bottom:.3em}
+.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.char-hero .hero-alias{font-size:1em;color:#ccddff;margin-bottom:.5em}
+.char-hero .hero-desc{font-size:.9em;color:#dde;line-height:1.7}
+.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
+.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
+.hb-xiu{background:#003399;color:#cce;border:1px solid #44c}
+.hb-villain{background:#2d0000;color:#ffaaaa;border:1px solid #c44}
+.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
+.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
+.id-pub{border-color:#888;background:var(--gray-lt)}
+.id-code{border-color:var(--blue-b);background:var(--blue-lt)}
+.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
+.id-layer .layer-value{font-weight:700;font-size:1.05em}
+.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
+.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
+.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
+.stat-box .stat-label{font-size:.72em;color:var(--muted)}
+.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#003399}
+</style>
+</head>
+<body>
+<div class="gm-banner">🔒 GM Only — 嚴逸是主謀，指使嚴氏殺人；目標是消滅金四刃</div>
+<nav class="top-nav">
+  <div class="nav-links">
+    <a href="../../../../index.html">首頁</a> ›
+    <a href="../../index.html">寇侠</a> ›
+    <a href="../index.html">GM Area</a> ›
+    <a href="index.html">角色筆記</a> ›
+    嚴逸
+  </div>
+  <div class="page-nav">
+    <a href="jin-si-ren.html">← 金四刃</a>
+    <a href="nong-sou.html">農叟 →</a>
+  </div>
+</nav>
+<div class="wrapper">
+
+  <div class="char-hero">
+    <div class="hero-pub">公開身份</div>
+    <div class="hero-name">嚴逸</div>
+    <div class="hero-alias">代號「殘手」— 綉衣使三號</div>
+    <div class="hero-desc">表面是普通男性，實為大順朝廷綉衣使三號人物。此行任務是清除大夏殘黨，消滅金四刃（何乃武）。嚴氏（栾绛）是他的工具，對外偽裝為其妻子。</div>
+    <div class="hero-badges">
+      <span class="hero-badge hb-xiu">綉衣使（核心）</span>
+      <span class="hero-badge hb-villain">主謀</span>
+    </div>
+  </div>
+
+  <div class="notice n-dark">
+    <strong>GM Summary：</strong>
+    嚴逸是全場的主要反派角色。他是此次行動的指揮官，指使嚴氏殺死冷降塵，目標是消滅金四刃。他對嚴氏的態度是純粹的工具關係——他找到了失憶的大夏皇族後裔，訓練她成為殺手，並讓她偽裝成自己的妻子。GM 要注意：嚴逸玩家需要較強的表演慾，能同時維持威脅性和掩護。
+  </div>
+
+  <h2>身份層次</h2>
+  <div class="id-layers">
+    <div class="id-layer id-pub">
+      <div class="layer-label">公開身份</div>
+      <div class="layer-value">嚴逸</div>
+      <div class="layer-sub">普通旅人（偽裝），嚴氏之夫</div>
+    </div>
+    <div class="id-layer id-code">
+      <div class="layer-label">真實身份</div>
+      <div class="layer-value">「殘手」</div>
+      <div class="layer-sub">大順綉衣使三號<br>清除大夏殘黨特務</div>
+    </div>
+  </div>
+
+  <h2>GM 戰鬥數值</h2>
+  <div class="stats">
+    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">30</div></div>
+    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">4–7</div></div>
+    <div class="stat-box"><div class="stat-label">技能</div><div class="stat-val">可升</div></div>
+  </div>
+
+  <h2>在主線凶案中的角色</h2>
+  <div class="section">
+    <table>
+      <tr><th>項目</th><th>內容</th><th>信心度</th></tr>
+      <tr><td>角色</td><td><strong>主謀</strong> — 指使嚴氏（栾绛）殺死冷降塵</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td>動機</td><td>冷降塵知道綉衣使此次行動計畫，嚴逸下令滅口以防洩露</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td>凶手</td><td>執行者是嚴氏（栾绛），嚴逸是下令者</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td>大目標</td><td>確認並消滅金四刃（何乃武）</td><td><span class="tag tag-conf">High</span></td></tr>
+    </table>
+  </div>
+
+  <h2>陣營與勝利條件</h2>
+  <div class="section">
+    <table>
+      <tr><th>項目</th><th>內容</th></tr>
+      <tr><td>初始陣營</td><td>綉衣使（核心）</td></tr>
+      <tr><td>任務目標</td><td>清除大夏殘黨；確認並消滅金四刃（何乃武）</td></tr>
+      <tr><td>掩護策略</td><td>以「嚴逸夫婦」身份旅行，利用賈三娘（歸雪）的客棧作為基地</td></tr>
+      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 需人工核對原始劇本</span></td></tr>
+      <tr><td>結局A（寇俠勝）</td><td>失敗，撤退或被擒；綉衣使暫失此局</td></tr>
+      <tr><td>結局B（綉衣使勝）</td><td>任務完成，升遷；若得知嚴氏身份，則留下內心糾葛</td></tr>
+    </table>
+  </div>
+
+  <h2>知情 / 不知情 / GM Only</h2>
+  <div class="section">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1em">
+      <div>
+        <h3 style="color:#155724">✓ 嚴逸知道</h3>
+        <ul>
+          <li>他是殘手，綉衣使三號</li>
+          <li>嚴氏是他的工具「栾绛」</li>
+          <li>他命令嚴氏殺死冷降塵</li>
+          <li>金四刃（何乃武）是要消滅的目標</li>
+          <li>賈三娘（歸雪）是他在此地的線人</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#856404">✗ 嚴逸不知道</h3>
+        <ul>
+          <li>嚴氏（何乃清）是金四刃的失散妹妹</li>
+          <li>他的「工具」就是大夏皇族後裔本身</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
+        <ul>
+          <li>諷刺：他用大夏皇族後裔（嚴氏）來消滅大夏皇族（金四刃）</li>
+          <li>若綉衣使勝且嚴氏揭曉身份，嚴逸得知真相後的內心糾葛</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>關係表</h2>
+  <div class="section">
+    <table>
+      <tr><th>關聯角色</th><th>嚴逸視角</th><th>GM真相</th><th>信心度</th></tr>
+      <tr><td><strong>嚴氏</strong>（栾绛）</td><td>工具，對外偽裝為妻子</td><td>她其實是大夏皇族後裔，金四刃之妹——他不知道</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td><strong>賈三娘</strong>（歸雪）</td><td>在地線人，提供情報</td><td>感情線可能使她倒戈，嚴逸應注意</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td><strong>金四刃</strong>（何乃武）</td><td>要消滅的目標</td><td>也是嚴氏的失散哥哥——他不知道</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td><strong>冷降塵</strong></td><td>已消除的知情者（已死）</td><td>被嚴氏奉命殺死</td><td><span class="tag tag-conf">High</span></td></tr>
+    </table>
+  </div>
+
+  <h2>主持人提示</h2>
+  <div class="section">
+    <div class="notice n-tip">
+      <strong>角色分配建議：</strong>需要較強表演慾的核心角色。嚴逸必須同時維持威脅性（主謀氣質）和掩護（對外是普通旅人）。
+    </div>
+    <ul>
+      <li>嚴逸玩家知道嚴氏是工具，但需要對其他玩家表現出「夫妻」關係</li>
+      <li>盤凶環節：嚴逸會嘗試掩護嚴氏，同時指引盤凶方向</li>
+      <li>GM 要注意賈三娘的感情線——若她倒戈，嚴逸失去在地情報優勢</li>
+    </ul>
+  </div>
+
+  <h2>復盤公告</h2>
+  <div class="section">
+    <ol>
+      <li>公布嚴氏是凶手，嚴逸是主謀</li>
+      <li>說明嚴逸指使嚴氏殺冷降塵的動機（防止洩露行動計畫）</li>
+      <li>說明嚴逸不知道嚴氏（工具）就是大夏皇族後裔——可以作為諷刺性的補充</li>
+    </ol>
+  </div>
+
+  <h2>TODO / 待確認</h2>
+  <div class="section">
+    <table>
+      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
+      <tr><td>1</td><td>個人勝利條件（具體條件）</td><td>劇本頁7/8</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>2</td><td>嚴逸對嚴氏的具體控制方式說明</td><td>劇本頁2/3</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>3</td><td>他對金四刃身份的知情程度</td><td>劇本頁3/4</td><td><span class="tag tag-todo">中</span></td></tr>
+      <tr><td>4</td><td>道具/技能卡詳情</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
+    </table>
+  </div>
+
+  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
+    <a href="jin-si-ren.html">← 金四刃</a> &nbsp;|&nbsp;
+    <a href="index.html">角色列表</a> &nbsp;|&nbsp;
+    <a href="nong-sou.html">農叟 →</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>王順 GM 筆記 — 寇侠</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;--gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;--paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;--shadow:0 1px 5px rgba(0,0,0,.1);}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
+p{margin-bottom:.8em}
+.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
+.top-nav .nav-links,.top-nav .page-nav{display:flex;gap:1em;align-items:center}
+.top-nav a{color:var(--red)}
+.wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-tip{background:var(--gold-lt);border-color:#e0a800}
+.n-dark{background:#2a1a00;color:#ffeebb;border-color:#a07000;padding:1em 1.4em}
+.n-dark strong{color:#fff}
+table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
+th{background:#6b4800;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
+tr:nth-child(even) td{background:#fffaf0}
+.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
+.tag-todo{background:#fff3cd;color:#856404}
+.tag-high{background:#ffd5d5;color:#7a0000}
+.tag-conf{background:#d4edda;color:#155724}
+.char-hero{background:linear-gradient(135deg,#2a1a00,#6b4800);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.char-hero .hero-pub{font-size:.85em;color:#ffddaa;letter-spacing:.5px;margin-bottom:.3em}
+.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.char-hero .hero-alias{font-size:1em;color:#ffeebb;margin-bottom:.5em}
+.char-hero .hero-desc{font-size:.9em;color:#ffeecc;line-height:1.7}
+.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
+.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
+.hb-free{background:#444;color:#ddd;border:1px solid #777}
+.hb-loyal{background:#6b4800;color:#ffeebb;border:1px solid #a07000}
+.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
+.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
+.id-pub{border-color:#888;background:var(--gray-lt)}
+.id-true{border-color:#a07000;background:#fffaf0}
+.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
+.id-layer .layer-value{font-weight:700;font-size:1.05em}
+.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
+.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
+.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
+.stat-box .stat-label{font-size:.72em;color:var(--muted)}
+.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#6b4800}
+</style>
+</head>
+<body>
+<div class="gm-banner">🔒 GM Only — 王順認出農叟是本角色最關鍵的情節觸發點</div>
+<nav class="top-nav">
+  <div class="nav-links">
+    <a href="../../../../index.html">首頁</a> ›
+    <a href="../../index.html">寇侠</a> ›
+    <a href="../index.html">GM Area</a> ›
+    <a href="index.html">角色筆記</a> ›
+    王順
+  </div>
+  <div class="page-nav">
+    <a href="nong-sou.html">← 農叟</a>
+    <a href="diao-wu-er.html">刁五兒 →</a>
+  </div>
+</nav>
+<div class="wrapper">
+
+  <div class="char-hero">
+    <div class="hero-pub">公開身份</div>
+    <div class="hero-name">王順</div>
+    <div class="hero-alias">真名 龐萬金</div>
+    <div class="hero-desc">前朝武將丁崧（農叟）的舊部。認出農叟後，個人目標轉為保護舊主。無初始陣營，忠誠度是最大變數。</div>
+    <div class="hero-badges">
+      <span class="hero-badge hb-free">自由陣營</span>
+      <span class="hero-badge hb-loyal">義氣忠誠</span>
+    </div>
+  </div>
+
+  <div class="notice n-dark">
+    <strong>GM Summary：</strong>
+    王順（龐萬金）的角色核心是「義氣」——他認出了他的舊主農叟（丁崧），從此個人目標轉為保護舊主。他的陣營選擇與農叟高度綁定。GM 要注意他認出農叟的時機，並確保這個情節在私聊環節自然發生。
+  </div>
+
+  <h2>身份層次</h2>
+  <div class="id-layers">
+    <div class="id-layer id-pub">
+      <div class="layer-label">公開身份</div>
+      <div class="layer-value">王順</div>
+      <div class="layer-sub">普通旅人（偽裝）</div>
+    </div>
+    <div class="id-layer id-true">
+      <div class="layer-label">真實身份</div>
+      <div class="layer-value">龐萬金</div>
+      <div class="layer-sub">丁崧（農叟）的舊部<br>大夏舊朝武將之部下</div>
+    </div>
+  </div>
+
+  <h2>GM 戰鬥數值</h2>
+  <div class="stats">
+    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">30</div></div>
+    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">5</div></div>
+  </div>
+
+  <h2>陣營與勝利條件</h2>
+  <div class="section">
+    <table>
+      <tr><th>項目</th><th>內容</th></tr>
+      <tr><td>初始陣營</td><td>無（自由），忠誠度取決於農叟的選擇</td></tr>
+      <tr><td>核心動機</td><td>認出農叟（丁崧）後→保護舊主</td></tr>
+      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 需人工核對原始劇本</span></td></tr>
+      <tr><td>結局A（寇俠勝）</td><td>隨農叟（舊主）行動，守護義氣</td></tr>
+      <tr><td>結局B（綉衣使勝）</td><td>隨農叟（舊主）同命</td></tr>
+    </table>
+  </div>
+
+  <h2>關係表</h2>
+  <div class="section">
+    <table>
+      <tr><th>關聯角色</th><th>王順視角</th><th>GM真相</th><th>信心度</th></tr>
+      <tr><td><strong>農叟</strong>（丁崧）</td><td>陌生人（一開始）→ 認出後：舊主</td><td>丁崧是他效忠的前朝武將</td><td><span class="tag tag-conf">High</span></td></tr>
+    </table>
+  </div>
+
+  <h2>主持人提示</h2>
+  <div class="section">
+    <div class="notice n-tip">
+      <strong>角色分配建議：</strong>中等難度，適合喜歡情感驅動的玩家——「義氣」是這個角色的核心。
+    </div>
+    <ul>
+      <li>私聊環節：王順認出農叟是關鍵情節觸發點，GM 要確保這個場景發生</li>
+      <li>他的陣營會跟著農叟走——如果農叟選擇寇俠，王順也跟；農叟選綉衣使，王順也跟</li>
+    </ul>
+  </div>
+
+  <h2>TODO / 待確認</h2>
+  <div class="section">
+    <table>
+      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
+      <tr><td>1</td><td>個人勝利條件</td><td>劇本頁7/8</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>2</td><td>認出農叟的具體方式（線索卡？台詞？）</td><td>劇本頁3/4</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>3</td><td>他對謀殺案的知情程度</td><td>劇本頁5</td><td><span class="tag tag-todo">中</span></td></tr>
+      <tr><td>4</td><td>道具/技能卡</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
+    </table>
+  </div>
+
+  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
+    <a href="nong-sou.html">← 農叟</a> &nbsp;|&nbsp;
+    <a href="index.html">角色列表</a> &nbsp;|&nbsp;
+    <a href="diao-wu-er.html">刁五兒 →</a>
+  </div>
+</div>
+</body>
+</html>

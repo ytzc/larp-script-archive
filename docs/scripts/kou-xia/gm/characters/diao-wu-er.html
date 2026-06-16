@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刁五兒 GM 筆記 — 寇侠</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;--gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;--paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;--shadow:0 1px 5px rgba(0,0,0,.1);}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
+p{margin-bottom:.8em}
+.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
+.top-nav .nav-links,.top-nav .page-nav{display:flex;gap:1em;align-items:center}
+.top-nav a{color:var(--red)}
+.wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-tip{background:var(--gold-lt);border-color:#e0a800}
+.n-dark{background:#1a0a2a;color:#ddbbff;border-color:#88a;padding:1em 1.4em}
+.n-dark strong{color:#fff}
+table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
+th{background:#4a2080;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
+tr:nth-child(even) td{background:#f8f5ff}
+.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
+.tag-todo{background:#fff3cd;color:#856404}
+.tag-high{background:#ffd5d5;color:#7a0000}
+.tag-conf{background:#d4edda;color:#155724}
+.tag-easter{background:#4a2080;color:#fff;border:1px solid #88a}
+.char-hero{background:linear-gradient(135deg,#1a0a2a,#4a2080);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.char-hero .hero-pub{font-size:.85em;color:#ccbbff;letter-spacing:.5px;margin-bottom:.3em}
+.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.char-hero .hero-alias{font-size:1em;color:#ddbbff;margin-bottom:.5em}
+.char-hero .hero-desc{font-size:.9em;color:#eeddff;line-height:1.7}
+.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
+.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
+.hb-free{background:#444;color:#ddd;border:1px solid #777}
+.hb-gender{background:#4a2080;color:#ddbbff;border:1px solid #88a}
+.hb-revenge{background:#2d0000;color:#ffaaaa;border:1px solid #c44}
+.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
+.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
+.id-pub{border-color:#888;background:var(--gray-lt)}
+.id-true{border-color:#88a;background:#f8f5ff}
+.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
+.id-layer .layer-value{font-weight:700;font-size:1.05em}
+.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
+.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
+.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
+.stat-box .stat-label{font-size:.72em;color:var(--muted)}
+.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#4a2080}
+</style>
+</head>
+<body>
+<div class="gm-banner">🔒 GM Only — 刁五兒實為女性（輕鬆彩蛋），冷佛林之女，為父復仇</div>
+<nav class="top-nav">
+  <div class="nav-links">
+    <a href="../../../../index.html">首頁</a> ›
+    <a href="../../index.html">寇侠</a> ›
+    <a href="../index.html">GM Area</a> ›
+    <a href="index.html">角色筆記</a> ›
+    刁五兒
+  </div>
+  <div class="page-nav">
+    <a href="wang-shun.html">← 王順</a>
+    <a href="zhang-meng.html">張猛 →</a>
+  </div>
+</nav>
+<div class="wrapper">
+
+  <div class="char-hero">
+    <div class="hero-pub">公開身份</div>
+    <div class="hero-name">刁五兒</div>
+    <div class="hero-alias">真名 冷鈺（女性，以男裝示人）</div>
+    <div class="hero-desc">冷佛林之女，前來為父（冷佛林，已故）追查真相。冷降塵是其父的舊識，死亡與她的個人目標相關。全程以男性裝扮出現——真實性別是「輕鬆彩蛋」，在復盤最後公布。</div>
+    <div class="hero-badges">
+      <span class="hero-badge hb-free">自由陣營</span>
+      <span class="hero-badge hb-gender">女扮男裝</span>
+      <span class="hero-badge hb-revenge">為父復仇</span>
+    </div>
+  </div>
+
+  <div class="notice n-dark">
+    <strong>GM Summary：</strong>
+    刁五兒（冷鈺）是遊戲中的「復仇者」角色，同時帶有「女扮男裝」的輕鬆彩蛋。她的個人目標與謀殺案有直接關聯（冷降塵是她父親的舊識），讓她自然投入調查。她的真實性別是全場最後一個彩蛋，在兄妹真相之後公布，作為輕鬆的結尾。
+  </div>
+
+  <h2>身份層次</h2>
+  <div class="id-layers">
+    <div class="id-layer id-pub">
+      <div class="layer-label">公開身份（偽裝）</div>
+      <div class="layer-value">刁五兒（男性）</div>
+      <div class="layer-sub">以男性江湖人身份出現</div>
+    </div>
+    <div class="id-layer id-true">
+      <div class="layer-label">真實身份</div>
+      <div class="layer-value">冷鈺（女性）</div>
+      <div class="layer-sub">冷佛林之女<br>輕鬆彩蛋：實際上是女性</div>
+    </div>
+  </div>
+
+  <h2>GM 戰鬥數值</h2>
+  <div class="stats">
+    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">25</div></div>
+    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">3–6</div></div>
+    <div class="stat-box"><div class="stat-label">技能</div><div class="stat-val">可升</div></div>
+  </div>
+
+  <h2>在主線凶案中的角色</h2>
+  <div class="section">
+    <ul>
+      <li>冷降塵是她父親（冷佛林）的舊識</li>
+      <li>冷降塵的死亡與她的個人目標（為父復仇/追查真相）直接相關</li>
+      <li>她可能是最積極調查謀殺案的角色之一</li>
+      <li>她具體調查的目標和線索 <span class="tag tag-todo">TODO 從劇本確認</span></li>
+    </ul>
+  </div>
+
+  <h2>陣營與勝利條件</h2>
+  <div class="section">
+    <table>
+      <tr><th>項目</th><th>內容</th></tr>
+      <tr><td>初始陣營</td><td>無（自由），可選邊</td></tr>
+      <tr><td>核心動機</td><td>為父（冷佛林）追查真相、復仇</td></tr>
+      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 需人工核對原始劇本</span></td></tr>
+      <tr><td>結局A（寇俠勝）</td><td>為父報仇，冷降塵真相大白，可功成身退</td></tr>
+      <tr><td>結局B（綉衣使勝）</td><td>父仇得報（真相揭曉），但大夏覆滅</td></tr>
+    </table>
+  </div>
+
+  <h2>知情 / 不知情</h2>
+  <div class="section">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1em">
+      <div>
+        <h3 style="color:#155724">✓ 刁五兒知道</h3>
+        <ul>
+          <li>她是冷鈺，冷佛林之女</li>
+          <li>她以男裝掩護身份</li>
+          <li>她在追查父親有關的真相</li>
+          <li>冷降塵與父親有關聯</li>
+          <li>其他知情事項 <span class="tag tag-todo">TODO</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#856404">✗ 刁五兒不知道</h3>
+        <ul>
+          <li>嚴氏是凶手</li>
+          <li>嚴氏是大夏皇族後裔</li>
+          <li>其他各角色的GM真相</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
+        <ul>
+          <li>刁五兒是女性（輕鬆彩蛋）</li>
+          <li>復盤公告順序：真實性別是<strong>最後</strong>的輕鬆彩蛋（在兄妹真相之後）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>主持人提示</h2>
+  <div class="section">
+    <div class="notice n-tip">
+      <strong>角色分配建議：</strong>中等難度。適合靈活的玩家，因為陣營選擇自由，且有「為父復仇」的清晰動機驅動。
+    </div>
+    <ul>
+      <li>刁五兒的男裝在整場遊戲中都不能被揭穿——GM 要確保玩家理解這一點</li>
+      <li>她是調查謀殺案最有動機的角色，GM 可以引導她積極參與盤凶</li>
+      <li>復盤時，在兄妹真相之後公布刁五兒的真實性別，作為輕鬆結尾</li>
+    </ul>
+  </div>
+
+  <h2>復盤公告順序</h2>
+  <div class="section">
+    <ol>
+      <li>（先完成兄妹彩蛋等主要情感衝擊）</li>
+      <li>最後公布：刁五兒的真實性別是女性（冷鈺）<span class="tag tag-easter">輕鬆彩蛋</span></li>
+    </ol>
+  </div>
+
+  <h2>TODO / 待確認</h2>
+  <div class="section">
+    <table>
+      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
+      <tr><td>1</td><td>個人勝利條件</td><td>劇本頁7/8</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>2</td><td>她的父親冷佛林的具體死因/故事</td><td>劇本頁2/3</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>3</td><td>冷降塵與冷佛林的關係說明</td><td>劇本頁3</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>4</td><td>她在調查謀殺案中能獲得的具體線索</td><td>劇本頁4/5</td><td><span class="tag tag-todo">中</span></td></tr>
+      <tr><td>5</td><td>道具/技能卡</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
+    </table>
+  </div>
+
+  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
+    <a href="wang-shun.html">← 王順</a> &nbsp;|&nbsp;
+    <a href="index.html">角色列表</a> &nbsp;|&nbsp;
+    <a href="zhang-meng.html">張猛 →</a>
+  </div>
+</div>
+</body>
+</html>

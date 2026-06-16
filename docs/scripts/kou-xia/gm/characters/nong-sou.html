@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>農叟 GM 筆記 — 寇侠</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;--gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;--paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;--shadow:0 1px 5px rgba(0,0,0,.1);}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
+p{margin-bottom:.8em}
+.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
+.top-nav .nav-links,.top-nav .page-nav{display:flex;gap:1em;align-items:center}
+.top-nav a{color:var(--red)}
+.wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-tip{background:var(--gold-lt);border-color:#e0a800}
+.n-dark{background:#1a2a0a;color:#ccffaa;border-color:#4a8;padding:1em 1.4em}
+.n-dark strong{color:#fff}
+table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
+th{background:#2d5a1a;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
+tr:nth-child(even) td{background:#f5faf0}
+.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
+.tag-todo{background:#fff3cd;color:#856404}
+.tag-high{background:#ffd5d5;color:#7a0000}
+.tag-conf{background:#d4edda;color:#155724}
+.char-hero{background:linear-gradient(135deg,#1a2a0a,#2d5a1a);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.char-hero .hero-pub{font-size:.85em;color:#aaffaa;letter-spacing:.5px;margin-bottom:.3em}
+.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.char-hero .hero-alias{font-size:1em;color:#ccffcc;margin-bottom:.5em}
+.char-hero .hero-desc{font-size:.9em;color:#ddffdd;line-height:1.7}
+.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
+.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
+.hb-free{background:#444;color:#ddd;border:1px solid #777}
+.hb-general{background:#2d5a1a;color:#ccffaa;border:1px solid #4a8}
+.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
+.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
+.id-pub{border-color:#888;background:var(--gray-lt)}
+.id-true{border-color:#4a8;background:#f0fff0}
+.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
+.id-layer .layer-value{font-weight:700;font-size:1.05em}
+.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
+.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
+.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
+.stat-box .stat-label{font-size:.72em;color:var(--muted)}
+.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#2d5a1a}
+.stat-box.highlight{border-color:#4a8;background:#f0fff0}
+</style>
+</head>
+<body>
+<div class="gm-banner">🔒 GM Only — 農叟（丁崧）是全場 HP 最高角色，陣營選擇影響搏殺勝負</div>
+<nav class="top-nav">
+  <div class="nav-links">
+    <a href="../../../../index.html">首頁</a> ›
+    <a href="../../index.html">寇侠</a> ›
+    <a href="../index.html">GM Area</a> ›
+    <a href="index.html">角色筆記</a> ›
+    農叟
+  </div>
+  <div class="page-nav">
+    <a href="yan-yi.html">← 嚴逸</a>
+    <a href="wang-shun.html">王順 →</a>
+  </div>
+</nav>
+<div class="wrapper">
+
+  <div class="char-hero">
+    <div class="hero-pub">公開身份</div>
+    <div class="hero-name">農叟</div>
+    <div class="hero-alias">真名 丁崧</div>
+    <div class="hero-desc">表面是普通農夫老者，實為大夏舊朝武將，帶領殘部歸隱多年。HP 全場最高（40）。被舊部王順（龐萬金）認出後，必須重新做出陣營抉擇。</div>
+    <div class="hero-badges">
+      <span class="hero-badge hb-free">自由陣營</span>
+      <span class="hero-badge hb-general">大夏武將</span>
+    </div>
+  </div>
+
+  <div class="notice n-dark">
+    <strong>GM Summary：</strong>
+    農叟（丁崧）是一個「成長型」角色——他從自由陣營出發，在私聊中被王順（舊部）認出後必須重新抉擇。他的 HP 最高（40），一旦加入某個陣營，對搏殺結果影響極大。GM 要密切觀察他在私聊環節的動向，以及他與王順的互動。
+  </div>
+
+  <h2>身份層次</h2>
+  <div class="id-layers">
+    <div class="id-layer id-pub">
+      <div class="layer-label">公開身份</div>
+      <div class="layer-value">農叟</div>
+      <div class="layer-sub">普通農夫老者（偽裝）</div>
+    </div>
+    <div class="id-layer id-true">
+      <div class="layer-label">真實身份</div>
+      <div class="layer-value">丁崧</div>
+      <div class="layer-sub">大夏舊朝武將<br>帶領殘部歸隱多年</div>
+    </div>
+  </div>
+
+  <h2>GM 戰鬥數值</h2>
+  <div class="stats">
+    <div class="stat-box highlight"><div class="stat-label">HP</div><div class="stat-val">40</div></div>
+    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">6</div></div>
+  </div>
+  <p style="font-size:.85em;color:#2d5a1a;font-weight:600">⚠️ HP 40 為全場最高，他的陣營選擇對搏殺勝負有決定性影響。</p>
+
+  <h2>在主線凶案中的角色</h2>
+  <div class="section">
+    <ul>
+      <li>農叟與謀殺案沒有直接關係</li>
+      <li>他可以作為調查者，或選擇隱身旁觀</li>
+      <li>是否有關冷降塵的知情或線索 <span class="tag tag-todo">TODO 從劇本確認</span></li>
+    </ul>
+  </div>
+
+  <h2>陣營與勝利條件</h2>
+  <div class="section">
+    <table>
+      <tr><th>項目</th><th>內容</th></tr>
+      <tr><td>初始陣營</td><td>無（自由），被王順認出後須重新抉擇</td></tr>
+      <tr><td>個人目標</td><td>守護舊部、不讓大夏遺民再受迫害</td></tr>
+      <tr><td>關鍵決定因素</td><td>王順的勸說 + 個人對大夏復國的態度</td></tr>
+      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 需人工核對原始劇本</span></td></tr>
+      <tr><td>結局A（寇俠勝）</td><td>選擇寇俠方：重歸故主麾下，守護餘生</td></tr>
+      <tr><td>結局B（綉衣使勝）</td><td>舊朝最後一段武將情懷就此落幕</td></tr>
+    </table>
+  </div>
+
+  <h2>知情 / 不知情</h2>
+  <div class="section">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1em">
+      <div>
+        <h3 style="color:#155724">✓ 農叟知道</h3>
+        <ul>
+          <li>他是丁崧，大夏舊朝武將</li>
+          <li>他帶領殘部歸隱多年</li>
+          <li>其他知情事項 <span class="tag tag-todo">TODO</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#856404">✗ 農叟不知道</h3>
+        <ul>
+          <li>嚴氏是凶手</li>
+          <li>嚴氏是大夏皇族後裔（金四刃之妹）</li>
+          <li>其他不知情事項 <span class="tag tag-todo">TODO</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>關係表</h2>
+  <div class="section">
+    <table>
+      <tr><th>關聯角色</th><th>農叟視角</th><th>GM真相</th><th>信心度</th></tr>
+      <tr><td><strong>王順</strong>（龐萬金）</td><td>陌生人（一開始）→ 被認出後：舊部</td><td>龐萬金認出丁崧，目標轉為保護舊主</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td><strong>金四刃</strong>（何乃武）</td><td>可能相識，大夏皇族 <span class="tag tag-todo">TODO</span></td><td>大夏皇族後裔，大夏末年玄甲軍護送皇族出逃有關</td><td>Medium</td></tr>
+      <tr><td><strong>王思涵</strong>（旭敏芝）</td><td>可能有玄甲軍歷史連結 <span class="tag tag-todo">TODO</span></td><td>玄甲軍統師，可能有共同歷史</td><td>Low</td></tr>
+    </table>
+  </div>
+
+  <h2>主持人提示</h2>
+  <div class="section">
+    <div class="notice n-tip">
+      <strong>角色分配建議：</strong>中等難度，建議喜歡「成長型」角色的玩家——從自由到選邊，有明顯的情感轉折。
+    </div>
+    <ul>
+      <li>GM 注意王順私聊認出農叟的時機——這是農叟角色弧的轉折點</li>
+      <li>農叟的陣營選擇對搏殺影響極大（HP40），兩邊都應嘗試拉攏</li>
+      <li>他的個人底線是「保護舊部」，以此為切入點說服最有效</li>
+    </ul>
+  </div>
+
+  <h2>TODO / 待確認</h2>
+  <div class="section">
+    <table>
+      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
+      <tr><td>1</td><td>個人勝利條件</td><td>劇本頁7/8</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>2</td><td>與金四刃的初始關係說明</td><td>劇本頁3/4</td><td><span class="tag tag-todo">中</span></td></tr>
+      <tr><td>3</td><td>與王思涵（玄甲軍）的歷史連結</td><td>劇本頁3/4</td><td><span class="tag tag-todo">中</span></td></tr>
+      <tr><td>4</td><td>被王順認出的具體觸發條件</td><td>劇本頁4</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>5</td><td>道具/技能卡</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
+    </table>
+  </div>
+
+  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
+    <a href="yan-yi.html">← 嚴逸</a> &nbsp;|&nbsp;
+    <a href="index.html">角色列表</a> &nbsp;|&nbsp;
+    <a href="wang-shun.html">王順 →</a>
+  </div>
+</div>
+</body>
+</html>
