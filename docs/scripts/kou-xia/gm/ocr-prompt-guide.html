@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OCR 提示詞指引 — GM — 寇侠</title>
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+  <style>
+    .prompt-block {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-left: 3px solid #3498db;
+      border-radius: 6px;
+      padding: 1rem 1.2rem;
+      margin: .8rem 0 1.2rem;
+      font-family: var(--font-mono);
+      font-size: .85rem;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      color: var(--color-text);
+    }
+    .step-block {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 1.1rem;
+    }
+    .step-block h3 { margin-top: 0; color: var(--color-accent-light); }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      background: var(--color-accent);
+      color: #fff;
+      border-radius: 50%;
+      font-size: .85rem;
+      font-weight: bold;
+      margin-right: .5rem;
+      flex-shrink: 0;
+    }
+    .copy-hint { font-size: .8rem; color: var(--color-text-muted); margin-bottom: .3rem; }
+    .marker-table td:first-child { font-family: var(--font-mono); color: var(--color-accent-light); white-space: nowrap; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="../../../index.html">📜 LARP Script Archive</a>
+  <nav>
+    <a href="../../../index.html">首頁</a>
+    <a href="../index.html">寇侠</a>
+    <a href="index.html">GM</a>
+  </nav>
+</header>
+
+<div id="password-gate" style="display:none;"></div>
+<div id="protected-content" style="display:none;">
+
+<div class="gm-banner" style="background:#8b0000;color:#fff;padding:.5rem 1.5rem;font-size:.88rem;position:sticky;top:0;z-index:100;">
+  🔒 GM Only — OCR 提示詞指引
+</div>
+
+<main>
+  <nav class="top-nav">
+    <a href="index.html">← GM Area</a> › OCR 提示詞指引
+  </nav>
+
+  <div class="hero" style="padding:1.8rem 0 1.2rem;">
+    <h1>🤖 OCR 提示詞指引</h1>
+    <p>補拍頁面後，如何用 AI 重新提取文字並整合進整理稿</p>
+  </div>
+
+  <div class="notice notice-info">
+    本指引適用於：補拍後的單頁 PNG / JPG 圖片重新 OCR 提取，輸出為與現有 md 整理稿格式一致的 Markdown 段落。
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>操作流程概覽</h2>
+
+  <div class="step-block">
+    <h3><span class="step-num">1</span>拍攝補拍頁面</h3>
+    <ul>
+      <li>解析度 ≥ 300 DPI；裝訂陰影嚴重頁面建議 600 DPI 或手動壓平再拍</li>
+      <li>王思涵建議以 2× 縮放拍攝（印刷字體過小）</li>
+      <li>命名格式：<code>角色拼音-pXXX-retake.png</code>（例：<code>jia-san-niang-p007-retake.png</code>）</li>
+      <li>存放位置：<code>local-private/kou-xia/retake-photos/</code>（已 gitignore）</li>
+    </ul>
+  </div>
+
+  <div class="step-block">
+    <h3><span class="step-num">2</span>在 Claude Code 中執行 OCR 提取</h3>
+    <p>使用下方的 Prompt 模板，並把圖片路徑換成實際路徑。Claude 會直接讀取圖片（multimodal）。</p>
+  </div>
+
+  <div class="step-block">
+    <h3><span class="step-num">3</span>把提取結果合併進 md 整理稿</h3>
+    <ul>
+      <li>找到 <code>docs/scripts/kou-xia/scripts/角色名.md</code> 中對應的 <code>[需要補拍]</code> 段落</li>
+      <li>用新提取的文字替換，保留 <code>[需要人工確認]</code> 標記（如有低信心詞語）</li>
+      <li>同步更新 <code>local-private/kou-xia/clean-md/script-book/角色名.md</code></li>
+    </ul>
+  </div>
+
+  <div class="step-block">
+    <h3><span class="step-num">4</span>重新生成角色 HTML 頁面</h3>
+    <p>告訴 Claude Code：「根據更新後的 <code>xxx.md</code> 重新生成 <code>player/scripts/xxx.html</code>」即可。</p>
+  </div>
+
+  <hr />
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>Prompt 模板 A：單頁一般 OCR 提取</h2>
+  <p>適用於：大多數角色的單頁補拍。</p>
+
+  <div class="copy-hint">複製此 Prompt，貼進 Claude Code，並附上圖片：</div>
+  <div class="prompt-block">請閱讀這張劇本掃描圖片，提取其中的所有文字內容。
+
+背景說明：
+- 這是《寇俠》LARP劇本的 PDF 掃描頁面，角色：[角色名稱]，頁碼：[頁碼]
+- 版本：小冊子裝訂格式（左右兩頁）；我拍的是[左頁 / 右頁 / 整個跨頁]
+- 先前的OCR提取此頁大部分內容因裝訂陰影遮蔽無法讀取，請盡力提取可見文字
+
+輸出格式：
+- 輸出 Markdown 格式，與以下現有段落格式一致：
+
+```
+### [原有的段落標題]
+
+[提取的文字，保留段落結構]
+
+[若有部分文字仍無法辨讀，標記：[需要人工確認：說明原因]]
+[若整段完全無法讀取，標記：[需要補拍：說明原因]]
+```
+
+要求：
+- 不要改寫、添加或腦補任何劇情內容
+- 原文是[簡體中文 / 繁體中文]，請保留原文語言，不要轉換字體
+- 若有 OCR 誤字或不確定的詞語，保留原文並在後面加 [需要人工確認：疑似誤讀]
+- 方框內的技能說明、結局說明，用 Markdown 列表格式呈現
+- GM隔頁說明（紅色橫幅文字「本段GM閱讀，太子殿下請回避」）不需要輸出
+- 先輸出提取結果，再輸出一行「---」和簡短說明（哪些部分仍有遮蔽）</div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>Prompt 模板 B：特別難讀頁面（印刷過淡 / 字體過小）</h2>
+  <p>適用於：王思涵、張猛頁4–6 等印刷品質差的頁面。</p>
+
+  <div class="copy-hint">複製此 Prompt：</div>
+  <div class="prompt-block">請閱讀這張劇本掃描圖片，提取其中的所有文字。此頁印刷品質較差，請盡力辨讀。
+
+背景說明：
+- 這是《寇俠》LARP劇本，角色：[角色名稱]，頁碼：[頁碼]
+- 此頁印刷字體過小或顏色過淡，OCR工具完全無法讀取
+- 若為NPC（張猛）頁面，紅色文字為GM專用指引，請一併提取
+
+請按以下步驟處理：
+1. 先描述你能看到的頁面結構（有幾個段落？有方框嗎？有紅色文字嗎？）
+2. 然後逐段提取可辨識的文字
+3. 對於完全無法辨讀的部分，說明「此處文字因[原因]無法辨讀」
+
+輸出格式要求：
+- Markdown，保留段落結構和方框格式（用 > blockquote 或 code block 表示方框）
+- 原文語言保留（簡/繁體原樣）
+- 不確定的詞語加 [需要人工確認] 標記
+- 不要腦補內容
+
+附加圖片：[附上圖片]</div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>Prompt 模板 C：跨頁比對確認</h2>
+  <p>適用於：需要確認跨角色一致性問題（如「冷佛林 vs 冷俠林」、「何乃青 vs 何乃武」）。</p>
+
+  <div class="copy-hint">複製此 Prompt：</div>
+  <div class="prompt-block">請閱讀以下兩張圖片中的特定段落，幫我確認一個跨角色一致性問題。
+
+問題：[描述問題，例如：「刁五兒劇本中稱父親好友為『冷佛林』，張猛劇本稱為『冷俠林』，請確認這兩張圖片中出現的名字，看是否同一人」]
+
+圖片1：[角色1] — [頁碼] — 相關段落在頁面的[上半/下半/右欄]
+圖片2：[角色2] — [頁碼] — 相關段落在頁面的[上半/下半/右欄]
+
+請：
+1. 分別讀出兩張圖片中的相關名稱（原文，不要改）
+2. 判斷是否同一人，理由是什麼
+3. 如果仍無法確認，說明需要哪些額外資訊
+
+[附上兩張圖片]</div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>Prompt 模板 D：更新 md 整理稿</h2>
+  <p>把 OCR 提取結果整合進現有 md 檔案時，可用此 Prompt 讓 Claude 自動合併。</p>
+
+  <div class="copy-hint">複製此 Prompt（在 Claude Code 中使用）：</div>
+  <div class="prompt-block">請更新 `docs/scripts/kou-xia/scripts/[角色拼音].md` 中的 [頁碼] 段落。
+
+現有內容（[需要補拍] 佔位段落）在 ## 正文 的 ### [段落標題] 下。
+
+新的提取結果如下：
+---
+[貼上剛才 OCR 提取的文字]
+---
+
+更新規則：
+- 用新提取的文字替換對應的 [需要補拍] 段落
+- 保留 [需要人工確認] 標記（如果新文字仍有不確定詞語）
+- 不要修改 ## 整理備註 部分
+- 不要修改其他角色的任何內容
+- 同時更新 local-private/kou-xia/clean-md/script-book/[角色拼音].md（相同內容）
+
+更新完成後告訴我：更新了哪些段落、是否仍有殘餘的 [需要補拍] 標記。</div>
+
+  <hr />
+
+  <!-- ══════════════════════════════════════════ -->
+  <h2>標記說明快速參考</h2>
+  <table class="marker-table">
+    <tr>
+      <th>標記</th>
+      <th>含義</th>
+      <th>何時使用</th>
+    </tr>
+    <tr>
+      <td>[需要人工確認]</td>
+      <td>OCR 信心度低，詞語可能誤讀</td>
+      <td>文字可見但不確定是否正確</td>
+    </tr>
+    <tr>
+      <td>[疑似缺漏]</td>
+      <td>段落明顯不完整，句子截斷</td>
+      <td>文字被截斷，應有後續內容</td>
+    </tr>
+    <tr>
+      <td>[需要補拍]</td>
+      <td>整節或整頁完全無法讀取</td>
+      <td>大範圍遮蔽，需重拍才能取得內容</td>
+    </tr>
+  </table>
+
+  <hr />
+
+  <div class="notice notice-warning">
+    <strong>重要提醒：</strong>所有 OCR 提取均以「不改寫劇情、不腦補缺漏、保留原文語言」為原則。
+    若 AI 嘗試「補全」原文沒有的內容，請手動刪除並保留 <code>[需要補拍]</code> 標記。
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <a href="index.html">← GM Area</a> &nbsp;|&nbsp; LARP Script Archive &nbsp;|&nbsp; <span class="site-version"></span>
+</footer>
+
+</div>
+
+<script src="../../../assets/js/version.js"></script>
+<script src="../../../assets/js/password-gate.js"></script>
+<script>
+  initPasswordGate({
+    role:     'kou-xia-gm',
+    password: 'gm',
+    icon:     '🤖',
+    title:    'OCR 提示詞指引 — GM Only',
+    desc:     '請輸入 GM 密碼以查看 OCR 操作指引。',
+    back:     'index.html'
+  });
+</script>
+</body>
+</html>
