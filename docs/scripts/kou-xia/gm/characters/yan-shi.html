@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>嚴氏 GM 筆記 — 寇侠</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
+  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
+  --gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;
+  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
+  --shadow:0 1px 5px rgba(0,0,0,.1);
+}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
+p{margin-bottom:.8em}
+
+.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
+.top-nav .nav-links{display:flex;gap:1em;align-items:center}
+.top-nav .page-nav{display:flex;gap:1em;align-items:center;color:var(--muted)}
+.top-nav a{color:var(--red)}
+
+.wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
+.n-tip{background:var(--gold-lt);border-color:#e0a800}
+.n-dark{background:#2d0000;color:#ffcccc;border-color:#ff4444;padding:1em 1.4em}
+.n-dark strong{color:#fff}
+
+table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
+th{background:var(--red);color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
+tr:nth-child(even) td{background:#faf5ee}
+
+.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
+.tag-todo{background:#fff3cd;color:#856404}
+.tag-high{background:#ffd5d5;color:#7a0000}
+.tag-conf{background:#d4edda;color:#155724}
+
+/* character hero */
+.char-hero{background:linear-gradient(135deg,#2d0000,#5a0000);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.char-hero .hero-pub{font-size:.85em;color:#ffaaaa;letter-spacing:.5px;margin-bottom:.3em}
+.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.char-hero .hero-alias{font-size:1em;color:#ffcccc;margin-bottom:.5em}
+.char-hero .hero-desc{font-size:.9em;color:#ffdddd;line-height:1.7}
+.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
+.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
+.hb-killer{background:#8b0000;color:#ffcccc;border:1px solid #c44}
+.hb-xiu{background:#003399;color:#cce;border:1px solid #44c}
+.hb-easter{background:#664400;color:#ffe0a0;border:1px solid #a07000}
+
+/* identity layers */
+.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
+.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
+.id-pub{border-color:#888;background:var(--gray-lt)}
+.id-code{border-color:var(--blue-b);background:var(--blue-lt)}
+.id-true{border-color:#884400;background:#fffff0}
+.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
+.id-layer .layer-value{font-weight:700;font-size:1.05em}
+.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
+
+/* stat bar */
+.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
+.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
+.stat-box .stat-label{font-size:.72em;color:var(--muted)}
+.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#5a0000}
+</style>
+</head>
+<body>
+
+<div class="gm-banner">🔒 GM Only — 嚴氏包含完整凶手真相與最大彩蛋，請勿分享給玩家</div>
+
+<nav class="top-nav">
+  <div class="nav-links">
+    <a href="../../../../index.html">首頁</a> ›
+    <a href="../../index.html">寇侠</a> ›
+    <a href="../index.html">GM Area</a> ›
+    <a href="index.html">角色筆記</a> ›
+    嚴氏
+  </div>
+  <div class="page-nav">
+    <a href="index.html">← 角色列表</a>
+    <a href="wang-si-han.html">王思涵 →</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+  <div class="char-hero">
+    <div class="hero-pub">公開身份</div>
+    <div class="hero-name">嚴氏</div>
+    <div class="hero-alias">代號 栾绛 · 真名 何乃清</div>
+    <div class="hero-desc">22歲，嚴逸之妻，臉上有疤痕（輕紗遮擋），身上有藍綠色痕跡。</div>
+    <div class="hero-badges">
+      <span class="hero-badge hb-killer">凶手</span>
+      <span class="hero-badge hb-xiu">綉衣使</span>
+      <span class="hero-badge hb-easter">最大彩蛋核心</span>
+    </div>
+  </div>
+
+  <div class="notice n-dark">
+    <strong>GM Summary：</strong>
+    嚴氏是本遊戲複雜度最高、情感衝擊最強的角色。她同時是<strong>凶手</strong>（奉命殺死冷降塵）、<strong>悲劇受害者</strong>（幼年失憶、被訓練為殺手的大夏皇族後裔），以及<strong>最大彩蛋的核心</strong>（金四刃之失散妹妹——雙方均不知情）。GM 必須熟悉她的所有面向，才能在復盤時完整呈現情感衝擊。
+  </div>
+
+  <h2>身份層次</h2>
+  <div class="id-layers">
+    <div class="id-layer id-pub">
+      <div class="layer-label">公開身份</div>
+      <div class="layer-value">嚴氏</div>
+      <div class="layer-sub">嚴逸之妻，普通女性</div>
+    </div>
+    <div class="id-layer id-code">
+      <div class="layer-label">綉衣使代號</div>
+      <div class="layer-value">栾绛（Luan Jiàng）</div>
+      <div class="layer-sub">綉衣使殺手，嚴逸直屬</div>
+    </div>
+    <div class="id-layer id-true">
+      <div class="layer-label">真實身份（本人不知）</div>
+      <div class="layer-value">何乃清</div>
+      <div class="layer-sub">大夏皇族後裔<br>金四刃（何乃武）的失散妹妹</div>
+    </div>
+  </div>
+
+  <h2>GM 戰鬥數值</h2>
+  <div class="stats">
+    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">20</div></div>
+    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">—</div></div>
+  </div>
+  <p style="font-size:.85em;color:var(--muted)">（HP20 來自 DM手册；武力值待確認）</p>
+
+  <h2>隱藏背景（GM 真相）</h2>
+  <div class="section">
+    <ol>
+      <li><strong>大夏皇族後裔</strong>：嚴氏出生時的真實身份是何乃清，大夏皇族血脈。</li>
+      <li><strong>幼年失憶</strong>：4歲前的記憶全部消失。<span class="tag tag-todo">TODO 確認原因</span></li>
+      <li><strong>被殘手找到</strong>：嚴逸（殘手）找到失憶的她，給予「栾绛」身份並訓練她成為殺手。</li>
+      <li><strong>臉上疤痕</strong>：殘手稱之為「幼年就有的記號」——可能與大夏皇族身份有關。<span class="tag tag-todo">TODO 確認</span></li>
+      <li><strong>身上藍綠色痕跡</strong>：來源不明，可能與皇族血統有關。<span class="tag tag-todo">TODO 確認</span></li>
+      <li><strong>與金四刃的關係</strong>：她是金四刃（何乃武）的親妹妹——<strong>雙方均不知情</strong>。</li>
+    </ol>
+  </div>
+
+  <h2>凶案角色</h2>
+  <div class="section">
+    <table>
+      <tr><th>項目</th><th>內容</th><th>來源</th><th>信心度</th></tr>
+      <tr><td>凶手身份</td><td>確認。嚴氏執行了殺死冷降塵的任務。</td><td>DM手册</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td>動機</td><td>奉殘手（嚴逸）指令，消除知情者冷降塵，防止洩露綉衣使行動計畫</td><td>DM手册</td><td><span class="tag tag-conf">High</span></td></tr>
+      <tr><td>凶器</td><td>詳見盒裝線索卡 <span class="tag tag-todo">TODO 確認</span></td><td>—</td><td>—</td></tr>
+      <tr><td>作案時機</td><td><span class="tag tag-todo">TODO 具體時間點需確認</span></td><td>—</td><td>—</td></tr>
+      <tr><td>知情程度</td><td>她知道自己殺了人，被殘手告知這是必要任務</td><td>角色劇本</td><td><span class="tag tag-conf">High</span></td></tr>
+    </table>
+  </div>
+
+  <h2>陣營與勝利條件</h2>
+  <div class="section">
+    <table>
+      <tr><th>項目</th><th>內容</th></tr>
+      <tr><td>初始陣營</td><td>綉衣使（執行者）</td></tr>
+      <tr><td>已知任務目標</td><td>確保殺人任務不被揭穿；協助嚴逸完成清除大夏殘黨的行動</td></tr>
+      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 頁7/8 OCR 不完整，需人工核對</span></td></tr>
+      <tr><td>搏殺後可能</td><td>若揭穿身份、恢復記憶——可能選擇背叛綉衣使或崩潰</td></tr>
+    </table>
+  </div>
+
+  <h2>知情 / 不知情 / GM Only</h2>
+  <div class="section">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1em">
+      <div>
+        <h3 style="color:#155724">✓ 嚴氏知道</h3>
+        <ul>
+          <li>她是栾绛，綉衣使殺手</li>
+          <li>嚴逸是殘手，是她的上司</li>
+          <li>她有失憶，殘手告訴她的過去就是她相信的全部</li>
+          <li>她殺了冷降塵（按殘手指令）</li>
+          <li>是否知道冷降塵的具體情報？<span class="tag tag-todo">TODO</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#856404">✗ 嚴氏不知道</h3>
+        <ul>
+          <li>她自己的真實身份：何乃清</li>
+          <li>金四刃（何乃武）是她的哥哥</li>
+          <li>她的幼年失憶的真實原因</li>
+          <li>大夏皇族血統的完整背景</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
+        <ul>
+          <li>她是金四刃的失散妹妹（最大彩蛋）</li>
+          <li>她的幼年失憶可能與大夏覆亡有關</li>
+          <li>即便完成任務，結局仍是悲劇性的</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>關係表</h2>
+  <div class="section">
+    <table>
+      <tr><th>關聯角色</th><th>嚴氏視角</th><th>GM真相</th><th>來源</th><th>信心度</th></tr>
+      <tr>
+        <td><strong>嚴逸</strong>（殘手）</td>
+        <td>丈夫＋上司，依賴感複雜</td>
+        <td>利用關係——殘手把失憶的她訓練成工具</td>
+        <td>DM手册</td>
+        <td><span class="tag tag-conf">High</span></td>
+      </tr>
+      <tr>
+        <td><strong>金四刃</strong>（何乃武）</td>
+        <td>陌生人（或警戒對象）</td>
+        <td><strong>失散哥哥</strong>——雙方均不知</td>
+        <td>DM手册</td>
+        <td><span class="tag tag-conf">High</span></td>
+      </tr>
+      <tr>
+        <td><strong>賈三娘</strong>（歸雪）</td>
+        <td>線衣使同僚</td>
+        <td>同在嚴逸指揮下；歸雪的感情線可能影響立場</td>
+        <td>DM手册</td>
+        <td><span class="tag tag-conf">High</span></td>
+      </tr>
+      <tr>
+        <td><strong>冷降塵</strong></td>
+        <td>任務目標（已死）</td>
+        <td>被她奉命殺死；知情者，因知道綉衣使行動而被滅口</td>
+        <td>DM手册</td>
+        <td><span class="tag tag-conf">High</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>主持人提示</h2>
+  <div class="section">
+    <div class="notice n-tip">
+      <strong>角色分配建議：</strong>扮演嚴氏的玩家應有能守口如瓶、能承受壓力的性格（凶手角色難度高）。建議在發本前確認玩家理解凶手角色的壓力。
+    </div>
+    <ul>
+      <li>搏殺環節中注意嚴氏與金四刃的位置——若發生直接對決，應觸發特殊演出</li>
+      <li>她是凶手，盤凶環節壓力最大，需要一邊參與討論一邊自保</li>
+      <li>線衣使方核心成員，戰力較弱（HP20）但陣營意義重大</li>
+    </ul>
+  </div>
+
+  <h2>復盤公告順序</h2>
+  <div class="section">
+    <ol>
+      <li>宣布凶手：嚴氏（栾绛 / 何乃清）</li>
+      <li>說明作案動機（嚴逸指使，滅口冷降塵）</li>
+      <li>公布嚴氏真實身份（何乃清，大夏皇族後裔，失憶被訓練為殺手）</li>
+      <li><strong>壓軸彩蛋</strong>：嚴氏 = 金四刃之失散妹妹</li>
+    </ol>
+    <div class="notice n-danger" style="margin-top:.8em">
+      揭露兄妹真相前，先確認兩位玩家的心理狀態是否穩定，確保最大情感衝擊。
+    </div>
+  </div>
+
+  <h2>TODO / 待確認（開本前）</h2>
+  <div class="section">
+    <table>
+      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
+      <tr><td>1</td><td>幼年失憶原因：劇本 vs DM手册 是否一致</td><td>頁2-3</td><td><span class="tag tag-todo">中</span></td></tr>
+      <tr><td>2</td><td>凶器確認：具體凶器及作案場所說明</td><td>頁6/8</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>3</td><td>個人勝利條件</td><td>頁7/8</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>4</td><td>臉疤和青色痕跡的後續：是否有線索卡對應</td><td>頁4/5</td><td><span class="tag tag-todo">中</span></td></tr>
+      <tr><td>5</td><td>道具/技能卡：需人工核對盒裝道具</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
+      <tr><td>6</td><td>嚴氏在何時/何地殺死冷降塵：具體時間點</td><td>頁6</td><td><span class="tag tag-high">高</span></td></tr>
+    </table>
+  </div>
+
+  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
+    <a href="index.html">← 角色列表</a> &nbsp;|&nbsp;
+    <a href="wang-si-han.html">王思涵 →</a> &nbsp;|&nbsp;
+    <a href="../spoilers.html">劇情真相 →</a>
+  </div>
+
+</div>
+</body>
+</html>

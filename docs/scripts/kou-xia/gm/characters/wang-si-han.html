@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>王思涵 GM 筆記 — 寇侠</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
+  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
+  --gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;
+  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
+  --shadow:0 1px 5px rgba(0,0,0,.1);
+}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
+p{margin-bottom:.8em}
+
+.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
+.top-nav .nav-links{display:flex;gap:1em;align-items:center}
+.top-nav .page-nav{display:flex;gap:1em;align-items:center;color:var(--muted)}
+.top-nav a{color:var(--red)}
+
+.wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
+.n-tip{background:var(--gold-lt);border-color:#e0a800}
+.n-dark{background:#1a1a3a;color:#cce;border-color:#44c;padding:1em 1.4em}
+.n-dark strong{color:#fff}
+
+table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
+th{background:#003399;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
+tr:nth-child(even) td{background:#f5f7ff}
+
+.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
+.tag-todo{background:#fff3cd;color:#856404}
+.tag-high{background:#ffd5d5;color:#7a0000}
+.tag-conf{background:#d4edda;color:#155724}
+.tag-med{background:#d1ecf1;color:#0c5460}
+
+/* character hero */
+.char-hero{background:linear-gradient(135deg,#111133,#003399);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.char-hero .hero-pub{font-size:.85em;color:#aac;letter-spacing:.5px;margin-bottom:.3em}
+.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.char-hero .hero-alias{font-size:1em;color:#ccddff;margin-bottom:.5em}
+.char-hero .hero-desc{font-size:.9em;color:#dde;line-height:1.7}
+.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
+.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
+.hb-free{background:#444;color:#ddd;border:1px solid #777}
+.hb-kou{background:#5a0000;color:#ffcccc;border:1px solid #c44}
+.hb-key{background:#1a3a1a;color:#aaffaa;border:1px solid #4a4}
+
+.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
+.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
+.id-pub{border-color:#888;background:var(--gray-lt)}
+.id-true{border-color:var(--blue-b);background:var(--blue-lt)}
+.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
+.id-layer .layer-value{font-weight:700;font-size:1.05em}
+.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
+
+.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
+.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
+.stat-box .stat-label{font-size:.72em;color:var(--muted)}
+.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#003399}
+</style>
+</head>
+<body>
+
+<div class="gm-banner">🔒 GM Only — 王思涵是陣營最大 X 因素，私聊動態需密切關注</div>
+
+<nav class="top-nav">
+  <div class="nav-links">
+    <a href="../../../../index.html">首頁</a> ›
+    <a href="../../index.html">寇侠</a> ›
+    <a href="../index.html">GM Area</a> ›
+    <a href="index.html">角色筆記</a> ›
+    王思涵
+  </div>
+  <div class="page-nav">
+    <a href="yan-shi.html">← 嚴氏</a>
+    <a href="jia-san-niang.html">賈三娘 →</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+  <div class="char-hero">
+    <div class="hero-pub">公開身份</div>
+    <div class="hero-name">王思涵</div>
+    <div class="hero-alias">真名 旭敏芝（阳敏芝？）</div>
+    <div class="hero-desc">21歲，才貌俱佳的歌姬，身着绛紫色細麻長裙，眉眼有傲氣。詩句：「桃李春風一杯酒，江湖夜雨十年燈。」</div>
+    <div class="hero-badges">
+      <span class="hero-badge hb-free">自由陣營</span>
+      <span class="hero-badge hb-kou">初始 寇俠 傾向</span>
+      <span class="hero-badge hb-key">陣營 X 因素</span>
+    </div>
+  </div>
+
+  <div class="notice n-dark">
+    <strong>GM Summary：</strong>
+    王思涵是遊戲中<strong>陣營彈性最大</strong>的角色。她表面是歌姬，實為寇俠玄甲軍統師，對大夏復國的態度是半信半疑，最在乎自己部下族人的安危。她的陣營選擇對整場勝負影響極大——GM 需密切關注她在私聊環節中的動向。
+  </div>
+
+  <h2>身份層次</h2>
+  <div class="id-layers">
+    <div class="id-layer id-pub">
+      <div class="layer-label">公開身份</div>
+      <div class="layer-value">王思涵</div>
+      <div class="layer-sub">歌姬，21歲，傲骨從容</div>
+    </div>
+    <div class="id-layer id-true">
+      <div class="layer-label">真實身份</div>
+      <div class="layer-value">旭敏芝（阳敏芝？）</div>
+      <div class="layer-sub">寇俠玄甲軍統師<br><span class="tag tag-todo">名字需人工確認</span></div>
+    </div>
+  </div>
+
+  <div class="notice n-info">
+    <strong>名字問題：</strong>DM手册記載「旭敏芝（阳敏芝）」，角色劇本封面字跡需人工確認正確寫法。開本前須核對物理小冊。
+  </div>
+
+  <h2>GM 戰鬥數值</h2>
+  <div class="stats">
+    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">30</div></div>
+    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">5</div></div>
+  </div>
+
+  <h2>隱藏背景（GM 真相）</h2>
+  <div class="section">
+    <ol>
+      <li><strong>玄甲軍統師</strong>：王思涵的真實身份是旭敏芝，寇俠玄甲軍的統師。</li>
+      <li><strong>雙重身份</strong>：以歌姬身份隱藏武者身份，在江湖中行走。武力值（5）遠高於歌姬外表暗示。</li>
+      <li><strong>半信半疑</strong>：她對大夏復國的大義半信半疑，但深切關心舊部族人的命運。</li>
+      <li><strong>加入玄甲軍背景</strong>：<span class="tag tag-todo">TODO — needs source confirmation</span></li>
+    </ol>
+  </div>
+
+  <h2>在主線凶案中的角色</h2>
+  <div class="section">
+    <ul>
+      <li>王思涵與謀殺案<strong>沒有直接關係</strong></li>
+      <li>她可以作為中立的調查者，也可以選擇配合或阻礙真相揭露</li>
+      <li>是否有特定關於冷降塵的線索或任務？<span class="tag tag-todo">TODO</span></li>
+    </ul>
+  </div>
+
+  <h2>陣營與勝利條件</h2>
+  <div class="section">
+    <table>
+      <tr><th>項目</th><th>內容</th></tr>
+      <tr><td>初始陣營</td><td>無（自由），可加入任一陣營</td></tr>
+      <tr><td>初始傾向</td><td>寇俠傾向（與金四刃有初始關聯），但可被綉衣使拉攏</td></tr>
+      <tr><td>個人目標</td><td>保護舊部族人的安危；對大夏復國半信半疑</td></tr>
+      <tr><td>關鍵決定因素</td><td>能否保護她在乎的舊部族人</td></tr>
+      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 頁8 OCR 不完整，需人工核對</span></td></tr>
+    </table>
+  </div>
+
+  <h2>知情 / 不知情 / GM Only</h2>
+  <div class="section">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1em">
+      <div>
+        <h3 style="color:#155724">✓ 王思涵知道</h3>
+        <ul>
+          <li>她是旭敏芝，玄甲軍統師</li>
+          <li>她以歌姬身份掩護</li>
+          <li>她有選擇加入任一陣營的空間</li>
+          <li>對其他角色的預先了解程度 <span class="tag tag-todo">TODO</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#856404">✗ 王思涵不知道</h3>
+        <ul>
+          <li>嚴氏是凶手</li>
+          <li>嚴氏是大夏皇族後裔（金四刃之妹）</li>
+          <li>其他不知情事項 <span class="tag tag-todo">TODO</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
+        <ul>
+          <li>她的陣營選擇對搏殺勝負有重要影響</li>
+          <li>她的「半信半疑」是真誠的——她不是偽裝的背叛者</li>
+          <li>若綉衣使勝：可能「見風使舵成功者功成身退」</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>關係表</h2>
+  <div class="section">
+    <table>
+      <tr><th>關聯角色</th><th>王思涵視角</th><th>GM真相</th><th>來源</th><th>信心度</th></tr>
+      <tr>
+        <td><strong>金四刃</strong></td>
+        <td>寇俠初始接觸點（具體關係 TODO）</td>
+        <td>同為寇俠方，有初始關聯</td>
+        <td>DM手册</td>
+        <td><span class="tag tag-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>嚴逸</strong></td>
+        <td>陌生人或危險人物</td>
+        <td>綉衣使核心，可能拉攏她</td>
+        <td>DM手册</td>
+        <td><span class="tag tag-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>農叟</strong>（丁崧）</td>
+        <td>是否相識？<span class="tag tag-todo">TODO</span></td>
+        <td>兩人都有玄甲軍/大夏舊軍背景，可能相識</td>
+        <td>推斷</td>
+        <td><span class="tag tag-todo">Low</span></td>
+      </tr>
+      <tr>
+        <td><strong>王順</strong></td>
+        <td><span class="tag tag-todo">TODO</span></td>
+        <td>同為寇俠陣營</td>
+        <td>—</td>
+        <td><span class="tag tag-todo">Low</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>主持人提示</h2>
+  <div class="section">
+    <div class="notice n-tip">
+      <strong>角色分配建議：</strong>建議由靈活思維、對政治局勢敏感的玩家扮演。
+    </div>
+    <ul>
+      <li>注意她在第一/二輪私聊的動態，若被某方拉攏成功，及早調整另一方的策略</li>
+      <li>她的個人底線（保護舊部）是拉攏她的最有效切入點</li>
+      <li>兩個陣營都應嘗試拉攏她：寇俠說「你本來就是玄甲軍」；綉衣使以族人安危誘之</li>
+    </ul>
+  </div>
+
+  <h2>復盤公告</h2>
+  <div class="section">
+    <ol>
+      <li>公布旭敏芝（阳敏芝）的真實身份——玄甲軍統師</li>
+      <li>說明她的陣營選擇背後的個人動機（保護舊部族人）</li>
+    </ol>
+  </div>
+
+  <h2>TODO / 待確認（開本前）</h2>
+  <div class="section">
+    <table>
+      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
+      <tr><td>1</td><td><strong>真實名字確認</strong>：旭敏芝 or 阳敏芝？</td><td>封面</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>2</td><td>與金四刃的初始關係：具體說明</td><td>頁3/4</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>3</td><td>個人勝利條件</td><td>頁8</td><td><span class="tag tag-high">高</span></td></tr>
+      <tr><td>4</td><td>舊部族人細節：具體是哪些人？</td><td>頁3-5</td><td><span class="tag tag-todo">中</span></td></tr>
+      <tr><td>5</td><td>是否與農叟/王順有歷史連結</td><td>頁3</td><td><span class="tag tag-todo">中</span></td></tr>
+      <tr><td>6</td><td>道具/技能卡</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
+    </table>
+  </div>
+
+  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
+    <a href="yan-shi.html">← 嚴氏</a> &nbsp;|&nbsp;
+    <a href="index.html">角色列表</a> &nbsp;|&nbsp;
+    <a href="jia-san-niang.html">賈三娘 →</a>
+  </div>
+
+</div>
+</body>
+</html>
