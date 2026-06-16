@@ -411,159 +411,150 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
 </div>
 
 <div class="graph-wrap">
-<svg viewBox="0 0 900 580" width="100%" style="min-width:700px;max-width:900px;display:block;margin:0 auto">
+<svg viewBox="0 0 1000 660" width="100%" style="min-width:720px;max-width:1000px;display:block;margin:0 auto">
   <defs>
-    <!-- Arrowheads -->
-    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 z" fill="#c00"/>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L9,3.5 z" fill="#c00"/>
     </marker>
-    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 z" fill="#a56000"/>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L9,3.5 z" fill="#a56000"/>
     </marker>
-    <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 z" fill="#7a2d9d"/>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L9,3.5 z" fill="#7a2d9d"/>
     </marker>
+    <style>
+      /* White halo on text via paint-order — no background rects needed */
+      .rl{font-weight:700;paint-order:stroke;stroke:white;stroke-width:5;stroke-linejoin:round}
+      .rs{paint-order:stroke;stroke:white;stroke-width:4;stroke-linejoin:round}
+      .nn{font-weight:700;paint-order:stroke;stroke:white;stroke-width:3;stroke-linejoin:round}
+      .ns{paint-order:stroke;stroke:white;stroke-width:2.5;stroke-linejoin:round}
+    </style>
   </defs>
 
   <!-- ─── Faction zone backgrounds ─── -->
-  <!-- 寇俠區 -->
-  <rect x="15" y="90" width="245" height="380" rx="8" fill="#fff0f0" stroke="#c44" stroke-width="1.5" stroke-dasharray="5,3" opacity=".7"/>
-  <text x="28" y="112" font-size="12" fill="#8b0000" font-weight="700">寇俠陣營</text>
+  <rect x="8" y="100" width="255" height="360" rx="8" fill="#fff0f0" stroke="#c44" stroke-width="1.5" stroke-dasharray="5,3" opacity=".7"/>
+  <text x="22" y="120" font-size="12" fill="#8b0000" font-weight="700">寇俠陣營</text>
 
-  <!-- 绣衣使區 -->
-  <rect x="635" y="90" width="250" height="360" rx="8" fill="#eef0ff" stroke="#44c" stroke-width="1.5" stroke-dasharray="5,3" opacity=".7"/>
-  <text x="648" y="112" font-size="12" fill="#003399" font-weight="700">绣衣使陣營</text>
+  <rect x="288" y="140" width="322" height="350" rx="8" fill="#f7f7f7" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3" opacity=".65"/>
+  <text x="302" y="158" font-size="12" fill="#555" font-weight="700">自由 / 中立</text>
 
-  <!-- 自由/中立區 -->
-  <rect x="278" y="118" width="340" height="360" rx="8" fill="#f7f7f7" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3" opacity=".7"/>
-  <text x="292" y="138" font-size="12" fill="#555" font-weight="700">自由 / 中立</text>
+  <rect x="600" y="100" width="390" height="340" rx="8" fill="#eef0ff" stroke="#44c" stroke-width="1.5" stroke-dasharray="5,3" opacity=".65"/>
+  <text x="614" y="120" font-size="12" fill="#003399" font-weight="700">绣衣使陣營</text>
 
-  <!-- 已故區 -->
-  <rect x="358" y="490" width="194" height="68" rx="6" fill="#ffe8e8" stroke="#c44" stroke-width="1" stroke-dasharray="3,3" opacity=".7"/>
-  <text x="374" y="508" font-size="11" fill="#8b0000">已故 / 被害人</text>
+  <rect x="428" y="566" width="148" height="62" rx="6" fill="#ffe8e8" stroke="#c44" stroke-width="1" stroke-dasharray="3,3" opacity=".75"/>
+  <text x="444" y="582" font-size="10" fill="#8b0000">已故 / 被害人</text>
 
-  <!-- ─── Relationship Lines ─── -->
+  <!-- ─── RELATIONSHIP PATHS ─── -->
 
-  <!-- ★ 金四刃 ↔ 嚴氏: 失散兄妹（最大秘密）dashed red thick -->
-  <line x1="162" y1="205" x2="528" y2="248"
-        stroke="#c00" stroke-width="3" stroke-dasharray="8,4"/>
-  <!-- Label -->
-  <rect x="270" y="188" width="185" height="20" rx="3" fill="white" opacity=".88"/>
-  <text x="362" y="202" text-anchor="middle" font-size="11" fill="#c00" font-weight="700">★ 失散兄妹（雙方皆不知）</text>
+  <!-- ★ 金四刃 ↔ 嚴氏: 失散兄妹 — arc HIGH above all nodes -->
+  <path d="M 130 230 C 220 32 570 32 650 268"
+        stroke="#c00" stroke-width="3" stroke-dasharray="9,4" fill="none"/>
+  <text x="390" y="24" text-anchor="middle" font-size="11" fill="#c00" class="rl">★ 失散兄妹（雙方皆不知）</text>
 
-  <!-- 嚴逸 → 嚴氏: 指揮殺人 orange -->
-  <line x1="700" y1="167" x2="598" y2="234"
-        stroke="#a56000" stroke-width="2" marker-end="url(#arr-orange)"/>
-  <rect x="625" y="177" width="80" height="18" rx="3" fill="white" opacity=".85"/>
-  <text x="665" y="190" text-anchor="middle" font-size="10" fill="#a56000" font-weight="700">指揮→殺人</text>
+  <!-- 嚴逸 → 嚴氏: 指揮殺人 orange arrow -->
+  <path d="M 824 215 C 792 232 755 248 691 257"
+        stroke="#a56000" stroke-width="2" fill="none" marker-end="url(#arr-orange)"/>
+  <text x="760" y="220" text-anchor="middle" font-size="10" fill="#a56000" class="rl">指揮→殺人</text>
 
-  <!-- 嚴逸 ↔ 賈三娘: 绣衣使同僚 blue -->
-  <line x1="745" y1="178" x2="738" y2="288"
-        stroke="#44c" stroke-width="2"/>
-  <rect x="752" y="223" width="72" height="18" rx="3" fill="white" opacity=".85"/>
-  <text x="789" y="236" text-anchor="middle" font-size="10" fill="#44c" font-weight="700">绣衣使同僚</text>
+  <!-- 嚴逸 ↔ 賈三娘: 绣衣使同僚 blue, arc right -->
+  <path d="M 850 238 C 905 290 905 340 834 355"
+        stroke="#44c" stroke-width="2" fill="none"/>
+  <text x="912" y="299" text-anchor="start" font-size="10" fill="#44c" class="rl">绣衣使同僚</text>
 
-  <!-- 嚴氏 ↔ 賈三娘: 绣衣使同陣營 dashed blue -->
-  <line x1="586" y1="264" x2="710" y2="295"
-        stroke="#44c" stroke-width="1.5" stroke-dasharray="5,3"/>
-  <rect x="628" y="271" width="72" height="18" rx="3" fill="white" opacity=".85"/>
-  <text x="664" y="284" text-anchor="middle" font-size="9" fill="#44c">绣衣使同陣營</text>
+  <!-- 嚴氏 ↔ 賈三娘: 绣衣使同陣 dashed blue -->
+  <path d="M 684 290 C 730 322 780 355 805 369"
+        stroke="#44c" stroke-width="1.5" stroke-dasharray="5,3" fill="none"/>
+  <text x="748" y="312" text-anchor="middle" font-size="9" fill="#44c" class="rs">绣衣使同陣</text>
 
-  <!-- 農叟 ↔ 王順: 舊主-舊部 teal -->
-  <line x1="415" y1="195" x2="435" y2="318"
-        stroke="#0e5a5a" stroke-width="2"/>
-  <rect x="390" y="248" width="72" height="18" rx="3" fill="white" opacity=".85"/>
-  <text x="426" y="261" text-anchor="middle" font-size="10" fill="#0e5a5a" font-weight="700">舊主→舊部</text>
+  <!-- 農叟 ↔ 王順: 舊主→舊部 teal -->
+  <path d="M 426 241 C 428 283 444 325 449 346"
+        stroke="#0e5a5a" stroke-width="2" fill="none"/>
+  <text x="382" y="294" text-anchor="middle" font-size="10" fill="#0e5a5a" class="rl">舊主→舊部</text>
 
   <!-- 嚴氏 → 冷降塵: 殺害（凶案）thick red arrow -->
-  <line x1="556" y1="272" x2="465" y2="492"
-        stroke="#c00" stroke-width="3.5" marker-end="url(#arr-red)"/>
-  <rect x="490" y="370" width="80" height="18" rx="3" fill="white" opacity=".9"/>
-  <text x="530" y="383" text-anchor="middle" font-size="11" fill="#c00" font-weight="700">★ 殺害（凶案）</text>
+  <path d="M 634 306 C 610 405 578 508 512 584"
+        stroke="#c00" stroke-width="3.5" fill="none" marker-end="url(#arr-red)"/>
+  <text x="618" y="428" text-anchor="start" font-size="11" fill="#c00" class="rl">★ 殺害（凶案）</text>
 
-  <!-- 刁五兒 → 冷降塵: 父親舊識 dashed purple -->
-  <line x1="496" y1="450" x2="459" y2="492"
-        stroke="#7a2d9d" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-purple)"/>
-  <rect x="456" y="458" width="78" height="17" rx="3" fill="white" opacity=".85"/>
-  <text x="495" y="470" text-anchor="middle" font-size="9" fill="#7a2d9d">父親舊識?（推斷）</text>
+  <!-- 刁五兒 → 冷降塵: 父親舊識 dashed purple arrow -->
+  <path d="M 537 496 C 527 535 516 562 510 583"
+        stroke="#7a2d9d" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-purple)"/>
+  <text x="554" y="538" text-anchor="start" font-size="9" fill="#7a2d9d" class="rs">父親舊識?</text>
 
   <!-- 金四刃 ↔ 王思涵: 初始同陣營 dashed coral -->
-  <line x1="148" y1="228" x2="185" y2="330"
-        stroke="#c44" stroke-width="1.5" stroke-dasharray="5,3"/>
-  <rect x="110" y="274" width="85" height="17" rx="3" fill="white" opacity=".85"/>
-  <text x="153" y="286" text-anchor="middle" font-size="9" fill="#c44">初始同陣營</text>
+  <path d="M 137 264 C 133 318 150 360 159 380"
+        stroke="#c44" stroke-width="1.5" stroke-dasharray="5,3" fill="none"/>
+  <text x="68" y="323" text-anchor="middle" font-size="9" fill="#c44" class="rs">初始同陣營</text>
 
-  <!-- 農叟 ↔ 金四刃: 大夏歷史關聯 uncertain dashed gray -->
-  <line x1="265" y1="198" x2="175" y2="208"
-        stroke="#aaa" stroke-width="1.5" stroke-dasharray="3,4"/>
-  <rect x="188" y="192" width="82" height="16" rx="3" fill="white" opacity=".85"/>
-  <text x="229" y="204" text-anchor="middle" font-size="9" fill="#888" font-style="italic">大夏關聯?（待確認）</text>
+  <!-- 農叟 ↔ 金四刃: 大夏歷史關聯? gray dashed -->
+  <path d="M 389 212 C 330 208 265 215 165 228"
+        stroke="#aaa" stroke-width="1.5" stroke-dasharray="3,4" fill="none"/>
+  <text x="273" y="198" text-anchor="middle" font-size="9" fill="#888" font-style="italic" class="rs">大夏關聯?（待確認）</text>
 
-  <!-- ─── Character Nodes ─── -->
+  <!-- ─── CHARACTER NODES ─── (drawn AFTER lines so nodes are on top) -->
 
-  <!-- 金四刃 (130,210) 寇俠 -->
-  <circle cx="130" cy="210" r="36" fill="#c44" opacity=".15" stroke="#c44" stroke-width="2"/>
-  <circle cx="130" cy="210" r="34" fill="white" stroke="#c44" stroke-width="2"/>
-  <text x="130" y="205" text-anchor="middle" font-size="13" fill="#8b0000" font-weight="700">金四刃</text>
-  <text x="130" y="221" text-anchor="middle" font-size="9" fill="#c44">何乃武</text>
-  <text x="130" y="234" text-anchor="middle" font-size="8.5" fill="#555">寇俠核心</text>
+  <!-- 金四刃 (130,230) 寇俠 -->
+  <circle cx="130" cy="230" r="35" fill="#fff0f0" stroke="#c44" stroke-width="2.5"/>
+  <text x="130" y="225" text-anchor="middle" font-size="13" fill="#8b0000" class="nn">金四刃</text>
+  <text x="130" y="240" text-anchor="middle" font-size="9" fill="#c44" class="ns">何乃武</text>
+  <text x="130" y="253" text-anchor="middle" font-size="8" fill="#555" class="ns">寇俠核心</text>
 
-  <!-- 王思涵 (185,350) 初始寇俠 -->
-  <circle cx="185" cy="352" r="32" fill="white" stroke="#c44" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <text x="185" y="347" text-anchor="middle" font-size="12" fill="#8b0000" font-weight="700">王思涵</text>
-  <text x="185" y="362" text-anchor="middle" font-size="9" fill="#c44">旭敏芝</text>
-  <text x="185" y="375" text-anchor="middle" font-size="8" fill="#666">自由（初寇俠）</text>
+  <!-- 王思涵 (165,410) 初始寇俠 -->
+  <circle cx="165" cy="410" r="31" fill="white" stroke="#c44" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="165" y="405" text-anchor="middle" font-size="12" fill="#8b0000" class="nn">王思涵</text>
+  <text x="165" y="419" text-anchor="middle" font-size="9" fill="#c44" class="ns">旭敏芝</text>
+  <text x="165" y="431" text-anchor="middle" font-size="7.5" fill="#666" class="ns">自由（初寇俠）</text>
 
-  <!-- 農叟 (390,180) 自由 -->
-  <circle cx="390" cy="180" r="32" fill="white" stroke="#666" stroke-width="1.5"/>
-  <text x="390" y="175" text-anchor="middle" font-size="12" fill="#333" font-weight="700">農叟</text>
-  <text x="390" y="190" text-anchor="middle" font-size="9" fill="#555">丁崧</text>
-  <text x="390" y="203" text-anchor="middle" font-size="8" fill="#666">自由（無陣營）</text>
+  <!-- 農叟 (420,210) 自由 -->
+  <circle cx="420" cy="210" r="31" fill="white" stroke="#666" stroke-width="1.5"/>
+  <text x="420" y="205" text-anchor="middle" font-size="12" fill="#333" class="nn">農叟</text>
+  <text x="420" y="219" text-anchor="middle" font-size="9" fill="#555" class="ns">丁崧</text>
+  <text x="420" y="231" text-anchor="middle" font-size="7.5" fill="#666" class="ns">自由（無陣營）</text>
 
-  <!-- 王順 (435,340) 自由 -->
-  <circle cx="435" cy="340" r="32" fill="white" stroke="#666" stroke-width="1.5"/>
-  <text x="435" y="335" text-anchor="middle" font-size="12" fill="#333" font-weight="700">王順</text>
-  <text x="435" y="350" text-anchor="middle" font-size="9" fill="#555">龐萬金</text>
-  <text x="435" y="363" text-anchor="middle" font-size="8" fill="#666">自由</text>
+  <!-- 王順 (455,375) 自由 -->
+  <circle cx="455" cy="375" r="30" fill="white" stroke="#666" stroke-width="1.5"/>
+  <text x="455" y="370" text-anchor="middle" font-size="12" fill="#333" class="nn">王順</text>
+  <text x="455" y="384" text-anchor="middle" font-size="9" fill="#555" class="ns">龐萬金</text>
+  <text x="455" y="396" text-anchor="middle" font-size="7.5" fill="#666" class="ns">自由</text>
 
-  <!-- 刁五兒 (495,440) 自由 -->
-  <circle cx="495" cy="440" r="32" fill="white" stroke="#666" stroke-width="1.5"/>
-  <text x="495" y="435" text-anchor="middle" font-size="12" fill="#333" font-weight="700">刁五兒</text>
-  <text x="495" y="450" text-anchor="middle" font-size="9" fill="#5b2c8d">冷鈺（女）</text>
-  <text x="495" y="463" text-anchor="middle" font-size="8" fill="#666">自由</text>
+  <!-- 刁五兒 (545,468) 自由 -->
+  <circle cx="545" cy="468" r="29" fill="white" stroke="#666" stroke-width="1.5"/>
+  <text x="545" y="463" text-anchor="middle" font-size="12" fill="#333" class="nn">刁五兒</text>
+  <text x="545" y="477" text-anchor="middle" font-size="9" fill="#5b2c8d" class="ns">冷鈺（女）</text>
+  <text x="545" y="489" text-anchor="middle" font-size="7.5" fill="#666" class="ns">自由</text>
 
-  <!-- 張猛 (140,445) NPC -->
-  <circle cx="140" cy="445" r="28" fill="#f0f0e8" stroke="#888" stroke-width="1"/>
-  <text x="140" y="440" text-anchor="middle" font-size="12" fill="#555" font-weight="700">張猛</text>
-  <text x="140" y="455" text-anchor="middle" font-size="8.5" fill="#888">NPC</text>
+  <!-- 張猛 (330,470) NPC 在自由區 -->
+  <circle cx="330" cy="470" r="26" fill="#f0f0e8" stroke="#888" stroke-width="1"/>
+  <text x="330" y="465" text-anchor="middle" font-size="12" fill="#555" class="nn">張猛</text>
+  <text x="330" y="479" text-anchor="middle" font-size="8.5" fill="#888" class="ns">NPC</text>
 
-  <!-- 嚴氏 (560,252) PIVOT: 绣衣使/大夏皇族 -->
-  <circle cx="560" cy="252" r="38" fill="#fff0f0" stroke="#c44" stroke-width="1.5"/>
-  <circle cx="560" cy="252" r="38" fill="#eef0ff" stroke="#44c" stroke-width="1.5" opacity=".5"/>
-  <text x="560" y="242" text-anchor="middle" font-size="13" fill="#8b0000" font-weight="700">嚴氏</text>
-  <text x="560" y="257" text-anchor="middle" font-size="9" fill="#c00" font-weight="700">栾绛/何乃清</text>
-  <text x="560" y="270" text-anchor="middle" font-size="8" fill="#8b0000">★ 凶手 ★</text>
-  <text x="560" y="282" text-anchor="middle" font-size="8" fill="#44c">绣衣使執行者</text>
+  <!-- 嚴氏 (650,268) PIVOT: 绣衣使/大夏皇族 — LARGEST NODE -->
+  <circle cx="650" cy="268" r="41" fill="#fff0f0" stroke="#c44" stroke-width="2"/>
+  <circle cx="650" cy="268" r="41" fill="#eef0ff" stroke="#44c" stroke-width="2" opacity=".55"/>
+  <text x="650" y="256" text-anchor="middle" font-size="13" fill="#8b0000" class="nn">嚴氏</text>
+  <text x="650" y="270" text-anchor="middle" font-size="9" fill="#c00" font-weight="700" class="ns">栾绛 / 何乃清</text>
+  <text x="650" y="283" text-anchor="middle" font-size="8.5" fill="#8b0000" class="ns">★ 凶手 ★</text>
+  <text x="650" y="295" text-anchor="middle" font-size="7.5" fill="#44c" class="ns">绣衣使執行者</text>
 
-  <!-- 嚴逸 (740,160) 绣衣使 -->
-  <circle cx="740" cy="160" r="34" fill="white" stroke="#44c" stroke-width="2"/>
-  <text x="740" y="154" text-anchor="middle" font-size="13" fill="#003399" font-weight="700">嚴逸</text>
-  <text x="740" y="169" text-anchor="middle" font-size="9" fill="#44c">殘手（三號）</text>
-  <text x="740" y="182" text-anchor="middle" font-size="8.5" fill="#555">绣衣使核心</text>
+  <!-- 嚴逸 (855,205) 绣衣使 -->
+  <circle cx="855" cy="205" r="33" fill="white" stroke="#44c" stroke-width="2"/>
+  <text x="855" y="199" text-anchor="middle" font-size="13" fill="#003399" class="nn">嚴逸</text>
+  <text x="855" y="213" text-anchor="middle" font-size="9" fill="#44c" class="ns">殘手（三號）</text>
+  <text x="855" y="226" text-anchor="middle" font-size="7.5" fill="#555" class="ns">绣衣使核心</text>
 
-  <!-- 賈三娘 (730,320) 绣衣使 -->
-  <circle cx="730" cy="320" r="32" fill="white" stroke="#44c" stroke-width="1.5"/>
-  <text x="730" y="314" text-anchor="middle" font-size="12" fill="#003399" font-weight="700">賈三娘</text>
-  <text x="730" y="329" text-anchor="middle" font-size="9" fill="#44c">歸雪</text>
-  <text x="730" y="342" text-anchor="middle" font-size="8" fill="#555">绣衣使輔助</text>
+  <!-- 賈三娘 (830,385) 绣衣使 -->
+  <circle cx="830" cy="385" r="30" fill="white" stroke="#44c" stroke-width="1.5"/>
+  <text x="830" y="379" text-anchor="middle" font-size="12" fill="#003399" class="nn">賈三娘</text>
+  <text x="830" y="393" text-anchor="middle" font-size="9" fill="#44c" class="ns">歸雪</text>
+  <text x="830" y="405" text-anchor="middle" font-size="7.5" fill="#555" class="ns">绣衣使輔助</text>
 
-  <!-- 冷降塵 (450,523) 已故 -->
-  <circle cx="450" cy="523" r="28" fill="#ffe8e8" stroke="#c44" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <text x="450" y="518" text-anchor="middle" font-size="12" fill="#8b0000" font-weight="700">冷降塵</text>
-  <text x="450" y="533" text-anchor="middle" font-size="8.5" fill="#c00">被害人（已故）</text>
+  <!-- 冷降塵 (502,608) 已故 -->
+  <circle cx="502" cy="608" r="26" fill="#ffe8e8" stroke="#c44" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="502" y="603" text-anchor="middle" font-size="12" fill="#8b0000" class="nn">冷降塵</text>
+  <text x="502" y="617" text-anchor="middle" font-size="8" fill="#c00" class="ns">被害人（已故）</text>
 
-  <!-- 總估算時間 bottom caption -->
-  <text x="450" y="570" text-anchor="middle" font-size="9" fill="#aaa">來源：DM手册.pdf　角色劇本 PDF 均為 OCR needed</text>
+  <!-- Caption -->
+  <text x="500" y="652" text-anchor="middle" font-size="9" fill="#aaa">來源：DM手册.pdf　角色劇本 PDF 均為 OCR needed</text>
 </svg>
 </div>
 

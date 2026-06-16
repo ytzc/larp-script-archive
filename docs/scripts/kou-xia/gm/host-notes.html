@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>主持人流程筆記 — 寇侠 GM</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
+  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
+  --teal:#0e5a5a;--gold:#856404;--gold-lt:#fff8e0;
+  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
+  --shadow:0 1px 5px rgba(0,0,0,.1);
+}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1.08em;color:#333;margin:1.2em 0 .4em}
+h4{font-size:.95em;color:#555;margin:.9em 0 .3em}
+ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
+p{margin-bottom:.8em}
+code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
+
+/* ── Banner ── */
+.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+
+/* ── Top Nav ── */
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
+.top-nav .nav-links{display:flex;gap:1em;align-items:center}
+.top-nav .page-nav{display:flex;gap:1em;align-items:center;color:var(--muted)}
+.top-nav a{color:var(--red)}
+
+/* ── Breadcrumb ── */
+.breadcrumb{padding:.4em 1.2em;font-size:.8em;color:var(--muted);background:#fff3e8;border-bottom:1px solid #e8ddd0}
+.breadcrumb a{color:var(--red)}
+
+/* ── Wrapper ── */
+.wrapper{max-width:1060px;margin:0 auto;padding:1.5em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+
+/* ── Notice ── */
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
+.n-tip{background:var(--gold-lt);border-color:#e0a800}
+
+/* ── Tables ── */
+table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
+th{background:var(--red);color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
+tr:nth-child(even)td{background:#faf5ee}
+
+/* ── Quick ref cards ── */
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1em;margin:.8em 0}
+.quick-card{border:1px solid #e0d0c0;border-radius:5px;padding:1em;background:var(--white)}
+.quick-card h4{color:var(--red);margin-top:0;border-bottom:1px solid #e0d0c0;padding-bottom:.4em;margin-bottom:.6em}
+
+/* ── Phase timeline ── */
+.phases{display:flex;flex-direction:column;gap:.6em}
+.phase{display:grid;grid-template-columns:60px 1fr;gap:0;border:1px solid #e0d0c0;border-radius:6px;overflow:hidden;background:var(--white)}
+.phase-num{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--red);color:#fff;font-size:1.3em;font-weight:700;padding:.6em .3em;min-height:64px;text-align:center;line-height:1.1}
+.phase-num small{font-size:.55em;font-weight:400;margin-top:.2em}
+.phase-body{padding:.7em 1em}
+.phase-title{font-weight:700;color:var(--ink);font-size:1em;margin-bottom:.2em}
+.phase-dur{display:inline-block;background:#e8ddd0;border-radius:3px;padding:.05em .45em;font-size:.78em;color:var(--muted);margin-left:.4em}
+.phase-ops{font-size:.88em;color:#444;margin:.4em 0 0 0}
+.phase-ops li{margin-bottom:.2em}
+.phase.key .phase-num{background:#cc5500}
+.phase.critical .phase-num{background:#8b0000}
+.phase.debrief .phase-num{background:#333}
+
+/* ── Faction badge ── */
+.f-kou{color:#8b0000;font-weight:700}
+.f-xiu{color:#003399;font-weight:700}
+
+/* ── Details ── */
+details{margin:.3em 0}
+details summary{cursor:pointer;color:var(--red);font-size:.9em;padding:.3em 0;list-style:none;font-weight:600}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:'▶ '}
+details[open] summary::before{content:'▼ '}
+details[open]>*:not(summary){padding-left:.8em}
+
+/* ── Footer ── */
+.site-footer{text-align:center;padding:1.5em;font-size:.82em;color:var(--muted);border-top:1px solid #e0d0c0;margin-top:2em}
+.site-footer a{color:var(--red)}
+.page-nav-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:1em 1.2em;background:#fff3e8;border-top:1px solid #e0d0c0;font-size:.88em}
+.page-nav-footer a{color:var(--red);font-weight:600}
+
+/* ── Checklist ── */
+.checklist{list-style:none;margin-left:0}
+.checklist li{padding:.3em 0 .3em 1.8em;position:relative;border-bottom:1px solid #f0e8d8;font-size:.9em}
+.checklist li::before{content:'☐';position:absolute;left:.1em;color:var(--red);font-size:1.1em}
+
+/* ── Combat table faction colors ── */
+.c-kou td:first-child{color:#8b0000;font-weight:700}
+.c-xiu td:first-child{color:#003399;font-weight:700}
+.c-pivot td:first-child{color:#660044;font-weight:700}
+.c-free td:first-child{color:#333;font-weight:700}
+
+@media print{
+  .gm-banner,.top-nav,.breadcrumb{position:relative}
+  .section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="gm-banner">⚠️ GM ONLY — 主持人專用 — 含劇情真相與角色秘密 — 嚴禁玩家閱讀</div>
+
+<div class="top-nav">
+  <div class="nav-links">
+    <a href="../../../index.html">🏠 首頁</a>
+    <span>›</span>
+    <a href="../index.html">寇侠</a>
+    <span>›</span>
+    <a href="index.html">GM Area</a>
+    <span>›</span>
+    <strong>主持人流程筆記</strong>
+  </div>
+  <div class="page-nav">
+    <a href="index.html">← GM Area</a>
+    <span>|</span>
+    <a href="spoilers.html">劇情真相 →</a>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- Quick Reference -->
+<div class="section" id="quick">
+  <h2>⚡ 開本速查</h2>
+  <div class="quick-grid">
+
+    <div class="quick-card">
+      <h4>盒裝確認</h4>
+      <table><tbody>
+        <tr><td>組織者手冊</td><td>×1</td></tr>
+        <tr><td>人物劇本（角色＋NPC）</td><td>×9</td></tr>
+        <tr><td>線索卡</td><td>44 張</td></tr>
+        <tr><td>物品卡</td><td>30 張</td></tr>
+        <tr><td>武器卡</td><td>27 張</td></tr>
+        <tr><td>Buff卡</td><td>4 張</td></tr>
+        <tr><td>陣營卡</td><td>×13</td></tr>
+        <tr><td>拍賣單</td><td>×8</td></tr>
+        <tr><td>銀票、技能卡</td><td>若干</td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="quick-card">
+      <h4>戰鬥數值（陣營搏殺）</h4>
+      <table><thead><tr><th>角色</th><th>HP</th><th>武力</th></tr></thead>
+      <tbody>
+        <tr class="c-kou"><td>金四刃</td><td>30</td><td>5–8</td></tr>
+        <tr class="c-free"><td>農叟</td><td>40</td><td>6</td></tr>
+        <tr class="c-xiu"><td>嚴逸</td><td>30</td><td>4–7</td></tr>
+        <tr class="c-xiu"><td>賈三娘</td><td>30</td><td>5</td></tr>
+        <tr class="c-free"><td>王思涵</td><td>30</td><td>5</td></tr>
+        <tr class="c-free"><td>王順</td><td>30</td><td>5</td></tr>
+        <tr class="c-free"><td>刁五兒</td><td>25</td><td>3–6</td></tr>
+        <tr class="c-pivot"><td>嚴氏★</td><td>20</td><td>2–5</td></tr>
+      </tbody></table>
+      <p style="font-size:.8em;color:var(--muted);margin-top:.4em">★ = 凶手。武力值帶「–」的可用技能卡升。</p>
+    </div>
+
+    <div class="quick-card">
+      <h4>手勢暗號（4種）</h4>
+      <table><thead><tr><th>手勢</th><th>動作</th><th>代表</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>握拳伸小指</td><td class="f-kou">寇俠組織</td></tr>
+        <tr><td>B</td><td>食指比「叉」</td><td class="f-kou">大夏皇族</td></tr>
+        <tr><td>C</td><td>三指向下</td><td class="f-xiu">绣衣使內部</td></tr>
+        <tr><td>D</td><td>拇指左划</td><td class="f-xiu">绣衣使線人</td></tr>
+      </tbody></table>
+      <p style="font-size:.8em;color:var(--muted);margin-top:.4em">開本說明規則，不透露各手勢含義。</p>
+    </div>
+
+    <div class="quick-card">
+      <h4>答題系統（3輪）</h4>
+      <ul>
+        <li>每輪每人 3 題，答對 1 題 = <strong>10 兩銀票</strong></li>
+        <li>第 1 輪：情境一後 / 第一輪私聊</li>
+        <li>第 2 輪：情境二後 / 盤凶期間</li>
+        <li>第 3 輪：情境三後 / 第三輪私聊</li>
+      </ul>
+      <p style="font-size:.8em;color:var(--muted)">書面作答→交回→GM批改→公告對題數→發銀票。<br>銀票用於進程10武器拍賣。</p>
+    </div>
+
+    <div class="quick-card">
+      <h4>陣營勝利條件</h4>
+      <table><tbody>
+        <tr><td class="f-kou">寇俠陣營勝</td><td>搏殺後寇俠存活 ≥ 绣衣使，且<strong>金四刃存活</strong></td></tr>
+        <tr><td class="f-xiu">绣衣使陣營勝</td><td>搏殺後绣衣使存活 ≥ 寇俠，且<strong>嚴逸存活</strong></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="quick-card">
+      <h4>角色分配建議</h4>
+      <table><thead><tr><th>角色</th><th>難度</th><th>備注</th></tr></thead>
+      <tbody>
+        <tr><td>金四刃</td><td>核心</td><td>熟悉規則者</td></tr>
+        <tr><td>嚴逸</td><td>核心</td><td>強表演慾</td></tr>
+        <tr><td>嚴氏</td><td>高 ★</td><td><strong>凶手</strong>，需能守口如瓶</td></tr>
+        <tr><td>賈三娘</td><td>中</td><td>绣衣使輔助</td></tr>
+        <tr><td>農叟</td><td>中</td><td>成長型</td></tr>
+        <tr><td>王思涵</td><td>中</td><td>靈活陣營</td></tr>
+        <tr><td>王順</td><td>中</td><td>靈活陣營</td></tr>
+        <tr><td>刁五兒</td><td>中</td><td>隱藏性別</td></tr>
+        <tr><td>張猛</td><td>NPC</td><td>GM 或助理扮演</td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</div>
+
+<!-- 14 Game Phases -->
+<div class="section" id="phases">
+  <h2>🎯 14 個遊戲進程</h2>
+  <p style="color:var(--muted);font-size:.88em;margin-bottom:1em">預計總時長約 5 小時（可彈性調整）。關鍵進程以深橙色標示，複盤以深灰色標示。</p>
+
+  <div class="phases">
+
+    <!-- 01 -->
+    <div class="phase">
+      <div class="phase-num">01<small>5 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">發本、宣讀故事背景 <span class="phase-dur">~5 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>分發人物劇本（按角色分配），<strong>提醒玩家不讓他人看</strong></li>
+          <li>宣讀開場背景（組織者手冊開場稿）</li>
+          <li>介紹手勢暗號規則（不透露含義）</li>
+        </ul>
+        <details><summary>GM 說詞參考</summary>
+          <p style="font-style:italic;color:#555;font-size:.9em;margin-top:.4em">
+            「歡迎各位來到《寇俠》的世界。這是一個古代江湖的故事，各位扮演的角色聚集在一起，有著各自的目的與秘密。請各位先閱讀自己的角色劇本，不要讓其他玩家看見……」
+          </p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="phase">
+      <div class="phase-num">02<small>15 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">閱讀情境一 <span class="phase-dur">~15 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>玩家靜默閱讀「情境一」</li>
+          <li>有問題可私下問 GM</li>
+          <li>確認所有人閱讀完畢後進入下一進程</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="phase">
+      <div class="phase-num">03<small>5 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">道具發放 <span class="phase-dur">~5 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>發各角色道具卡、物品卡、初始線索卡</li>
+          <li>說明武器卡規則（武力值使用方式）</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="phase key">
+      <div class="phase-num">04<small>20 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">江湖軼事（公聊）<span class="phase-dur">~20 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>所有玩家公開對話，互相認識、交換江湖傳聞</li>
+          <li>GM 宣讀「江湖軼事」公告</li>
+          <li>提醒：此時可使用手勢確認陣營</li>
+        </ul>
+        <details><summary>GM 引導</summary>
+          <p style="font-style:italic;color:#555;font-size:.9em;margin-top:.4em">「各位在江湖上相遇，請先聊聊各自的近況與見聞……」</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="phase key">
+      <div class="phase-num">05<small>30 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">第一輪私聊 <span class="phase-dur">~30 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>開放自由走動，一對一或小組私聊</li>
+          <li><strong>發放第 1 輪答題卡</strong></li>
+          <li>計時 30 分鐘（可延長至 35 分）</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="phase key">
+      <div class="phase-num">06<small>30 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">江湖密行（挖寶）<span class="phase-dur">~30 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>宣布「挖寶環節」，玩家到指定地點尋找隱藏線索卡</li>
+          <li>需提前佈置線索（建議 8–12 張隱藏線索）</li>
+          <li>計時 30 分鐘，到時收回未找到的線索</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="phase critical">
+      <div class="phase-num">07<small>15 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">閱讀情境二 ＋ 布置凶案現場 <span class="phase-dur">~15 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>宣布「情境二」，玩家開始閱讀</li>
+          <li><strong>趁玩家閱讀時</strong>：佈置凶案現場（模擬屍體、線索卡）</li>
+          <li>玩家讀完後宣布：冷降塵遺體被發現</li>
+        </ul>
+        <div class="notice n-danger" style="margin-top:.6em;font-size:.87em">
+          死者：<strong>冷降塵</strong> | 凶手：<strong>嚴氏（何乃清）</strong> | 主謀：<strong>嚴逸（殘手）</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="phase critical">
+      <div class="phase-num">08<small>50–60</small></div>
+      <div class="phase-body">
+        <div class="phase-title">盤凶 <span class="phase-dur">50–60 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>所有玩家公開討論案情</li>
+          <li><strong>發放第 2 輪答題卡</strong></li>
+          <li>GM 在旁觀察，<strong>不主動透露資訊</strong></li>
+        </ul>
+        <details><summary>GM 引導提示</summary>
+          <p style="font-style:italic;color:#555;font-size:.9em;margin-top:.4em">若討論停滯：「是否有人有新的線索要公開？」不要直接引導到答案。</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="phase key">
+      <div class="phase-num">09<small>30 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">引蛇出洞（第二輪私聊）<span class="phase-dur">~30 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>開放自由走動</li>
+          <li>此輪為陣營間<strong>秘密斡旋的關鍵</strong>，自由陣營被兩方拉攏</li>
+          <li>計時 30 分鐘</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="phase key">
+      <div class="phase-num">10<small>30 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">情境三：武器拍賣（公聊）<span class="phase-dur">~30 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>宣讀「情境三」</li>
+          <li>主持武器拍賣：逐件競標，銀票出價最高者得</li>
+          <li>核算銀票，武器卡轉交得標者</li>
+        </ul>
+        <details><summary>GM 說詞</summary>
+          <p style="font-style:italic;color:#555;font-size:.9em;margin-top:.4em">「各位，此處有武器拍賣。出價最高者得，請以銀票競標……」</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="phase key">
+      <div class="phase-num">11<small>30 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">暗通款曲（第三輪私聊）<span class="phase-dur">~30 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>開放自由走動，最後一輪私聊</li>
+          <li><strong>發放第 3 輪答題卡</strong></li>
+          <li>各陣營最後串聯時間</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="phase critical">
+      <div class="phase-num">12<small>30 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">陣營搏殺 <span class="phase-dur">~30 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>各玩家宣告陣營歸屬（未選者此時必須選擇）</li>
+          <li>依 HP / 武力值執行戰鬥；HP 歸零即出局</li>
+          <li>計算存活人數，確認陣營勝負</li>
+          <li>注意：農叟、王思涵、王順、刁五兒 = 依劇本條件選邊</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="phase critical">
+      <div class="phase-num">13<small>15 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">故事結局 <span class="phase-dur">~15 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>依陣營勝負宣讀大結局（見 <a href="spoilers.html">劇情真相頁面</a>）</li>
+          <li>每位玩家依存活 / 陣營聽到個人結局</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 14 -->
+    <div class="phase debrief">
+      <div class="phase-num">14<small>20 分</small></div>
+      <div class="phase-body">
+        <div class="phase-title">復盤 <span class="phase-dur">~20 分鐘</span></div>
+        <ul class="phase-ops">
+          <li>宣布凶手（嚴氏 / 何乃清）及動機</li>
+          <li>逐一公開角色真實身份</li>
+          <li><strong>最後壓軸：嚴氏 ↔ 金四刃 = 失散兄妹（彩蛋）</strong></li>
+          <li>公布刁五兒真實性別（輕鬆彩蛋）</li>
+          <li>開放提問，讓玩家分享感受</li>
+        </ul>
+        <div class="notice n-tip" style="font-size:.87em;margin-top:.5em">
+          建議先確認兩位玩家心理狀態，再揭露兄妹真相。這是全場情感衝擊最強的瞬間。
+        </div>
+      </div>
+    </div>
+
+  </div><!-- .phases -->
+</div>
+
+<!-- Pre-game checklist -->
+<div class="section" id="checklist">
+  <h2>✅ 開本前準備清單</h2>
+  <ul class="checklist">
+    <li>確認所有盒裝道具齊全（線索卡44、物品卡30、武器卡27、Buff卡4、陣營卡13、拍賣單8）</li>
+    <li>熟悉各角色真實身份（見 <a href="spoilers.html">劇情真相</a>）</li>
+    <li>確認凶手：嚴氏（何乃清） ／ 被害人：冷降塵 ／ 主謀：嚴逸</li>
+    <li>確認最大彩蛋：嚴氏 = 金四刃之失散妹妹（雙方不知）</li>
+    <li>閱讀所有 9 份角色劇本（至少略讀）</li>
+    <li>確認張猛（NPC）的扮演方式</li>
+    <li>準備 3 輪答題卡（各 8 份）及答案</li>
+    <li>提前佈置場地（座位分隔、私聊用隱私空間）</li>
+    <li>佈置挖寶線索（進程 06，建議 8–12 張）</li>
+    <li>準備凶案現場道具（進程 07）</li>
+    <li>確認銀票初始分配 ／ 拍賣清單</li>
+  </ul>
+</div>
+
+</div><!-- .wrapper -->
+
+<div class="page-nav-footer">
+  <a href="index.html">← GM Area 首頁</a>
+  <a href="spoilers.html">劇情真相與結局 →</a>
+</div>
+<div class="site-footer">
+  <a href="../../../index.html">📜 LARP Script Archive</a> ｜
+  <a href="../index.html">寇侠</a> ｜
+  <a href="index.html">GM Area</a><br>
+  <span style="color:#bbb;font-size:.8em">本頁僅供 GM 使用，部署於 GitHub Pages，任何知道 URL 的人均可存取。</span>
+</div>
+
+<script src="../../../assets/js/version.js"></script>
+</body>
+</html>

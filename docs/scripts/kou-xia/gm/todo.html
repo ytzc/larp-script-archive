@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GM 待整理清單 — 寇侠</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
+  --orange:#cc5500;--orange-lt:#fff3e8;
+  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
+  --green:#155724;--green-lt:#d4edda;
+  --gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;
+  --purple:#5b2c8d;--purple-lt:#f0e6ff;
+  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
+  --shadow:0 1px 5px rgba(0,0,0,.1);
+}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+p{margin-bottom:.8em}
+code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
+
+.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;border-bottom:3px solid #ff4444}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
+.top-nav .nav-links{display:flex;gap:1em;align-items:center}
+.top-nav .page-nav{display:flex;gap:1em;align-items:center;color:var(--muted)}
+.top-nav a{color:var(--red)}
+
+.wrapper{max-width:1000px;margin:0 auto;padding:1.5em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
+.n-tip{background:var(--gold-lt);border-color:#e0a800}
+.n-ok{background:var(--green-lt);border-color:#2d7a4a}
+
+/* ── Status overview chips ── */
+.status-row{display:flex;flex-wrap:wrap;gap:.8em;margin:.8em 0}
+.chip{display:inline-flex;align-items:center;gap:.4em;padding:.4em .9em;border-radius:20px;font-size:.85em;font-weight:700}
+.chip-open{background:#fff0f0;color:#8b0000;border:1px solid var(--red-b)}
+.chip-ocr{background:var(--purple-lt);color:var(--purple);border:1px solid #9c5bd4}
+.chip-medium{background:var(--gold-lt);color:var(--gold);border:1px solid #c8a200}
+.chip-done{background:var(--green-lt);color:var(--green);border:1px solid #2d7a4a}
+
+/* ── Todo items ── */
+.todo-list{list-style:none;margin:0}
+.todo-item{border:1px solid #e0d0c0;border-radius:6px;margin-bottom:.8em;overflow:hidden;background:var(--white)}
+.todo-header{display:grid;grid-template-columns:36px 1fr auto;gap:0;align-items:stretch;cursor:default}
+.todo-num{display:flex;align-items:center;justify-content:center;background:#f0e8d8;font-weight:700;color:var(--muted);font-size:.95em;padding:.6em .5em}
+.todo-title-area{padding:.65em .9em}
+.todo-title{font-weight:700;color:var(--ink);font-size:.95em}
+.todo-title small{font-weight:400;color:var(--muted);font-size:.85em;display:block;margin-top:.1em}
+.todo-badge{display:flex;align-items:center;padding:0 .9em}
+.badge{display:inline-block;padding:.15em .5em;border-radius:3px;font-size:.78em;font-weight:700}
+.b-p1{background:#fff0f0;color:#8b0000;border:1px solid var(--red-b)}
+.b-p2{background:var(--gold-lt);color:var(--gold);border:1px solid #c8a200}
+.b-p3{background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-b)}
+.b-ocr{background:var(--purple-lt);color:var(--purple);border:1px solid #9c5bd4}
+.b-done{background:var(--green-lt);color:var(--green)}
+.todo-body{padding:.6em 1em .8em;border-top:1px solid #f0e8e0;background:#fffcf8;font-size:.88em}
+.todo-body .field{margin-bottom:.4em;display:grid;grid-template-columns:90px 1fr;gap:.4em;align-items:baseline}
+.todo-body .field-label{font-weight:700;color:var(--muted);font-size:.85em}
+.todo-body .field-val{color:var(--ink)}
+.todo-body .follow{margin-top:.6em;padding:.5em .8em;background:var(--gold-lt);border-left:3px solid #c8a200;border-radius:3px;font-size:.87em;color:var(--gold)}
+
+/* ── Priority groups ── */
+.priority-head{display:flex;align-items:center;gap:.7em;margin:1.5em 0 .7em}
+.priority-head h3{margin:0;font-size:1.05em}
+.priority-bar{flex:1;height:2px;border-radius:1px}
+.p1-bar{background:var(--red-b)}
+.p2-bar{background:#c8a200}
+.p3-bar{background:var(--blue-b)}
+
+/* ── Notes box ── */
+.notes-box{border:2px dashed #c0b090;border-radius:6px;padding:1em;background:#faf3ea;font-size:.88em;color:var(--muted);min-height:80px;font-style:italic}
+
+/* ── Footer ── */
+.site-footer{text-align:center;padding:1.5em;font-size:.82em;color:var(--muted);border-top:1px solid #e0d0c0;margin-top:2em}
+.site-footer a{color:var(--red)}
+.page-nav-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:1em 1.2em;background:#fff3e8;border-top:1px solid #e0d0c0;font-size:.88em}
+.page-nav-footer a{color:var(--red);font-weight:600}
+
+@media print{.gm-banner,.top-nav{position:relative}.section{box-shadow:none;border:1px solid #ccc}}
+</style>
+</head>
+<body>
+
+<div class="gm-banner">⚠️ GM ONLY — 寇侠 GM 待整理清單</div>
+
+<div class="top-nav">
+  <div class="nav-links">
+    <a href="../../../index.html">🏠 首頁</a>
+    <span>›</span>
+    <a href="../index.html">寇侠</a>
+    <span>›</span>
+    <a href="index.html">GM Area</a>
+    <span>›</span>
+    <strong>待整理清單</strong>
+  </div>
+  <div class="page-nav">
+    <a href="relationship-map.html">← 人物關係圖</a>
+    <span>|</span>
+    <a href="index.html">GM Area 首頁</a>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- Status Overview -->
+<div class="section" id="overview">
+  <h2>📊 狀態總覽</h2>
+  <div class="status-row">
+    <div class="chip chip-open">⛔ 高優先 × 3</div>
+    <div class="chip chip-ocr">🔍 OCR needed × 5</div>
+    <div class="chip chip-medium">⚠ 中優先 × 3</div>
+    <div class="chip chip-done">✓ 已完成 × 2</div>
+  </div>
+  <div class="notice n-info">
+    <strong>說明：</strong>本頁整理出所有需要人工確認、OCR 處理或進一步研究的 GM 待辦事項。<br>
+    「高優先」項目應在<strong>開本前</strong>完成確認，以免現場出現無法回答的問題。
+  </div>
+</div>
+
+<!-- HIGH PRIORITY -->
+<div class="section">
+  <div class="priority-head">
+    <h3>⛔ 高優先 — 開本前必須確認</h3>
+    <div class="priority-bar p1-bar"></div>
+  </div>
+
+  <ul class="todo-list">
+
+    <li class="todo-item">
+      <div class="todo-header">
+        <div class="todo-num">1</div>
+        <div class="todo-title-area">
+          <div class="todo-title">張猛（NPC）的具體職能與扮演方式</div>
+          <small>DM手册 僅提及「NPC，GM或助理扮演」，無詳細職能說明</small>
+        </div>
+        <div class="todo-badge"><span class="badge b-p1">高優先</span></div>
+      </div>
+      <div class="todo-body">
+        <div class="field"><span class="field-label">問題</span><span class="field-val">張猛在遊戲中扮演什麼角色？有哪些台詞或情節？是否需要特殊準備？</span></div>
+        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>張猛劇本.pdf</code>（25MB，純圖像，OCR needed）</span></div>
+        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">僅知為 NPC，由 GM 或助理扮演。無其他細節。</span></div>
+        <div class="follow">📌 後續步驟：人工閱讀 <code>local-private/kou-xia/pdf/張猛劇本.pdf</code>，整理 NPC 扮演說明後更新 <a href="host-notes.html">主持人流程筆記</a>。</div>
+      </div>
+    </li>
+
+    <li class="todo-item">
+      <div class="todo-header">
+        <div class="todo-num">2</div>
+        <div class="todo-title-area">
+          <div class="todo-title">各自由陣營角色的具體個人勝利條件</div>
+          <small>農叟、王思涵、王順、刁五兒的個人條件在角色劇本中，DM手册僅概述</small>
+        </div>
+        <div class="todo-badge"><span class="badge b-p1">高優先</span></div>
+      </div>
+      <div class="todo-body">
+        <div class="field"><span class="field-label">問題</span><span class="field-val">各角色加入不同陣營的條件、個人勝利條件、選邊的觸發機制為何？</span></div>
+        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>農叟.pdf / 王思涵.pdf / 王順.pdf / 刁五兒劇本.pdf</code>（均 OCR needed）</span></div>
+        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">DM手册確認四人為自由陣營，可加入任一方；農叟↔王順有舊主舊部連結。</span></div>
+        <div class="follow">📌 後續步驟：逐一人工閱讀四份角色劇本，整理個人勝利條件表格，補充到 <a href="spoilers.html">劇情真相頁面</a>。</div>
+      </div>
+    </li>
+
+    <li class="todo-item">
+      <div class="todo-header">
+        <div class="todo-num">3</div>
+        <div class="todo-title-area">
+          <div class="todo-title">3 輪答題系統的具體題目與答案</div>
+          <small>DM手册說明系統規則，但題目和答案應在盒裝答題卡中</small>
+        </div>
+        <div class="todo-badge"><span class="badge b-p1">高優先</span></div>
+      </div>
+      <div class="todo-body">
+        <div class="field"><span class="field-label">問題</span><span class="field-val">每輪共幾題？題目內容是什麼？對應答案？銀票如何計算？</span></div>
+        <div class="field"><span class="field-label">原始來源</span><span class="field-val">盒裝答題卡（請確認是否在遊戲盒內）/ DM手册（OCR needed）</span></div>
+        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">3輪 × 每人3題，答對1題＝10兩銀票。GM書面批改，公告對題數不公告內容。</span></div>
+        <div class="follow">📌 後續步驟：確認盒裝中是否有答題卡。若無，向 K的遊戲工作室或百度網盤原始資料查詢。</div>
+      </div>
+    </li>
+
+  </ul>
+</div>
+
+<!-- MEDIUM PRIORITY -->
+<div class="section">
+  <div class="priority-head">
+    <h3>⚠ 中優先 — 建議開本前確認，影響遊戲體驗</h3>
+    <div class="priority-bar p2-bar"></div>
+  </div>
+
+  <ul class="todo-list">
+
+    <li class="todo-item">
+      <div class="todo-header">
+        <div class="todo-num">4</div>
+        <div class="todo-title-area">
+          <div class="todo-title">賈三娘感情線的對象與細節</div>
+          <small>DM手册提及感情線可能影響立場，但對象不明</small>
+        </div>
+        <div class="todo-badge"><span class="badge b-p2">中優先</span></div>
+      </div>
+      <div class="todo-body">
+        <div class="field"><span class="field-label">問題</span><span class="field-val">感情線對象是誰？條件是什麼？她倒戈的具體結局是？</span></div>
+        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>賈三娘.pdf</code>（44MB，OCR needed）</span></div>
+        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">感情線可能使立場動搖（DM手册）。對象不明。</span></div>
+        <div class="follow">📌 後續步驟：人工閱讀賈三娘劇本。確認感情線後在 <a href="relationship-map.html">人物關係圖</a> 補充對應連結。</div>
+      </div>
+    </li>
+
+    <li class="todo-item">
+      <div class="todo-header">
+        <div class="todo-num">5</div>
+        <div class="todo-title-area">
+          <div class="todo-title">農叟（丁崧）↔ 金四刃（何乃武）的直接歷史關係</div>
+          <small>兩人都與大夏舊勢力有關，但DM手册未明說是否相識</small>
+        </div>
+        <div class="todo-badge"><span class="badge b-p2">中優先</span></div>
+      </div>
+      <div class="todo-body">
+        <div class="field"><span class="field-label">問題</span><span class="field-val">丁崧曾護送部分大夏皇族出逃，是否包含何乃武？兩人遊戲中是否相識？</span></div>
+        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>農叟.pdf / 金四刃.pdf</code>（均 OCR needed）</span></div>
+        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">丁崧護送皇族（DM手册）；金四刃為皇族後裔（DM手册）。直接關係未確認。</span></div>
+        <div class="follow">📌 後續步驟：人工確認。若有直接關係，更新 <a href="relationship-map.html">人物關係圖</a> §2 和 §3。</div>
+      </div>
+    </li>
+
+    <li class="todo-item">
+      <div class="todo-header">
+        <div class="todo-num">6</div>
+        <div class="todo-title-area">
+          <div class="todo-title">凶器確認 — 冷降塵是如何被殺死的？</div>
+          <small>DM手册指凶器見線索卡，具體凶器未知</small>
+        </div>
+        <div class="todo-badge"><span class="badge b-p2">中優先</span></div>
+      </div>
+      <div class="todo-body">
+        <div class="field"><span class="field-label">問題</span><span class="field-val">具體凶器是什麼？現場有哪些關鍵線索卡？如何布置凶案現場？</span></div>
+        <div class="field"><span class="field-label">原始來源</span><span class="field-val">盒裝線索卡（44張）/ DM手册（OCR needed）</span></div>
+        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">「凶器見線索卡」（DM手册）。進程07需布置現場。</span></div>
+        <div class="follow">📌 後續步驟：開盒後確認線索卡，找到凶器相關卡片，整理到主持人流程筆記進程07。</div>
+      </div>
+    </li>
+
+  </ul>
+</div>
+
+<!-- OCR / Low Priority -->
+<div class="section">
+  <div class="priority-head">
+    <h3>🔍 低優先 — OCR 或有空再確認</h3>
+    <div class="priority-bar p3-bar"></div>
+  </div>
+
+  <ul class="todo-list">
+
+    <li class="todo-item">
+      <div class="todo-header">
+        <div class="todo-num">7</div>
+        <div class="todo-title-area">
+          <div class="todo-title">冷降塵 ↔ 冷佛林 的關係確認</div>
+          <small>刁五兒=冷佛林之女；冷降塵疑為冷佛林舊識（整理稿推斷，非DM手册原文）</small>
+        </div>
+        <div class="todo-badge"><span class="badge b-ocr">OCR needed</span></div>
+      </div>
+      <div class="todo-body">
+        <div class="field"><span class="field-label">問題</span><span class="field-val">冷降塵與冷佛林是什麼關係？刁五兒追查的真相與冷降塵之死的連結？</span></div>
+        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>刁五兒劇本.pdf</code>（42MB，OCR needed）</span></div>
+        <div class="field"><span class="field-label">當前狀態</span><span class="field-val">「冷降塵是冷佛林舊識」為整理稿推斷。信心度：中。</span></div>
+        <div class="follow">📌 後續步驟：OCR 刁五兒劇本後確認；若為推斷，更新 <a href="relationship-map.html">人物關係圖</a> 的 Medium confidence 標注。</div>
+      </div>
+    </li>
+
+    <li class="todo-item">
+      <div class="todo-header">
+        <div class="todo-num">8</div>
+        <div class="todo-title-area">
+          <div class="todo-title">嚴逸是否知道嚴氏的大夏皇族血統？</div>
+          <small>若嚴逸知情，對嚴氏的態度和遊戲深度更複雜</small>
+        </div>
+        <div class="todo-badge"><span class="badge b-ocr">OCR needed</span></div>
+      </div>
+      <div class="todo-body">
+        <div class="field"><span class="field-label">問題</span><span class="field-val">嚴逸知道嚴氏的真實身份嗎？他是否刻意利用她？</span></div>
+        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>嚴逸.pdf / 嚴氏.pdf</code>（均 OCR needed）</span></div>
+        <div class="follow">📌 後續步驟：OCR 後確認。若嚴逸知情，補充到 <a href="relationship-map.html">人物關係圖 §7 嚴逸注記</a>。</div>
+      </div>
+    </li>
+
+    <li class="todo-item">
+      <div class="todo-header">
+        <div class="todo-num">9</div>
+        <div class="todo-title-area">
+          <div class="todo-title">王思涵 ↔ 農叟 / 王順 的直接關係</div>
+          <small>三人都與大夏舊軍有關（玄甲軍），但直接認識情況不明</small>
+        </div>
+        <div class="todo-badge"><span class="badge b-ocr">OCR needed</span></div>
+      </div>
+      <div class="todo-body">
+        <div class="field"><span class="field-label">問題</span><span class="field-val">三人是否相識？玄甲軍統師與丁崧（農叟）是同袍關係嗎？</span></div>
+        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>王思涵.pdf / 農叟.pdf</code>（均 OCR needed）</span></div>
+        <div class="follow">📌 後續步驟：OCR 後確認；若有歷史連結，加入 <a href="relationship-map.html">關係圖</a>。</div>
+      </div>
+    </li>
+
+  </ul>
+</div>
+
+<!-- Already done -->
+<div class="section">
+  <div class="priority-head">
+    <h3>✓ 已完成</h3>
+    <div class="priority-bar" style="background:#2d7a4a"></div>
+  </div>
+  <div class="notice n-ok">
+    <strong>✓ DM手册 全文讀取（40頁）</strong> — 角色身份、凶案、陣營、流程、數值均已整理完成。<br>
+    <strong>✓ 角色總覽表</strong> — 見 <a href="relationship-map.html#s1">人物關係圖 §1</a>，High confidence 內容已完整記錄。
+  </div>
+</div>
+
+<!-- OCR 說明 -->
+<div class="section">
+  <h2>🔍 OCR 處理說明</h2>
+  <p>以下 9 份角色劇本 PDF 均為純圖像型（無可提取文字），需要 OCR 才能讀取內容：</p>
+  <table>
+    <thead><tr><th>檔案</th><th>大小</th><th>優先度</th></tr></thead>
+    <tbody>
+      <tr><td><code>張猛劇本.pdf</code></td><td>25 MB</td><td><span class="badge b-p1">高</span></td></tr>
+      <tr><td><code>農叟.pdf</code></td><td>46 MB</td><td><span class="badge b-p1">高</span></td></tr>
+      <tr><td><code>王思涵.pdf</code></td><td>43 MB</td><td><span class="badge b-p1">高</span></td></tr>
+      <tr><td><code>王順.pdf</code></td><td>48 MB</td><td><span class="badge b-p1">高</span></td></tr>
+      <tr><td><code>刁五兒劇本.pdf</code></td><td>42 MB</td><td><span class="badge b-p1">高</span></td></tr>
+      <tr><td><code>賈三娘.pdf</code></td><td>44 MB</td><td><span class="badge b-p2">中</span></td></tr>
+      <tr><td><code>金四刃.pdf</code></td><td>39 MB</td><td><span class="badge b-p2">中</span></td></tr>
+      <tr><td><code>嚴氏.pdf</code></td><td>46 MB</td><td><span class="badge b-p2">中</span></td></tr>
+      <tr><td><code>嚴逸.pdf</code></td><td>41 MB</td><td><span class="badge b-p2">中</span></td></tr>
+    </tbody>
+  </table>
+  <div class="notice n-tip" style="margin-top:.8em">
+    <strong>建議 OCR 工具：</strong>Adobe Acrobat「識別文字」功能、iOS 相機掃描、
+    Google Lens、Tesseract（命令列）。<br>
+    OCR 完成後，將提取文字存到 <code>local-private/kou-xia/extracted-text/</code> 並更新各 GM 頁面。
+  </div>
+</div>
+
+<!-- GM Notes -->
+<div class="section">
+  <h2>📝 GM 自由筆記</h2>
+  <p style="color:var(--muted);font-size:.88em">在此記錄開本前的想法、準備心得、場地規劃等。</p>
+  <div class="notes-box">（在此記錄開本準備筆記……）</div>
+</div>
+
+</div><!-- .wrapper -->
+
+<div class="page-nav-footer">
+  <a href="relationship-map.html">← 人物關係圖</a>
+  <a href="index.html">GM Area 首頁 →</a>
+</div>
+<div class="site-footer">
+  <a href="../../../index.html">📜 LARP Script Archive</a> ｜
+  <a href="../index.html">寇侠</a> ｜
+  <a href="index.html">GM Area</a>
+</div>
+
+<script src="../../../assets/js/version.js"></script>
+</body>
+</html>
