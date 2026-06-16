@@ -11,6 +11,8 @@
 # ─────────────────────────────────────────────────────────────────────────────
 set -euo pipefail
 
+VERSION_FILE="docs/assets/js/version.js"
+
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 usage() {
@@ -24,7 +26,6 @@ err() {
 }
 
 confirm() {
-  # confirm <prompt>  — returns 0 if user enters y/Y, 1 otherwise
   printf "%s [y/N] " "$1"
   read -r _reply
   [[ "$_reply" =~ ^[Yy]$ ]]
@@ -54,31 +55,7 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 git remote get-url origin &>/dev/null || err "No remote 'origin' found. Add one with: git remote add origin <url>"
 
-# ── Working tree check ────────────────────────────────────────────────────────
-
-if ! git diff --quiet || ! git diff --cached --quiet; then
-  if [[ "$AUTO" -eq 1 ]]; then
-    git add .
-    git commit -m "docs: update site content"
-    echo "Changes committed."
-    echo ""
-  else
-    echo "Warning: You have uncommitted changes."
-    git status --short
-    echo ""
-    if confirm "Auto-commit all changes with 'git add . && git commit -m \"docs: update site content\"'?"; then
-      git add .
-      git commit -m "docs: update site content"
-      echo "Changes committed."
-      echo ""
-    else
-      echo "Release cancelled. Commit or stash your changes first, then re-run."
-      exit 1
-    fi
-  fi
-fi
-
-# ── Latest tag ────────────────────────────────────────────────────────────────
+# ── Latest tag → next version (computed early, before any commit) ─────────────
 
 LATEST=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' | sort -V | tail -n 1)
 if [[ -z "$LATEST" ]]; then
@@ -86,7 +63,6 @@ if [[ -z "$LATEST" ]]; then
   echo "No existing tags found. Starting from $LATEST."
 fi
 
-# Parse components
 if [[ "$LATEST" =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
   MAJOR="${BASH_REMATCH[1]}"
   MINOR="${BASH_REMATCH[2]}"
@@ -94,8 +70,6 @@ if [[ "$LATEST" =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
 else
   err "Could not parse semver from latest tag '$LATEST'. Expected vX.Y.Z."
 fi
-
-# ── Compute next version ──────────────────────────────────────────────────────
 
 case "$ARG" in
   patch)
@@ -108,7 +82,6 @@ case "$ARG" in
     NEXT="v$((MAJOR + 1)).0.0"
     ;;
   v*)
-    # Explicit version — validate format
     [[ "$ARG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] \
       || err "Version '$ARG' must be in the format vX.Y.Z (e.g. v0.2.0)."
     NEXT="$ARG"
@@ -124,11 +97,49 @@ if git tag --list | grep -qx "$NEXT"; then
   err "Tag '$NEXT' already exists. Choose a different version or delete the existing tag first."
 fi
 
-# ── Confirm release ───────────────────────────────────────────────────────────
-
 echo "Current latest version: $LATEST"
 echo "Next version:           $NEXT"
 echo ""
+
+# ── Update version.js ────────────────────────────────────────────────────────
+
+if [[ -f "$VERSION_FILE" ]]; then
+  # portable sed: write to tmp then replace (works on both macOS and Linux)
+  tmp=$(mktemp)
+  sed "s/const SITE_VERSION = '.*';/const SITE_VERSION = '$NEXT';/" "$VERSION_FILE" > "$tmp"
+  mv "$tmp" "$VERSION_FILE"
+  echo "Updated $VERSION_FILE → $NEXT"
+  echo ""
+else
+  echo "Warning: $VERSION_FILE not found, skipping version injection."
+fi
+
+# ── Working tree check → commit ───────────────────────────────────────────────
+
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  if [[ "$AUTO" -eq 1 ]]; then
+    git add .
+    git commit -m "chore: release $NEXT"
+    echo "Changes committed."
+    echo ""
+  else
+    echo "You have uncommitted changes (including version.js update):"
+    git status --short
+    echo ""
+    if confirm "Commit all changes with 'git commit -m \"chore: release $NEXT\"'?"; then
+      git add .
+      git commit -m "chore: release $NEXT"
+      echo "Changes committed."
+      echo ""
+    else
+      echo "Release cancelled. Reverting version.js..."
+      git checkout -- "$VERSION_FILE" 2>/dev/null || true
+      exit 1
+    fi
+  fi
+fi
+
+# ── Confirm release (interactive mode only) ───────────────────────────────────
 
 if [[ "$AUTO" -eq 0 ]]; then
   confirm "Release $NEXT?" || { echo "Release cancelled."; exit 0; }

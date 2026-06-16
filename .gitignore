@@ -22,5 +22,18 @@ drafts/
 private/
 *.local.md
 
+# 本地私人資料夾（PDF、整理稿、私人筆記，絕不 commit）
+local-private/
+
+# 大型媒體檔案（不加入 git）
+*.pdf
+*.mp3
+*.wav
+*.aac
+*.zip
+*.rar
+*.7z
+*.m4a
+
 # GM / Spoiler — 若要排除 gm 資料夾，取消下方註解
 # docs/scripts/*/gm/
