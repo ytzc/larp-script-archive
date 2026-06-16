@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>寇俠 — LARP Script Archive</title>
+  <title>寇侠 — LARP Script Archive</title>
   <link rel="stylesheet" href="../../assets/css/style.css" />
 </head>
 <body>
@@ -12,92 +12,76 @@
   <a class="logo" href="../../index.html">📜 LARP Script Archive</a>
   <nav>
     <a href="../../index.html">首頁</a>
-    <a href="index.html">寇俠</a>
+    <a href="index.html">寇侠</a>
   </nav>
 </header>
 
 <main>
   <div class="hero">
-    <h1>寇俠</h1>
-    <p>（佔位文字）一句話描述劇本的核心氛圍或主題。</p>
+    <h1>寇侠</h1>
+    <p>古風 / 機制 / 陣營 / 還原 &nbsp;·&nbsp; 8 人 &nbsp;·&nbsp; 約 4.5 小時 &nbsp;·&nbsp; K 的遊戲工作室</p>
   </div>
 
   <!-- 基本資訊 -->
   <h2>基本資訊</h2>
   <table>
-    <tr><th>類型</th><td>（佔位）劇本殺 / LARP</td></tr>
-    <tr><th>人數</th><td>（佔位）X 人</td></tr>
-    <tr><th>時長</th><td>（佔位）約 X 小時</td></tr>
-    <tr><th>難度</th><td>（佔位）中 / 硬核</td></tr>
-    <tr><th>版本</th><td>（佔位）v0.1 Draft</td></tr>
+    <tr><th>劇本名稱</th><td>寇侠</td></tr>
+    <tr><th>出版工作室</th><td>K 的遊戲工作室</td></tr>
+    <tr><th>人數</th><td>8 人</td></tr>
+    <tr><th>風格</th><td>古風 / 機制 / 陣營 / 還原</td></tr>
+    <tr><th>預估時長</th><td>約 4.5 小時</td></tr>
+    <tr><th>文件狀態</th><td>素材已索引，公開文件整理中</td></tr>
   </table>
 
-  <!-- 章節導覽 -->
-  <h2>章節導覽</h2>
+  <hr />
 
-  <div class="section-nav">
+  <!-- 三個入口 -->
+  <h2>區域選擇</h2>
+  <p>本劇本的資料分為三個區域，依據受眾與內容敏感度分類：</p>
 
-    <a class="section-item is-public" href="public/introduction.html">
-      <span class="icon">📖</span>
-      <span class="label">劇本簡介 <span class="badge badge-public">Public</span></span>
-      <span class="desc">故事背景與簡介，適合公開分享。</span>
+  <div class="area-grid">
+
+    <a class="area-card area-public" href="public/index.html">
+      <span class="area-icon">📖</span>
+      <span class="area-label">Public Information <span class="badge badge-public">公開</span></span>
+      <span class="area-desc">
+        無劇透公開資訊：劇本簡介、世界觀、角色公開身份、組織介紹。<br />
+        <strong>不需要密碼。</strong>
+      </span>
     </a>
 
-    <a class="section-item is-public" href="public/world.html">
-      <span class="icon">🌍</span>
-      <span class="label">世界觀 <span class="badge badge-public">Public</span></span>
-      <span class="desc">世界觀、時代背景、主要勢力概覽。</span>
+    <a class="area-card area-player" href="player/index.html">
+      <span class="area-icon">🎭</span>
+      <span class="area-label">Player Area <span class="badge" style="background:#3a2a0a;color:var(--color-accent-light);">需要密碼</span></span>
+      <span class="area-desc">
+        玩家開場說明、遊戲規則、角色資訊（玩家版）、線索整理。<br />
+        不含 GM truth。<strong>需要玩家密碼。</strong>
+      </span>
     </a>
 
-    <a class="section-item is-public" href="public/characters.html">
-      <span class="icon">👥</span>
-      <span class="label">角色簡介 <span class="badge badge-public">Public</span></span>
-      <span class="desc">所有角色的公開簡介（不含秘密）。</span>
-    </a>
-
-    <a class="section-item is-public" href="public/organizations.html">
-      <span class="icon">🏛️</span>
-      <span class="label">組織手冊 <span class="badge badge-public">Public</span></span>
-      <span class="desc">主要組織、派系介紹。</span>
-    </a>
-
-    <a class="section-item is-private" href="characters/index.html">
-      <span class="icon">🎭</span>
-      <span class="label">角色劇本 <span class="badge badge-private">Spoiler</span></span>
-      <span class="desc">各角色的完整劇本，含秘密任務。注意：含 spoiler。</span>
-    </a>
-
-    <a class="section-item is-private" href="organizations/index.html">
-      <span class="icon">📜</span>
-      <span class="label">組織詳細資料 <span class="badge badge-private">Spoiler</span></span>
-      <span class="desc">組織內部資訊與隱藏關係。注意：含 spoiler。</span>
-    </a>
-
-    <a class="section-item is-gm" href="gm/index.html">
-      <span class="icon">🎲</span>
-      <span class="label">GM Notes <span class="badge badge-gm">GM Only</span></span>
-      <span class="desc">主持人筆記、時間軸、場景規劃。僅 GM 閱讀。</span>
-    </a>
-
-    <a class="section-item" href="sessions/index.html">
-      <span class="icon">📝</span>
-      <span class="label">場次記錄</span>
-      <span class="desc">各場次的遊戲紀錄與心得。</span>
+    <a class="area-card area-gm" href="gm/index.html">
+      <span class="area-icon">🎲</span>
+      <span class="area-label">GM Area <span class="badge badge-gm">GM Only</span></span>
+      <span class="area-desc">
+        主持人筆記、劇情流程、完整時間軸、真相整理、spoilers。<br />
+        <strong>需要 GM 密碼。請勿分享給玩家。</strong>
+      </span>
     </a>
 
   </div>
 
   <hr />
 
-  <div class="notice notice-danger">
-    <strong>🔒 隱私提醒：</strong>「角色劇本」與「GM Notes」包含 spoiler 及秘密資訊，
-    請勿在玩家尚未上桌前公開分享。若部署至 GitHub Pages，請確認這些頁面的內容是否適合公開。
+  <div class="notice notice-warning">
+    <strong>⚠️ 密碼保護說明：</strong>
+    Player Area 與 GM Area 使用 client-side password gate，密碼可見於頁面原始碼。
+    這不是強安全機制，只是防止隨機瀏覽。
+    若需要真正的存取控制，請使用 private repo 或不要部署敏感內容到 GitHub Pages。
   </div>
 </main>
 
 <footer class="site-footer">
-  <a href="../../index.html">← 回劇本總覽</a> &nbsp;|&nbsp;
-  LARP Script Archive
+  <a href="../../index.html">← 回劇本總覽</a> &nbsp;|&nbsp; LARP Script Archive
 </footer>
 
 </body>

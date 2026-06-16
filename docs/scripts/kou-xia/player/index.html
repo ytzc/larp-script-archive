@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>寇侠 — Player Area</title>
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="../../../index.html">📜 LARP Script Archive</a>
+  <nav>
+    <a href="../../../index.html">首頁</a>
+    <a href="../index.html">寇侠</a>
+    <a href="index.html">Player</a>
+  </nav>
+</header>
+
+<!-- Password gate (rendered by JS) -->
+<div id="password-gate" style="display:none;"></div>
+
+<!-- Protected content — hidden until gate is passed -->
+<div id="protected-content" style="display:none;">
+
+<main>
+  <div class="hero">
+    <h1>🎭 Player Area</h1>
+    <p>寇侠 — 玩家資訊區（需要玩家密碼）</p>
+  </div>
+
+  <div class="notice notice-warning">
+    本區包含玩家開場說明與遊戲資訊。<strong>不包含 GM truth、完整真相或主持人專用資訊。</strong><br />
+    請勿將本頁網址分享給尚未確認會上桌的玩家。
+  </div>
+
+  <h2>文件列表</h2>
+  <div class="section-nav">
+
+    <a class="section-item" href="guide.md">
+      <span class="icon">📋</span>
+      <span class="label">玩家指引</span>
+      <span class="desc">開場說明、遊戲規則、注意事項。</span>
+    </a>
+
+    <a class="section-item" href="characters.md">
+      <span class="icon">🎭</span>
+      <span class="label">角色資訊（玩家版）</span>
+      <span class="desc">玩家可看的角色資訊，不含 GM truth。</span>
+    </a>
+
+    <a class="section-item" href="clues.md">
+      <span class="icon">🔍</span>
+      <span class="label">線索整理</span>
+      <span class="desc">玩家可知的線索與調查資料整理。</span>
+    </a>
+
+  </div>
+
+  <hr />
+
+  <div class="notice notice-info">
+    如需查閱公開無劇透資訊，請至
+    <a href="../public/index.html">Public Information</a>。
+  </div>
+</main>
+
+<footer class="site-footer">
+  <a href="../index.html">← 回寇侠頁面</a> &nbsp;|&nbsp; LARP Script Archive
+</footer>
+
+</div><!-- #protected-content -->
+
+<script src="../../../assets/js/password-gate.js"></script>
+<script>
+  // WARNING: This password is visible in page source.
+  // This gate is for casual spoiler prevention only — not strong security.
+  initPasswordGate({
+    role:     'kou-xia-player',
+    password: 'kouxia-player',
+    icon:     '🎭',
+    title:    'Player Area — 玩家資訊區',
+    desc:     '請輸入玩家密碼以進入。本區包含玩家說明與遊戲資訊（不含 GM truth）。',
+    back:     '../index.html'
+  });
+</script>
+
+</body>
+</html>

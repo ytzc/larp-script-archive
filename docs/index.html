@@ -22,17 +22,17 @@
   </div>
 
   <h2>劇本總覽</h2>
-  <p>目前收錄的劇本如下。點擊劇本進入詳細頁面。</p>
+  <p>點擊劇本進入各劇本頁面，再選擇 Public / Player / GM 區域。</p>
 
   <div class="script-grid">
 
     <a class="script-card" href="scripts/kou-xia/index.html">
-      <h2>寇俠</h2>
-      <p>（佔位文字）劇本簡介，一兩句話描述故事背景與氛圍。</p>
-      <span class="tag tag-wip">WIP</span>
+      <h2>寇侠</h2>
+      <p>古風 / 機制 / 陣營 / 還原。8 人本，約 4.5 小時。K 的遊戲工作室出品。</p>
+      <span class="tag tag-wip">整理中</span>
     </a>
 
-    <!-- 未來新增劇本範例，複製上方 script-card 區塊即可：
+    <!-- 未來新增劇本：
     <a class="script-card" href="scripts/another-script/index.html">
       <h2>另一本劇本</h2>
       <p>劇本簡介文字。</p>
@@ -44,9 +44,36 @@
 
   <hr />
 
+  <h2>區域分類說明</h2>
+  <div class="area-grid">
+    <div class="area-card area-public" style="pointer-events:none;">
+      <span class="area-icon">📖</span>
+      <span class="area-label">Public <span class="badge badge-public">公開</span></span>
+      <span class="area-desc">無劇透資訊，不需密碼。適合分享給任何人。</span>
+    </div>
+    <div class="area-card area-player" style="pointer-events:none;">
+      <span class="area-icon">🎭</span>
+      <span class="area-label">Player <span class="badge" style="background:#3a2a0a;color:var(--color-accent-light);">需要密碼</span></span>
+      <span class="area-desc">玩家說明與遊戲資訊，需要玩家密碼。不含 GM truth。</span>
+    </div>
+    <div class="area-card area-gm" style="pointer-events:none;">
+      <span class="area-icon">🎲</span>
+      <span class="area-label">GM <span class="badge badge-gm">GM Only</span></span>
+      <span class="area-desc">主持人專用，需要 GM 密碼。含完整真相與 spoilers。</span>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="notice notice-info">
+    本網站由 <a href="https://github.com/ytzc/larp-script-archive" target="_blank" rel="noopener">larp-script-archive</a> repo 整理後的文件生成。
+    原始素材（PDF、音訊、圖片等）以外部連結索引存放於 repo 的 <code>materials/</code> 資料夾，不直接作為公開網站內容。
+  </div>
+
   <div class="notice notice-warning">
-    <strong>⚠️ 注意：</strong>GitHub Pages 為完全公開網站。含有 spoiler、角色秘密、GM 筆記等敏感資訊，
-    請確認後再公開部署。詳見 <code>README.md</code> 的安全性說明。
+    <strong>⚠️ 安全提醒：</strong>GitHub Pages 為完全公開網站。
+    Player / GM 區域的 client-side 密碼保護<strong>不是強安全機制</strong>，密碼可見於頁面原始碼。
+    請勿將真正敏感或受版權保護的原始素材直接部署至 GitHub Pages。
   </div>
 </main>
 
