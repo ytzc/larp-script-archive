@@ -25,7 +25,7 @@ private/
 # 本地私人資料夾（PDF、整理稿、私人筆記，絕不 commit）
 local-private/
 
-# 大型媒體檔案（不加入 git）
+# 大型媒體檔案（預設不加入 git）
 *.pdf
 *.mp3
 *.wav
@@ -34,6 +34,9 @@ local-private/
 *.rar
 *.7z
 *.m4a
+
+# 例外：GM 區正式發布的 PDF（已由使用者確認可上傳至 GitHub）
+!docs/scripts/kou-xia/gm/pdf/DM手册.pdf
 
 # GM / Spoiler — 若要排除 gm 資料夾，取消下方註解
 # docs/scripts/*/gm/

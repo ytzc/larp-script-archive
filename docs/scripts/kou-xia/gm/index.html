@@ -43,44 +43,41 @@
         <span class="ref-icon">📄</span>
         <div>
           <div class="ref-title">DM 手冊（原始 PDF）</div>
-          <div class="ref-meta">K 的遊戲工作室 &nbsp;·&nbsp; 本機存取</div>
+          <div class="ref-meta">K 的遊戲工作室 &nbsp;·&nbsp; GM Only</div>
         </div>
       </div>
       <div class="ref-contains">完整主持人手冊，包含所有流程、角色秘密、凶案資訊、答題答案</div>
-      <a class="ref-link"
-         href="../../../../local-private/kou-xia/pdf/DM手册.pdf"
-         target="_blank" rel="noopener">
+      <a class="ref-link" href="pdf/DM手册.pdf" target="_blank" rel="noopener">
         開啟 DM手册.pdf →
       </a>
-      <div class="ref-code" style="color:var(--color-muted);font-size:0.8em;margin-top:0.4em;">
-        ⚠️ 僅限本機瀏覽時可開啟。PDF 不在 GitHub 上，GitHub Pages 無法存取此連結。
-      </div>
     </div>
   </div>
 
   <hr />
 
-  <!-- 整理筆記（本機 Markdown） -->
-  <h2>整理筆記（本機）</h2>
-  <div class="notice notice-info" style="margin-bottom:1rem;">
-    以下連結指向 <code>local-private/kou-xia/organized/gm/</code> 的整理 Markdown 文件。<br />
-    <strong>僅限本機開啟</strong>，GitHub Pages 無法存取。
-  </div>
+  <!-- 整理筆記與關係圖 -->
+  <h2>整理筆記 &amp; 人物關係圖</h2>
   <div class="section-nav">
 
-    <a class="section-item is-gm" href="../../../../local-private/kou-xia/organized/gm/host-notes.md">
+    <a class="section-item is-gm" href="relationship-map.html">
+      <span class="icon">🗺️</span>
+      <span class="label">人物關係圖 &amp; 主持人速查 <span class="badge badge-gm">GM Only</span></span>
+      <span class="desc">角色真實身份、關係圖（SVG）、關係矩陣、陣營圖、時間線、角色注記、Checklist。</span>
+    </a>
+
+    <a class="section-item is-gm" href="host-notes.md">
       <span class="icon">📋</span>
       <span class="label">主持人流程筆記 <span class="badge badge-gm">GM Only</span></span>
-      <span class="desc">14個進程完整說明、道具清單、戰鬥數值、開本前檢查清單。</span>
+      <span class="desc">14 個進程完整說明、道具清單、手勢符號、答題系統、戰鬥數值。</span>
     </a>
 
-    <a class="section-item is-gm" href="../../../../local-private/kou-xia/organized/gm/timeline.md">
+    <a class="section-item is-gm" href="timeline.md">
       <span class="icon">⏱️</span>
       <span class="label">完整劇情時間軸 <span class="badge badge-gm">GM Only</span></span>
-      <span class="desc">GM視角劇情時間軸、各陣營目標、核心人物關係。</span>
+      <span class="desc">GM 視角劇情時間軸、各陣營目標、核心人物關係。</span>
     </a>
 
-    <a class="section-item is-gm" href="../../../../local-private/kou-xia/organized/gm/spoilers.md">
+    <a class="section-item is-gm" href="spoilers.md">
       <span class="icon">🔓</span>
       <span class="label">劇情真相與結局 <span class="badge badge-gm">GM Only</span></span>
       <span class="desc">所有角色真實身份、凶手、完整結局說明、復盤公告順序。</span>
@@ -93,9 +90,8 @@
   <div class="notice notice-warning">
     <strong>⚠️ 安全提醒：</strong>
     本頁使用 client-side password gate，密碼可見於頁面原始碼。
-    真正機密的 GM 資料（角色劇本 PDF、官方 GM notes）請勿直接上傳至 GitHub，
-    請保存在個人 iCloud 或本地端，並透過
-    <code>materials/kou-xia/external-links.md</code> 以外部連結索引。
+    上方所有連結皆部署於公開 GitHub Pages，任何知道 URL 的人均可直接存取。
+    若需要真正的存取控制，請使用 private repo 或 GitHub Enterprise。
   </div>
 </main>
 
