@@ -103,18 +103,35 @@ cp -r docs/scripts/kou-xia docs/scripts/<new-script-slug>
 
 ---
 
-## 部署 GitHub Pages
+## Release
 
-GitHub Actions 只部署 `./docs`，打 tag 即自動觸發：
+This repository deploys GitHub Pages when a version tag is pushed.
+Use `release.sh` to automate version bumping, tagging, and pushing.
 
 ```bash
-git add .
-git commit -m "docs: ..."
-git tag v0.1.0
-git push origin main --tags
+# Bump patch version:  v0.1.0 → v0.1.1
+./release.sh patch
+
+# Bump minor version:  v0.1.0 → v0.2.0
+./release.sh minor
+
+# Bump major version:  v0.1.0 → v1.0.0
+./release.sh major
+
+# Release a specific version:
+./release.sh v0.2.0
 ```
 
-在 GitHub repo 的 **Settings → Pages** 確認 Source 設為 `GitHub Actions`。
+The script will:
+
+1. Check you are on `main` with a clean working tree (or prompt to auto-commit).
+2. Compute the next version from the latest tag.
+3. Ask for confirmation before doing anything.
+4. Run `git push origin main`, create the tag, and push it.
+
+The tag push triggers the GitHub Pages deployment workflow (`.github/workflows/deploy-pages-on-tag.yml`), which deploys only the `./docs` folder.
+
+> **First-time setup:** In the GitHub repo go to **Settings → Pages** and set Source to `GitHub Actions`.
 
 ---
 
