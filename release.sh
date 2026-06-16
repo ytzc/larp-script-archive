@@ -32,8 +32,14 @@ confirm() {
 
 # ── Argument check ─────────────────────────────────────────────────────────────
 
-# No argument → default to patch
-ARG="${1:-patch}"
+# No argument → auto patch (no confirmation prompts)
+if [[ $# -eq 0 ]]; then
+  ARG="patch"
+  AUTO=1
+else
+  ARG="$1"
+  AUTO=0
+fi
 
 # ── Git repo check ────────────────────────────────────────────────────────────
 
@@ -51,17 +57,24 @@ git remote get-url origin &>/dev/null || err "No remote 'origin' found. Add one 
 # ── Working tree check ────────────────────────────────────────────────────────
 
 if ! git diff --quiet || ! git diff --cached --quiet; then
-  echo "Warning: You have uncommitted changes."
-  git status --short
-  echo ""
-  if confirm "Auto-commit all changes with 'git add . && git commit -m \"docs: update site content\"'?"; then
+  if [[ "$AUTO" -eq 1 ]]; then
     git add .
     git commit -m "docs: update site content"
     echo "Changes committed."
     echo ""
   else
-    echo "Release cancelled. Commit or stash your changes first, then re-run."
-    exit 1
+    echo "Warning: You have uncommitted changes."
+    git status --short
+    echo ""
+    if confirm "Auto-commit all changes with 'git add . && git commit -m \"docs: update site content\"'?"; then
+      git add .
+      git commit -m "docs: update site content"
+      echo "Changes committed."
+      echo ""
+    else
+      echo "Release cancelled. Commit or stash your changes first, then re-run."
+      exit 1
+    fi
   fi
 fi
 
@@ -117,9 +130,10 @@ echo "Current latest version: $LATEST"
 echo "Next version:           $NEXT"
 echo ""
 
-confirm "Release $NEXT?" || { echo "Release cancelled."; exit 0; }
-
-echo ""
+if [[ "$AUTO" -eq 0 ]]; then
+  confirm "Release $NEXT?" || { echo "Release cancelled."; exit 0; }
+  echo ""
+fi
 
 # ── Push main ─────────────────────────────────────────────────────────────────
 

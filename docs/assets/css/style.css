@@ -258,6 +258,44 @@ tr:nth-child(even) { background: rgba(255,255,255,0.03); }
 .area-card.area-gm      { border-left: 3px solid var(--color-gm); }
 .area-card.area-gm:hover      { border-color: var(--color-gm); }
 
+/* ── Reference cards ── */
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+  margin: 1.2rem 0;
+}
+.ref-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid #3498db;
+  border-radius: 8px;
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.ref-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.ref-icon   { font-size: 1.6rem; flex-shrink: 0; }
+.ref-title  { font-weight: bold; font-size: 1rem; color: var(--color-text); }
+.ref-meta   { font-size: 0.82rem; color: var(--color-text-muted); margin-top: 0.1rem; }
+.ref-contains { font-size: 0.88rem; color: var(--color-text-muted); }
+.ref-link {
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-size: 0.92rem;
+  color: #7ec8e3;
+  text-decoration: none;
+  font-weight: bold;
+}
+.ref-link:hover { text-decoration: underline; }
+.ref-code { font-size: 0.88rem; color: var(--color-text-muted); }
+.ref-code code { background: #0d1b2a; padding: 0.1em 0.4em; border-radius: 3px; letter-spacing: 0.05em; }
+
 /* ── Responsive ── */
 @media (max-width: 600px) {
   .site-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
