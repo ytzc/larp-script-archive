@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (如果未來用到 tooling)
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# 本地草稿與私人資料（不想 commit 的內容放這裡）
+drafts/
+private/
+*.local.md
+
+# GM / Spoiler — 若要排除 gm 資料夾，取消下方註解
+# docs/scripts/*/gm/
