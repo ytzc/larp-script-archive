@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玩家指引 — 寇侠</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
+  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
+  --gold:#856404;--gold-lt:#fff8e0;
+  --green:#155724;--green-lt:#d4edda;
+  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
+  --shadow:0 1px 5px rgba(0,0,0,.1);
+}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.8;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1.05em;color:#333;margin:1.1em 0 .4em}
+p{margin-bottom:.8em}
+ul,ol{margin:.4em 0 .8em 1.5em}li{margin-bottom:.35em}
+code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.88em}
+table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.9em}
+th{background:#5a0000;color:#fff;padding:.5em .8em;text-align:left}
+td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
+tr:nth-child(even)td{background:#faf5ee}
+
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
+.top-nav a{color:var(--red)}
+.top-nav .sep{color:#bbb}
+
+.wrapper{max-width:900px;margin:0 auto;padding:1.5em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+.page-header{padding:1.2em 1.6em;background:var(--white);border-left:6px solid #5a0000;box-shadow:var(--shadow);margin-bottom:1.5em}
+.page-header h1{font-size:1.8em;color:#5a0000;margin-bottom:.2em}
+.page-header p{color:var(--muted);font-size:.9em;margin:0}
+
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
+.n-tip{background:var(--gold-lt);border-color:#e0a800}
+.n-warn{background:#fff3e8;border-color:#cc5500}
+
+.rule-list{list-style:none;margin:.4em 0 .8em 0}
+.rule-list li{padding:.5em 0 .5em 2em;border-bottom:1px solid #f0e8d8;position:relative;font-size:.93em}
+.rule-list li::before{position:absolute;left:0;color:var(--red);font-weight:700}
+.rule-list li:nth-child(1)::before{content:'①'}
+.rule-list li:nth-child(2)::before{content:'②'}
+.rule-list li:nth-child(3)::before{content:'③'}
+.rule-list li:nth-child(4)::before{content:'④'}
+.rule-list li:nth-child(5)::before{content:'⑤'}
+.rule-list li:nth-child(6)::before{content:'⑥'}
+.rule-list li:nth-child(7)::before{content:'⑦'}
+.rule-list li:nth-child(8)::before{content:'⑧'}
+
+.phase-grid{display:flex;flex-direction:column;gap:.5em;margin:.8em 0}
+.phase{display:grid;grid-template-columns:52px 1fr;border:1px solid #e0d0c0;border-radius:5px;overflow:hidden;background:var(--white)}
+.phase-num{display:flex;align-items:center;justify-content:center;background:#5a0000;color:#fff;font-weight:700;font-size:1.1em;padding:.6em .3em;text-align:center}
+.phase-body{padding:.6em .9em}
+.phase-title{font-weight:700;color:var(--ink);margin-bottom:.2em}
+.phase-desc{font-size:.87em;color:#444}
+.phase.key .phase-num{background:#cc5500}
+
+.site-footer{text-align:center;padding:1.5em;font-size:.82em;color:var(--muted);border-top:1px solid #e0d0c0;margin-top:2em}
+.site-footer a{color:var(--red)}
+.page-nav-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:1em 1.2em;background:#fff3e8;border-top:1px solid #e0d0c0;font-size:.88em}
+.page-nav-footer a{color:var(--red);font-weight:600}
+</style>
+</head>
+<body>
+
+<div id="password-gate" style="display:none;"></div>
+<div id="protected-content" style="display:none;">
+
+<div class="top-nav">
+  <div>
+    <a href="../../../index.html">🏠 首頁</a>
+    <span class="sep"> › </span>
+    <a href="../index.html">寇侠</a>
+    <span class="sep"> › </span>
+    <a href="index.html">Player Area</a>
+    <span class="sep"> › </span>
+    <strong>玩家指引</strong>
+  </div>
+  <div>
+    <a href="characters.html">角色資訊 →</a>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<div class="page-header">
+  <h1>📋 玩家指引</h1>
+  <p>寇侠 — 開場說明、遊戲規則與注意事項</p>
+</div>
+
+<!-- 背景 -->
+<div class="section">
+  <h2>🌏 故事背景</h2>
+  <p>大夏王朝覆滅多年，大順王朝取而代之。大順朝廷的特務機關<strong>綉衣使</strong>大力清查江湖上的反朝廷勢力，而以「寇俠」之名行事的江湖義士們則秘密在各地推動復國大業。</p>
+  <p>大順與寇俠之間的暗戰，在一座偏遠城鎮的客棧中，悄然交匯。</p>
+
+  <h3>開場情境</h3>
+  <p>時值某個秋日，眾人因各自的目的與因緣聚集在賈三娘客棧。在場每個人都有自己的秘密、目標與身份。</p>
+  <div class="notice n-info">
+    <strong>遊戲開始時所有人共同知道的：</strong><br>
+    各方人士在客棧中相遇，看似互不相識，卻各懷心思。此地將發生的事，沒有一件是偶然的。
+  </div>
+
+  <h3>場景地點</h3>
+  <table>
+    <tr><th>地點</th><th>說明</th></tr>
+    <tr><td>賈三娘客棧（主場景）</td><td>眾人聚集的核心場所，老板娘賈三娘主理</td></tr>
+    <tr><td>客棧各房間</td><td>私下交流、搜查的場景空間</td></tr>
+    <tr><td>客棧後院／周邊</td><td>部分隱藏線索的搜查區域</td></tr>
+  </table>
+</div>
+
+<!-- 基本規則 -->
+<div class="section">
+  <h2>📜 基本規則</h2>
+  <ul class="rule-list">
+    <li><strong>角色劇本保密：</strong>你的角色劇本只有你自己能看，不得讓其他玩家看見。</li>
+    <li><strong>維持角色扮演：</strong>遊戲進行中請盡量以角色身份說話行動，需要休息時請示意GM暫離角色。</li>
+    <li><strong>自由行動：</strong>每個自由行動環節，你可以在場景內自由移動、與其他角色交談、申請搜查。</li>
+    <li><strong>搜查規則：</strong>搜查需向GM申請，GM裁定結果。搜查結果只有申請者可知，除非主動公開。</li>
+    <li><strong>手勢暗號：</strong>GM將在開本時說明本場使用的手勢暗號規則，請留意含義。</li>
+    <li><strong>道具與卡牌：</strong>你的初始道具、線索卡、技能卡均在角色劇本中說明，請妥善保管。</li>
+    <li><strong>銀票：</strong>答題環節可獲得銀票，用於武器拍賣競標。</li>
+    <li><strong>搏殺環節：</strong>最終陣營搏殺時，請向GM宣告你的陣營歸屬，再依HP/武力值進行對決。HP歸零即出局，但仍可在場觀看結局。</li>
+  </ul>
+</div>
+
+<!-- 答題系統 -->
+<div class="section">
+  <h2>🎯 答題系統</h2>
+  <p>遊戲共進行 <strong>3 輪答題</strong>，每輪每人 3 題，答案書面作答後交回 GM 批改。</p>
+  <table>
+    <tr><th>規則</th><th>說明</th></tr>
+    <tr><td>答題輪數</td><td>共 3 輪，分布在遊戲各階段</td></tr>
+    <tr><td>每輪題數</td><td>每人 3 題</td></tr>
+    <tr><td>答對獎勵</td><td>答對 1 題 = <strong>10 兩銀票</strong></td></tr>
+    <tr><td>公告方式</td><td>GM 公告各人答對題數，不公告答題內容</td></tr>
+    <tr><td>銀票用途</td><td>用於武器拍賣環節競標武器卡</td></tr>
+  </table>
+  <div class="notice n-tip">
+    <strong>提示：</strong>答題內容與故事世界觀有關，請仔細閱讀角色劇本中的背景資訊。
+  </div>
+</div>
+
+<!-- 武器拍賣 -->
+<div class="section">
+  <h2>⚔️ 武器拍賣</h2>
+  <p>在特定環節，GM 將主持武器拍賣。玩家以<strong>銀票</strong>競標武器卡，出價最高者得標。</p>
+  <ul>
+    <li>武器卡可提升角色武力值，對搏殺環節有直接影響</li>
+    <li>得標後立即生效</li>
+    <li>每件武器只賣一次，請把握競標機會</li>
+  </ul>
+</div>
+
+<!-- 陣營搏殺 -->
+<div class="section">
+  <h2>🗡️ 陣營搏殺</h2>
+  <p>遊戲最終環節，所有角色須<strong>表態陣營歸屬</strong>（綉衣使 / 寇俠 / 中立），並依雙方人數與戰力進行對決。</p>
+  <table>
+    <tr><th>陣營</th><th>勝利條件</th></tr>
+    <tr><td>寇俠陣營</td><td>搏殺後寇俠存活人數 ≥ 綉衣使，<strong>且金四刃存活</strong></td></tr>
+    <tr><td>綉衣使陣營</td><td>搏殺後綉衣使存活人數 ≥ 寇俠，<strong>且嚴逸存活</strong></td></tr>
+  </table>
+  <div class="notice n-warn">
+    <strong>注意：</strong>陣營歸屬影響最終結局，但你可以在確認前與他人私下協商。部分角色的陣營可能在過程中改變。
+  </div>
+</div>
+
+<!-- 遊戲流程 -->
+<div class="section">
+  <h2>⏱️ 遊戲流程概覽</h2>
+  <div class="phase-grid">
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-body">
+        <div class="phase-title">開本說明</div>
+        <div class="phase-desc">GM介紹遊戲規則、手勢暗號，發放角色劇本與初始道具</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-body">
+        <div class="phase-title">閱讀角色劇本</div>
+        <div class="phase-desc">靜默閱讀，確認自己的身份、目標與初始線索（勿讓他人看見）</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <div class="phase-body">
+        <div class="phase-title">道具發放</div>
+        <div class="phase-desc">領取道具卡、物品卡、初始線索卡，說明武器卡規則</div>
+      </div>
+    </div>
+    <div class="phase key">
+      <div class="phase-num">4</div>
+      <div class="phase-body">
+        <div class="phase-title">自我介紹 — 第 1 輪答題</div>
+        <div class="phase-desc">所有角色公開自我介紹（以角色身份），完成第 1 輪答題</div>
+      </div>
+    </div>
+    <div class="phase key">
+      <div class="phase-num">5</div>
+      <div class="phase-body">
+        <div class="phase-title">引蛇出洞（私聊）</div>
+        <div class="phase-desc">自由行動，可私下交流、交換情報</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">6</div>
+      <div class="phase-body">
+        <div class="phase-title">挖寶搜查</div>
+        <div class="phase-desc">計時30分鐘，在場景中尋找隱藏線索卡</div>
+      </div>
+    </div>
+    <div class="phase key">
+      <div class="phase-num">7</div>
+      <div class="phase-body">
+        <div class="phase-title">凶案現場 — 案情揭露</div>
+        <div class="phase-desc">閱讀情境二。遊俠冷降塵（化名孟猛）遺體被發現，凶案調查正式開始</div>
+      </div>
+    </div>
+    <div class="phase key">
+      <div class="phase-num">8</div>
+      <div class="phase-body">
+        <div class="phase-title">盤凶 — 第 2 輪答題</div>
+        <div class="phase-desc">公開討論案情，提出疑點，完成第 2 輪答題</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">9</div>
+      <div class="phase-body">
+        <div class="phase-title">暗通款曲（私聊）</div>
+        <div class="phase-desc">再次自由行動，確認陣營意向</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">10</div>
+      <div class="phase-body">
+        <div class="phase-title">武器拍賣 — 第 3 輪答題</div>
+        <div class="phase-desc">以銀票競標武器卡，完成第 3 輪答題</div>
+      </div>
+    </div>
+    <div class="phase key">
+      <div class="phase-num">11</div>
+      <div class="phase-body">
+        <div class="phase-title">陣營搏殺</div>
+        <div class="phase-desc">宣告陣營歸屬，依HP/武力值進行最終對決</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">12–14</div>
+      <div class="phase-body">
+        <div class="phase-title">個人結局 → 真相揭露 → 復盤</div>
+        <div class="phase-desc">各角色結局公告，GM揭露所有真相，開放討論</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 注意事項 -->
+<div class="section">
+  <h2>⚠️ 注意事項</h2>
+  <ul>
+    <li><strong>角色安全：</strong>遊戲以娛樂與角色扮演為主，若感到不適請隨時示意GM暫停。</li>
+    <li><strong>情感主題：</strong>本劇本涉及身份揭露、背叛、家族悲劇等情感較重的主題，請做好心理準備。</li>
+    <li><strong>真相不可提前查詢：</strong>請勿在遊戲結束前查閱GM區或網路劇透。</li>
+    <li><strong>遊戲內外分明：</strong>遊戲結束前，角色的秘密就是你的秘密。若角色需要說謊，這是正常的扮演行為。</li>
+    <li><strong>道具保管：</strong>妥善保管你的所有卡牌與道具，遺失可能影響遊戲體驗。</li>
+  </ul>
+</div>
+
+</div><!-- .wrapper -->
+
+<div class="page-nav-footer">
+  <a href="index.html">← Player Area 首頁</a>
+  <a href="characters.html">角色資訊 →</a>
+</div>
+<div class="site-footer">
+  <a href="../../../index.html">📜 LARP Script Archive</a> ｜
+  <a href="../index.html">寇侠</a> ｜
+  <a href="index.html">Player Area</a>
+</div>
+
+</div><!-- #protected-content -->
+
+<script src="../../../assets/js/version.js"></script>
+<script src="../../../assets/js/password-gate.js"></script>
+<script>
+  initPasswordGate({
+    role:     'kou-xia-player',
+    password: 'player',
+    icon:     '📋',
+    title:    '玩家指引 — 寇侠',
+    desc:     '請輸入玩家密碼以進入。',
+    back:     'index.html'
+  });
+</script>
+</body>
+</html>

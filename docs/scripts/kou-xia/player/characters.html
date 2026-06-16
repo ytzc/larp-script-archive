@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>角色資訊（玩家版）— 寇侠</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
+  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
+  --gold:#856404;--gold-lt:#fff8e0;
+  --green:#155724;--green-lt:#d4edda;
+  --gray:#555;--gray-lt:#f5f5f5;
+  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
+  --shadow:0 1px 5px rgba(0,0,0,.1);
+}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.8;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1.05em;color:#333;margin:1.1em 0 .4em}
+p{margin-bottom:.8em}
+ul{margin:.4em 0 .8em 1.5em}li{margin-bottom:.35em}
+table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.9em}
+th{background:#5a0000;color:#fff;padding:.5em .8em;text-align:left}
+td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
+tr:nth-child(even)td{background:#faf5ee}
+
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
+.top-nav a{color:var(--red)}
+.top-nav .sep{color:#bbb}
+
+.wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+.page-header{padding:1.2em 1.6em;background:var(--white);border-left:6px solid #5a0000;box-shadow:var(--shadow);margin-bottom:1.5em}
+.page-header h1{font-size:1.8em;color:#5a0000;margin-bottom:.2em}
+.page-header p{color:var(--muted);font-size:.9em;margin:0}
+
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
+.n-tip{background:var(--gold-lt);border-color:#e0a800}
+.n-warn{background:#fff3e8;border-color:#cc5500}
+
+/* Character cards */
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1em;margin:.8em 0}
+.char-card{border:1px solid #e0d0c0;border-radius:6px;overflow:hidden;background:var(--white);box-shadow:var(--shadow)}
+.char-head{padding:.75em 1em;display:flex;align-items:center;gap:.7em}
+.char-icon{font-size:1.6em;line-height:1}
+.char-name{font-size:1.1em;font-weight:700;color:var(--ink)}
+.char-title{font-size:.82em;color:var(--muted);margin-top:.1em}
+.char-body{padding:.7em 1em .9em;font-size:.88em}
+.char-body table{font-size:1em;margin:.4em 0}
+.char-body td{padding:.3em .5em}
+.char-body td:first-child{font-weight:600;color:var(--muted);white-space:nowrap;width:70px}
+
+/* Faction theme colors */
+.char-card.kou .char-head{background:#fff0f0;border-bottom:3px solid #8b0000}
+.char-card.xiu .char-head{background:#eef0ff;border-bottom:3px solid #003399}
+.char-card.free .char-head{background:#f0f8e8;border-bottom:3px solid #2d7a4a}
+.char-card.unknown .char-head{background:#f5f5f5;border-bottom:3px solid #888}
+
+.badge{display:inline-block;padding:.1em .4em;border-radius:3px;font-size:.75em;font-weight:700}
+.b-kou{background:var(--red-lt);color:var(--red);border:1px solid var(--red-b)}
+.b-xiu{background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-b)}
+.b-free{background:var(--green-lt);color:var(--green);border:1px solid #2d7a4a}
+.b-unk{background:var(--gray-lt);color:var(--gray);border:1px solid #bbb}
+
+.faction-box{border:1px solid #e0d0c0;border-radius:6px;overflow:hidden;margin:.8em 0}
+.faction-row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid #f0e8e0}
+.faction-row:last-child{border-bottom:none}
+.faction-label{padding:.6em .9em;font-weight:700;font-size:.9em;display:flex;align-items:center}
+.faction-label.kou{background:var(--red-lt);color:var(--red)}
+.faction-label.xiu{background:var(--blue-lt);color:var(--blue)}
+.faction-label.free{background:var(--green-lt);color:var(--green)}
+.faction-desc{padding:.6em .9em;font-size:.88em;color:#444;line-height:1.6}
+
+.site-footer{text-align:center;padding:1.5em;font-size:.82em;color:var(--muted);border-top:1px solid #e0d0c0;margin-top:2em}
+.site-footer a{color:var(--red)}
+.page-nav-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:1em 1.2em;background:#fff3e8;border-top:1px solid #e0d0c0;font-size:.88em}
+.page-nav-footer a{color:var(--red);font-weight:600}
+</style>
+</head>
+<body>
+
+<div id="password-gate" style="display:none;"></div>
+<div id="protected-content" style="display:none;">
+
+<div class="top-nav">
+  <div>
+    <a href="../../../index.html">🏠 首頁</a>
+    <span class="sep"> › </span>
+    <a href="../index.html">寇侠</a>
+    <span class="sep"> › </span>
+    <a href="index.html">Player Area</a>
+    <span class="sep"> › </span>
+    <strong>角色資訊（玩家版）</strong>
+  </div>
+  <div>
+    <a href="guide.html">← 玩家指引</a>
+    &nbsp;|&nbsp;
+    <a href="clues.html">線索整理 →</a>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<div class="page-header">
+  <h1>🎭 角色資訊（玩家版）</h1>
+  <p>所有玩家均可知道的公開身份資訊 — 不含各角色私人秘密與 GM truth</p>
+</div>
+
+<div class="notice n-info">
+  本頁只列出各角色的<strong>公開身份</strong>，即開本時所有玩家共同知道的資訊。<br>
+  各角色的私人背景、隱藏任務與個人目標只記錄在各自的角色劇本中，不在此列出。
+</div>
+
+<!-- 角色一覽 -->
+<div class="section">
+  <h2>📋 角色一覽表</h2>
+  <table>
+    <thead>
+      <tr><th>角色名</th><th>公開身份</th><th>外貌特徵</th><th>年齡</th><th>公開陣營</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>金四刃</strong></td>
+        <td>江湖武者，刀法精湛</td>
+        <td>俠客裝扮，英氣勃發</td>
+        <td>26歲</td>
+        <td><span class="badge b-unk">不明</span></td>
+      </tr>
+      <tr>
+        <td><strong>嚴逸</strong></td>
+        <td>帳房先生，隨妻遊歷</td>
+        <td>文人裝扮，細心謹慎</td>
+        <td>—</td>
+        <td><span class="badge b-unk">不明</span></td>
+      </tr>
+      <tr>
+        <td><strong>嚴氏</strong></td>
+        <td>嚴逸之妻，隨夫出行</td>
+        <td>臉有輕紗遮蓋，舉止沉靜</td>
+        <td>22歲</td>
+        <td><span class="badge b-unk">不明</span></td>
+      </tr>
+      <tr>
+        <td><strong>賈三娘</strong></td>
+        <td>客棧老板娘，在地熱心人</td>
+        <td>一袭紅衣，風韻猶存</td>
+        <td>34歲</td>
+        <td><span class="badge b-unk">不明</span></td>
+      </tr>
+      <tr>
+        <td><strong>農叟</strong></td>
+        <td>隱居老農，路過投宿</td>
+        <td>農夫裝扮，老者，身形硬朗</td>
+        <td>老年</td>
+        <td><span class="badge b-unk">不明</span></td>
+      </tr>
+      <tr>
+        <td><strong>王思涵</strong></td>
+        <td>江湖歌姬，才貌俱佳</td>
+        <td>绛紫色細麻長裙，氣質傲骨</td>
+        <td>21歲</td>
+        <td><span class="badge b-unk">不明</span></td>
+      </tr>
+      <tr>
+        <td><strong>王順</strong></td>
+        <td>落拓旅人，四海為家</td>
+        <td>普通旅客裝扮，沉默低調</td>
+        <td>中年</td>
+        <td><span class="badge b-unk">不明</span></td>
+      </tr>
+      <tr>
+        <td><strong>刁五兒</strong></td>
+        <td>客商護衛，沉默寡言</td>
+        <td>瘦小，黑布裹面，客商打扮</td>
+        <td>22歲</td>
+        <td><span class="badge b-unk">不明</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:.84em;color:var(--muted);margin-top:.4em">公開陣營為開場時的可見資訊。各角色的真實立場需在遊戲進行中自行判斷。</p>
+</div>
+
+<!-- 角色卡片詳細 -->
+<div class="section">
+  <h2>🪪 角色詳細資料</h2>
+  <div class="char-grid">
+
+    <div class="char-card unknown">
+      <div class="char-head">
+        <div class="char-icon">⚔️</div>
+        <div>
+          <div class="char-name">金四刃</div>
+          <div class="char-title">江湖武者</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <table>
+          <tr><td>公開身份</td><td>刀法精湛的江湖武者</td></tr>
+          <tr><td>年齡</td><td>26歲</td></tr>
+          <tr><td>外貌</td><td>俠客裝扮，英氣勃發</td></tr>
+          <tr><td>個性（公開）</td><td>仗義，重情義</td></tr>
+          <tr><td>武力</td><td>已知強勁</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="char-card unknown">
+      <div class="char-head">
+        <div class="char-icon">📑</div>
+        <div>
+          <div class="char-name">嚴逸</div>
+          <div class="char-title">帳房先生</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <table>
+          <tr><td>公開身份</td><td>精通帳務的文人，攜妻出遊</td></tr>
+          <tr><td>外貌</td><td>文人裝扮，細心謹慎</td></tr>
+          <tr><td>個性（公開）</td><td>溫文謙遜，對妻子關愛有加</td></tr>
+          <tr><td>與嚴氏</td><td>夫妻關係</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="char-card unknown">
+      <div class="char-head">
+        <div class="char-icon">🌙</div>
+        <div>
+          <div class="char-name">嚴氏</div>
+          <div class="char-title">嚴逸之妻</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <table>
+          <tr><td>公開身份</td><td>隨夫出行的女性</td></tr>
+          <tr><td>年齡</td><td>22歲</td></tr>
+          <tr><td>外貌</td><td>臉有輕紗遮蓋，神情沉靜</td></tr>
+          <tr><td>個性（公開）</td><td>少言，舉止從容</td></tr>
+          <tr><td>與嚴逸</td><td>夫妻關係</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="char-card unknown">
+      <div class="char-head">
+        <div class="char-icon">🏮</div>
+        <div>
+          <div class="char-name">賈三娘</div>
+          <div class="char-title">客棧老板娘</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <table>
+          <tr><td>公開身份</td><td>此地客棧老板娘，在地主人</td></tr>
+          <tr><td>年齡</td><td>34歲</td></tr>
+          <tr><td>外貌</td><td>一袭紅衣，風韻猶存</td></tr>
+          <tr><td>個性（公開）</td><td>熱情好客，消息靈通</td></tr>
+          <tr><td>特殊</td><td>此次聚會的地主，對各人動態最熟悉</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="char-card unknown">
+      <div class="char-head">
+        <div class="char-icon">🌾</div>
+        <div>
+          <div class="char-name">農叟</div>
+          <div class="char-title">隱居老農</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <table>
+          <tr><td>公開身份</td><td>以農夫身份隱居的老者</td></tr>
+          <tr><td>外貌</td><td>農夫裝扮，老者，身形出人意料地硬朗</td></tr>
+          <tr><td>個性（公開）</td><td>沉穩寡言，閱歷深厚</td></tr>
+          <tr><td>特殊</td><td>氣質與普通農夫不符，引人好奇</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="char-card unknown">
+      <div class="char-head">
+        <div class="char-icon">🎵</div>
+        <div>
+          <div class="char-name">王思涵</div>
+          <div class="char-title">江湖歌姬</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <table>
+          <tr><td>公開身份</td><td>才貌俱佳的江湖歌姬</td></tr>
+          <tr><td>年齡</td><td>21歲</td></tr>
+          <tr><td>外貌</td><td>绛紫色細麻長裙，氣質傲骨從容</td></tr>
+          <tr><td>個性（公開）</td><td>聰慧，有主見，不輕易表態</td></tr>
+          <tr><td>特殊</td><td>身手與氣質均超乎「歌姬」印象</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="char-card unknown">
+      <div class="char-head">
+        <div class="char-icon">🧳</div>
+        <div>
+          <div class="char-name">王順</div>
+          <div class="char-title">落拓旅人</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <table>
+          <tr><td>公開身份</td><td>四海為家的落拓旅人</td></tr>
+          <tr><td>外貌</td><td>普通旅客裝扮，沉默低調</td></tr>
+          <tr><td>個性（公開）</td><td>內斂，話不多，行事謹慎</td></tr>
+          <tr><td>特殊</td><td>眼神中偶爾流露複雜神情</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="char-card unknown">
+      <div class="char-head">
+        <div class="char-icon">🗡️</div>
+        <div>
+          <div class="char-name">刁五兒</div>
+          <div class="char-title">客商護衛</div>
+        </div>
+      </div>
+      <div class="char-body">
+        <table>
+          <tr><td>公開身份</td><td>客商隨行護衛</td></tr>
+          <tr><td>年齡</td><td>22歲</td></tr>
+          <tr><td>外貌</td><td>瘦小乾枯，黑布裹面，客商打扮</td></tr>
+          <tr><td>個性（公開）</td><td>沉默寡言，讓人有些不舒服的古怪感</td></tr>
+          <tr><td>特殊</td><td>其他人傾向迴避，眼神警惕</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 陣營說明 -->
+<div class="section">
+  <h2>⚔️ 陣營說明（公開部分）</h2>
+  <p>遊戲中存在的主要勢力，以及公開已知的立場：</p>
+  <div class="faction-box">
+    <div class="faction-row">
+      <div class="faction-label kou">⚔️ 寇俠</div>
+      <div class="faction-desc">以「寇俠」之名在江湖中行義的秘密組織，承繼大夏復國意志，對抗大順朝廷。成員身份隱秘，不輕易表露。</div>
+    </div>
+    <div class="faction-row">
+      <div class="faction-label xiu">🔎 綉衣使</div>
+      <div class="faction-desc">大順朝廷的特務機關，以清查反朝廷勢力為任，手段強硬。在江湖中常以各種身份潛伏。</div>
+    </div>
+    <div class="faction-row">
+      <div class="faction-label free">⚖️ 自由陣營</div>
+      <div class="faction-desc">部分角色不隸屬任何陣營，有自己的目標與盤算。他們的選擇可能左右整場勝負。</div>
+    </div>
+  </div>
+
+  <div class="notice n-warn">
+    <strong>注意：</strong>各角色在開本時的公開陣營為「不明」。陣營歸屬在遊戲過程中逐漸浮現，請透過觀察行為與私下交流自行判斷。
+  </div>
+</div>
+
+<!-- 數值參考 -->
+<div class="section">
+  <h2>📊 戰鬥數值（公開）</h2>
+  <p>以下為角色的基礎 HP 與武力值，此為公開資訊。武力值可透過武器卡或技能提升。</p>
+  <table>
+    <thead>
+      <tr><th>角色</th><th>HP</th><th>武力</th><th>備注</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>金四刃</td><td>30</td><td>5–8</td><td>技能可提升武力</td></tr>
+      <tr><td>嚴逸</td><td>30</td><td>4–7</td><td>技能可提升武力</td></tr>
+      <tr><td>嚴氏</td><td>20</td><td>4–7</td><td>技能可提升武力</td></tr>
+      <tr><td>賈三娘</td><td>30</td><td>5</td><td>—</td></tr>
+      <tr><td>農叟</td><td><strong>40</strong></td><td>6</td><td>全場最高 HP</td></tr>
+      <tr><td>王思涵</td><td>30</td><td>5</td><td>—</td></tr>
+      <tr><td>王順</td><td>30</td><td>5</td><td>—</td></tr>
+      <tr><td>刁五兒</td><td>25</td><td>3–6</td><td>技能可提升武力</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div><!-- .wrapper -->
+
+<div class="page-nav-footer">
+  <a href="guide.html">← 玩家指引</a>
+  <a href="clues.html">線索整理 →</a>
+</div>
+<div class="site-footer">
+  <a href="../../../index.html">📜 LARP Script Archive</a> ｜
+  <a href="../index.html">寇侠</a> ｜
+  <a href="index.html">Player Area</a>
+</div>
+
+</div><!-- #protected-content -->
+
+<script src="../../../assets/js/version.js"></script>
+<script src="../../../assets/js/password-gate.js"></script>
+<script>
+  initPasswordGate({
+    role:     'kou-xia-player',
+    password: 'player',
+    icon:     '🎭',
+    title:    '角色資訊（玩家版）— 寇侠',
+    desc:     '請輸入玩家密碼以進入。',
+    back:     'index.html'
+  });
+</script>
+</body>
+</html>
