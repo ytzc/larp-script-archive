@@ -1,251 +1,359 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>劇本整理備註 — GM — 寇侠</title>
-  <link rel="stylesheet" href="../../../assets/css/style.css" />
+  <link rel="stylesheet" href="../../../assets/css/style.css"/>
   <style>
     .gm-banner{position:sticky;top:0;z-index:100;background:var(--red,#8b0000);color:#fff;text-align:center;padding:.5rem;font-weight:bold;letter-spacing:.05em}
-    .section{background:#fff;border:1px solid #e0d4c0;border-radius:6px;padding:1.2rem 1.5rem;margin-bottom:1rem}
-    .section h2{color:var(--red,#8b0000);margin-top:0;border-bottom:1px solid #e0d4c0;padding-bottom:.4rem}
-    .truth-box{background:#fff5f5;border:2px solid var(--red,#8b0000);border-radius:6px;padding:1rem 1.5rem;margin-bottom:1rem}
-    .truth-box h3{color:var(--red,#8b0000);margin-top:0}
+    .truth-card{background:#fff5f5;border:2px solid var(--red,#8b0000);border-radius:6px;padding:1rem 1.5rem;margin-bottom:1rem}
+    .truth-card h3{color:var(--red,#8b0000);margin-top:0}
     table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.9rem}
     th{background:var(--red,#8b0000);color:#fff;padding:.5rem .8rem;text-align:left}
     td{border:1px solid #ddd;padding:.4rem .8rem}
     tr:nth-child(even){background:#faf6ef}
-    .ocr-tag{background:#ffe0b2;border-radius:3px;padding:0 4px;font-size:.85em;font-family:monospace}
+    .priority-high{color:#c00;font-weight:bold}
+    .priority-mid{color:#e67e00}
+    .priority-low{color:#555}
   </style>
 </head>
 <body>
-<div class="gm-banner">🔒 GM 專用 — 劇本整理備註</div>
+<div class="gm-banner">&#128274; GM 專用 — 劇本整理備註（OCR 提取分析）</div>
 <header class="site-header">
-  <a class="logo" href="../../../index.html">📜 LARP Script Archive</a>
+  <a class="logo" href="../../../index.html">&#128220; LARP Script Archive</a>
   <nav>
     <a href="../../../index.html">首頁</a>
-    <a href="../index.html">寇侠</a>
+    <a href="../index.html">寇俠</a>
     <a href="index.html">GM</a>
   </nav>
 </header>
+
 <div id="password-gate" style="display:none;"></div>
 <div id="protected-content" style="display:none;">
 <main>
   <nav class="top-nav"><a href="index.html">← GM Area</a> › 劇本整理備註</nav>
 
-  <div class="truth-box">
-    <h3>核心 GM 真相速查</h3>
+  <!-- ===== 1. INTRO NOTICE ===== -->
+  <section class="section">
+    <h1>劇本整理備註 — OCR 品質整體說明</h1>
+    <p>本頁彙整所有角色劇本的 OCR 提取結果與整理備註，僅供 GM 參考。所有內容來自 2026-06-16 整理的 .md 稿件，以及 CHECK_REPORT.md 品質審查報告。</p>
+    <p><strong>標記說明：</strong></p>
     <ul>
-      <li><strong>凶案</strong>：嚴氏（栾绛）殺死冷降塵，幕後主謀為嚴逸（殘手）</li>
-      <li><strong>嚴氏真實身份</strong>：何乃清 = 金四刃（何乃武）的失散妹妹</li>
-      <li><strong>嚴逸不知道</strong>：嚴氏與金四刃的關係</li>
-      <li><strong>王順</strong>：曾出賣農叟（丁崧）給綉衣使，現兩難</li>
-      <li><strong>刁五兒</strong>：冷俠林之女，冷降塵的義妹</li>
+      <li><code>[需要人工確認]</code> — OCR 信心度低，建議對照實體書本確認。</li>
+      <li><code>[疑似缺漏]</code> — 段落明顯不完整，應有後續文字未被讀取。</li>
+      <li><code>[需要補拍]</code> — 整節無法讀取，需重新拍攝該頁才能取得內容。</li>
     </ul>
-  </div>
+    <p><strong>重要說明：</strong> 整理稿保留原文語言（簡體不轉繁體，繁體不轉簡體）；OCR 誤字保留原樣並標注，不擅自更正；不添加原文中未有的劇情細節。GM 隔頁說明（「本段GM閱讀，太子殿下，請回避！」）及GM指令頁均不包含在玩家整理稿中。</p>
+  </section>
 
-  <div class="section">
+  <!-- ===== 2. SUMMARY TABLE ===== -->
+  <section class="section">
     <h2>角色文件狀態總覽</h2>
+    <p>來源：CHECK_REPORT.md 第一節</p>
     <table>
       <thead>
         <tr>
           <th>角色</th>
-          <th>OCR 品質</th>
+          <th>真名</th>
+          <th>整體OCR品質</th>
           <th>最大問題</th>
-          <th>補拍優先</th>
+          <th>補拍優先級</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>刁五兒</td>
+          <td>冷鈺</td>
           <td>中等</td>
-          <td>技能數值（頁7）被遮蔽</td>
-          <td>★★ 中</td>
+          <td>技能數值（頁7）被裝訂陰影遮蔽</td>
+          <td><span class="priority-mid">★★ 中</span></td>
         </tr>
         <tr>
           <td>賈三娘</td>
+          <td>歸雪</td>
           <td>差</td>
           <td>頁2–9幾乎全不可讀；感情線對象姓名不明</td>
-          <td>★★★ 高</td>
+          <td><span class="priority-high">★★★ 高</span></td>
         </tr>
         <tr>
           <td>金四刃</td>
+          <td>何乃武</td>
           <td>中等偏好</td>
           <td>頁2開場段OCR重建品質低</td>
-          <td>★ 低</td>
+          <td><span class="priority-low">★ 低</span></td>
         </tr>
         <tr>
           <td>農叟</td>
+          <td>丁崧</td>
           <td>中等</td>
           <td>農叟特殊規則（頁7）遮蔽；冷降塵/嚴逸關係條目遮蔽</td>
-          <td>★★ 中</td>
+          <td><span class="priority-mid">★★ 中</span></td>
         </tr>
         <tr>
           <td>王順</td>
+          <td>龐萬金</td>
           <td>中等偏差</td>
           <td>頁3–9大量行被裝訂陰影截斷</td>
-          <td>★★ 中</td>
+          <td><span class="priority-mid">★★ 中</span></td>
         </tr>
         <tr>
           <td>王思涵</td>
+          <td>旭敏芝</td>
           <td>差</td>
           <td>頁2–10幾乎全為[OCR?]，內容幾乎全不可讀</td>
-          <td>★★★ 高</td>
+          <td><span class="priority-high">★★★ 高</span></td>
         </tr>
         <tr>
           <td>嚴氏</td>
+          <td>栾绛/何乃清</td>
           <td>中等（頁1良好）</td>
           <td>頁6/8凶手行動指令頁遮蔽；感情線等細節遺失</td>
-          <td>★★★ 高</td>
+          <td><span class="priority-high">★★★ 高</span></td>
         </tr>
         <tr>
           <td>嚴逸</td>
+          <td>殘手</td>
           <td>中等偏好</td>
           <td>頁5下/7下環節說明遮蔽</td>
-          <td>★ 低</td>
+          <td><span class="priority-low">★ 低</span></td>
         </tr>
         <tr>
           <td>張猛（NPC）</td>
+          <td>冷降塵</td>
           <td>良好（頁2）＋差（頁4–6）</td>
           <td>頁4–6 GM指引印刷過淡，全部遮蔽</td>
-          <td>★★ 中（GM用）</td>
+          <td><span class="priority-mid">★★ 中（GM用）</span></td>
         </tr>
       </tbody>
     </table>
-  </div>
+  </section>
 
-  <div class="section">
-    <h2>刁五兒 整理備註</h2>
-    <ol>
-      <li><strong>角色核心</strong>：刁五兒（冷鈺）是冷佛林之女、22歲、女扮男裝。來此查清冷降塵及冷佛林之死真相，報父仇。</li>
-      <li><strong>頁001–002 OCR品質</strong>：中等，有明顯誤讀，但主要劇情脈絡可辨。</li>
-      <li><strong>頁003–006 OCR品質</strong>：中等，內側陰影造成部分遺失，但核心目標段落基本完整。</li>
-      <li><strong>技能數值（頁007）</strong>：<span class="ocr-tag">[需要補拍]</span> 此節因內側陰影嚴重，HP 和武力值無法確認，建議重拍或對照GM手冊數值（GM備注為 HP≈25，武力3–6升）。</li>
-      <li><strong>頁005/007/008下半頁</strong>：GM隔頁說明（「親愛的DMG君……」），非玩家文字，此份整理略去。</li>
-      <li><strong>冷佛林與冷降塵關係</strong>：冷降塵為冷佛林舊識，刁五兒通過冷佛林認識冷降塵，視冷降塵如父輩。冷佛林是「真正的鶴翼軍大統領」（按GM notes，冷降塵是冷俠林/冷佛林，刁五兒是其女兒，張猛文件中也提及此關係）。<span class="ocr-tag">[需要人工確認：此角色中「冷佛林」與「冷俠林」是否同一人]</span></li>
-      <li><strong>結局選擇</strong>：方案A（寇俠勝）或方案B（綉衣使勝），均可為父伸冤，差異在大夏命運。</li>
-    </ol>
-  </div>
+  <!-- ===== 3. CROSS-CHARACTER GM TRUTHS ===== -->
+  <section class="section">
+    <h2>跨角色 GM 真相彙整</h2>
+    <p>以下為本場最核心的 GM 層真相，玩家劇本中各自掌握片段，GM 需全盤掌握。</p>
 
-  <div class="section">
-    <h2>賈三娘 整理備註</h2>
-    <ol>
-      <li><strong>角色核心</strong>：賈三娘（歸雪），34歲，客棧老板娘身份掩護、綉衣使密探，協助嚴逸（殘手）行動。有感情線。</li>
-      <li><strong>本份整理最大問題</strong>：頁2–9絕大多數內容因OCR品質極差（雙頁展開旋轉＋陰影）無法讀取，僅封面與頁10清晰可用。</li>
-      <li><strong>感情線對象姓名</strong>：<span class="ocr-tag">[需要補拍]</span> 在頁7完全無法辨讀——這是本角色最關鍵的劇情元素之一，強烈建議人工翻閱原本確認。候選人依GM資訊推測可能為王思涵，但尚未確認。</li>
-      <li><strong>陣營</strong>：綉衣使（固定），與嚴逸合作。</li>
-      <li><strong>頁10（陣營搏殺）</strong>：OCR品質良好，但原文本身有大量疑似OCR誤讀（「誠衣」等），建議核對。</li>
-      <li><strong>整體結論</strong>：此角色劇本需要重新拍攝或人工逐頁翻閱才能得到完整內容，目前整理稿僅供參考，不可作為遊戲執行依據。</li>
-    </ol>
-  </div>
+    <div class="truth-card">
+      <h3>冷降塵之死：凶手與主謀</h3>
+      <p><strong>直接凶手：</strong> 嚴氏（栾绛）</p>
+      <p><strong>幕後主謀：</strong> 嚴逸（殘手）</p>
+      <p>嚴逸劇本頁3紅色加粗明確寫道：「你指使了『嚴氏（栾绛）』殺死了冷降塵——因為冷降塵知道太多，他必須消失。」</p>
+      <p><strong>GM注意：</strong> 嚴氏頁6/8的凶手行動指令段落因裝訂陰影遮蔽，需補拍確認具體道具、時機與方式。</p>
+    </div>
 
-  <div class="section">
-    <h2>金四刃 整理備註</h2>
-    <ol>
-      <li><strong>角色核心</strong>：金四刃（何乃武），26歲，大夏皇族九世孫，寇俠聯絡人。父何彦被綉衣使殺害，妹妹何乃清（頸後青色胎記）失散多年。通過王思涵加入寇俠。</li>
-      <li><strong>關鍵伏筆</strong>：嚴氏（栾绛）即其妹妹何乃清，但金四刃不知。此為本場最大伏筆之一。</li>
-      <li><strong>頁002敘述段</strong>：書冊彎曲嚴重，OCR重建品質極低，部分句子基本為拼湊，建議對照原本。</li>
-      <li><strong>頁015左欄</strong>：「此页内容待GM开放 / 复盘专用」—— GM保留段落，已略去。</li>
-      <li><strong>技能確認</strong>：武力5（可升8）、HP30，技能三項（急袭/牵制/护盾）均清晰可讀。</li>
-      <li><strong>人名OCR誤讀</strong>：「貂五兒」=「刁五兒」，「弄叟」=「農叟」，「旭朝廷」疑為王順身份說明片段，已標注。</li>
-      <li><strong>版權聲明</strong>（頁17底部）：「本剧本版权归《寇侠》制作组所有，不得转载或商用。」</li>
-    </ol>
-  </div>
+    <div class="truth-card">
+      <h3>嚴氏的真實身份：何乃清</h3>
+      <p>嚴氏（栾绛）真名是何乃清，大夏皇族後裔，金四刃（何乃武）失散多年的妹妹。</p>
+      <ul>
+        <li>嚴氏身上有青色胎記（頸後），與金四刃描述的「頸後青色胎記」完全吻合。</li>
+        <li>嚴氏幼年記憶缺失——被嚴逸訓練為殺手前的記憶空白，不知道自己真實身份。</li>
+        <li>嚴逸當年奉命殺害何彦全家，但對女童（何乃清）刀下留情，謊報全數伏誅。他三年前認出了長大的何乃清，以「妻子」身份收用，訓練為殺手「栾绛」。</li>
+        <li>嚴逸明確不知道嚴氏（何乃清）與金四刃的兄妹關係（嚴逸頁4）。</li>
+      </ul>
+    </div>
 
-  <div class="section">
-    <h2>農叟 整理備註</h2>
-    <ol>
-      <li><strong>角色核心</strong>：農叟（丁崧），50歲左右，大夏托孤重臣，無初始陣營。HP40/武力6為全場最高。舊部王順（龐萬金）隨行。曾奉命前往汲洲接洽何乃清（何乃武家人），任務出差錯，心懷愧疚。</li>
-      <li><strong>頁001 OCR品質</strong>：差，開場引導文字幾乎全部誤讀，僅核心身份（丁崧、大夏托孤重臣、汲洲任務）可辨。</li>
-      <li><strong>頁5/7/8/9下半頁</strong>：均為GM隔頁裝飾（「本段GM閱讀，太子殿下，請回避！」），已略去。</li>
-      <li><strong>農叟特殊規則</strong>（頁7）：<span class="ocr-tag">[需要補拍]</span> 此節因裝訂陰影完全遮蔽，為遊戲執行重要缺漏。</li>
-      <li><strong>人名OCR誤讀</strong>：「王四寒」=「王思涵」，「張夢」=「張猛」，「何乃青」=可能為「何乃清」或「何乃武」，「鄭木」=大順皇帝名（應為鄧木/鄭木，需確認），已標注。</li>
-      <li><strong>冷降塵/嚴逸關係條目</strong>：兩個關係條目均因裝訂陰影遮蔽，<span class="ocr-tag">[需要補拍]</span>。</li>
-      <li><strong>結局</strong>：方案A（寇俠勝，重歸舊主）或方案B（綉衣使勝，消散山野）。可能有第三結局待確認。</li>
-    </ol>
-  </div>
+    <div class="truth-card">
+      <h3>冷佛林／冷俠林：同一人？</h3>
+      <p>刁五兒劇本稱父親為「冷佛林」，張猛劇本稱寇俠首領為「冷俠林」。兩個名字疑似同一人，OCR誤讀所致。</p>
+      <p>冷降塵（張猛）是冷俠林收養的義子；刁五兒（冷鈺）是冷俠林親女——二人如義兄妹。</p>
+      <p><strong>待確認：</strong> 「冷佛林」與「冷俠林」是否確為同一人，需對照原本核對。</p>
+    </div>
 
-  <div class="section">
-    <h2>王順 整理備註</h2>
-    <ol>
-      <li><strong>角色核心</strong>：王順（龐萬金），43歲，大夏重臣丁崧部下小將。曾告發丁崧給綉衣使，以為能晉升，結果未得到預期地位，成為底層線人。後再次遇到農叟（丁崧），陷入忠義與綉衣使任務的兩難。以秀明為偽女，混入本次集會。</li>
-      <li><strong>頁2（你的故事）OCR品質</strong>：中等，多處誤讀，但核心劇情（告發丁崧、未得晉升、成為線人）可辨。</li>
-      <li><strong>頁3–9 OCR品質</strong>：中等偏差，大量行被裝訂陰影截斷，以片段形式保留。</li>
-      <li><strong>秀明關係</strong>：農叟的女兒，被王順帶著當掩護女兒，秀明本人不知真相。</li>
-      <li><strong>核心抉擇</strong>：綉衣使任務（監視冷降塵/寇俠）vs 保護舊主農叟——這是本角色的主要張力。</li>
-      <li><strong>陣營</strong>：綉衣使（線人），但因舊主農叟的出現而搖擺。</li>
-      <li><strong>冷降塵之死</strong>：王順不知凶手，只知與「寇俠內部權力爭奪」有關（此為其視角，非GM真相）。</li>
-    </ol>
-  </div>
+    <div class="truth-card">
+      <h3>農叟（丁崧）與王順（龐萬金）的關係</h3>
+      <p>農叟真名丁崧，大夏托孤重臣，目前無陣營，以農夫身份隱居。</p>
+      <p>王順真名龐萬金，曾是丁崧部下小將，但年輕時曾告發丁崧給綉衣使（希望藉此晉升，未遂）。後再次遇到農叟，陷入忠義與綉衣使任務的兩難。</p>
+      <p>王順以「秀明」（農叟之女）作為女兒身份掩護混入集會，秀明本人不知真相。</p>
+    </div>
 
-  <div class="section">
-    <h2>王思涵 整理備註</h2>
-    <ol>
-      <li><strong>角色核心</strong>：王思涵（旭敏芝），21歲，歌姬身份掩護，真實身份為玄甲軍統師（大夏舊軍領導者）。通過她，金四刃才加入寇俠。金四刃確認「知道王思涵是寇俠玄甲軍統帥」。</li>
-      <li><strong>本份整理最大問題</strong>：頁2–10幾乎全為[OCR?]佔位符，幾乎無可用的劇本文字。整理稿僅封面確定，其餘均需補拍。</li>
-      <li><strong>可確認資訊（來源：GM跨引用）</strong>：
-        <ul>
-          <li>真名：旭敏芝（也有「阳敏芝」一說，可能為簡體/繁體差異）</li>
-          <li>職位：玄甲軍統師（寇俠核心成員）</li>
-          <li>與金四刃的關係：他通過她加入寇俠，二人互相信任</li>
-          <li>陣營：寇俠（可能可選）</li>
-        </ul>
-      </li>
-      <li><strong>感情線</strong>：賈三娘劇本中提及「感情線對象」，從GM關係矩陣推測可能指向王思涵，但尚未確認。</li>
-      <li><strong>整體結論</strong>：此角色劇本OCR品質最差，幾乎需要完全重新拍攝或人工逐頁翻閱。目前整理稿僅供角色基本識別，不可作為遊戲執行依據。</li>
-    </ol>
-  </div>
+    <div class="truth-card">
+      <h3>金四刃（何乃武）的身份與任務</h3>
+      <p>金四刃（何乃武），26歲，大夏皇族九世孫，寇俠聯絡人。通過王思涵（旭敏芝）加入寇俠。</p>
+      <p>多年來尋找失散妹妹何乃清（頸後青色胎記），本次聚會後計劃請王思涵借用情報網打探消息。</p>
+      <p>金四刃視嚴氏「眼神令他隱隱不安，彷彿在哪裡見過」，但未識破兄妹關係——此為本場最大伏筆之一。</p>
+    </div>
 
-  <div class="section">
-    <h2>嚴氏 整理備註</h2>
-    <ol>
-      <li><strong>角色核心</strong>：嚴氏（栾绛/何乃清），22歲，嚴逸名義妻子，綉衣使殺手。真實身份是何乃清，大夏皇族後裔，金四刃（何乃武）的失散妹妹。身上有青色胎記（呼應金四刃描述的「頸後青色胎記」）。記憶被操控，不知自己真實身份。</li>
-      <li><strong>嚴氏=何乃清的關鍵線索（頁1）</strong>：
-        <ul>
-          <li>自述「身上有青色痕跡，不知是什麼」</li>
-          <li>嚴逸告訴她臉上紅色疤痕是「幼小時的記號」（但她不記得）</li>
-          <li>幼年記憶完全缺失——被嚴逸訓練為殺手前的記憶空白</li>
-        </ul>
-      </li>
-      <li><strong>凶手確認</strong>（來源：嚴逸劇本頁3，紅色加粗）：「你指使了『嚴氏（栾绛）』殺死了冷降塵」——嚴氏是冷降塵的直接凶手，嚴逸是幕後主謀。</li>
-      <li><strong>最大缺漏</strong>：頁6/8的冷降塵任務密令段落（凶手行動指令頁）因裝訂陰影完全遮蔽，<span class="ocr-tag">[需要補拍]</span>——這是本角色最關鍵的遊戲執行段落。</li>
-      <li><strong>頁1 OCR品質</strong>：良好，大部分敘事可讀，但有散落的OCR誤字，標注處請對照原本確認。</li>
-      <li><strong>頁2–9 OCR品質</strong>：中等偏差，大量內容遺失。</li>
-      <li><strong>陣營</strong>：綉衣使（服從嚴逸指令）。</li>
-    </ol>
-  </div>
+    <div class="truth-card">
+      <h3>王思涵（旭敏芝）：玄甲軍統師</h3>
+      <p>王思涵真名旭敏芝（或阳敏芝，簡繁差異待確認），21歲，歌姬身份掩護，實為寇俠玄甲軍統師。</p>
+      <p>金四刃通過她加入寇俠，二人互信，金四刃確認「知道王思涵是寇俠玄甲軍統帥」。</p>
+      <p><strong>GM注意：</strong> 王思涵劇本頁2–10 OCR品質最差（幾乎全為佔位符），是本批整理稿中內容最匱乏的角色，必須優先補拍。</p>
+    </div>
 
-  <div class="section">
-    <h2>嚴逸 整理備註</h2>
-    <ol>
-      <li><strong>角色核心</strong>：嚴逸（殘手），36歲，綉衣使頂級殺手，書生打扮。技能：無相功法（武力+3，反噬-2HP）、偽裝身份（每場景1次）、栾绛指令。武力基礎4，使用技能後最高7。</li>
-      <li><strong>最重要段落（頁3，紅色加粗）</strong>：嚴逸是冷降塵謀殺的幕後主謀，指使嚴氏（栾绛）動手。嚴逸當年殺何彦全家但留下女童（=何乃清/嚴氏），謊報全數伏誅。</li>
-      <li><strong>嚴氏真實身份</strong>：嚴氏是何乃清，金四刃之妹。嚴逸不知道嚴氏與金四刃的關係（頁4明確寫「你不知道嚴氏與金四刃的真正關係」）。</li>
-      <li><strong>頁5下半/7下半</strong>：<span class="ocr-tag">[需要補拍]</span> 各環節綉衣使行動方針因裝訂陰影完全遮蔽。</li>
-      <li><strong>頁8問題4</strong>：「是誰在寇俠大堂桌上留下了綉衣使線人的號碼？綉衣使共有幾個線人？」—— 這是GM設定的重要謎題，需對照DM手冊確認答案。</li>
-      <li><strong>OCR品質整體評估</strong>：本角色劇本OCR品質為9個角色中最佳，頁3–7上半大量劇情文字可讀，是本批整理稿中最完整的一份。</li>
-      <li><strong>陣營</strong>：固定為綉衣使。</li>
-    </ol>
-  </div>
+    <div class="truth-card">
+      <h3>賈三娘（歸雪）：感情線待確認</h3>
+      <p>賈三娘真名歸雪，34歲，客棧老板娘身份掩護，綉衣使密探，協助嚴逸（殘手）行動。</p>
+      <p>賈三娘有一條感情線，某人讓她的心動搖，可能影響對綉衣使的忠誠。感情線對象在頁7完全無法辨讀（[需要補拍]）。依GM關係矩陣推測可能為王思涵，但尚未確認。</p>
+    </div>
 
-  <div class="section">
-    <h2>張猛 整理備註</h2>
-    <ol>
-      <li><strong>角色核心</strong>：張猛（NPC），真名冷降塵，化名孟猛，幼名丁勇，27歲。鶴翼軍（寇俠旗下）的鶴翼軍戰士，親父為大夏重臣（丁氏），被家族流放後被寇俠首領冷俠林收養，改名冷降塵。冷俠林之女冷鈺（即刁五兒）是其義妹。</li>
-      <li><strong>冷降塵（張猛）與刁五兒的關係</strong>：冷降塵是冷俠林的義子，冷鈺（刁五兒）是冷俠林的親女，二人如親生兄妹。刁五兒來此正是為查冷降塵之死（以及父親冷佛林/冷俠林之死）。<span class="ocr-tag">[需要人工確認：「冷佛林」與「冷俠林」是否同一人——刁五兒文稿中稱其父為「冷佛林」，張猛文稿中稱其為「冷俠林」，可能為OCR誤讀的同一人名，待確認]</span></li>
-      <li><strong>NPC職責</strong>：扮演死者（尸体），持有3張屍體線索（C1-C3）及1封書信（L1），藏在身上不同位置，凶案環節後退場。</li>
-      <li><strong>頁4–6嚴重遮蔽</strong>：GM指引段落（紅色文字）、人物關係密碼牌、玩家互動分配、令內玩家幫助任務說法，因印刷品質極差（過淡、過小）及裝訂陰影，幾乎全部無法讀取。<span class="ocr-tag">[需要補拍]</span></li>
-      <li><strong>「搏阳锤」</strong>：父親傳給冷降塵的武器/武技名，需確認原文。</li>
-      <li><strong>名字OCR問題</strong>：「冷姐」=「冷鈺」（刁五兒），「宜俠军——鹤驾军」=「寇俠軍——鶴翼軍」，「援预钧林」可能為人名OCR誤讀，需確認。</li>
-    </ol>
-  </div>
+    <div class="truth-card">
+      <h3>嚴逸（殘手）的核心秘密</h3>
+      <p>嚴逸是綉衣使頂級殺手「殘手」，書生身份掩護，技能「無相功法」（武力+3，反噬每回合-2HP）。</p>
+      <p>嚴逸的四大秘密（頁7）：</p>
+      <ol>
+        <li>他是「殘手」——一旦被揭穿，任務失敗。</li>
+        <li>他是冷降塵命案的幕後主謀，指使嚴氏動手。</li>
+        <li>他當年沒有殺死那個女童（即何乃清），但謊報全數伏誅——連上司都不知道。</li>
+        <li>他對嚴氏的感情是否已超出「工具」的範疇，是他最不想面對的問題。</li>
+      </ol>
+    </div>
 
-  <div class="section">
-    <h2>CHECK_REPORT 待確認事項</h2>
+    <div class="truth-card">
+      <h3>張猛（NPC）：冷降塵的前史</h3>
+      <p>張猛真名冷降塵，化名孟猛，幼名丁勇，27歲。親父為大夏重臣，被家族流放後由寇俠首領冷俠林收養，改名冷降塵。</p>
+      <p>NPC職責：扮演死者，持有3張屍體線索（C1–C3）及1封書信（L1），藏身上不同位置，凶案環節後退場。</p>
+      <p><strong>GM注意：</strong> 頁4–6 GM指引（紅色文字）、人物關係密碼牌、玩家互動分配說明全部因印刷過淡而遮蔽，需對照DM手冊。</p>
+    </div>
+  </section>
+
+  <!-- ===== 4. PER-CHARACTER 整理備註 ===== -->
+  <section class="section">
+    <h2>各角色整理備註（逐一詳覽）</h2>
+
+    <div class="section">
+      <h2>刁五兒（冷鈺）</h2>
+      <p><em>來源：diao-wu-er.md — 整理備註</em></p>
+      <ol>
+        <li><strong>角色核心：</strong> 刁五兒（冷鈺）是冷佛林之女、22歲、女扮男裝。來此查清冷降塵及冷佛林之死真相，報父仇。</li>
+        <li><strong>頁001–002 OCR品質：</strong> 中等，有明顯誤讀，但主要劇情脈絡可辨。</li>
+        <li><strong>頁003–006 OCR品質：</strong> 中等，內側陰影造成部分遺失，但核心目標段落基本完整。</li>
+        <li><strong>技能數值（頁007）：</strong> [需要補拍] 此節因內側陰影嚴重，HP 和武力值無法確認，建議重拍或對照GM手冊數值（GM備注為 HP≈25，武力3–6升，仍需原本核對）。</li>
+        <li><strong>頁005/007/008下半頁：</strong> GM隔頁說明（「親愛的DMG君……」），非玩家文字，此份整理略去。</li>
+        <li><strong>冷佛林與冷降塵關係：</strong> 冷降塵為冷佛林舊識，刁五兒通過冷佛林認識冷降塵，視冷降塵如父輩。冷佛林是「真正的鶴翼軍大統領」（按GM notes，冷降塵是冷俠林/冷佛林，刁五兒是其女兒，張猛文件中也提及此關係）。[需要人工確認：此角色中「冷佛林」與「冷俠林」是否同一人]</li>
+        <li><strong>結局選擇：</strong> 方案A（寇俠勝）或方案B（綉衣使勝），均可為父伸冤，差異在大夏命運。</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>賈三娘（歸雪）</h2>
+      <p><em>來源：jia-san-niang.md — 整理備註</em></p>
+      <ol>
+        <li><strong>角色核心：</strong> 賈三娘（歸雪），34歲，客棧老板娘身份掩護、綉衣使密探，協助嚴逸（殘手）行動。有感情線。</li>
+        <li><strong>本份整理最大問題：</strong> 頁2–9絕大多數內容因OCR品質極差（雙頁展開旋轉＋陰影）無法讀取，僅封面與頁10清晰可用。</li>
+        <li><strong>感情線對象姓名：</strong> [需要補拍] 在頁7完全無法辨讀——這是本角色最關鍵的劇情元素之一，強烈建議人工翻閱原本確認。候選人依GM資訊推測可能為王思涵，但尚未確認。</li>
+        <li><strong>陣營：</strong> 綉衣使（固定），與嚴逸合作。</li>
+        <li><strong>頁10（陣營搏殺）：</strong> OCR品質良好，但原文本身有大量疑似OCR誤讀（「誠衣」等），建議核對。</li>
+        <li><strong>整體結論：</strong> 此角色劇本需要重新拍攝或人工逐頁翻閱才能得到完整內容，目前整理稿僅供參考，不可作為遊戲執行依據。</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>金四刃（何乃武）</h2>
+      <p><em>來源：jin-si-ren.md — 整理備註</em></p>
+      <ol>
+        <li><strong>角色核心：</strong> 金四刃（何乃武），26歲，大夏皇族九世孫，寇俠聯絡人。父何彦被綉衣使殺害，妹妹何乃清（頸後青色胎記）失散多年。通過王思涵加入寇俠。</li>
+        <li><strong>關鍵伏筆：</strong> 嚴氏（栾绛）即其妹妹何乃清，但金四刃不知。此為本場最大伏筆之一。</li>
+        <li><strong>頁002敘述段：</strong> 書冊彎曲嚴重，OCR重建品質極低，部分句子基本為拼湊，建議對照原本。</li>
+        <li><strong>頁015左欄：</strong> 「此页内容待GM开放 / 复盘专用」—— GM保留段落，已略去。</li>
+        <li><strong>技能確認：</strong> 武力5（可升8）、HP30，技能三項（急袭/牵制/护盾）均清晰可讀。</li>
+        <li><strong>人名OCR誤讀：</strong> 「貂五兒」=「刁五兒」，「弄叟」=「農叟」，「旭朝廷」疑為王順身份說明片段，已標注。</li>
+        <li><strong>版權聲明</strong>（頁17底部）：「本剧本版权归《寇侠》制作组所有，不得转载或商用。」</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>農叟（丁崧）</h2>
+      <p><em>來源：nong-sou.md — 整理備註</em></p>
+      <ol>
+        <li><strong>角色核心：</strong> 農叟（丁崧），50歲左右，大夏托孤重臣，無初始陣營。HP40/武力6為全場最高。舊部王順（龐萬金）隨行。曾奉命前往汲洲接洽何乃清（何乃武家人），任務出差錯，心懷愧疚。</li>
+        <li><strong>頁001 OCR品質：</strong> 差，開場引導文字幾乎全部誤讀，僅核心身份（丁崧、大夏托孤重臣、汲洲任務）可辨。</li>
+        <li><strong>頁5/7/8/9下半頁：</strong> 均為GM隔頁裝飾（「本段GM閱讀，太子殿下，請回避！」），已略去。</li>
+        <li><strong>農叟特殊規則（頁7）：</strong> [需要補拍] 此節因裝訂陰影完全遮蔽，為遊戲執行重要缺漏。</li>
+        <li><strong>人名OCR誤讀：</strong> 「王四寒」=「王思涵」，「張夢」=「張猛」，「何乃青」=可能為「何乃清」或「何乃武」，「鄭木」=大順皇帝名（應為鄧木/鄭木，需確認），已標注。</li>
+        <li><strong>冷降塵/嚴逸關係條目：</strong> 兩個關係條目均因裝訂陰影遮蔽，[需要補拍]。</li>
+        <li><strong>結局：</strong> 方案A（寇俠勝，重歸舊主）或方案B（綉衣使勝，消散山野）。可能有第三結局待確認。</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>王順（龐萬金）</h2>
+      <p><em>來源：wang-shun.md — 整理備註</em></p>
+      <ol>
+        <li><strong>角色核心：</strong> 王順（龐萬金），43歲，大夏重臣丁崧部下小將。曾告發丁崧給綉衣使，以為能晉升，結果未得到預期地位，成為底層線人。後再次遇到農叟（丁崧），陷入忠義與綉衣使任務的兩難。以秀明為偽女，混入本次集會。</li>
+        <li><strong>頁2（你的故事）OCR品質：</strong> 中等，多處誤讀，但核心劇情（告發丁崧、未得晉升、成為線人）可辨。</li>
+        <li><strong>頁3–9 OCR品質：</strong> 中等偏差，大量行被裝訂陰影截斷，以片段形式保留。</li>
+        <li><strong>秀明關係：</strong> 農叟的女兒，被王順帶著當掩護女兒，秀明本人不知真相。</li>
+        <li><strong>核心抉擇：</strong> 綉衣使任務（監視冷降塵/寇俠）vs 保護舊主農叟——這是本角色的主要張力。</li>
+        <li><strong>陣營：</strong> 綉衣使（線人），但因舊主農叟的出現而搖擺。</li>
+        <li><strong>冷降塵之死：</strong> 王順不知凶手，只知與「寇俠內部權力爭奪」有關（此為其視角，非GM真相）。</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>王思涵（旭敏芝）</h2>
+      <p><em>來源：wang-si-han.md — 整理備註</em></p>
+      <ol>
+        <li><strong>角色核心：</strong> 王思涵（旭敏芝），21歲，歌姬身份掩護，真實身份為玄甲軍統師（大夏舊軍領導者）。通過她，金四刃才加入寇俠。金四刃確認「知道王思涵是寇俠玄甲軍統帥」。</li>
+        <li><strong>本份整理最大問題：</strong> 頁2–10幾乎全為[OCR?]佔位符，幾乎無可用的劇本文字。整理稿僅封面確定，其餘均需補拍。</li>
+        <li><strong>可確認資訊（來源：GM跨引用）：</strong>
+          <ul>
+            <li>真名：旭敏芝（也有「阳敏芝」一說，可能為簡體/繁體差異）</li>
+            <li>職位：玄甲軍統師（寇俠核心成員）</li>
+            <li>與金四刃的關係：他通過她加入寇俠，二人互相信任</li>
+            <li>陣營：寇俠（可能可選）</li>
+          </ul>
+        </li>
+        <li><strong>感情線：</strong> 賈三娘劇本中提及「感情線對象」，從GM關係矩陣推測可能指向王思涵，但尚未確認。</li>
+        <li><strong>整體結論：</strong> 此角色劇本OCR品質最差，幾乎需要完全重新拍攝或人工逐頁翻閱。目前整理稿僅供角色基本識別，不可作為遊戲執行依據。</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>嚴氏（栾绛 / 何乃清）</h2>
+      <p><em>來源：yan-shi.md — 整理備註</em></p>
+      <ol>
+        <li><strong>角色核心：</strong> 嚴氏（栾绛/何乃清），22歲，嚴逸名義妻子，綉衣使殺手。真實身份是何乃清，大夏皇族後裔，金四刃（何乃武）的失散妹妹。身上有青色胎記（呼應金四刃描述的「頸後青色胎記」）。記憶被操控，不知自己真實身份。</li>
+        <li><strong>嚴氏=何乃清的關鍵線索（頁1）：</strong>
+          <ul>
+            <li>自述「身上有青色痕跡，不知是什麼」</li>
+            <li>嚴逸告訴她臉上紅色疤痕是「幼小時的記號」（但她不記得）</li>
+            <li>幼年記憶完全缺失——被嚴逸訓練為殺手前的記憶空白</li>
+          </ul>
+        </li>
+        <li><strong>凶手確認（來源：嚴逸劇本頁3，紅色加粗）：</strong> 「你指使了『嚴氏（栾绛）』殺死了冷降塵」——嚴氏是冷降塵的直接凶手，嚴逸是幕後主謀。</li>
+        <li><strong>最大缺漏：</strong> 頁6/8的冷降塵任務密令段落（凶手行動指令頁）因裝訂陰影完全遮蔽，<strong>強烈建議補拍</strong>——這是本角色最關鍵的遊戲執行段落。</li>
+        <li><strong>頁1 OCR品質：</strong> 良好，大部分敘事可讀，但有散落的OCR誤字，標注處請對照原本確認。</li>
+        <li><strong>頁2–9 OCR品質：</strong> 中等偏差，大量內容遺失。</li>
+        <li><strong>陣營：</strong> 綉衣使（服從嚴逸指令）。</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>嚴逸（殘手）</h2>
+      <p><em>來源：yan-yi.md — 整理備註</em></p>
+      <ol>
+        <li><strong>角色核心：</strong> 嚴逸（殘手），36歲，綉衣使頂級殺手，書生打扮。技能：無相功法（武力+3，反噬-2HP）、偽裝身份（每場景1次）、栾绛指令。武力基礎4，使用技能後最高7。</li>
+        <li><strong>最重要段落（頁3，紅色加粗）：</strong> 嚴逸是冷降塵謀殺的幕後主謀，指使嚴氏（栾绛）動手。嚴逸當年殺何彦全家但留下女童（=何乃清/嚴氏），謊報全數伏誅。</li>
+        <li><strong>嚴氏真實身份：</strong> 嚴氏是何乃清，金四刃之妹。嚴逸不知道嚴氏與金四刃的關係（頁4明確寫「你不知道嚴氏與金四刃的真正關係」）。</li>
+        <li><strong>頁5下半/7下半：</strong> [需要補拍] 各環節綉衣使行動方針因裝訂陰影完全遮蔽。</li>
+        <li><strong>頁8問題4：</strong> 「是誰在寇俠大堂桌上留下了綉衣使線人的號碼？綉衣使共有幾個線人？」—— 這是GM設定的重要謎題，需對照DM手冊確認答案。</li>
+        <li><strong>OCR品質整體評估：</strong> 本角色劇本OCR品質為9個角色中最佳，頁3–7上半大量劇情文字可讀，是本批整理稿中最完整的一份。</li>
+        <li><strong>陣營：</strong> 固定為綉衣使。</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>張猛（NPC）— 冷降塵</h2>
+      <p><em>來源：zhang-meng.md — 整理備註</em></p>
+      <ol>
+        <li><strong>角色核心：</strong> 張猛（NPC），真名冷降塵，化名孟猛，幼名丁勇，27歲。鶴翼軍（寇俠旗下）戰士，親父為大夏重臣（丁氏），被家族流放後被寇俠首領冷俠林收養，改名冷降塵。冷俠林之女冷鈺（即刁五兒）是其義妹。</li>
+        <li><strong>冷降塵（張猛）與刁五兒的關係：</strong> 冷降塵是冷俠林的義子，冷鈺（刁五兒）是冷俠林的親女，二人如親生兄妹。刁五兒來此正是為查冷降塵之死（以及父親冷佛林/冷俠林之死）。[需要人工確認：「冷佛林」與「冷俠林」是否同一人——刁五兒文稿中稱其父為「冷佛林」，張猛文稿中稱其為「冷俠林」，可能為OCR誤讀的同一人名，待確認]</li>
+        <li><strong>NPC職責：</strong> 扮演死者（尸体），持有3張屍體線索（C1–C3）及1封書信（L1），藏在身上不同位置，凶案環節後退場。</li>
+        <li><strong>頁4–6嚴重遮蔽：</strong> GM指引段落（紅色文字）、人物關係密碼牌、玩家互動分配、令內玩家幫助任務說法，因印刷品質極差（過淡、過小）及裝訂陰影，幾乎全部無法讀取。[需要補拍]</li>
+        <li><strong>「搏阳锤」：</strong> 父親傳給冷降塵的武器/武技名，需確認原文。</li>
+        <li><strong>名字OCR問題：</strong> 「冷姐」=「冷鈺」（刁五兒），「宜俠军——鹤驾军」=「寇俠軍——鶴翼軍」，「援预钧林」可能為人名OCR誤讀，需確認。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== 5. CHECK_REPORT SECTIONS 三/四/五/六 ===== -->
+  <section class="section">
+    <h2>CHECK_REPORT.md 附錄參考</h2>
 
     <h3>三、高優先級待確認事項</h3>
 
-    <p><strong>遊戲執行關鍵（必須補拍/確認）</strong></p>
+    <h4>遊戲執行關鍵（必須補拍/確認）</h4>
     <ol>
       <li><strong>嚴氏頁6/8：凶手行動指令</strong> — 嚴氏殺死冷降塵的具體指令文字（道具、時機、方式），是核心謎題解答的關鍵。</li>
       <li><strong>賈三娘頁7：感情線對象姓名</strong> — 感情線是賈三娘角色的核心，對象完全不可讀。候選依GM關係矩陣推測可能為王思涵，但未確認。</li>
@@ -253,7 +361,7 @@
       <li><strong>王思涵頁2–10：幾乎全部內容</strong> — 除封面外完全不可用，技能/勝利條件/陣營選擇全部缺失。</li>
     </ol>
 
-    <p><strong>劇情理解重要（建議確認）</strong></p>
+    <h4>劇情理解重要（建議確認）</h4>
     <ol start="5">
       <li><strong>刁五兒頁7：技能數值</strong> — HP和武力值未確認（GM備注為HP≈25，武力3–6升，仍需原本核對）。</li>
       <li><strong>農叟頁001：開場故事</strong> — 大量OCR誤讀，「汲洲任務」核心劇情僅有破碎片段。</li>
@@ -318,9 +426,9 @@
     <h3>五、OCR提取格式說明</h3>
     <p>所有 .md 整理稿中使用以下標記：</p>
     <ul>
-      <li><span class="ocr-tag">[需要人工確認]</span> — 此處OCR信心度低，原文詞語可能被誤讀，建議對照實體書本確認。</li>
-      <li><span class="ocr-tag">[疑似缺漏]</span> — 此處段落明顯不完整（句子截斷、內容突然中斷），應有後續文字未被讀取。</li>
-      <li><span class="ocr-tag">[需要補拍]</span> — 此節整個無法讀取（大範圍裝訂陰影或印刷過淡），需重新拍攝該頁才能取得內容。</li>
+      <li><code>[需要人工確認]</code> — 此處OCR信心度低，原文詞語可能被誤讀，建議對照實體書本確認。</li>
+      <li><code>[疑似缺漏]</code> — 此處段落明顯不完整（句子截斷、內容突然中斷），應有後續文字未被讀取。</li>
+      <li><code>[需要補拍]</code> — 此節整個無法讀取（大範圍裝訂陰影或印刷過淡），需重新拍攝該頁才能取得內容。</li>
     </ul>
     <p><strong>重要說明：</strong></p>
     <ul>
@@ -350,20 +458,21 @@
       <li>金四刃（整體可用，僅頁2開場段需核對）</li>
       <li>嚴逸（整體最完整，僅頁5下/7下缺失）</li>
     </ul>
-  </div>
+  </section>
 
 </main>
 <footer class="site-footer">
   <a href="index.html">← GM Area</a> &nbsp;|&nbsp; LARP Script Archive &nbsp;|&nbsp; <span class="site-version"></span>
 </footer>
 </div>
+
 <script src="../../../assets/js/version.js"></script>
 <script src="../../../assets/js/password-gate.js"></script>
 <script>
   initPasswordGate({
     role: 'kou-xia-gm',
     password: 'gm',
-    icon: '🔒',
+    icon: '&#128274;',
     title: '劇本整理備註 — GM Only',
     desc: '請輸入 GM 密碼以查看角色劇本整理備註。',
     back: 'index.html'
