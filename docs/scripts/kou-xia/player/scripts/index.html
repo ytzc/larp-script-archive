@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>角色劇本 — 寇侠 Player</title>
+  <link rel="stylesheet" href="../../../../assets/css/style.css" />
+  <style>
+    .char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .char-card { background: var(--paper, #faf6ef); border: 1px solid #c8b89a; border-radius: 8px; padding: 1.2rem 1.4rem; text-decoration: none; color: inherit; display: block; transition: box-shadow .15s; }
+    .char-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.12); text-decoration: none; }
+    .char-card .char-name { font-size: 1.2rem; font-weight: bold; color: var(--red, #8b0000); margin-bottom: .3rem; }
+    .char-card .char-alias { font-size: .85rem; color: #888; margin-bottom: .4rem; }
+    .char-card .char-cover { font-size: .85rem; font-style: italic; color: #555; border-top: 1px solid #e0d4c0; padding-top: .5rem; margin-top: .5rem; }
+    .char-card .ocr-badge { font-size: .75rem; padding: 2px 6px; border-radius: 10px; display: inline-block; margin-top: .4rem; }
+    .ocr-good { background: #e8f5e9; color: #2e7d32; }
+    .ocr-mid  { background: #fff8e1; color: #f57f17; }
+    .ocr-poor { background: #fce4ec; color: #c62828; }
+    .npc-card { border-color: #aaa; }
+    .npc-card .char-name { color: #555; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="../../../../index.html">📜 LARP Script Archive</a>
+  <nav>
+    <a href="../../../../index.html">首頁</a>
+    <a href="../../index.html">寇侠</a>
+    <a href="../index.html">Player</a>
+    <a href="index.html">角色劇本</a>
+  </nav>
+</header>
+
+<div id="password-gate" style="display:none;"></div>
+
+<div id="protected-content" style="display:none;">
+<main>
+  <nav class="top-nav"><a href="../index.html">← Player Area</a> › 角色劇本</nav>
+
+  <div class="hero">
+    <h1>📜 角色劇本</h1>
+    <p>寇侠 — 各角色劇本（OCR 整理稿，密碼：player）</p>
+  </div>
+
+  <div class="notice notice-warning">
+    所有劇本均由 PDF 掃描檔 OCR 提取整理，<strong>部分頁面因裝訂陰影或印刷品質導致內容不完整</strong>。<br />
+    標有 <code>[需要人工確認]</code>、<code>[需要補拍]</code> 的段落請在遊戲前向 GM 確認原文。<br />
+    各角色劇本僅收錄該角色視角的資訊——請只閱讀自己的角色。
+  </div>
+
+  <h2>玩家角色</h2>
+  <div class="char-grid">
+
+    <a class="char-card" href="diao-wu-er.html">
+      <div class="char-name">刁五兒</div>
+      <div class="char-alias">真名：冷鈺 · 22歲</div>
+      <div class="char-cover">已慣江湖作浪游，愛恨情仇總難休。</div>
+      <span class="ocr-badge ocr-mid">OCR 中等</span>
+    </a>
+
+    <a class="char-card" href="jia-san-niang.html">
+      <div class="char-name">賈三娘</div>
+      <div class="char-alias">真名：歸雪 · 34歲</div>
+      <div class="char-cover">精誠去來枝，孤鴻嫁自飛。</div>
+      <span class="ocr-badge ocr-poor">OCR 差（需補拍）</span>
+    </a>
+
+    <a class="char-card" href="jin-si-ren.html">
+      <div class="char-name">金四刃</div>
+      <div class="char-alias">真名：何乃武 · 26歲</div>
+      <div class="char-cover">朝中藏敌利，腹内隐雄兵。</div>
+      <span class="ocr-badge ocr-good">OCR 中等偏好</span>
+    </a>
+
+    <a class="char-card" href="nong-sou.html">
+      <div class="char-name">農叟</div>
+      <div class="char-alias">真名：丁崧 · 50歲左右</div>
+      <div class="char-cover">自古名士如美人，不許人間見白頭。</div>
+      <span class="ocr-badge ocr-mid">OCR 中等</span>
+    </a>
+
+    <a class="char-card" href="wang-shun.html">
+      <div class="char-name">王順</div>
+      <div class="char-alias">真名：龐萬金 · 43歲</div>
+      <div class="char-cover">平生不肆善果，只愿亲人燃火。</div>
+      <span class="ocr-badge ocr-mid">OCR 中等偏差</span>
+    </a>
+
+    <a class="char-card" href="wang-si-han.html">
+      <div class="char-name">王思涵</div>
+      <div class="char-alias">真名：旭敏芝 · 21歲</div>
+      <div class="char-cover">桃李春風一杯酒，江湖夜雨十年燈。</div>
+      <span class="ocr-badge ocr-poor">OCR 差（需補拍）</span>
+    </a>
+
+    <a class="char-card" href="yan-shi.html">
+      <div class="char-name">嚴氏</div>
+      <div class="char-alias">化名：栾绛 · 22歲</div>
+      <div class="char-cover">（封面詩句待補拍確認）</div>
+      <span class="ocr-badge ocr-mid">OCR 中等（頁1良好）</span>
+    </a>
+
+    <a class="char-card" href="yan-yi.html">
+      <div class="char-name">嚴逸</div>
+      <div class="char-alias">代號：殘手 · 36歲</div>
+      <div class="char-cover">青燈古卷孤劍，落日余生紅顏。</div>
+      <span class="ocr-badge ocr-good">OCR 最完整</span>
+    </a>
+
+  </div>
+
+  <h2>NPC</h2>
+  <div class="char-grid">
+    <a class="char-card npc-card" href="zhang-meng.html">
+      <div class="char-name">張猛（NPC）</div>
+      <div class="char-alias">真名：冷降塵 · 化名：孟猛 · 27歲</div>
+      <div class="char-cover">只因衣冠无义侠，遂令草泽有奇雄。</div>
+      <span class="ocr-badge ocr-mid">OCR 中等（頁4–6差）</span>
+    </a>
+  </div>
+
+  <hr />
+
+  <div class="notice notice-info">
+    原始 md 整理稿（可下載閱讀）：
+    <a href="../../scripts/">docs/scripts/kou-xia/scripts/</a>
+  </div>
+
+</main>
+<footer class="site-footer">
+  <a href="../index.html">← Player Area</a> &nbsp;|&nbsp; LARP Script Archive &nbsp;|&nbsp; <span class="site-version"></span>
+</footer>
+</div>
+
+<script src="../../../../assets/js/version.js"></script>
+<script src="../../../../assets/js/password-gate.js"></script>
+<script>
+  initPasswordGate({
+    role:     'kou-xia-player',
+    password: 'player',
+    icon:     '📜',
+    title:    '角色劇本 — Player Only',
+    desc:     '請輸入玩家密碼以查看角色劇本列表。',
+    back:     '../index.html'
+  });
+</script>
+
+</body>
+</html>
