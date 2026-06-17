@@ -1,5 +1,5 @@
 // Site version — updated automatically by release.sh before each tag push.
-const SITE_VERSION = 'v0.2.0';
+const SITE_VERSION = 'v0.2.1';
 
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.site-version').forEach(function (el) {
