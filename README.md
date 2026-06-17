@@ -29,7 +29,7 @@ larp-script-archive/
 │           └── gm/               # 🎲 GM 區，需要 GM 密碼
 ├── materials/                    # 原始資料與外部素材索引
 │   └── kou-xia/
-│       ├── input-text/          # ✅ 原始劇本 Source of Truth（繁體化整理稿，納入版控）
+│       ├── source/              # ✅ 原始劇本 Source of Truth（繁體化整理稿，納入版控）
 │       ├── external-links.md    # 外部連結（iCloud、百度網盤等）
 │       ├── inventory.md         # 素材清單
 │       └── notes.md             # 整理筆記
@@ -63,7 +63,7 @@ larp-script-archive/
 
 `materials/` 存放劇本原始資料與外部素材索引，**不部署到 GitHub Pages**。
 
-- `materials/*/input-text/` — **正式原始劇本來源（Source of Truth）**，繁體化人工整理稿，納入 Git 版控。
+- `materials/*/source/` — **正式原始劇本來源（Source of Truth）**，繁體化人工整理稿，以角色拼音 slug 命名，納入 Git 版控。
 - `materials/*/external-links.md` — 外部素材連結索引（PDF、音樂等大型檔案仍保存在個人 iCloud）。
 
 ---
@@ -81,7 +81,7 @@ larp-script-archive/
 
 **納入版控的例外：**
 
-- `materials/*/input-text/` — 劇本文字整理稿（.md），為 Source of Truth，應 commit。
+- `materials/*/source/` — 劇本文字整理稿（.md），為 Source of Truth，應 commit。
 
 ---
 

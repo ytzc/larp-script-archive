@@ -6,16 +6,17 @@
 
 | 路徑 | 說明 |
 |------|------|
-| `input-text/` | **正式原始劇本來源（Source of Truth）**，繁體化整理稿，納入 Git 版控 |
+| `source/` | **正式原始劇本來源（Source of Truth）**，繁體化整理稿，納入 Git 版控 |
 | `external-links.md` | 外部素材來源連結（iCloud、百度網盤等） |
 | `inventory.md` | 素材清單與整理進度追蹤 |
 | `notes.md` | 整理筆記、待辦、public / private 區分 |
 
 ## input-text/ 說明
 
-`input-text/` 存放全部 9 個角色的劇本文字，為**本 repo 最高優先的原始資料**。
+`source/` 存放全部 9 個角色的劇本文字，為**本 repo 最高優先的原始資料**。
 
 - 來源：iPhone 拍攝 OCR → 人工校對 → 簡體轉繁體整理
+- 檔案命名採角色拼音 slug（如 `yan-shi.md`、`diao-wu-er.md`）
 - 所有劇本修訂、繁體修正、OCR 勘誤應直接在此資料夾維護
 - `docs/` 下的網頁版本均以此為底本
 
