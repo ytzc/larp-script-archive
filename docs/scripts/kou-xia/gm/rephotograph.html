@@ -62,197 +62,82 @@
     <p>各角色需要重新拍攝的頁面、原因與優先順序</p>
   </div>
 
-  <div class="notice notice-info">
-    補拍後請更新對應的 md 整理稿，再重新生成 HTML。
+  <div class="notice notice-info" style="border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;">
+    ✅ <strong>2026-06-17 更新：全 9 個角色均已由人工整理版文字（input-text）補強完成。</strong><br />
+    原有補拍需求已全部由 input-text 解決，劇本正文以 input-text 為準。<br />
     OCR 提示詞模板請見 <a href="ocr-prompt-guide.html">OCR 提示詞指引</a>。
   </div>
 
   <!-- ══════════════════════════════════════════ -->
-  <h2>🔴 優先級1（遊戲執行關鍵）</h2>
-  <p style="color:var(--color-text-muted);font-size:.9rem;margin-bottom:1rem;">這些頁面缺失會直接影響遊戲可執行性，開本前必須補拍。</p>
+  <h2>📋 全角色 input-text 補強狀態（2026-06-17）</h2>
 
-  <div class="repho-section priority-high">
-    <h3>賈三娘 — 頁2–9（幾乎全部）</h3>
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">賈三娘</span>
-          <span class="repho-pages">頁2–9</span>
-          <span class="p-badge p-high">🔴 高</span>
-        </div>
-        <div class="repho-missing">缺失：整個角色劇本的核心內容——人物背景、任務、人際關係、感情線、勝利條件、特殊行動等，幾乎全不可讀。</div>
-        <div class="repho-why">原因：裝訂陰影嚴重，頁面內側整列文字遮蔽。感情線對象姓名（角色核心）完全無法辨讀。</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="repho-section priority-high">
-    <h3>王思涵 — 頁2–10（幾乎全部）</h3>
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">王思涵</span>
-          <span class="repho-pages">頁2–10</span>
-          <span class="p-badge p-high">🔴 高</span>
-        </div>
-        <div class="repho-missing">缺失：除封面外，整個劇本幾乎全不可讀。技能、勝利條件、陣營選擇、任務、人際關係全部缺失。</div>
-        <div class="repho-why">原因：OCR提取時文字幾乎全被標記為 [OCR?]，推測為印刷品質差（字體過小/過淡）＋裝訂陰影雙重問題。補拍時建議以更高解析度（2x scale 以上）重拍。</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="repho-section priority-high">
-    <h3>嚴氏 — 頁6、頁8（凶手行動指令）</h3>
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">嚴氏</span>
-          <span class="repho-pages">頁6（下半）、頁8（上半）</span>
-          <span class="p-badge p-high">🔴 高</span>
-        </div>
-        <div class="repho-missing">缺失：嚴氏殺死冷降塵的具體指令——道具使用方式、時機、方法。這是本案凶手還原的核心。</div>
-        <div class="repho-why">原因：裝訂陰影遮蔽頁面右欄內側。嚴逸劇本已明確寫出「嚴逸指使嚴氏謀殺冷降塵」，但嚴氏自身劇本中的行動細節缺失。</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="repho-section priority-high">
-    <h3>農叟 — 頁7（農叟特殊規則方框）</h3>
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">農叟</span>
-          <span class="repho-pages">頁7（技能方框）</span>
-          <span class="p-badge p-high">🔴 高</span>
-        </div>
-        <div class="repho-missing">缺失：【農叟之力】完整技能說明，以及農叟在搏殺環節的特殊規則。</div>
-        <div class="repho-why">原因：農叟 HP 40 / 武力 6 為全場最高，特殊規則直接影響搏殺環節平衡，缺失可能導致規則爭議。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════ -->
-  <h2>🟡 優先級2（劇情理解重要）</h2>
-  <p style="color:var(--color-text-muted);font-size:.9rem;margin-bottom:1rem;">缺失會造成劇情邏輯不完整，建議開本前確認。</p>
-
-  <div class="repho-section priority-mid">
-    <h3>刁五兒 — 頁7（技能數值）</h3>
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">刁五兒</span>
-          <span class="repho-pages">頁7（技能方框）</span>
-          <span class="p-badge p-mid">🟡 中</span>
-        </div>
-        <div class="repho-missing">缺失：HP 和武力確切數值（GM 備注估計 HP≈25，武力 3–6，仍需原本核對）。</div>
-        <div class="repho-why">原因：裝訂陰影遮蔽技能方框。搏殺環節需要準確數值。</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="repho-section priority-mid">
-    <h3>農叟 — 頁001（開場故事）</h3>
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">農叟</span>
-          <span class="repho-pages">頁001（故事段）</span>
-          <span class="p-badge p-mid">🟡 中</span>
-        </div>
-        <div class="repho-missing">缺失：「汲洲任務」開場故事段落，OCR誤讀嚴重，現有文字多處語義不通。</div>
-        <div class="repho-why">原因：農叟/何乃青的關係是跨角色重要線索，需確認「汲洲任務」的具體指令及「何乃青」是否即金四刃。</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="repho-section priority-mid">
-    <h3>王順 — 頁3–9（關係與抉擇段落）</h3>
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">王順</span>
-          <span class="repho-pages">頁3–9</span>
-          <span class="p-badge p-mid">🟡 中</span>
-        </div>
-        <div class="repho-missing">缺失：人際關係條目（與農叟的重逢細節）、綉衣使任務具體說明、核心抉擇（忠義 vs 任務）相關段落。</div>
-        <div class="repho-why">原因：王順的核心張力是「舊主農叟 vs 綉衣使任務」，多行關鍵文字被裝訂陰影截斷。</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="repho-section priority-mid">
-    <h3>嚴逸 — 頁8（秘密問題3/4）</h3>
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">嚴逸</span>
-          <span class="repho-pages">頁8（秘密問題下半）</span>
-          <span class="p-badge p-mid">🟡 中</span>
-        </div>
-        <div class="repho-missing">缺失：秘密問題3「栾绛真實姓名及是否有親人」和問題4「綉衣使線人號碼」的 GM 標準答案。</div>
-        <div class="repho-why">原因：嚴逸是凶案關鍵——他指使嚴氏謀殺。這兩個問題的 GM 答案影響如何引導還原環節。建議對照 DM 手冊確認。</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="repho-section priority-mid">
-    <h3>張猛（NPC）— 頁4–6（GM 指引）</h3>
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">張猛（NPC）</span>
-          <span class="repho-pages">頁4–6</span>
-          <span class="p-badge p-mid">🟡 中（GM 用）</span>
-        </div>
-        <div class="repho-missing">缺失：GM 紅色文字指引（NPC 有價值資訊）、人物關係密碼牌、玩家互動分配說明。</div>
-        <div class="repho-why">原因：頁面印刷品質差（字體過小、過淡），裝訂陰影疊加，幾乎全部無法讀取。建議以高解析度補拍，並確認密碼牌完整內容。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════ -->
-  <h2>🟢 優先級3（基本完整，可選校對）</h2>
-
-  <div class="repho-section priority-low">
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">金四刃</span>
-          <span class="repho-pages">頁2（開場段）</span>
-          <span class="p-badge p-low">🟢 低</span>
-        </div>
-        <div class="repho-missing">OCR 重建品質中等，部分詞語疑似誤讀，大意可理解。建議翻閱原本校對一遍。</div>
-        <div class="repho-why">整體最完整角色之一，補拍非必要。</div>
-      </div>
-    </div>
-    <div class="repho-item">
-      <input type="checkbox" class="repho-check" />
-      <div class="repho-body">
-        <div class="repho-header">
-          <span class="repho-char">嚴逸</span>
-          <span class="repho-pages">頁5下、頁7下</span>
-          <span class="p-badge p-low">🟢 低</span>
-        </div>
-        <div class="repho-missing">環節說明下半遮蔽。嚴逸整體為全場最完整劇本，此缺失不影響遊戲執行。</div>
-        <div class="repho-why">整體最完整角色，補拍非緊迫。</div>
-      </div>
-    </div>
-  </div>
+  <table class="cross-table">
+    <tr>
+      <th>角色</th>
+      <th>input-text 檔案</th>
+      <th>玩家劇本 MD</th>
+      <th>Player HTML</th>
+    </tr>
+    <tr>
+      <td>嚴氏</td>
+      <td>嚴氏文字劇本.md</td>
+      <td class="status-ok">✅ 已補強</td>
+      <td class="status-ok">✅ 已同步</td>
+    </tr>
+    <tr>
+      <td>嚴逸</td>
+      <td>【嚴逸】文字劇本.md</td>
+      <td class="status-ok">✅ 已補強</td>
+      <td class="status-ok">✅ 已同步</td>
+    </tr>
+    <tr>
+      <td>金四刃</td>
+      <td>【金四刃】文字劇本.md</td>
+      <td class="status-ok">✅ 已補強</td>
+      <td class="status-ok">✅ 已同步</td>
+    </tr>
+    <tr>
+      <td>王思涵</td>
+      <td>【王思涵】文字劇本.md</td>
+      <td class="status-ok">✅ 已補強</td>
+      <td class="status-ok">✅ 已同步</td>
+    </tr>
+    <tr>
+      <td>賈三娘</td>
+      <td>【賈三娘】文字劇本.md</td>
+      <td class="status-ok">✅ 已補強</td>
+      <td class="status-ok">✅ 已同步</td>
+    </tr>
+    <tr>
+      <td>刁五兒</td>
+      <td>【刁五兒】文字劇本.md</td>
+      <td class="status-ok">✅ 已補強</td>
+      <td class="status-ok">✅ 已同步</td>
+    </tr>
+    <tr>
+      <td>張猛（NPC）</td>
+      <td>【張猛】文字劇本.md</td>
+      <td class="status-ok">✅ 已補強</td>
+      <td class="status-ok">✅ 已同步</td>
+    </tr>
+    <tr>
+      <td>王順</td>
+      <td>【王順】文字劇本.md</td>
+      <td class="status-ok">✅ 已補強</td>
+      <td class="status-ok">✅ 已同步</td>
+    </tr>
+    <tr>
+      <td>農叟</td>
+      <td>【農叟】文字劇本.md</td>
+      <td class="status-ok">✅ 已補強</td>
+      <td class="status-ok">✅ 已同步</td>
+    </tr>
+  </table>
 
   <hr />
 
   <!-- ══════════════════════════════════════════ -->
-  <h2>⚠️ 跨角色一致性待確認</h2>
+  <h2>⚠️ 跨角色一致性確認結果</h2>
   <table class="cross-table">
     <tr>
       <th>問題</th>
@@ -260,29 +145,29 @@
       <th>狀態</th>
     </tr>
     <tr>
-      <td>「冷佛林」（刁五兒）vs「冷俠林」（張猛）是否同一人？</td>
+      <td>「冷佛林」（刁五兒）vs「冷俠林」（張猛舊OCR）是否同一人？</td>
       <td>刁五兒、張猛</td>
-      <td class="status-unknown">❓ 待確認</td>
+      <td class="status-ok">✅ 同一人，正確名為<strong>冷佛林</strong>（舊OCR誤讀）</td>
     </tr>
     <tr>
-      <td>農叟劇本中「何乃青」是否即金四刃（何乃武）或嚴氏（何乃清）？</td>
+      <td>農叟劇本中「何乃青」是否即金四刃（何乃武）？</td>
       <td>農叟、金四刃</td>
-      <td class="status-unknown">❓ 待確認</td>
+      <td class="status-ok">✅ 農叟 input-text 確認：金四刃真名即<strong>何乃武</strong></td>
     </tr>
     <tr>
       <td>王思涵真名「旭敏芝」還是「阳敏芝」？</td>
       <td>王思涵</td>
-      <td class="status-unknown">❓ 待確認</td>
+      <td class="status-ok">✅ input-text 確認：<strong>旭敏芝</strong></td>
     </tr>
     <tr>
-      <td>賈三娘感情線對象是誰？（候選：王思涵）</td>
+      <td>賈三娘感情線對象是誰？</td>
       <td>賈三娘</td>
-      <td class="status-unknown">❓ 待補拍</td>
+      <td class="status-ok">✅ input-text 確認：<strong>賈三娘無感情線</strong>（舊OCR/DM推斷錯誤；陣營固定為綉衣使）</td>
     </tr>
     <tr>
       <td>大順皇帝名為「鄭木」還是「鄧木」？</td>
       <td>多個角色</td>
-      <td class="status-unknown">❓ 待確認</td>
+      <td class="status-ok">✅ input-text 確認：<strong>鄭木</strong>（郑木）</td>
     </tr>
     <tr>
       <td>嚴氏「青色痕跡」＝金四刃尋妹「頸後青色胎記」</td>
@@ -297,7 +182,17 @@
     <tr>
       <td>張猛持有的3張屍體線索＋1封書信的具體內容</td>
       <td>張猛、所有玩家</td>
-      <td class="status-unknown">❓ 需對照 DM 手冊</td>
+      <td class="status-unknown">❓ 需對照 DM 手冊（非劇本內容，屬道具組）</td>
+    </tr>
+    <tr>
+      <td>張猛幼名：丁典 vs 舊OCR「丁勇」</td>
+      <td>張猛</td>
+      <td class="status-ok">✅ input-text 確認：<strong>丁典</strong></td>
+    </tr>
+    <tr>
+      <td>張猛武功：缚阳掌 vs 舊OCR「搏阳锤」</td>
+      <td>張猛、農叟</td>
+      <td class="status-ok">✅ input-text 確認：<strong>缚阳掌</strong></td>
     </tr>
   </table>
 

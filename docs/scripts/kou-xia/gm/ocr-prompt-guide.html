@@ -306,13 +306,75 @@
     <li>跨角色資訊（如真名、關係）以最明確的那份 input-text 為準——例如金四刃劇本對王思涵真名的說法比 wang-si-han.md 更可靠</li>
   </ul>
 
-  <h3>✅ 已完成的 input-text 更新（2026-06-17）</h3>
+  <!-- ══════════════════════════════════════════ -->
+  <h2 id="verbatim-rules">三、玩家劇本 Verbatim 保留規則</h2>
+
+  <div class="notice notice-warning">
+    <strong>⛔ 強制規定：</strong>玩家劇本正文的呈現規則，與 GM 整理稿不同。所有面向玩家的檔案（player HTML、scripts md 正文區）必須嚴格遵守以下規則。
+  </div>
+
+  <h3>強制保留，不得更改</h3>
+  <div class="step-block">
+    <h3><span class="step-num">✔</span>必須保留 input-text 原文</h3>
+    <ul>
+      <li><strong>不做簡繁轉換：</strong>簡體中文劇本保留簡體，不得轉換為繁體</li>
+      <li><strong>不潤稿：</strong>不修改任何原文措辭、語氣、語序</li>
+      <li><strong>不改寫句子：</strong>不重寫任何句子，即使句子不通順或有語病</li>
+      <li><strong>不修正語句：</strong>不因為覺得「不順」就更動字詞</li>
+      <li><strong>保留掃描錯字：</strong>若 iPhone 掃描產生誤字（如「爹参」、「東胸」、「部息功反磁」），也必須保留，最多在 GM 整理稿或 CHECK_REPORT 中加注</li>
+    </ul>
+  </div>
+
+  <h3>嚴格禁止</h3>
+  <div class="step-block">
+    <h3><span class="step-num">✗</span>不得混入的內容</h3>
+    <ul>
+      <li><strong>不得混入 GM 分析：</strong>GM 對角色的解讀、補充說明 → 只能放 gm/ 目錄</li>
+      <li><strong>不得混入角色關係說明：</strong>「你和XXX的關係是...」的整理說明 → 只能放 GM 文件</li>
+      <li><strong>不得混入推理重點：</strong>對凶案的分析、推理提示 → 只能放 GM 文件</li>
+      <li><strong>不得在正文區加注說明：</strong>如「（此處疑為OCR誤讀）」、「（GM補充：...）」</li>
+    </ul>
+  </div>
+
+  <h3>Markdown 結構可以整理（唯一例外）</h3>
+  <div class="step-block">
+    <h3><span class="step-num">✔</span>允許的格式調整</h3>
+    <ul>
+      <li>標題層級調整：input-text 的 <code># 情景一</code> → md 的 <code>## 情景一</code>（下移一級）</li>
+      <li>YAML frontmatter 整理（slug、來源、更新日期等）</li>
+      <li>段落空行調整（使文字可讀）</li>
+      <li>分隔線 <code>---</code> 的位置</li>
+    </ul>
+    <p>以上為唯一允許的格式更動，不得更動文字內容本身。</p>
+  </div>
+
+  <h3>快速判斷：玩家稿 vs GM稿</h3>
+  <table class="marker-table">
+    <thead>
+      <tr><th>問自己</th><th>應放位置</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>這段文字是原始劇本正文（情景一/二/三/小劇場等）</td><td>→ 玩家稿（逐字保留）</td></tr>
+      <tr><td>這段是我對角色關係的理解或分析</td><td>→ GM 文件（gm/characters/）</td></tr>
+      <tr><td>這段是凶案推理線索或凶手真相</td><td>→ GM 文件（gm/characters/ 或 relationship-map.html）</td></tr>
+      <tr><td>這是掃描可能誤讀的字，我想要補正</td><td>→ 保留原文在玩家稿，在 CHECK_REPORT.md 加注</td></tr>
+      <tr><td>這段劇本我覺得語氣不順，想改一下</td><td>→ 不可更動，原樣保留</td></tr>
+    </tbody>
+  </table>
+
+  <h3>✅ 已完成的 input-text 更新（2026-06-17）— 全 9 個角色</h3>
   <table class="marker-table">
     <thead><tr><th>角色</th><th>來源</th><th>重要更正</th></tr></thead>
     <tbody>
       <tr><td>嚴氏</td><td>input-text/嚴氏文字劇本.md</td><td>臉疤確認為嚴逸掌風所致；凶器確認；作案時間21:10</td></tr>
       <tr><td>嚴逸</td><td>input-text/# 【嚴逸】文字劇本.md</td><td>排名更正為第一（非三號）；凶案細節補齊；道具確認</td></tr>
-      <tr><td>金四刃</td><td>input-text/# 【金四刃】文字劇本.md</td><td>王思涵真名更正為阳敏芝（非旭敏芝）；個人勝利條件確認</td></tr>
+      <tr><td>金四刃</td><td>input-text/# 【金四刃】文字劇本.md</td><td>王思涵真名確認為旭敏芝；個人勝利條件確認；婚約對象確認</td></tr>
+      <tr><td>王思涵</td><td>input-text/# 【王思涵】文字劇本.md</td><td>真名確認旭敏芝；<strong>兄長</strong>旭晨（玄甲軍統帥，被王順殺害；非父親）；凶案時間線</td></tr>
+      <tr><td>賈三娘</td><td>input-text/# 【賈三娘】文字劇本.md</td><td><strong>確認無感情線</strong>（舊OCR推斷錯誤）；陣營固定綉衣使；凶案時間線補齊；道具確認</td></tr>
+      <tr><td>刁五兒</td><td>input-text/# 【刁五兒】文字劇本.md</td><td>綉衣使民間線人身份確認；武功無相功法；義兄冷降塵關係確認；凶案時間線</td></tr>
+      <tr><td>張猛（NPC）</td><td>input-text/# 【張猛】文字劇本.md</td><td>幼名丁典（非丁勇）；化名張猛（非孟猛）；義父冷佛林（非冷俠林）；武功缚阳掌（非搏阳锤）；鶴須軍（非鶴駕軍）</td></tr>
+      <tr><td>王順</td><td>input-text/# 【王順】文字劇本.md</td><td>角色弧全面更正（背叛者非忠義者）；殺旭晨確認（左手慣用）；設庫房赤霞圈套</td></tr>
+      <tr><td>農叟</td><td>input-text/# 【農叟】文字劇本.md</td><td>陣營確認跟隨大夏血脈；道具確認；父子相認時間線；王順關係更正</td></tr>
     </tbody>
   </table>
 

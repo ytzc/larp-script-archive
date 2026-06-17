@@ -160,9 +160,8 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   </div>
   <p class="meta-line">
     📂 主要來源：<code>local-private/kou-xia/pdf/DM手册.pdf</code>（40頁，圖像型 PDF，由上一輪對話全頁讀取）<br>
-    ⚠️ 角色劇本 PDF（金四刃/嚴氏/嚴逸/賈三娘/農叟/王思涵/王順/刁五兒/張猛，各 25–48 MB）
-    均為<strong>純圖像型</strong>，無法程式提取文字：<span class="badge bocr">OCR needed</span><br>
-    本頁所有角色細節均來自 DM手册 或整理稿推斷，不含角色劇本原文。<br>
+    ✅ 角色劇本 input-text 版（金四刃/嚴氏/嚴逸/賈三娘/農叟/王思涵/王順/刁五兒/張猛）
+    已由人工整理為 <code>input-text/</code> 純文字檔，本頁角色細節已據此更新（2026-06-17）。<br>
     儲存位置：<code>local-private/kou-xia/organized/gm/relationship-map.html</code>（已加入 .gitignore）
   </p>
 </div>
@@ -186,7 +185,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
 <!-- ═══════════════════════════════ S1: CHARACTER OVERVIEW ═══════════════════════════════ -->
 <div class="section" id="s1">
 <h2>§1 角色總覽表 Character Overview</h2>
-<div class="notice notice-info">來源：DM手册.pdf（全頁讀取）。角色劇本 PDF 為 OCR needed，本表不含劇本原文細節。</div>
+<div class="notice notice-info">來源：DM手册.pdf（全頁讀取）+ input-text 人工整理版（角色劇本，2026-06-17）。已更新關鍵角色細節。</div>
 
 <div class="scroll-x">
 <table>
@@ -270,17 +269,16 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <td>
     <strong>绣衣使密探「歸雪」</strong><br>
     輔助嚴逸收集情報<br>
-    ⚠ 個人感情線可能使立場動搖<br>
-    <span class="badge bocr">感情線對象：OCR needed</span>
+    <span class="badge bh">確認：無感情線（input-text）</span>
   </td>
   <td>绣衣使陣營<br><span class="badge" style="background:#668;color:#fff">輔助</span></td>
-  <td>完成情報任務；感情線視劇本</td>
+  <td>完成情報任務</td>
   <td>
     嚴逸（上司/同僚）<br>
     嚴氏（同陣營）
   </td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span>（感情線：<span class="badge bl">Low</span>）</td>
+  <td>input-text（賈三娘劇本）</td>
+  <td><span class="badge bh">High</span></td>
 </tr>
 <tr class="f-free">
   <td><strong><a href="characters/nong-sou.html">農叟</a></strong><br><em>男，難度：中</em></td>
@@ -289,51 +287,60 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
     <strong>丁崧</strong><br>
     大夏舊朝武將<br>
     帶領殘部歸隱多年<br>
-    被王順認出身份後，須重新抉擇陣營
+    ★ 親生兒子：冷降塵（即張猛，鶴須軍大統領）<br>
+    父子於遊戲當日19:20重逢<br>
+    王順（龐萬金）曾出賣他，是潛在危機
   </td>
-  <td>自由（無初始陣營）</td>
-  <td>守護舊部；不讓大夏遺民再受迫害</td>
+  <td>跟隨大夏血脈</td>
+  <td>守護舊部；不讓大夏遺民再受迫害；與兒子（冷降塵）重逢</td>
   <td>
-    王順（舊部龐萬金，認出後關係重建）<br>
+    冷降塵/張猛（親生兒子，已故被害人）<br>
+    王順（昔日舊部，實為叛徒，農叟不知）<br>
     <span class="r-unclear">金四刃（大夏關聯，直接關係待確認）</span>
   </td>
-  <td>DM手册</td>
+  <td>input-text（農叟劇本）</td>
   <td><span class="badge bh">High</span></td>
 </tr>
 <tr class="f-free">
   <td><strong><a href="characters/wang-si-han.html">王思涵</a></strong><br><em>女，難度：中</em></td>
   <td>江湖女俠「王思涵」<br>HP 30 / 武 5</td>
   <td>
-    <strong>阳敏芝</strong><br>
+    <strong>旭敏芝</strong><br>
     寇俠玄甲軍統師，武力超群<br>
     對大夏復國半信半疑<br>
     主要在乎舊部族人安危<br>
-    可加入任一陣營
+    可加入任一陣營<br>
+    <em>兄：旭晨（玄甲軍統領，已被王順殺害）</em>
   </td>
   <td>自由（初始親寇俠）</td>
   <td>守護玄甲軍舊部；視私聊結果選邊</td>
   <td>
     金四刃（初始同陣營，可轉換）<br>
-    <span class="badge bocr">其他細節：OCR needed</span>
+    王順（殺兄仇人——若揭露，衝突激烈）
   </td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span>（其他：<span class="badge bn">Needs confirm</span>）</td>
+  <td>input-text（王思涵劇本）</td>
+  <td><span class="badge bh">High</span></td>
 </tr>
 <tr class="f-free">
   <td><strong><a href="characters/wang-shun.html">王順</a></strong><br><em>男，難度：中</em></td>
   <td>江湖人士「王順」<br>HP 30 / 武 5</td>
   <td>
     <strong>龐萬金</strong><br>
-    前朝武將丁崧（農叟）之舊部<br>
-    認出農叟後，個人目標轉為保護舊主<br>
-    忠誠度是最大變數
+    曾是丁崧（農叟）之舊部，<strong class="r-enemy">已叛變</strong><br>
+    ★ 出賣農叟（丁崧）予綉衣使，致農叟被迫流亡<br>
+    ★ 親手殺害玄甲軍統領旭晨（用左手割頭——慣用左手）<br>
+    現為玄甲軍小頭目 <em>兼</em> 綉衣使線人（雙重身份）<br>
+    極度恐懼農叟認出自己是叛徒，<strong>目標：消滅農叟滅口</strong><br>
+    偽裝成旭敏芝（王思涵）的「兄長」
   </td>
-  <td>自由（無初始陣營）</td>
-  <td>保護舊主（農叟）；守護舊部義氣</td>
+  <td>表面自由，實為綉衣使線人</td>
+  <td>消滅農叟滅口；隱瞞雙重身份</td>
   <td>
-    農叟（舊主丁崧，關係核心）
+    農叟（昔日舊主，今日死敵——怕被認出而欲除之）<br>
+    綉衣使（線人關係）<br>
+    旭敏芝（偽裝其兄）
   </td>
-  <td>DM手册</td>
+  <td>input-text（王順劇本）</td>
   <td><span class="badge bh">High</span></td>
 </tr>
 <tr class="f-free">
@@ -341,33 +348,42 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <td>江湖人士「刁五兒」（男裝）<br>HP 25 / 武 3–6</td>
   <td>
     <strong>冷鈺</strong><br>
-    冷佛林之女<br>
+    冷佛林之親生女兒<br>
     ★ 實際上是女性（全程男裝喬裝）<br>
-    前來為父（冷佛林，已故）追查真相<br>
-    冷降塵疑為其父舊識
+    ★ 綉衣使民間線人，初始任務：<strong>殺死冷降塵</strong>（誤以為其殺父）<br>
+    冷降塵（義兄）認出她後說出真相（並非殺父凶手），交付近衛軍兵符<br>
+    武功：無相功法（副作用：皮膚潰爛，故以包裹示人）<br>
+    冷降塵 = 冷佛林義子（兩人皆為冷佛林的孩子——義兄妹關係）
   </td>
-  <td>自由（無初始陣營）</td>
-  <td>為父追查真相；視私聊選邊</td>
+  <td>綉衣使民間線人（初始），後立場動搖</td>
+  <td>查明父親冷佛林之死真相；為義兄冷降塵（已故）追凶</td>
   <td>
-    冷降塵（父親舊識，被害人）<br>
-    <span class="badge bocr">其他：OCR needed</span>
+    冷降塵（義兄，被害人——非「父親舊識」）<br>
+    冷佛林（親父，已故）
   </td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span>（冷降塵關係：<span class="badge bm">Medium</span>）</td>
+  <td>input-text（刁五兒劇本）</td>
+  <td><span class="badge bh">High</span></td>
 </tr>
 <tr>
   <td><strong><a href="characters/zhang-meng.html">張猛</a></strong><br><em>男，難度：NPC</em></td>
-  <td>江湖人士「張猛」</td>
+  <td>江湖人士「張猛」（化名）</td>
   <td>
-    NPC 角色，由 GM 或助理扮演<br>
-    <span class="badge bocr">詳細劇本：OCR needed</span><br>
-    <span class="badge bn">TODO: needs source confirmation</span>
+    <strong>冷降塵</strong>（真名），幼名丁典<br>
+    <span class="badge bnpc">NPC</span> 由 GM 或助理扮演<br>
+    職位：鶴須軍大統領<br>
+    親生父親：丁崧（農叟）；義父：冷佛林；義妹：冷鈺（刁五兒）<br>
+    武功：缚阳掌<br>
+    NPC職責：帶節奏、炒場；凶案環節扮演屍體，攜帶3張屍體線索卡＋1封書信
   </td>
   <td><span class="badge bnpc">NPC</span></td>
-  <td>TODO: needs source confirmation</td>
-  <td>TODO: needs source confirmation</td>
-  <td>DM手册（僅提及NPC）</td>
-  <td><span class="badge bl">Low</span></td>
+  <td>帶動遊戲節奏；凶案環節扮演被害人屍體</td>
+  <td>
+    農叟（親生父親，19:20重逢）<br>
+    刁五兒（義妹，冷鈺）<br>
+    嚴氏（凶手，殺害冷降塵）
+  </td>
+  <td>input-text（張猛劇本）</td>
+  <td><span class="badge bh">High</span></td>
 </tr>
 <tr>
   <td>
@@ -376,14 +392,17 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   </td>
   <td>遊戲中已死，情境二發現屍體</td>
   <td>
-    绣衣使知情者，遭嚴氏（何乃清）奉嚴逸之命殺害<br>
-    冷佛林（刁五兒之父）的舊識（推斷，見待確認事項）
+    真名冷降塵（幼名丁典），化名張猛，鶴須軍大統領<br>
+    遭嚴氏（何乃清）奉嚴逸之命殺害<br>
+    ★ 親生父親：丁崧（農叟）；義父：冷佛林；義妹：冷鈺（刁五兒）<br>
+    武功：缚阳掌<br>
+    認出刁五兒（冷鈺），告知真相並交付近衛軍兵符
   </td>
   <td>—（已故）</td>
   <td>—</td>
-  <td>嚴氏（凶手）；刁五兒（父親舊識，待確認）</td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span>（冷佛林關係：<span class="badge bm">Medium</span>）</td>
+  <td>農叟（親生父親）；嚴氏（凶手）；刁五兒（義妹冷鈺）；冷佛林（義父）</td>
+  <td>input-text（張猛/刁五兒劇本）</td>
+  <td><span class="badge bh">High</span></td>
 </tr>
 </tbody>
 </table>
@@ -395,7 +414,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
 <h2>§2 人物關係圖 Relationship Graph</h2>
 <div class="notice notice-warning">
   <strong>⚠️ 部分關係圖（灰虛線）為 Medium / Uncertain 信心度，來源為 DM手册 推斷或整理稿標注。</strong>
-  角色劇本 PDF 未能提取文字（OCR needed），角色間細部關係有待確認。
+  全 9 個角色劇本均已以 input-text 補強（2026-06-17）；仍有部分道具/線索卡內容需對照 DM手册確認。
 </div>
 
 <!-- Legend -->
@@ -466,20 +485,20 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
         stroke="#44c" stroke-width="1.5" stroke-dasharray="5,3" fill="none"/>
   <text x="748" y="312" text-anchor="middle" font-size="9" fill="#44c" class="rs">绣衣使同陣</text>
 
-  <!-- 農叟 ↔ 王順: 舊主→舊部 teal -->
+  <!-- 農叟 ↔ 王順: 昔日舊部，今日叛徒（王順欲滅口農叟）-->
   <path d="M 426 241 C 428 283 444 325 449 346"
-        stroke="#0e5a5a" stroke-width="2" fill="none"/>
-  <text x="382" y="294" text-anchor="middle" font-size="10" fill="#0e5a5a" class="rl">舊主→舊部</text>
+        stroke="#7a1414" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-red)"/>
+  <text x="375" y="294" text-anchor="middle" font-size="10" fill="#7a1414" class="rl">★ 昔日舊部→今日叛徒</text>
 
   <!-- 嚴氏 → 冷降塵: 殺害（凶案）thick red arrow -->
   <path d="M 634 306 C 610 405 578 508 512 584"
         stroke="#c00" stroke-width="3.5" fill="none" marker-end="url(#arr-red)"/>
   <text x="618" y="428" text-anchor="start" font-size="11" fill="#c00" class="rl">★ 殺害（凶案）</text>
 
-  <!-- 刁五兒 → 冷降塵: 父親舊識 dashed purple arrow -->
+  <!-- 刁五兒 ↔ 冷降塵: 義兄義妹（冷佛林義子×親女）-->
   <path d="M 537 496 C 527 535 516 562 510 583"
         stroke="#7a2d9d" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-purple)"/>
-  <text x="554" y="538" text-anchor="start" font-size="9" fill="#7a2d9d" class="rs">父親舊識?</text>
+  <text x="554" y="538" text-anchor="start" font-size="9" fill="#7a2d9d" class="rs">義兄妹（冷佛林義子×親女）</text>
 
   <!-- 金四刃 ↔ 王思涵: 初始同陣營 dashed coral -->
   <path d="M 137 264 C 133 318 150 360 159 380"
@@ -502,14 +521,14 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <!-- 王思涵 (165,410) 初始寇俠 -->
   <circle cx="165" cy="410" r="31" fill="white" stroke="#c44" stroke-width="1.5" stroke-dasharray="4,2"/>
   <text x="165" y="405" text-anchor="middle" font-size="12" fill="#8b0000" class="nn">王思涵</text>
-  <text x="165" y="419" text-anchor="middle" font-size="9" fill="#c44" class="ns">阳敏芝</text>
+  <text x="165" y="419" text-anchor="middle" font-size="9" fill="#c44" class="ns">旭敏芝</text>
   <text x="165" y="431" text-anchor="middle" font-size="7.5" fill="#666" class="ns">自由（初寇俠）</text>
 
   <!-- 農叟 (420,210) 自由 -->
   <circle cx="420" cy="210" r="31" fill="white" stroke="#666" stroke-width="1.5"/>
   <text x="420" y="205" text-anchor="middle" font-size="12" fill="#333" class="nn">農叟</text>
   <text x="420" y="219" text-anchor="middle" font-size="9" fill="#555" class="ns">丁崧</text>
-  <text x="420" y="231" text-anchor="middle" font-size="7.5" fill="#666" class="ns">自由（無陣營）</text>
+  <text x="420" y="231" text-anchor="middle" font-size="7.5" fill="#666" class="ns">跟隨大夏血脈</text>
 
   <!-- 王順 (455,375) 自由 -->
   <circle cx="455" cy="375" r="30" fill="white" stroke="#666" stroke-width="1.5"/>
@@ -554,18 +573,18 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <text x="502" y="617" text-anchor="middle" font-size="8" fill="#c00" class="ns">被害人（已故）</text>
 
   <!-- Caption -->
-  <text x="500" y="652" text-anchor="middle" font-size="9" fill="#aaa">來源：DM手册.pdf　角色劇本 PDF 均為 OCR needed</text>
+  <text x="500" y="652" text-anchor="middle" font-size="9" fill="#aaa">來源：DM手册.pdf + input-text 人工整理版（2026-06-17）</text>
 </svg>
 </div>
 
 <h3>Unresolved / Uncertain Relationships</h3>
 <ul>
-  <li><span class="r-unclear">農叟（丁崧）↔ 金四刃（何乃武）</span>：農叟曾受大夏舊主之命赴汲洲與金四刃（何乃青）接洽，但任務出了差錯。農叟視此事為心結。差錯具體內容因 OCR 受限未能完整讀取，需人工確認農叟.pdf 頁2下半。<span class="badge bn">Needs confirmation</span></li>
-  <li><span class="r-unclear">刁五兒 → 冷降塵</span>：刁五兒（冷鈺）為冷佛林之女；冷降塵自幼在冷佛林（鶴翼軍大統領）麾下成長，與冷家情同兄妹。冷降塵之死直接成為刁五兒此行追查的核心動機。<span class="badge bh">High confidence</span></li>
-  <li><span class="r-unclear">賈三娘感情線</span>：DM手册提及感情線可能使其立場動搖，但對象不明。<span class="badge bocr">OCR needed — 最高優先</span></li>
-  <li>張猛的具體 NPC 行動序列：OCR 已確認張猛=冷降塵（化名孟猛），在凶案環節扮演屍體，攜帶 3 張屍體線索卡 + 1 封書信。進場時機與台詞（頁5–6）因過曝仍待人工確認。<span class="badge bn">部分確認</span></li>
-  <li><span class="r-unclear">王思涵 ↔ 農叟/王順</span>：同為自由陣營，均有大夏舊軍背景。王思涵為玄甲軍統師，農叟/王順為大夏舊將舊部。三人是否個人相識需角色劇本確認。<span class="badge bm">Low confidence</span></li>
-  <li><span class="r-unclear">王順 ↔ 嚴逸（綉衣使）的歷史</span>：王順（龐萬金）過去曾背叛農叟（丁崧），向綉衣使出賣行蹤。他是否與嚴逸本人有過直接接觸需確認。<span class="badge bm">Medium confidence</span></li>
+  <li><span class="r-unclear">農叟（丁崧）↔ 金四刃（何乃武）</span>：農叟曾受大夏舊主之命赴汲洲與金四刃（何乃青）接洽，但任務出了差錯。農叟視此事為心結。差錯具體內容需人工確認農叟.pdf。<span class="badge bn">Needs confirmation</span></li>
+  <li><strong class="r-family">刁五兒 ↔ 冷降塵（已確認）</strong>：刁五兒（冷鈺）為冷佛林親生女兒；冷降塵為冷佛林義子——兩人是義兄妹關係（非「父親舊識」）。冷降塵認出刁五兒，說出真相並交付近衛軍兵符。<span class="badge bh">High — 已確認（input-text）</span></li>
+  <li><strong>賈三娘感情線</strong>：input-text（賈三娘劇本）確認<strong>無感情線</strong>。DM手册所述感情線為舊版 GM 文件推測，不獲 input-text 支持，已排除。<span class="badge bh">已確認（input-text）— 無感情線</span></li>
+  <li><strong>張猛（NPC）行動序列（已確認）</strong>：張猛=冷降塵（化名），鶴須軍大統領，幼名丁典。凶案環節扮演屍體，攜帶3張屍體線索卡＋1封書信；負責帶節奏、炒場。<span class="badge bh">High — 已確認（input-text）</span></li>
+  <li><span class="r-unclear">王思涵 ↔ 農叟/王順</span>：王思涵（旭敏芝）之兄旭晨為玄甲軍統領，已被王順殺害。王思涵是否知悉王順為殺兄仇人需確認。<span class="badge bm">Needs confirmation</span></li>
+  <li><strong>王順 ↔ 農叟（已確認）</strong>：王順（龐萬金）已確認出賣農叟（丁崧）予綉衣使，並親手殺害玄甲軍統領旭晨（慣用左手）。現為玄甲軍小頭目兼綉衣使線人。恐懼農叟認出自己，設計在庫房燃赤霞香欲殺農叟。<span class="badge bh">High — 已確認（input-text）</span></li>
 </ul>
 </div><!-- /s2 -->
 
@@ -602,7 +621,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <td class="r-ally">绣衣使同僚</td>
   <td class="r-enemy">清查目標<br><small>大夏舊將，身份威脅</small></td>
   <td class="r-enemy">敵對陣營<br><small>王思涵傾向寇俠</small></td>
-  <td class="r-unclear">曾有接觸（可能）<br><small>王順歷史上曾向绣衣使出賣農叟（待確認）</small></td>
+  <td class="r-unclear">王順為綉衣使線人<br><small>王順曾出賣農叟予綉衣使；是否直接接觸嚴逸本人待確認</small></td>
   <td class="r-unclear">未知<br><small>嚴逸不知刁五兒與冷降塵的關係</small></td>
 </tr>
 <tr>
@@ -623,7 +642,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <td class="r-ally">绣衣使同陣營</td>
   <td class="self">—</td>
   <td class="r-unclear">未知<br><small>無直接關聯記錄</small></td>
-  <td class="r-unclear">感情線可能<br><small>待確認：是否為感情對象（OCR needed）</small></td>
+  <td class="r-unclear">未知<br><small>無感情線（input-text 確認）</small></td>
   <td class="r-unclear">未知</td>
   <td class="r-unclear">未知</td>
 </tr>
@@ -635,7 +654,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <td class="r-unclear">未知</td>
   <td class="self">—</td>
   <td class="r-unclear">可能相識<br><small>玄甲軍/大夏舊軍背景關聯（信心度低）</small></td>
-  <td class="r-bond">★ 舊部龐萬金<br><small>王順認出農叟，情感核心</small></td>
+  <td class="r-enemy">★ 昔日舊部→今日叛徒<br><small>王順出賣農叟予綉衣使，欲除農叟滅口；農叟不知</small></td>
   <td class="r-unclear">未知<br><small>無直接關聯；冷降塵可能是農叟認識的人</small></td>
 </tr>
 <tr>
@@ -643,7 +662,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <td class="r-ally">初始同陣營（可轉換）<br><small>寇俠初始接觸</small></td>
   <td class="r-enemy">敵對陣營<br><small>嚴逸=绣衣使核心</small></td>
   <td class="r-enemy">潛在對立<br><small>绣衣使成員</small></td>
-  <td class="r-unclear">感情線可能<br><small>待確認：是否為賈三娘的感情對象</small></td>
+  <td class="r-unclear">未知<br><small>無感情線（input-text 確認）</small></td>
   <td class="r-unclear">可能相識<br><small>玄甲軍與大夏舊軍關聯（信心度低）</small></td>
   <td class="self">—</td>
   <td class="r-unclear">可能相識<br><small>同自由陣營，玄甲軍/丁崧舊部可能有歷史交集（信心度低）</small></td>
@@ -652,10 +671,10 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
 <tr>
   <td>王順</td>
   <td class="r-unclear">未知<br><small>農叟舊部，不直接認識金四刃</small></td>
-  <td class="r-unclear">曾有接觸（可能）<br><small>王順歷史上曾向绣衣使告密（出賣農叟）</small></td>
+  <td class="r-unclear">★ 綉衣使線人<br><small>王順為綉衣使民間線人，曾出賣農叟；現任玄甲軍小頭目身份為掩護</small></td>
   <td class="r-unclear">未知</td>
   <td class="r-unclear">未知</td>
-  <td class="r-bond">★ 舊主丁崧<br><small>認出農叟，一心保護；曾背叛後悔罪</small></td>
+  <td class="r-enemy">★ 昔日舊主→今日死敵<br><small>出賣農叟予綉衣使；殺害旭晨；極度恐懼農叟認出自己，欲除之滅口</small></td>
   <td class="r-unclear">可能相識<br><small>同自由陣營，大夏舊軍背景（信心度低）</small></td>
   <td class="self">—</td>
   <td class="r-unclear">未知</td>
@@ -664,7 +683,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <td>刁五兒</td>
   <td class="r-unclear">未知<br><small>金四刃與冷降塵案有間接關聯</small></td>
   <td class="r-unclear">間接關聯<br><small>嚴逸指使殺了冷降塵（刁五兒的追查目標），刁五兒不知</small></td>
-  <td class="r-unclear">★ 追查關聯<br><small>嚴氏=冷降塵的凶手；刁五兒之父舊識冷降塵；刁五兒不知凶手是誰</small></td>
+  <td class="r-unclear">★ 追查關聯<br><small>嚴氏=冷降塵的凶手；冷降塵=刁五兒之義兄（非「父親舊識」）；刁五兒不知凶手是誰</small></td>
   <td class="r-unclear">未知</td>
   <td class="r-unclear">未知</td>
   <td class="r-unclear">未知</td>
@@ -689,7 +708,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <td><strong>寇俠組織</strong><br>（大夏復國地下組織）</td>
   <td>
     <strong>金四刃</strong>（何乃武，核心）<br>
-    <em>王思涵</em>（阳敏芝，玄甲軍統師，初始成員）<br>
+    <em>王思涵</em>（旭敏芝，玄甲軍統師，初始成員）<br>
     <em>農叟/王順/刁五兒</em>（可加入，非必然）
   </td>
   <td>守護大夏皇族後裔；大夏復國計畫</td>
@@ -712,7 +731,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <td>
     嚴逸是唯一必勝條件（死亡=绣衣使敗）<br>
     嚴氏是凶手，也是最大內部秘密（大夏皇族後裔）<br>
-    賈三娘感情線可能動搖立場
+    賈三娘無感情線（input-text 確認），立場固定
   </td>
   <td>DM手册</td>
 </tr>
@@ -734,16 +753,17 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <td><strong>大夏舊軍殘部</strong><br>（玄甲軍/丁崧舊部）</td>
   <td>
     農叟（丁崧，舊將）<br>
-    王順（龐萬金，舊部）<br>
-    王思涵（阳敏芝，玄甲軍統師）
+    王思涵（旭敏芝，玄甲軍統師）<br>
+    <del>王順（龐萬金）</del>——<em>實為叛徒，已投靠綉衣使</em>
   </td>
-  <td>保護彼此；各自視私聊選邊</td>
-  <td>視陣營選擇而定</td>
+  <td>農叟/王思涵：守護大夏血脈；王順：滅口農叟</td>
+  <td>視陣營選擇而定（王順傾向綉衣使）</td>
   <td>
-    農叟↔王順關係是推動自由陣營選邊的重要驅動力<br>
-    王思涵的玄甲軍統師身份讓她在兩方都有談判籌碼
+    ⚠️ 王順（龐萬金）表面屬此陣營，實為綉衣使線人，並非農叟的忠誠舊部<br>
+    農叟↔王順的衝突是推動劇情的核心炸彈（農叟不知王順是叛徒）<br>
+    王思涵之兄旭晨被王順殺害——若王思涵得知，是重大衝突點
   </td>
-  <td>DM手册</td>
+  <td>input-text（王順劇本）</td>
 </tr>
 <tr>
   <td><strong>大順朝廷</strong><br>（幕後勢力）</td>
@@ -817,10 +837,10 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
 <tr><td>嚴氏</td><td>栾绛 / 何乃清</td><td>绣衣使殺手；大夏皇族後裔；金四刃之妹；失憶</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
 <tr><td>賈三娘</td><td>「歸雪」</td><td>绣衣使密探</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
 <tr><td>農叟</td><td>丁崧</td><td>大夏舊朝武將</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>王思涵</td><td>阳敏芝</td><td>寇俠玄甲軍統師</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>王順</td><td>龐萬金</td><td>丁崧（農叟）之舊部</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>刁五兒</td><td>冷鈺</td><td>冷佛林之女；實為女性（男裝喬裝）</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>張猛</td><td>—</td><td>NPC（詳細待確認）</td><td>DM手册（僅提及）</td><td><span class="badge bl">Low</span></td></tr>
+<tr><td>王思涵</td><td>旭敏芝</td><td>寇俠玄甲軍統師；兄旭晨（玄甲軍統領）被王順殺害</td><td>input-text</td><td><span class="badge bh">High</span></td></tr>
+<tr><td>王順</td><td>龐萬金</td><td>昔日丁崧舊部→今日叛徒；綉衣使民間線人；玄甲軍小頭目（雙重身份）；殺害旭晨（慣用左手）；偽裝旭敏芝之兄</td><td>input-text</td><td><span class="badge bh">High</span></td></tr>
+<tr><td>刁五兒</td><td>冷鈺</td><td>冷佛林親生女兒；實為女性（男裝喬裝）；綉衣使民間線人；武功：無相功法（皮膚潰爛副作用）；冷降塵之義妹</td><td>input-text</td><td><span class="badge bh">High</span></td></tr>
+<tr><td>張猛</td><td>冷降塵（幼名丁典）</td><td>NPC；鶴須軍大統領；農叟（丁崧）親生兒子；冷佛林義子；冷鈺（刁五兒）義兄；武功：缚阳掌</td><td>input-text</td><td><span class="badge bh">High</span></td></tr>
 </tbody>
 </table>
 </details>
@@ -831,8 +851,17 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   <li class="r-family"><strong>嚴氏 ↔ 金四刃：失散兄妹（最大彩蛋，雙方互不知情）</strong><br>
     <small>建議復盤時最後揭露，情感衝擊最大。確認兩位玩家心理狀態後再公布。DM手册 — <span class="badge bh">High</span></small>
   </li>
-  <li class="r-bond"><strong>農叟（丁崧）↔ 王順（龐萬金）：舊主-舊部</strong><br>
-    <small>王順認出農叟身份後，個人目標轉為保護舊主。DM手册 — <span class="badge bh">High</span></small>
+  <li class="r-enemy"><strong>農叟（丁崧）↔ 王順（龐萬金）：昔日舊主-舊部，今日仇敵</strong><br>
+    <small>王順出賣農叟予綉衣使，致農叟被迫流亡；又親手殺害玄甲軍統領旭晨（慣用左手割頭）。
+    現為玄甲軍小頭目兼綉衣使線人，極度恐懼農叟認出自己是叛徒，目標是消滅農叟滅口。
+    設陷阱：20:40在庫房點燃赤霞迷香→20:50鎖門→21:15取走赤霞逃離（張猛倒地）。
+    input-text — <span class="badge bh">High</span></small>
+  </li>
+  <li class="r-family"><strong>農叟（丁崧）↔ 張猛（冷降塵）：親生父子</strong><br>
+    <small>農叟（丁崧）是冷降塵的親生父親；兩人於遊戲當日19:20重逢。input-text — <span class="badge bh">High</span></small>
+  </li>
+  <li class="r-family"><strong>刁五兒（冷鈺）↔ 冷降塵：義兄妹（冷佛林的義子×親女）</strong><br>
+    <small>冷降塵認出刁五兒，說出真相（自己並非殺父凶手），並交付近衛軍兵符。input-text — <span class="badge bh">High</span></small>
   </li>
   <li class="r-secret"><strong>嚴氏（何乃清）= 大夏皇族後裔</strong>，但在绣衣使效力——自身矛盾身份<br>
     <small>若嚴氏記憶恢復，觸發感情/道德衝突結局。DM手册 — <span class="badge bh">High</span></small>
@@ -948,7 +977,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
 </tr>
 <tr>
   <td>數年前</td>
-  <td>阳敏芝（王思涵）以玄甲軍統師身份加入寇俠</td>
+  <td>旭敏芝（王思涵）以玄甲軍統師身份加入寇俠</td>
   <td>王思涵、金四刃</td>
   <td>王思涵是寇俠重要戰力，但立場非絕對</td>
   <td>DM手册</td>
@@ -999,7 +1028,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
 <!-- ═══════════════════════════════ S7: CHARACTER NOTES ═══════════════════════════════ -->
 <div class="section" id="s7">
 <h2>§7 角色個別 GM 注記 Character-by-Character Notes</h2>
-<p class="meta-line">⚠️ 以下角色細節均來自 DM手册。各角色劇本 PDF 為 OCR needed，劇本原文細節未納入。</p>
+<p class="meta-line">以下角色細節來自 DM手册 及 input-text 人工整理版（2026-06-17 更新）。</p>
 
 <div class="char-card f-kou">
   <h3>金四刃（何乃武）— 寇俠核心</h3>
@@ -1017,7 +1046,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
     <dt>可能隱藏</dt>
     <dd>皇族後裔身份；對嚴氏的查找線索</dd>
     <dt>相關線索</dt>
-    <dd><span class="badge bocr">詳見角色劇本（OCR needed）</span></dd>
+    <dd><span class="badge bm">詳見DM手冊（道具/線索卡清單）</span></dd>
     <dt>GM提醒</dt>
     <dd>若玩家在遊戲中接近發現嚴氏身份，GM不要提示，讓情節自然發展</dd>
     <dt>來源</dt>
@@ -1040,7 +1069,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
     <dt>可能隱藏</dt>
     <dd>對嚴氏的指揮命令；绣衣使身份</dd>
     <dt>相關線索</dt>
-    <dd><span class="badge bocr">詳見角色劇本（OCR needed）</span></dd>
+    <dd><span class="badge bm">詳見DM手冊（道具/線索卡清單）</span></dd>
     <dt>GM提醒</dt>
     <dd>需要表演欲強的玩家；這個角色在盤凶時壓力最大（知道凶手是自己派的）</dd>
     <dt>來源</dt>
@@ -1068,7 +1097,7 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
     <dt>可能隱藏</dt>
     <dd>凶手身份（全場最重要秘密）；与金四刃的血緣關係（她不知道）</dd>
     <dt>相關線索</dt>
-    <dd><span class="badge bocr">凶案線索卡（OCR needed）</span></dd>
+    <dd><span class="badge bm">凶案線索卡（詳見DM手冊道具清單）</span></dd>
     <dt>GM提醒</dt>
     <dd>
       選角關鍵：需要能表演複雜情感且自律的玩家<br>
@@ -1090,123 +1119,151 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
     <dd>自己是绣衣使密探「歸雪」；協助嚴逸蒐集情報</dd>
     <dt>只有GM知道</dt>
     <dd>
-      個人感情線可能使立場動搖<br>
-      <span class="badge bocr">感情線對象與詳情：OCR needed（角色劇本未提取）</span>
+      绣衣使密探「歸雪」；主要任務是協助嚴逸蒐集情報<br>
+      <span class="badge bh">確認：無感情線（input-text 賈三娘劇本確認，舊版 DM 手册感情線說法不獲支持）</span>
     </dd>
     <dt>角色目標</dt>
-    <dd>完成情報任務；（視感情線）可能轉換立場</dd>
+    <dd>完成情報任務；立場以绣衣使任務為主</dd>
     <dt>可能隱藏</dt>
-    <dd>绣衣使身份；感情線對象</dd>
+    <dd>绣衣使身份</dd>
     <dt>GM提醒</dt>
-    <dd>感情線是本角色最大變數，GM需準備應對她倒戈寇俠的情況</dd>
+    <dd>舊 DM 手册曾提及「感情線可能動搖立場」，input-text 不支持此設定，GM 無需準備感情線倒戈預案</dd>
     <dt>來源</dt>
-    <dd>DM手册 <span class="badge bh">High</span>（感情線：<span class="badge bl">Low</span>）</dd>
+    <dd>input-text（賈三娘劇本）<span class="badge bh">High</span></dd>
   </dl>
 </div>
 
 <div class="char-card f-free">
-  <h3>農叟（丁崧）— 大夏舊將 / 自由陣營</h3>
+  <h3>農叟（丁崧）— 大夏舊將 / 跟隨大夏血脈</h3>
   <dl>
     <dt>玩家知道</dt>
-    <dd>自己是大夏舊朝武將丁崧，帶殘部歸隱多年；知道王順（龐萬金）是舊部</dd>
+    <dd>自己是大夏舊朝武將丁崧，帶殘部歸隱多年；王順（龐萬金）是舊部（農叟不知他已叛變）</dd>
     <dt>只有GM知道</dt>
     <dd>
-      無初始陣營，是全場最重要的搖擺票<br>
-      與王順關係是推動自由陣營選邊的主要動力<br>
+      ★ 親生兒子是冷降塵（化名張猛），兩人於19:20重逢<br>
+      王順（龐萬金）已出賣農叟予綉衣使，農叟毫不知情——王順是農叟身邊最危險的敵人<br>
+      農叟屬「跟隨大夏血脈」陣營，非無陣營<br>
       與金四刃的歷史關聯尚待確認（同為大夏舊勢力）
     </dd>
     <dt>角色目標</dt>
-    <dd>守護舊部；不讓大夏遺民再受迫害；視私聊選邊</dd>
+    <dd>守護舊部；不讓大夏遺民再受迫害；跟隨大夏血脈；與兒子重逢</dd>
     <dt>可能隱藏</dt>
-    <dd>大夏舊將身份；對王順的認知</dd>
+    <dd>大夏舊將身份；親生兒子冷降塵的存在</dd>
     <dt>GM提醒</dt>
-    <dd>農叟HP最高（40），在戰鬥中是重要存在；選邊方向可大幅影響陣營搏殺結果</dd>
+    <dd>農叟HP最高（40），在戰鬥中是重要存在；⚠️ 王順是農叟的最大隱患——GM需掌握農叟是否發現王順叛徒身份的時機</dd>
     <dt>來源</dt>
-    <dd>DM手册 <span class="badge bh">High</span></dd>
+    <dd>input-text（農叟劇本）<span class="badge bh">High</span></dd>
   </dl>
 </div>
 
 <div class="char-card f-free">
-  <h3>王思涵（阳敏芝）— 玄甲軍統師 / 靈活陣營</h3>
+  <h3>王思涵（旭敏芝）— 玄甲軍統師 / 靈活陣營</h3>
   <dl>
     <dt>玩家知道</dt>
-    <dd>自己是寇俠玄甲軍統師阳敏芝；武力超群；對大夏復國半信半疑</dd>
+    <dd>自己是寇俠玄甲軍統師旭敏芝；武力超群；對大夏復國半信半疑</dd>
     <dt>只有GM知道</dt>
     <dd>
       可加入任一陣營（最靈活的角色）<br>
       主要在乎舊部族人安危而非政治立場<br>
-      <span class="badge bocr">詳細關係和勝利條件：OCR needed</span>
+      ★ 親兄旭晨（玄甲軍統領）被王順（龐萬金）用左手割頭殺害<br>
+      王思涵是否知悉此事影響她與王順的關係——若揭穿，殺兄之仇觸發極強衝突
     </dd>
     <dt>角色目標</dt>
     <dd>守護玄甲軍舊部；視私聊結果選邊</dd>
     <dt>可能隱藏</dt>
-    <dd>真實立場；對各陣營的實際態度</dd>
+    <dd>真實立場；兄長被殺的真相；對各陣營的實際態度</dd>
     <dt>GM提醒</dt>
-    <dd>王思涵的武力（HP30/武5）讓她是兩方都想拉攏的資源，私聊時可能成為兵家必爭</dd>
+    <dd>王思涵的武力（HP30/武5）讓她是兩方都想拉攏的資源；⚠️ 若她得知王順殺兄，立場將劇烈變化</dd>
     <dt>來源</dt>
-    <dd>DM手册 <span class="badge bh">High</span></dd>
+    <dd>input-text（王思涵/王順劇本）<span class="badge bh">High</span></dd>
   </dl>
 </div>
 
-<div class="char-card f-free">
-  <h3>王順（龐萬金）— 丁崧舊部 / 自由陣營</h3>
+<div class="char-card" style="border-left:4px solid #7a1414;background:#fff5f5">
+  <h3>王順（龐萬金）— 叛徒 / 綉衣使線人 <span class="badge bkill">⚠️ 危險</span></h3>
+  <div class="notice notice-danger" style="margin:.5em 0">
+    <strong>⛔ GM 特別注意：王順絕非農叟的保護者——他是背叛者，欲殺農叟滅口！</strong>
+  </div>
   <dl>
     <dt>玩家知道</dt>
-    <dd>自己是丁崧（農叟）的舊部龐萬金；認出農叟後，目標轉為保護舊主</dd>
+    <dd>自己是龐萬金；偽裝成旭敏芝（王思涵）的「兄長」；認出了農叟（丁崧）</dd>
     <dt>只有GM知道</dt>
     <dd>
-      忠誠度是最大變數——保護農叟勝於選邊<br>
-      農叟加入哪方，王順大概率跟進
+      ★ 曾出賣農叟（丁崧）予綉衣使，致農叟被迫流亡——農叟至今不知<br>
+      ★ 親手殺害玄甲軍統領旭晨（用左手割頭；王順慣用左手）<br>
+      現為玄甲軍小頭目 <em>兼</em> 綉衣使民間線人（雙重身份）<br>
+      極度恐懼農叟認出自己是叛徒，目標：消滅農叟以永久滅口<br>
+      凶案時間線：20:40 偷鑰匙並在庫房點燃赤霞迷香 → 20:50 鎖門 → 21:15 返回發現張猛倒地，取走赤霞逃離
     </dd>
     <dt>角色目標</dt>
-    <dd>保護舊主農叟；守護舊部義氣</dd>
+    <dd>消滅農叟滅口；隱瞞綉衣使線人身份；維持玄甲軍小頭目偽裝</dd>
     <dt>可能隱藏</dt>
-    <dd>真實身份（龐萬金）；對農叟的認知</dd>
+    <dd>叛徒身份；殺害旭晨之事；綉衣使線人雙重身份；庫房赤霞陷阱</dd>
     <dt>GM提醒</dt>
-    <dd>農叟和王順基本上是捆綁的；讓農叟選邊就等於讓王順選邊</dd>
+    <dd>
+      ⚠️ 王順與農叟的關係是劇情核心炸彈——農叟毫不知情<br>
+      若農叟發現王順是叛徒，是全場最強烈的情感翻轉之一<br>
+      王思涵（旭敏芝）若知王順殺兄，二人衝突激烈<br>
+      王順的左撇子特徵（殺旭晨時用左手）可成為識破他的線索
+    </dd>
     <dt>來源</dt>
-    <dd>DM手册 <span class="badge bh">High</span></dd>
+    <dd>input-text（王順劇本）<span class="badge bh">High</span></dd>
   </dl>
 </div>
 
 <div class="char-card f-free">
-  <h3>刁五兒（冷鈺）— 冷佛林之女 / 自由陣營</h3>
+  <h3>刁五兒（冷鈺）— 冷佛林親女 / 綉衣使民間線人</h3>
   <dl>
     <dt>玩家知道</dt>
-    <dd>自己是冷佛林之女冷鈺；以男裝喬裝身份行走；為父追查真相</dd>
+    <dd>自己是冷佛林親生女兒冷鈺；以男裝喬裝身份行走；為父追查真相</dd>
     <dt>只有GM知道</dt>
     <dd>
       ★ 實際上是女性（全場男裝喬裝），是輕鬆彩蛋<br>
-      冷降塵（被害人）疑為其父冷佛林的舊識（整理稿推斷）<br>
-      <span class="badge bocr">具體與冷降塵關係、其他關係：OCR needed</span>
+      ★ 綉衣使民間線人——初始任務是殺死冷降塵（誤以為他殺父）<br>
+      ★ 冷降塵（冷佛林義子）認出她，說出真相：冷降塵並非殺父凶手，並交付近衛軍兵符<br>
+      冷降塵 = 刁五兒之義兄（兩人皆為冷佛林的孩子——義兄妹）<br>
+      武功：無相功法（副作用：皮膚潰爛，故全程以包裹遮蓋身體）
     </dd>
     <dt>角色目標</dt>
-    <dd>為父（冷佛林）追查真相；冷降塵之死與個人目標相關</dd>
+    <dd>查明父親冷佛林之死真相；為義兄冷降塵（已故）追凶；（初始）綉衣使線人任務已因義兄揭真相而動搖</dd>
     <dt>可能隱藏</dt>
-    <dd>真實性別（女）；冷鈺真實身份</dd>
+    <dd>真實性別（女）；冷鈺真實身份；綉衣使線人身份；無相功法副作用</dd>
     <dt>GM提醒</dt>
     <dd>
       性別彩蛋建議在復盤時「兄妹真相」之後公布（作為輕鬆收場）<br>
-      刁五兒對凶案最有動機深入調查（父親相關）
+      ⚠️ 刁五兒是綉衣使線人——其初始立場並非純粹「自由」，GM需掌握她的立場轉換時機<br>
+      刁五兒對凶案有最強動機（義兄被殺）
     </dd>
     <dt>來源</dt>
-    <dd>DM手册 <span class="badge bh">High</span>（冷降塵關係：<span class="badge bm">Medium</span>）</dd>
+    <dd>input-text（刁五兒劇本）<span class="badge bh">High</span></dd>
   </dl>
 </div>
 
 <div class="char-card" style="border-left:4px solid #888;background:#f5f5f5">
-  <h3>張猛 — NPC</h3>
+  <h3>張猛（冷降塵 / 幼名丁典）— NPC</h3>
   <dl>
     <dt>玩家知道</dt>
-    <dd>NPC角色，由GM或助理扮演</dd>
+    <dd>NPC角色，由GM或助理扮演；化名「張猛」出現於遊戲初期</dd>
     <dt>只有GM知道</dt>
-    <dd><span class="badge bocr">詳細劇本：OCR needed</span><span class="badge bn">TODO: needs source confirmation</span></dd>
+    <dd>
+      真名：<strong>冷降塵</strong>（幼名丁典）<br>
+      職位：鶴須軍大統領<br>
+      親生父親：丁崧（農叟）——兩人於19:20重逢<br>
+      義父：冷佛林；義妹：冷鈺（刁五兒）<br>
+      武功：缚阳掌<br>
+      ★ 認出刁五兒（冷鈺），告知真相（自己並非殺冷佛林的凶手），並交付近衛軍兵符<br>
+      被嚴氏（栾绛）奉嚴逸之命殺害（凶案被害人）
+    </dd>
     <dt>角色目標</dt>
-    <dd><span class="badge bn">TODO: needs source confirmation</span></dd>
+    <dd>帶動遊戲節奏、炒場；凶案環節扮演屍體，攜帶3張屍體線索卡＋1封書信</dd>
     <dt>GM提醒</dt>
-    <dd>請開本前閱讀張猛劇本（DM手册或單獨NPC手冊）確認扮演方式</dd>
+    <dd>
+      張猛在凶案發生前（進程07）擔任NPC演員帶節奏<br>
+      凶案佈置時即轉為「屍體」，屍體上需備妥3張線索卡＋1封書信<br>
+      農叟玩家知道自己的兒子是冷降塵——GM需掌握這一情感核心的揭示時機
+    </dd>
     <dt>來源</dt>
-    <dd>DM手册（僅提及NPC身份）<span class="badge bl">Low</span></dd>
+    <dd>input-text（張猛劇本）<span class="badge bh">High</span></dd>
   </dl>
 </div>
 </div><!-- /s7 -->
@@ -1297,27 +1354,26 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
 <tbody>
 <tr>
   <td>1</td>
-  <td><strong>張猛（NPC）的具體職能與劇本</strong></td>
-  <td>DM手册僅提及「NPC角色，GM或助理扮演」，無詳細說明</td>
-  <td>DM手册 / 張猛劇本.pdf（OCR needed）</td>
-  <td>OCR 張猛劇本.pdf 或於開本前人工閱讀確認</td>
+  <td><strong>張猛（NPC）的具體職能與劇本</strong> ✅ <span class="badge bh">已確認</span></td>
+  <td>已由 input-text（張猛劇本）確認：真名冷降塵（幼名丁典），鶴須軍大統領，農叟親子，冷佛林義子，冷鈺義兄；武功缚阳掌；凶案扮演屍體，攜帶3張線索卡＋1封書信</td>
+  <td>input-text（張猛劇本，2026-06-17）</td>
+  <td>已確認，無需進一步 OCR</td>
 </tr>
 <tr>
   <td>2</td>
-  <td><strong>賈三娘感情線的具體對象</strong></td>
-  <td>DM手册提及「感情線可能使立場動搖」，但對象和細節未說明</td>
-  <td>賈三娘.pdf（OCR needed）/ spoilers.md（整理稿）</td>
-  <td>OCR 賈三娘.pdf 確認感情線對象；開本前準備應對她倒戈的預案</td>
+  <td><strong>賈三娘感情線</strong> ✅ <span class="badge bh">已確認：無感情線</span></td>
+  <td>input-text（賈三娘劇本）確認賈三娘<strong>沒有感情線</strong>。舊版 DM 手册提及感情線係 GM 文件推測，不獲 input-text 支持，已排除。</td>
+  <td>input-text（賈三娘劇本，2026-06-17）</td>
+  <td>已確認；GM 無需準備感情線倒戈預案</td>
 </tr>
 <tr>
   <td>3</td>
-  <td><strong>冷降塵 ↔ 冷佛林的關係</strong><br><small>（同姓「冷」，刁五兒之父）</small></td>
+  <td><strong>冷降塵 ↔ 冷佛林的關係</strong> ✅ <span class="badge bh">已確認</span></td>
   <td>
-    DM手册說明刁五兒=冷佛林之女，並提及冷降塵被殺。<br>
-    「冷降塵是冷佛林舊識」為整理稿推斷，非 DM手册原文。
+    已由 input-text 確認：冷降塵是冷佛林義子（非「舊識」）；刁五兒（冷鈺）是冷佛林親女。二人為義兄妹關係。
   </td>
-  <td>DM手册 / spoilers.md（整理稿推斷）/ 刁五兒劇本.pdf（OCR needed）</td>
-  <td>OCR 刁五兒劇本 確認冷降塵與冷佛林的具體關係</td>
+  <td>input-text（刁五兒/張猛劇本，2026-06-17）</td>
+  <td>已確認，無需進一步確認</td>
 </tr>
 <tr>
   <td>4</td>
@@ -1368,9 +1424,9 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
 </table>
 
 <div class="notice notice-unclear" style="margin-top:1em">
-  <strong>📌 總結：</strong>本頁所有 High confidence 內容來自 DM手册.pdf（已全頁讀取）。<br>
-  所有角色劇本（9份 PDF，各 25–48 MB）均為純圖像型，無法程式提取文字，標記為 <span class="badge bocr">OCR needed</span>。<br>
-  建議下一步：對角色劇本進行 OCR（如 Adobe Acrobat / 手機掃描 App），再更新本頁。
+  <strong>📌 總結（2026-06-17 更新）：</strong>本頁 High confidence 內容來自 DM手册.pdf（已全頁讀取）以及 input-text 人工整理版（各角色劇本，存於 <code>input-text/</code> 目錄）。<br>
+  角色劇本重要事實（張猛/王順/刁五兒/農叟等）已根據 input-text 確認並更新。<br>
+  仍待確認事項見上表第4–9項。
 </div>
 </div><!-- /s9 -->
 
