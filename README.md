@@ -24,11 +24,12 @@ larp-script-archive/
 │   └── scripts/
 │       └── kou-xia/             # 劇本：寇侠
 │           ├── index.html        # 劇本首頁（三個入口卡片）
-│           ├── public/           # ✅ 公開，無需密碼（無劇透）
+│           ├── scripts/          # 整理稿 Markdown（含來源備註）
 │           ├── player/           # 🎭 玩家區，需要玩家密碼
 │           └── gm/               # 🎲 GM 區，需要 GM 密碼
-├── materials/                    # 外部素材索引（不部署，不存放大型檔案）
+├── materials/                    # 原始資料與外部素材索引
 │   └── kou-xia/
+│       ├── input-text/          # ✅ 原始劇本 Source of Truth（繁體化整理稿，納入版控）
 │       ├── external-links.md    # 外部連結（iCloud、百度網盤等）
 │       ├── inventory.md         # 素材清單
 │       └── notes.md             # 整理筆記
@@ -60,7 +61,10 @@ larp-script-archive/
 
 ## materials/ 的用途
 
-`materials/` 存放外部素材的索引連結與整理筆記，**不存放原始大型檔案**，**不部署到 GitHub Pages**。
+`materials/` 存放劇本原始資料與外部素材索引，**不部署到 GitHub Pages**。
+
+- `materials/*/input-text/` — **正式原始劇本來源（Source of Truth）**，繁體化人工整理稿，納入 Git 版控。
+- `materials/*/external-links.md` — 外部素材連結索引（PDF、音樂等大型檔案仍保存在個人 iCloud）。
 
 ---
 
@@ -72,10 +76,12 @@ larp-script-archive/
 > - 音樂 / BGM / 音效
 > - 圖片 / 插圖（除非確認授權與公開意願）
 > - ZIP 壓縮檔
-> - 官方原始素材
-> - 完整 GM notes / 劇情真相原始文件
 >
 > 上述資料請保存在個人 iCloud 或本地端，透過 `materials/*/external-links.md` 以外部連結索引。
+
+**納入版控的例外：**
+
+- `materials/*/input-text/` — 劇本文字整理稿（.md），為 Source of Truth，應 commit。
 
 ---
 

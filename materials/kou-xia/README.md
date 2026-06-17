@@ -1,29 +1,38 @@
-# 《寇侠》— External Material Index
+# 《寇侠》— 素材資料夾
 
-這個資料夾是《寇侠》的**外部素材索引與整理筆記**，不保存任何原始大型檔案。
+這個資料夾存放《寇侠》的**原始劇本資料與外部素材索引**。
 
-> **Repo 政策：不 commit PDF、音樂、圖片、ZIP、角色劇本原始檔、GM notes 到 GitHub。**
-> 所有原始素材透過外部連結索引管理。
+## 資料夾結構
 
-## 主要檔案
-
-| 檔案 | 用途 |
+| 路徑 | 說明 |
 |------|------|
-| [external-links.md](external-links.md) | 外部素材來源連結（iCloud、百度網盤等） |
-| [inventory.md](inventory.md) | 素材清單與整理進度追蹤 |
-| [notes.md](notes.md) | 整理筆記、待辦、public / private 區分 |
+| `input-text/` | **正式原始劇本來源（Source of Truth）**，繁體化整理稿，納入 Git 版控 |
+| `external-links.md` | 外部素材來源連結（iCloud、百度網盤等） |
+| `inventory.md` | 素材清單與整理進度追蹤 |
+| `notes.md` | 整理筆記、待辦、public / private 區分 |
 
-## 素材來源
+## input-text/ 說明
+
+`input-text/` 存放全部 9 個角色的劇本文字，為**本 repo 最高優先的原始資料**。
+
+- 來源：iPhone 拍攝 OCR → 人工校對 → 簡體轉繁體整理
+- 所有劇本修訂、繁體修正、OCR 勘誤應直接在此資料夾維護
+- `docs/` 下的網頁版本均以此為底本
+
+## 外部素材
 
 | 來源 | 類型 | 說明 |
 |------|------|------|
-| iCloud Drive | 個人素材資料夾 | 個人整理的角色劇本 PDF、音樂、圖片等 |
-| 百度網盤 | 官方 / 店家開本資料 | 官方提供的開本音樂、主持說明（不含角色劇本） |
+| iCloud Drive | 個人素材資料夾 | 原始劇本 PDF（已刪除本地副本，2026-06-17） |
+| 百度網盤 | 官方開本資料 | 開本音樂、主持說明 |
 
 詳細連結請見 [external-links.md](external-links.md)。
 
-## ⚠️ 注意事項
+## ⚠️ 不 commit 的類型
 
-- **角色劇本 PDF、GM notes、劇情真相、spoilers 不應放在 GitHub**，請保存在個人 iCloud 或本地端。
-- **若此 repo 為 public**，`materials/` 底下的外部連結（包含 iCloud、百度網盤連結與提取碼）也會被公開看到，請確認是否適合。
-- 整理好的公開資料請放在 `docs/scripts/kou-xia/public/`，再透過 GitHub Pages 發佈。
+以下類型仍然不 commit 至 GitHub：
+
+- 原始 PDF（角色劇本、GM手冊）
+- 音樂 / BGM / 音效
+- 圖片 / 插圖（除非確認授權）
+- ZIP 壓縮檔

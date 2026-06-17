@@ -25,9 +25,6 @@ private/
 # 本地私人資料夾（PDF、整理稿、私人筆記，絕不 commit）
 local-private/
 
-# input-text 來源素材（本地保留，不 commit）
-materials/kou-xia/input-text/
-
 # 大型媒體檔案（預設不加入 git）
 *.pdf
 *.mp3

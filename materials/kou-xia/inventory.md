@@ -1,22 +1,32 @@
 # 《寇俠》素材清單
 
-> **Repo 政策：原始 PDF、音樂、圖片、ZIP 不 commit 到 GitHub。input-text 整理版在 `materials/kou-xia/input-text/`（已加入 .gitignore）。**
+> **Repo 政策：`materials/kou-xia/input-text/` 為正式原始劇本來源（Source of Truth），納入 Git 版控。原始 PDF、音樂、圖片、ZIP 不 commit 到 GitHub。**
 
-## 劇本素材（input-text 整理版）
+## 劇本原始資料（Source of Truth）
 
-存放於 `materials/kou-xia/input-text/`（本地保留，不 commit）：
+存放於 `materials/kou-xia/input-text/`，**納入 Git 版控**。
 
-| 角色 | 檔案名 | 狀態 |
+所有劇本修訂應直接在此進行，繁體化版本為主要維護對象。
+
+| 角色 | 檔案名 | 版本 |
 |------|-------|------|
-| 嚴氏 | 嚴氏文字劇本.md | ✅ 已整合進 docs/ |
-| 嚴逸 | # 【嚴逸】文字劇本.md | ✅ 已整合進 docs/ |
-| 金四刃 | # 【金四刃】文字劇本.md | ✅ 已整合進 docs/ |
-| 王思涵 | # 【王思涵】文字劇本.md | ✅ 已整合進 docs/ |
-| 賈三娘 | # 【賈三娘】文字劇本.md | ✅ 已整合進 docs/ |
-| 刁五兒 | # 【刁五兒】文字劇本.md | ✅ 已整合進 docs/ |
-| 張猛 | # 【張猛】文字劇本.md | ✅ 已整合進 docs/ |
-| 王順 | # 【王順】文字劇本.md | ✅ 已整合進 docs/ |
-| 農叟 | # 【農叟】文字劇本.md | ✅ 已整合進 docs/ |
+| 嚴氏 | 嚴氏文字劇本.md | 繁體版（2026-06-17 整理） |
+| 嚴逸 | # 【嚴逸】文字劇本.md | 繁體版（2026-06-17 整理） |
+| 金四刃 | # 【金四刃】文字劇本.md | 繁體版（2026-06-17 整理） |
+| 王思涵 | # 【王思涵】文字劇本.md | 繁體版（2026-06-17 整理） |
+| 賈三娘 | # 【賈三娘】文字劇本.md | 繁體版（2026-06-17 整理） |
+| 刁五兒 | # 【刁五兒】文字劇本.md | 繁體版（2026-06-17 整理） |
+| 張猛 | # 【張猛】文字劇本.md | 繁體版（2026-06-17 整理） |
+| 王順 | # 【王順】文字劇本.md | 繁體版（2026-06-17 整理） |
+| 農叟 | # 【農叟】文字劇本.md | 繁體版（2026-06-17 整理） |
+
+## 網站發布版
+
+| 路徑 | 說明 |
+|------|------|
+| `docs/scripts/kou-xia/scripts/` | 整理稿 Markdown，含來源備註 |
+| `docs/scripts/kou-xia/player/scripts/` | 玩家版 HTML（密碼：player） |
+| `docs/scripts/kou-xia/gm/` | GM 資料 HTML（密碼：gm） |
 
 ## 外部素材（不在 repo 內）
 
@@ -24,10 +34,5 @@
 |------|------|------|
 | 開本音樂 / BGM | 百度網盤 | 見 external-links.md |
 | 主持說明（DM手冊） | 百度網盤 | 見 external-links.md |
+| 原始劇本 PDF | iCloud | 已於 2026-06-17 刪除本地副本 |
 | 圖片 / 美術素材 | iCloud | 如需發布請確認版權 |
-
-## GitHub Pages 已發布內容
-
-- `docs/scripts/kou-xia/player/scripts/` — 全 9 角色玩家版劇本（密碼：player）
-- `docs/scripts/kou-xia/gm/` — GM 資料（密碼：gm）
-- `docs/scripts/kou-xia/scripts/` — 劇本 Markdown 整理稿
