@@ -1,3 +1,14 @@
+---
+name: "嚴氏"
+slug: "yan-shi"
+type: "player"
+identity_label: "化名"
+identity: "欒絳"
+age: "22歲"
+cover_quote: "（封面詩句待補拍確認）"
+status: "已以 source 補強"
+---
+
 # 嚴氏文字劇本  
 # 情景ㄧ  
 ## 你的故事  

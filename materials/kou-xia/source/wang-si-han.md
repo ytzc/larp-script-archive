@@ -1,3 +1,14 @@
+---
+name: "王思涵"
+slug: "wang-si-han"
+type: "player"
+identity_label: "真名"
+identity: "旭敏芝"
+age: "21歲"
+cover_quote: "桃李春風一杯酒，江湖夜雨十年燈。"
+status: "已以 source 補強"
+---
+
 # 【王思涵】文字劇本  
   
 # 情景一  

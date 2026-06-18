@@ -1,3 +1,14 @@
+---
+name: "王順"
+slug: "wang-shun"
+type: "player"
+identity_label: "真名"
+identity: "龐萬金"
+age: "43歲"
+cover_quote: "平生不肆善果，只願親人燃火。"
+status: "已以 source 補強"
+---
+
 # 【王順】文字劇本  
   
 # 情景一  

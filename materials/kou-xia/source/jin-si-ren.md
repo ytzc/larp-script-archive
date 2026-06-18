@@ -1,3 +1,14 @@
+---
+name: "金四刃"
+slug: "jin-si-ren"
+type: "player"
+identity_label: "真名"
+identity: "何乃武"
+age: "26歲"
+cover_quote: "朝中藏敵利，腹內隱雄兵。"
+status: "已以 source 補強"
+---
+
 # 【金四刃】文字劇本  
   
 # 情景一  

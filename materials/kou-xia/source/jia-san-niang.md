@@ -1,3 +1,14 @@
+---
+name: "賈三娘"
+slug: "jia-san-niang"
+type: "player"
+identity_label: "真名"
+identity: "歸雪"
+age: "34歲"
+cover_quote: "精誠去來枝，孤鴻嫁自飛。"
+status: "已以 source 補強"
+---
+
 # 【賈三娘】文字劇本  
   
 # 情景一  

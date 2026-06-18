@@ -1,3 +1,15 @@
+---
+name: "張猛"
+slug: "zhang-meng"
+type: "npc"
+identity_label: "真名"
+identity: "冷降塵"
+age: "27歲"
+extra_identity: "幼名：丁典"
+cover_quote: "只因衣冠無義俠，遂令草澤有奇雄。"
+status: "已以 source 補強"
+---
+
 # 【張猛】文字劇本  
   
 # 情景一  

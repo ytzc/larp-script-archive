@@ -1,3 +1,14 @@
+---
+name: "農叟"
+slug: "nong-sou"
+type: "player"
+identity_label: "真名"
+identity: "丁崧"
+age: "50歲左右"
+cover_quote: "自古名士如美人，不許人間見白頭。"
+status: "已以 source 補強"
+---
+
 # 【農叟】文字劇本  
   
 # 情景一  

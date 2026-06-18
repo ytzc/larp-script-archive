@@ -1,3 +1,14 @@
+---
+name: "嚴逸"
+slug: "yan-yi"
+type: "player"
+identity_label: "代號"
+identity: "殘手"
+age: "36歲"
+cover_quote: "青燈古卷孤劍，落日餘生紅顏。"
+status: "已以 source 補強"
+---
+
 # 【嚴逸】文字劇本  
   
 # 情景一  

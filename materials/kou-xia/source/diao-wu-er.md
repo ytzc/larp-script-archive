@@ -1,3 +1,14 @@
+---
+name: "刁五兒"
+slug: "diao-wu-er"
+type: "player"
+identity_label: "真名"
+identity: "冷鈺"
+age: "22歲"
+cover_quote: "已慣江湖作浪游，愛恨情仇總難休。"
+status: "已以 source 補強"
+---
+
 # 【刁五兒】文字劇本  
   
 # 情景一  

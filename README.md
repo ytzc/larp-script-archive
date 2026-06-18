@@ -63,8 +63,16 @@ larp-script-archive/
 
 `materials/` 存放劇本原始資料與外部素材索引，**不部署到 GitHub Pages**。
 
-- `materials/*/source/` — **正式原始劇本來源（Source of Truth）**，繁體化人工整理稿，以角色拼音 slug 命名，納入 Git 版控。
+- `materials/*/source/` — **正式原始劇本來源（Source of Truth）**，繁體化人工整理稿，以角色拼音 slug 命名，含 YAML Front Matter，納入 Git 版控。
 - `materials/*/external-links.md` — 外部素材連結索引（PDF、音樂等大型檔案仍保存在個人 iCloud）。
+
+修改角色封面句、身份等 metadata 時，只改 `source/*.md` 的 Front Matter，再執行：
+
+```bash
+python3 tools/build-player-script-index.py
+```
+
+`docs/scripts/kou-xia/player/scripts/index.html` 的角色卡片由 build script 自動產生，**不應手動修改**。
 
 ---
 
