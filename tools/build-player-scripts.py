@@ -16,7 +16,7 @@ BASE       = '/home/fiducia/larp-script-archive'
 SOURCE_DIR = os.path.join(BASE, 'materials/kou-xia/source')
 OUTPUT_DIR = os.path.join(BASE, 'docs/scripts/kou-xia/player/scripts')
 
-SCENE_CODES = {1: '幕二', 2: '幕三', 3: '幕四'}  # page-index → unlock code
+SCENE_CODES = {1: 'act2', 2: 'act3', 3: 'act4'}  # page-index → unlock code
 
 
 # ── Parsing ──────────────────────────────────────────────────────────────────
