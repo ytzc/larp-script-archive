@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>《寇侠》GM 人物關係圖與主持人速查 — GM ONLY</title>
+<title>《寇俠》GM 人物關係圖與主持人速查 — GM ONLY</title>
 <style>
 /* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -59,45 +59,64 @@ hr{border:none;border-top:1px solid #ddd;margin:1.5em 0}
 .notice-danger{background:var(--red-lt);border-color:var(--red-border)}
 .notice-warning{background:var(--gold-lt);border-color:#e0a800}
 .notice-info{background:var(--blue-lt);border-color:var(--blue-border)}
+.notice-success{background:var(--green-lt);border-color:#28a745}
 .notice-unclear{background:var(--gray-lt);border-color:var(--gray-border);border-style:dashed}
 
 /* ── Tables ── */
+.scroll-x{overflow-x:auto}
 table{width:100%;border-collapse:collapse;margin:.9em 0;font-size:.88em}
 th{background:var(--red);color:#fff;padding:.55em .8em;text-align:left;font-weight:600;white-space:nowrap}
 td{padding:.5em .8em;border-bottom:1px solid #e8e0d5;vertical-align:top}
 tr:nth-child(even) td{background:#faf5ee}
 tr:hover td{background:#f0e8d8}
-.matrix-table th:first-child,
-.matrix-table td:first-child{font-weight:700;background:#f5ece0;white-space:nowrap}
-.matrix-table td{font-size:.82em;min-width:90px}
-.matrix-table td.self{background:#e8e0d5;color:#999;text-align:center}
 
 /* ── Badges ── */
 .badge{display:inline-block;padding:.1em .45em;border-radius:3px;font-size:.76em;font-weight:700}
-.bh{background:var(--green-lt);color:var(--green)} /* high */
-.bm{background:var(--gold-lt);color:var(--gold)}  /* medium */
-.bl{background:#f8d7da;color:#721c24}             /* low */
-.bn{background:var(--gray-lt);color:#555;border:1px solid var(--gray-border)} /* needs */
-.bocr{background:var(--purple-lt);color:var(--purple)} /* ocr */
-.bkill{background:#2d0000;color:#ffcccc}          /* killer */
-.bvic{background:#2d0000;color:#ffaaaa}           /* victim */
-.bnpc{background:#333;color:#ccc}                 /* npc */
+.bh{background:var(--green-lt);color:var(--green)}
+.bm{background:var(--gold-lt);color:var(--gold)}
+.bl{background:#f8d7da;color:#721c24}
+.bn{background:var(--gray-lt);color:#555;border:1px solid var(--gray-border)}
+.bkill{background:#2d0000;color:#ffcccc}
+.bvic{background:#2d0000;color:#ffaaaa}
+.bnpc{background:#333;color:#ccc}
+.btodo{background:#fff3cd;color:#856404;border:1px solid #ffc107}
 
-/* ── Faction colors ── */
-.f-kou{background:#fff0f0;border-left:3px solid var(--red-border)}
-.f-xiu{background:var(--blue-lt);border-left:3px solid var(--blue-border)}
-.f-free{background:var(--gray-lt);border-left:3px solid var(--gray-border)}
-.f-pivot{background:#fff5ff;border-left:3px solid #a44a}
+/* ── Faction color chips ── */
+.chip-xiu{display:inline-block;background:#003399;color:#fff;padding:.05em .5em;border-radius:10px;font-size:.78em;font-weight:700}
+.chip-kou{display:inline-block;background:#8b0000;color:#fff;padding:.05em .5em;border-radius:10px;font-size:.78em;font-weight:700}
+.chip-double{display:inline-block;background:var(--purple);color:#fff;padding:.05em .5em;border-radius:10px;font-size:.78em;font-weight:700}
+.chip-free{display:inline-block;background:#555;color:#fff;padding:.05em .5em;border-radius:10px;font-size:.78em;font-weight:700}
 
-/* ── Relationship colors ── */
-.r-family{color:#c00;font-weight:700}
-.r-cmd{color:#a56000;font-weight:600}
-.r-ally{color:#1a5200}
-.r-bond{color:#14427a}
-.r-enemy{color:#7a1414}
-.r-suspect{color:#5b1e8d}
-.r-unclear{color:var(--muted);font-style:italic}
-.star{color:#c00;font-weight:700;font-size:1.1em}
+/* ── Character overview cards ── */
+.char-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1em;margin:1em 0}
+.char-card{border:1px solid #ddd;border-radius:6px;padding:1em 1.2em;position:relative}
+.char-card h3{margin-top:0;font-size:1.05em;color:var(--red);display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+.char-card dl{display:grid;grid-template-columns:110px 1fr;gap:.2em .7em;font-size:.87em;margin-top:.7em}
+.char-card dt{font-weight:700;color:#555;padding-top:.1em}
+.char-card dd{color:var(--ink)}
+.card-xiu{background:#f5f7ff;border-left:4px solid #44c}
+.card-kou{background:#fff5f5;border-left:4px solid #c44}
+.card-double{background:#f8f0ff;border-left:4px solid var(--purple)}
+.card-free{background:var(--gray-lt);border-left:4px solid #888}
+.card-npc{background:#f0f0ec;border-left:4px solid #888;opacity:.9}
+.card-killer{border:2px solid #8b0000}
+
+/* ── Relationship table ── */
+.rel-table th{font-size:.82em}
+.rel-table td{font-size:.84em}
+.rel-table td:first-child,.rel-table td:nth-child(2){font-weight:700;white-space:nowrap}
+
+/* ── Faction section ── */
+.faction-block{border-radius:6px;padding:1em 1.2em;margin-bottom:1em}
+.faction-xiu{background:#eef0ff;border-left:5px solid #44c}
+.faction-kou{background:#fff0f0;border-left:5px solid #c44}
+.faction-double{background:#f5eaff;border-left:5px solid var(--purple)}
+.faction-free{background:var(--gray-lt);border-left:5px solid #888}
+
+/* ── Murder summary ── */
+.murder-box{background:#1a0000;color:#ffdddd;padding:1.2em 1.5em;border-radius:6px;margin:1em 0}
+.murder-box h4{color:#ffaaaa;margin-top:.8em}
+.murder-box .key{color:#ff9999;font-weight:700}
 
 /* ── Details/Summary ── */
 details{margin:.5em 0;border:1px solid #e0d8cc;border-radius:3px}
@@ -111,27 +130,11 @@ details[open]>*:not(summary){padding:.8em 1em}
 .checklist{list-style:none;margin-left:0}
 .checklist li{padding:.3em 0 .3em 2em;position:relative;border-bottom:1px solid #f0e8d8}
 .checklist li::before{content:'☐';position:absolute;left:.2em;color:var(--red);font-size:1.1em}
-.checklist h4{margin:.6em 0 .2em}
 
-/* ── Character cards (section 7) ── */
-.char-card{border:1px solid #ddd;border-radius:5px;padding:1em 1.2em;margin-bottom:1em}
-.char-card h3{margin-top:0;font-size:1.08em;color:var(--red)}
-.char-card dl{display:grid;grid-template-columns:140px 1fr;gap:.25em .8em;font-size:.88em}
-.char-card dt{font-weight:700;color:#555}
-.char-card dd{color:var(--ink)}
-
-/* ── SVG graph container ── */
-.graph-wrap{overflow-x:auto;background:var(--white);border:1px solid #ddd;border-radius:4px;padding:.5em}
-svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
-
-/* ── Legend ── */
-.legend{display:flex;flex-wrap:wrap;gap:.7em 1.4em;margin:1em 0;font-size:.83em}
-.legend-item{display:flex;align-items:center;gap:.4em}
-.l-line{width:32px;height:3px;display:inline-block;border-radius:2px}
-.l-dot{width:14px;height:14px;border-radius:50%;display:inline-block;border:2px solid rgba(0,0,0,.2)}
-
-/* ── Scrollable table wrapper ── */
-.scroll-x{overflow-x:auto}
+/* ── Timeline ── */
+.timeline-entry{border-left:3px solid #c44;padding:.5em .8em .5em 1.2em;margin:.5em 0;background:#fff8f5;border-radius:0 4px 4px 0}
+.timeline-time{font-weight:700;color:#8b0000;font-size:.88em}
+.timeline-desc{font-size:.9em}
 
 /* ── Print ── */
 @media print{
@@ -140,1336 +143,912 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   .toc{page-break-after:always}
 }
 
-/* ── Mobile-friendly ── */
+/* ── Mobile ── */
 @media (max-width:768px){
   .wrapper{padding:1em .7em 4em}
   .page-header{padding:1.1em 1em}
   .section{padding:1.1em 1em}
-  h1{font-size:1.6em}
-  h2{font-size:1.15em;margin:1.5em 0 .5em}
-  h3{font-size:1.05em}
+  h1{font-size:1.5em}
+  h2{font-size:1.1em;margin:1.5em 0 .5em}
+  h3{font-size:1em}
+  .char-grid{grid-template-columns:1fr}
   .char-card dl{grid-template-columns:1fr;gap:.1em}
   .char-card dt{margin-top:.5em;color:var(--red)}
-  .legend{font-size:.8em;gap:.4em .8em}
   .toc{padding:.8em 1em}
   .toc ol{margin:.4em 0 0 1em}
-  ul,ol{margin:.3em 0 .6em 1.2em}
 }
 @media (max-width:480px){
   .wrapper{padding:.7em .4em 3em}
   .page-header{padding:.8em .8em}
   .section{padding:.8em .8em}
-  .char-card{padding:.8em .9em}
   h1{font-size:1.25em}
-  h2{font-size:1.08em}
-  .gm-banner{font-size:.8em;padding:.35em .6em;letter-spacing:.15px}
-  body{font-size:14.5px}
+  h2{font-size:1.05em}
+  .gm-banner{font-size:.8em;padding:.35em .6em}
+  body{font-size:14px}
   table{font-size:.78em}
   th{padding:.4em .55em}
   td{padding:.35em .45em}
-  .matrix-table td{min-width:68px;font-size:.72em}
-  details summary{padding:.4em .7em;font-size:.95em}
-  details[open]>*:not(summary){padding:.6em .7em}
-  .badge{font-size:.72em}
+  .murder-box{padding:.8em 1em}
 }
 </style>
 </head>
 <body>
 
 <div class="gm-banner">
-  ⚠️ GM ONLY — SPOILER WARNING — 本頁含角色真實身份、凶手、劇情真相 — 嚴禁玩家閱讀
+  GM ONLY — SPOILER WARNING — 本頁含角色真實身份、凶手、劇情真相 — 嚴禁玩家閱讀
 </div>
 
 <div class="wrapper">
 
-<!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
+<!-- HEADER -->
 <div class="page-header" id="top">
-  <h1>《寇侠》GM 人物關係圖與主持人速查</h1>
-  <p style="color:var(--muted);">GM-only reference generated from DM manual and character scripts.</p>
+  <h1>《寇俠》GM 人物關係圖與主持人速查</h1>
+  <p style="color:var(--muted);">GM-only reference — 全部 9 份角色劇本 source md 已讀取並交叉確認（2026-06-21 更新）。</p>
   <div class="notice notice-danger" style="margin-top:1em">
-    <strong>⛔ GM ONLY / SPOILER WARNING</strong><br>
-    This page contains spoilers, hidden relationships, truth reconstruction, and host-only notes.<br>
-    <strong>Do not publish this page to the public GitHub Pages site unless access policy is confirmed.</strong>
+    <strong>GM ONLY / SPOILER WARNING</strong><br>
+    本頁含所有角色真實身份、凶手真相、隱藏關係與 GM 操作提示。<br>
+    本頁已從 <code>materials/kou-xia/source/</code> 9 份原始 md 重新提取並確認。
   </div>
   <p class="meta-line">
-    📂 主要來源：<code>local-private/kou-xia/pdf/DM手册.pdf</code>（40頁，圖像型 PDF，由上一輪對話全頁讀取）<br>
-    ✅ 角色劇本 input-text 版（金四刀/嚴氏/嚴逸/賈三娘/農叟/王思涵/王順/刁五兒/張猛）
-    已由人工整理為 <code>input-text/</code> 純文字檔，本頁角色細節已據此更新（2026-06-17）。<br>
-    儲存位置：<code>local-private/kou-xia/organized/gm/relationship-map.html</code>（已加入 .gitignore）
+    來源：<code>materials/kou-xia/source/</code>（9 份角色 source md，2026-06-21 全部讀取）<br>
+    存放：<code>docs/scripts/kou-xia/gm/relationship-map.html</code>
   </p>
 </div>
 
-<!-- ═══════════════════════════════ TOC ═══════════════════════════════ -->
+<!-- TOC -->
 <div class="toc">
-  <h2>目錄 Table of Contents</h2>
+  <h2>目錄</h2>
   <ol>
-    <li><a href="#s1">角色總覽表 Character Overview</a></li>
-    <li><a href="#s2">人物關係圖 Relationship Graph</a></li>
-    <li><a href="#s3">關係矩陣 Relationship Matrix</a></li>
-    <li><a href="#s4">陣營與組織 Faction Map</a></li>
-    <li><a href="#s5">GM 必知重點 GM Must-Know Facts</a></li>
-    <li><a href="#s6">劇情時間線 Timeline for GM</a></li>
-    <li><a href="#s7">角色個別 GM 注記 Character-by-Character Notes</a></li>
-    <li><a href="#s8">主持人 Checklist Hosting Checklist</a></li>
-    <li><a href="#s9">待確認事項 Unclear Items / Questions</a></li>
+    <li><a href="#s1">角色速查卡 Character Cards</a></li>
+    <li><a href="#s2">關係速查表 Relationship Matrix</a></li>
+    <li><a href="#s3">陣營一覽 Faction Map</a></li>
+    <li><a href="#s4">凶案摘要 Murder Case</a></li>
+    <li><a href="#s5">待推理事項 Unresolved Mysteries</a></li>
+    <li><a href="#s6">GM 必知重點 GM Must-Know</a></li>
+    <li><a href="#s7">劇情時間線 Timeline</a></li>
+    <li><a href="#s8">角色 GM 注記 Character Notes</a></li>
+    <li><a href="#s9">主持人 Checklist</a></li>
+    <li><a href="#s10">待確認事項 Open Questions</a></li>
   </ol>
 </div>
 
-<!-- ═══════════════════════════════ FLOOR PLANS ═══════════════════════════════ -->
-<div class="section" id="floor-plans">
-<h2 style="color:#7a4000;border-color:#b87333">天福客棧平面圖 Floor Plans</h2>
-<div style="display:flex;flex-wrap:wrap;gap:1.5em;align-items:flex-start">
-  <div style="flex:1;min-width:260px">
-    <a href="../assets/天福客棧俯視圖.JPEG" target="_blank">
-      <img src="../assets/天福客棧俯視圖.JPEG" alt="天福客棧俯視圖"
-           style="max-width:100%;border:1px solid #ddd;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.12);display:block">
-    </a>
-    <p style="font-size:.82em;color:var(--muted);margin-top:.4em;text-align:center">天福客棧俯視圖（點擊放大）</p>
-  </div>
-  <div style="flex:1;min-width:260px">
-    <a href="../assets/天福客棧全貌.JPEG" target="_blank">
-      <img src="../assets/天福客棧全貌.JPEG" alt="天福客棧全貌"
-           style="max-width:100%;border:1px solid #ddd;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.12);display:block">
-    </a>
-    <p style="font-size:.82em;color:var(--muted);margin-top:.4em;text-align:center">天福客棧全貌（點擊放大）</p>
-  </div>
-</div>
-</div><!-- /floor-plans -->
-
-<!-- ═══════════════════════════════ S1: CHARACTER OVERVIEW ═══════════════════════════════ -->
+<!-- ============================================================ -->
+<!-- S1: CHARACTER OVERVIEW CARDS -->
+<!-- ============================================================ -->
 <div class="section" id="s1">
-<h2>§1 角色總覽表 Character Overview</h2>
-<div class="notice notice-info">來源：DM手册.pdf（全頁讀取）+ input-text 人工整理版（角色劇本，2026-06-17）。已更新關鍵角色細節。</div>
+<h2>§1 角色速查卡 Character Overview Cards</h2>
+<div class="notice notice-success">本節資料全部來自 source md 原始劇本，以 source 為唯一真相依據。</div>
 
-<div class="scroll-x">
-<table>
-<thead>
-<tr>
-  <th>角色</th>
-  <th>公開身份（玩家可知）</th>
-  <th>真實身份／秘密（GM Only）</th>
-  <th>陣營</th>
-  <th>核心目標</th>
-  <th>主要關係</th>
-  <th>來源</th>
-  <th>信心度</th>
-</tr>
-</thead>
-<tbody>
-<tr class="f-kou">
-  <td><strong><a href="characters/jin-si-ren.html">金四刀</a></strong><br><em>男，難度：核心</em></td>
-  <td>江湖武者「金四刀」<br>HP 30 / 武 5–8</td>
-  <td>
-    <strong class="r-family">何乃武</strong><br>
-    大夏皇族旁系後裔<br>
-    寇俠組織此行聯絡人<br>
-    ★ 多年尋找失散妹妹（何乃清 = <strong>嚴氏</strong>）
-  </td>
-  <td>寇俠陣營<br><span class="badge" style="background:#c44;color:#fff">核心</span></td>
-  <td>守護寇俠成員；復興大夏；找到妹妹</td>
-  <td>
-    嚴氏（失散妹妹，雙方不知）<br>
-    王思涵（初始同陣營）
-  </td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr class="f-xiu">
-  <td><strong><a href="characters/yan-yi.html">嚴逸</a></strong><br><em>男，難度：核心</em></td>
-  <td>江湖人士「嚴逸」<br>HP 30 / 武 4–7</td>
-  <td>
-    <strong>绣衣使排名第一「殘手」</strong><br>
-    此行任務：清除大夏殘黨<br>
-    指使嚴氏殺死冷降塵<br>
-    目標：確認並消滅金四刀（何乃武）
-  </td>
-  <td>绣衣使陣營<br><span class="badge" style="background:#44c;color:#fff">核心</span></td>
-  <td>完成绣衣使任務；消滅寇俠核心</td>
-  <td>
-    嚴氏（部下，發出殺人命令）<br>
-    賈三娘（同僚）
-  </td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr class="f-pivot">
-  <td>
-    <strong><a href="characters/yan-shi.html">嚴氏</a></strong><br>
-    <em>女，難度：高</em><br>
-    <span class="badge bkill">凶手</span>
-  </td>
-  <td>江湖女性「嚴氏」<br>HP 20 / 武 2–5</td>
-  <td>
-    <strong class="r-family">栾绛 / 何乃清</strong><br>
-    大夏皇族後裔（失憶）<br>
-    绣衣使訓練的殺手<br>
-    ★ 金四刀（何乃武）之失散妹妹<br>
-    ★ <strong class="r-family">凶手</strong>：奉命殺死冷降塵<br>
-    從某種角度是悲劇受害者
-  </td>
-  <td>绣衣使陣營<br><span class="badge" style="background:#66a;color:#fff">執行者</span></td>
-  <td>完成殺手任務；（潛在）恢復記憶</td>
-  <td>
-    金四刀（失散哥哥，互不相識）<br>
-    嚴逸（上司，奉命行事）<br>
-    賈三娘（绣衣使同僚）
-  </td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr class="f-xiu">
-  <td><strong><a href="characters/jia-san-niang.html">賈三娘</a></strong><br><em>女，難度：中</em></td>
-  <td>江湖女性「賈三娘」<br>HP 30 / 武 5</td>
-  <td>
-    <strong>绣衣使密探「歸雪」</strong><br>
-    輔助嚴逸收集情報<br>
-    <span class="badge bh">確認：無感情線（input-text）</span>
-  </td>
-  <td>绣衣使陣營<br><span class="badge" style="background:#668;color:#fff">輔助</span></td>
-  <td>完成情報任務</td>
-  <td>
-    嚴逸（上司/同僚）<br>
-    嚴氏（同陣營）
-  </td>
-  <td>input-text（賈三娘劇本）</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr class="f-free">
-  <td><strong><a href="characters/nong-sou.html">農叟</a></strong><br><em>男，難度：中</em></td>
-  <td>江湖老人「農叟」<br>HP 40 / 武 6</td>
-  <td>
-    <strong>丁崧</strong><br>
-    大夏舊朝武將<br>
-    帶領殘部歸隱多年<br>
-    ★ 親生兒子：冷降塵（即張猛，鶴須軍大統領）<br>
-    父子於遊戲當日19:20重逢<br>
-    王順（龐萬金）曾出賣他，是潛在危機
-  </td>
-  <td>跟隨大夏血脈</td>
-  <td>守護舊部；不讓大夏遺民再受迫害；與兒子（冷降塵）重逢</td>
-  <td>
-    冷降塵/張猛（親生兒子，已故被害人）<br>
-    王順（昔日舊部，實為叛徒，農叟不知）<br>
-    <span class="r-unclear">金四刀（大夏關聯，直接關係待確認）</span>
-  </td>
-  <td>input-text（農叟劇本）</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr class="f-free">
-  <td><strong><a href="characters/wang-si-han.html">王思涵</a></strong><br><em>女，難度：中</em></td>
-  <td>江湖女俠「王思涵」<br>HP 30 / 武 5</td>
-  <td>
-    <strong>旭敏芝</strong><br>
-    寇俠玄甲軍統師，武力超群<br>
-    對大夏復國半信半疑<br>
-    主要在乎舊部族人安危<br>
-    可加入任一陣營<br>
-    <em>兄：旭晨（玄甲軍統領，已被王順殺害）</em>
-  </td>
-  <td>自由（初始親寇俠）</td>
-  <td>守護玄甲軍舊部；視私聊結果選邊</td>
-  <td>
-    金四刀（初始同陣營，可轉換）<br>
-    王順（殺兄仇人——若揭露，衝突激烈）
-  </td>
-  <td>input-text（王思涵劇本）</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr class="f-free">
-  <td><strong><a href="characters/wang-shun.html">王順</a></strong><br><em>男，難度：中</em></td>
-  <td>江湖人士「王順」<br>HP 30 / 武 5</td>
-  <td>
-    <strong>龐萬金</strong><br>
-    曾是丁崧（農叟）之舊部，<strong class="r-enemy">已叛變</strong><br>
-    ★ 出賣農叟（丁崧）予綉衣使，致農叟被迫流亡<br>
-    ★ 親手殺害玄甲軍統領旭晨（用左手割頭——慣用左手）<br>
-    現為玄甲軍小頭目 <em>兼</em> 綉衣使線人（雙重身份）<br>
-    極度恐懼農叟認出自己是叛徒，<strong>目標：消滅農叟滅口</strong><br>
-    偽裝成旭敏芝（王思涵）的「兄長」
-  </td>
-  <td>表面自由，實為綉衣使線人</td>
-  <td>消滅農叟滅口；隱瞞雙重身份</td>
-  <td>
-    農叟（昔日舊主，今日死敵——怕被認出而欲除之）<br>
-    綉衣使（線人關係）<br>
-    旭敏芝（偽裝其兄）
-  </td>
-  <td>input-text（王順劇本）</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr class="f-free">
-  <td><strong><a href="characters/diao-wu-er.html">刁五兒</a></strong><br><em>男裝（實為女），難度：中</em></td>
-  <td>江湖人士「刁五兒」（男裝）<br>HP 25 / 武 3–6</td>
-  <td>
-    <strong>冷鈺</strong><br>
-    冷佛林之親生女兒<br>
-    ★ 實際上是女性（全程男裝喬裝）<br>
-    ★ 綉衣使民間線人，初始任務：<strong>殺死冷降塵</strong>（誤以為其殺父）<br>
-    冷降塵（義兄）認出她後說出真相（並非殺父凶手），交付近衛軍兵符<br>
-    武功：無相功法（副作用：皮膚潰爛，故以包裹示人）<br>
-    冷降塵 = 冷佛林義子（兩人皆為冷佛林的孩子——義兄妹關係）
-  </td>
-  <td>綉衣使民間線人（初始），後立場動搖</td>
-  <td>查明父親冷佛林之死真相；為義兄冷降塵（已故）追凶</td>
-  <td>
-    冷降塵（義兄，被害人——非「父親舊識」）<br>
-    冷佛林（親父，已故）
-  </td>
-  <td>input-text（刁五兒劇本）</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr>
-  <td><strong><a href="characters/zhang-meng.html">張猛</a></strong><br><em>男，難度：NPC</em></td>
-  <td>江湖人士「張猛」（化名）</td>
-  <td>
-    <strong>冷降塵</strong>（真名），幼名丁典<br>
-    <span class="badge bnpc">NPC</span> 由 GM 或助理扮演<br>
-    職位：鶴須軍大統領<br>
-    親生父親：丁崧（農叟）；義父：冷佛林；義妹：冷鈺（刁五兒）<br>
-    武功：缚阳掌<br>
-    NPC職責：帶節奏、炒場；凶案環節扮演屍體，攜帶3張屍體線索卡＋1封書信
-  </td>
-  <td><span class="badge bnpc">NPC</span></td>
-  <td>帶動遊戲節奏；凶案環節扮演被害人屍體</td>
-  <td>
-    農叟（親生父親，19:20重逢）<br>
-    刁五兒（義妹，冷鈺）<br>
-    嚴氏（凶手，殺害冷降塵）
-  </td>
-  <td>input-text（張猛劇本）</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr>
-  <td>
-    <strong>冷降塵</strong><br>
-    <span class="badge bvic">被害人（已故）</span>
-  </td>
-  <td>遊戲中已死，情境二發現屍體</td>
-  <td>
-    真名冷降塵（幼名丁典），化名張猛，鶴須軍大統領<br>
-    遭嚴氏（何乃清）奉嚴逸之命殺害<br>
-    ★ 親生父親：丁崧（農叟）；義父：冷佛林；義妹：冷鈺（刁五兒）<br>
-    武功：缚阳掌<br>
-    認出刁五兒（冷鈺），告知真相並交付近衛軍兵符
-  </td>
-  <td>—（已故）</td>
-  <td>—</td>
-  <td>農叟（親生父親）；嚴氏（凶手）；刁五兒（義妹冷鈺）；冷佛林（義父）</td>
-  <td>input-text（張猛/刁五兒劇本）</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-</tbody>
-</table>
+<div class="char-grid">
+
+<!-- 刁五兒 -->
+<div class="char-card card-double card-killer" style="border:2px solid var(--purple)">
+  <h3>刁五兒 <span class="chip-double">雙重間諜</span> <span class="badge bkill" style="font-size:.7em">有殺機</span></h3>
+  <dl>
+    <dt>表面身份</dt><dd>鶴須軍近侍「刁五兒」（男裝，黑布蒙面，聲音嘶啞）</dd>
+    <dt>真實身份</dt><dd><strong>冷鈺</strong>，前任鶴須軍大統領冷佛林之獨女；實為女性</dd>
+    <dt>陣營</dt><dd><span class="chip-double">雙重間諜</span> 鶴須軍小頭目 + 繡衣使民間線人</dd>
+    <dt>核心秘密</dt><dd>①女性身份；②繡衣使線人；③誤以為冷降塵殺父冷佛林；④無相功法反噬（皮膚潰爛）</dd>
+    <dt>主要目標</dt><dd>殺死冷降塵（誤認殺父仇人）→ 後轉為查明父親真正死因</dd>
+    <dt>關鍵事件</dt><dd>冷降塵認出她，說明不是殺父兇手，交付近衛軍兵符（兵符現在她手中）</dd>
+    <dt>已知關係</dt><dd>冷降塵（義兄，被害人）／冷佛林（亡父）／蒙面師父（= 嚴逸，她不知）</dd>
+  </dl>
 </div>
+
+<!-- 賈三娘 -->
+<div class="char-card card-xiu">
+  <h3>賈三娘 <span class="chip-xiu">繡衣使</span></h3>
+  <dl>
+    <dt>表面身份</dt><dd>天福客棧掌櫃賈三娘，原盤興口成衣坊老闆娘</dd>
+    <dt>真實身份</dt><dd><strong>歸雪</strong>，繡衣使二號殺手</dd>
+    <dt>陣營</dt><dd><span class="chip-xiu">繡衣使</span>（固定，不可更換）</dd>
+    <dt>核心秘密</dt><dd>①繡衣使二號殺手；②<strong>參與暗殺冷佛林</strong>（右肋插刀，用茶靈毒）；③參與何彥滅門；④左肩有黑紫掌印（被冷降塵反擊）；⑤掌握嚴逸把柄（曾目睹嚴逸放走何乃清）</dd>
+    <dt>主要目標</dt><dd>完成繡衣使任務；拉攏王思涵；顛覆玄甲軍</dd>
+    <dt>已知關係</dt><dd>嚴逸（同僚，掌握其把柄）／嚴氏（繡衣使同陣）／王思涵（繡衣使臥底對象）</dd>
+    <dt>GM重點</dt><dd>她把冷降塵的屍體從天字四號房拖到庫房，過程中吸入赤霞昏睡</dd>
+  </dl>
+</div>
+
+<!-- 金四刀 -->
+<div class="char-card card-kou">
+  <h3>金四刀 <span class="chip-kou">寇俠</span></h3>
+  <dl>
+    <dt>表面身份</dt><dd>鶴須軍高級將領「金四刀」</dd>
+    <dt>真實身份</dt><dd><strong>何乃武</strong>，大夏皇族九世孫；鶴須軍實際軍事核心</dd>
+    <dt>陣營</dt><dd><span class="chip-kou">寇俠</span>（固定，不可更換）</dd>
+    <dt>核心秘密</dt><dd>①大夏皇族後裔；②多年尋找失散妹妹何乃清；③有定情玉佩交予王思涵（=鶴須軍銘牌）</dd>
+    <dt>主要目標</dt><dd>光復大夏；找到大夏舊臣（農叟）；找到妹妹何乃清；取得各路寇俠兵符</dd>
+    <dt>已知關係</dt><dd>王思涵（未婚妻，化名陽敏芝）／冷降塵（信任的大統領，已被害）／農叟（目標：大夏重臣）</dd>
+    <dt>GM重點</dt><dd>★ 嚴氏（欒絳）= 他失散的妹妹何乃清，雙方皆不知。他被嚴逸偷擊昏暈。</dd>
+  </dl>
+</div>
+
+<!-- 農叟 -->
+<div class="char-card card-free">
+  <h3>農叟 <span class="chip-free">可選陣營</span></h3>
+  <dl>
+    <dt>表面身份</dt><dd>盤興口郊外農夫老者，採鶴紅草賣藥為生</dd>
+    <dt>真實身份</dt><dd><strong>丁崧</strong>，大夏王朝重要武將，因私放冷佛林被流放</dd>
+    <dt>陣營</dt><dd><span class="chip-free">可選任一</span>（初始：跟隨大夏血脈）</dd>
+    <dt>核心秘密</dt><dd>①大夏舊將；②親生兒子為冷降塵（=丁典）；③被龐萬金（王順）出賣流放；④見過掠走何乃清的人（右肩擊中 = 嚴逸）</dd>
+    <dt>主要目標</dt><dd>找親子丁典（= 冷降塵）；守護大夏血脈；為冷佛林尋仇（不知真正仇人是誰）</dd>
+    <dt>已知關係</dt><dd>冷降塵（親生兒子，已被害）／王順（昔日舊部，不知他是叛徒）／冷佛林（昔日知交，已故）</dd>
+    <dt>GM重點</dt><dd>19:20 與冷降塵父子重逢。王順設庫房赤霞陷阱欲滅口農叟。</dd>
+  </dl>
+</div>
+
+<!-- 王順 -->
+<div class="char-card card-free" style="border-left:4px solid #7a1414">
+  <h3>王順 <span class="chip-free">雙重間諜</span> <span class="badge bl" style="font-size:.7em">叛徒</span></h3>
+  <dl>
+    <dt>表面身份</dt><dd>王思涵（旭敏芝）的「父親」王順，江湖賣藝</dd>
+    <dt>真實身份</dt><dd><strong>龐萬金</strong>，前丁崧部曲小校，繡衣使民間線人，玄甲軍小頭目</dd>
+    <dt>陣營</dt><dd><span class="chip-free">可選任一</span>（雙重間諜，傾向繡衣使）</dd>
+    <dt>核心秘密</dt><dd>①出賣丁崧（農叟）予繡衣使；②<strong>親手殺害旭晨</strong>（用左手，慣用左手）；③繡衣使民間線人；④設庫房赤霞陷阱欲殺農叟；⑤害怕農叟認出他</dd>
+    <dt>主要目標</dt><dd>滅口農叟；隱瞞雙重身份；謀求個人利益</dd>
+    <dt>已知關係</dt><dd>農叟（昔日舊主，今日死敵）／王思涵（偽裝其父）／繡衣使（線人關係）</dd>
+    <dt>GM重點</dt><dd>王思涵不知道他殺了她的哥哥旭晨。他是左撇子——這是識破他的關鍵線索。</dd>
+  </dl>
+</div>
+
+<!-- 王思涵 -->
+<div class="char-card card-free">
+  <h3>王思涵 <span class="chip-free">可選陣營</span></h3>
+  <dl>
+    <dt>表面身份</dt><dd>江湖賣藝女「王思涵」（父女搭檔），彈唱為生</dd>
+    <dt>真實身份</dt><dd><strong>旭敏芝</strong>（原名陽敏芝），寇俠玄甲軍實際統帥</dd>
+    <dt>陣營</dt><dd><span class="chip-free">可選任一</span>（初始親寇俠）</dd>
+    <dt>核心秘密</dt><dd>①玄甲軍統帥旭敏芝；②哥哥旭晨死於宛平府之戰（被左手殺手割去首級）；③與金四刀（何乃武）有婚約；④邀請冷降塵赴盤興口的信是她寫的</dd>
+    <dt>主要目標</dt><dd>查明哥哥旭晨之死真相；守護玄甲軍；視立場決定是否為兄報仇</dd>
+    <dt>已知關係</dt><dd>金四刀（未婚夫何乃武）／冷降塵（報仇目標，後發現不是真兇）／王順（不知是殺兄仇人）</dd>
+    <dt>GM重點</dt><dd>★ 若她發現王順殺了旭晨（王順是左撇子線索），將觸發最強衝突。</dd>
+  </dl>
+</div>
+
+<!-- 嚴氏 -->
+<div class="char-card card-xiu card-killer" style="border:2px solid #8b0000">
+  <h3>嚴氏 <span class="chip-xiu">繡衣使</span> <span class="badge bkill">凶手</span></h3>
+  <dl>
+    <dt>表面身份</dt><dd>嚴逸之妻「嚴氏」，紅紗蒙面，隨夫求藥鶴紅草</dd>
+    <dt>真實身份</dt><dd><strong>欒絳</strong>（繡衣使殺手），實為 <strong>何乃清</strong>（大夏皇族後裔，金四刀之失散妹妹，四歲時失憶）</dd>
+    <dt>陣營</dt><dd><span class="chip-xiu">繡衣使</span>（初始；可選陣營）</dd>
+    <dt>核心秘密</dt><dd>①凶手：奉嚴逸命用茶靈毒匕首殺死冷降塵；②大夏皇族何乃清（失憶，不知自己身份）；③金四刀失散妹妹（雙方皆不知）；④脖子有青色胎記；⑤左臉有嚴逸掌風留下的紅色疤痕（嚴逸謊稱是胎記）；⑥偷偷給嚴逸茶中加化清散</dd>
+    <dt>主要目標</dt><dd>完成殺手任務；找回失去的記憶；（潛在）認清自己是誰</dd>
+    <dt>已知關係</dt><dd>嚴逸（上司兼師父，假夫妻）／金四刀（失散哥哥，互不知情）</dd>
+    <dt>GM重點</dt><dd>★ 凶案關鍵：亥時21:10 在庫房用茶靈毒匕首刺入冷降塵背心。她走後賈三娘之後也進過庫房。</dd>
+  </dl>
+</div>
+
+<!-- 嚴逸 -->
+<div class="char-card card-xiu">
+  <h3>嚴逸 <span class="chip-xiu">繡衣使</span> <span class="badge" style="background:#003399;color:#fff;font-size:.7em">主謀</span></h3>
+  <dl>
+    <dt>表面身份</dt><dd>羸弱書生「嚴逸」，久病在身，妻子嚴氏隨行</dd>
+    <dt>真實身份</dt><dd><strong>殘手</strong>，繡衣使一號殺手；無相功法修煉者（身體因反噬衰弱）</dd>
+    <dt>陣營</dt><dd><span class="chip-xiu">繡衣使</span>（固定）</dd>
+    <dt>核心秘密</dt><dd>①繡衣使一號殺手「殘手」；②指使嚴氏殺死冷降塵；③參與何彥一家滅門（刁五兒的蒙面師父）；④右肩有農叟留下的紫黑掌印；⑤知道嚴氏是何乃清但謊稱不知；⑥給刁五兒傳授的是刪去調和功法的殘缺版無相功法</dd>
+    <dt>主要目標</dt><dd>消滅金四刀（何乃武）；完成繡衣使任務；保護嚴氏（欒絳）</dd>
+    <dt>已知關係</dt><dd>嚴氏（部下，假夫妻，指揮殺人）／賈三娘（繡衣使同僚）／刁五兒（蒙面傳授的徒弟）</dd>
+    <dt>GM重點</dt><dd>放赤霞迷香迷倒冷降塵；偷擊昏金四刀；被不明人（農叟）從背後偷擊。</dd>
+  </dl>
+</div>
+
+<!-- 張猛/冷降塵 -->
+<div class="char-card card-npc">
+  <h3>張猛 <span class="bnpc badge">NPC 被害人</span></h3>
+  <dl>
+    <dt>表面身份</dt><dd>客商「張猛」（化名）</dd>
+    <dt>真實身份</dt><dd><strong>冷降塵</strong>（幼名丁典），鶴須軍大統領；親生父親為丁崧（農叟）；義父為冷佛林；義妹為冷鈺（刁五兒）</dd>
+    <dt>陣營</dt><dd>NPC（由主持人或助理扮演）</dd>
+    <dt>核心秘密</dt><dd>①親生兒子是丁典，義父是冷佛林；②19:20 與農叟（親父）重逢；③認出刁五兒（冷鈺），告知真相並交付近衛軍兵符；④知道冷佛林真正的殺手就在客棧（說到「地字……」被打斷）；⑤被嚴氏以茶靈毒殺害</dd>
+    <dt>NPC職責</dt><dd>帶節奏炒場；凶案環節扮演屍體，隨身攜帶 3 張線索卡 + 1 封書信</dd>
+    <dt>已知關係</dt><dd>農叟（親父）／刁五兒（義妹冷鈺）／金四刀（信任部將，知其為何乃武）</dd>
+  </dl>
+</div>
+
+</div><!-- /char-grid -->
 </div><!-- /s1 -->
 
-<!-- ═══════════════════════════════ S2: RELATIONSHIP GRAPH ═══════════════════════════════ -->
+<!-- ============================================================ -->
+<!-- S2: RELATIONSHIP MATRIX -->
+<!-- ============================================================ -->
 <div class="section" id="s2">
-<h2>§2 人物關係圖 Relationship Graph</h2>
-<div class="notice notice-warning">
-  <strong>⚠️ 部分關係圖（灰虛線）為 Medium / Uncertain 信心度，來源為 DM手册 推斷或整理稿標注。</strong>
-  全 9 個角色劇本均已以 input-text 補強（2026-06-17）；仍有部分道具/線索卡內容需對照 DM手册確認。
+<h2>§2 關係速查表 Relationship Matrix</h2>
+<p>以下列出所有關鍵二元關係。「誰知道」欄：A = 角色A知道，B = 角色B知道，雙方 = 兩人都知，皆不知 = 雙方皆不知情。</p>
+
+<div class="scroll-x">
+<table class="rel-table">
+<thead>
+<tr>
+  <th>角色A</th>
+  <th>角色B</th>
+  <th>關係說明</th>
+  <th>誰知道</th>
+  <th>GM備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>冷鈺（刁五兒）</td>
+  <td>冷降塵（張猛）</td>
+  <td><strong>義兄妹</strong>（冷佛林的親女 × 義子）；冷鈺誤以為冷降塵殺父，一直視為仇人</td>
+  <td>冷降塵知（認出她）；冷鈺起初不信</td>
+  <td>冷降塵主動說明真相，交付近衛軍兵符。他死前說「殺義父之人就住在客棧地字……」被打斷。</td>
+</tr>
+<tr style="background:#fff5f5">
+  <td>冷降塵（張猛）</td>
+  <td>丁崧（農叟）</td>
+  <td><strong>親生父子</strong>；冷降塵幼名丁典，被父託付給冷佛林改姓</td>
+  <td>農叟收到消息後確認；19:20 正式重逢</td>
+  <td>農叟得知後老淚縱橫。父子重逢後冷降塵被殺，農叟悲痛。丁典認知暗語：父親給的小木劍。</td>
+</tr>
+<tr>
+  <td>金四刀（何乃武）</td>
+  <td>嚴氏（何乃清）</td>
+  <td><strong>親兄妹</strong>（何彥之子女）；嚴氏四歲失憶，不知自己是何乃清</td>
+  <td>皆不知</td>
+  <td>★ 全場最大彩蛋。金四刀多年尋找妹妹，知道妹妹脖子有青色胎記。嚴氏脖子確實有青色胎記。</td>
+</tr>
+<tr style="background:#fff5f5">
+  <td>王順（龐萬金）</td>
+  <td>丁崧（農叟）</td>
+  <td><strong>昔日主從，今日仇敵</strong>；龐萬金出賣丁崧予繡衣使，致全家流放</td>
+  <td>王順知（怕被認出）；農叟不知</td>
+  <td>農叟在場中認出他的身影（面熟），但確認身份前已被迷藥擊退。王順設庫房赤霞陷阱欲殺農叟。</td>
+</tr>
+<tr>
+  <td>王順（龐萬金）</td>
+  <td>王思涵（旭敏芝）</td>
+  <td><strong>王順親手殺害旭晨</strong>（王思涵之兄）；王思涵不知，還親自招募王順為玄甲軍小頭目</td>
+  <td>王順知；王思涵不知</td>
+  <td>★ 強衝突炸彈。王順慣用左手，旭晨傷口顯示左手持戟割頭——若王思涵發現此線索可指向王順。</td>
+</tr>
+<tr style="background:#fff5f5">
+  <td>嚴逸（殘手）</td>
+  <td>嚴氏（欒絳）</td>
+  <td><strong>上線下線 + 假夫妻</strong>；嚴逸收養欒絳（何乃清）入繡衣使；對外以夫妻相稱；嚴逸下令嚴氏殺冷降塵</td>
+  <td>嚴逸知完整情況；嚴氏只知假夫妻關係</td>
+  <td>嚴氏私自給嚴逸茶中加化清散（化解無相功法積毒），嚴逸不知。嚴逸右肩有農叟留下的掌印。</td>
+</tr>
+<tr>
+  <td>嚴逸（殘手）</td>
+  <td>刁五兒（冷鈺）</td>
+  <td><strong>蒙面師父與徒弟</strong>；嚴逸奉命傳授刁五兒無相功法（刪去調和部分的殘缺版），全程戴面具</td>
+  <td>嚴逸知徒弟身份；刁五兒不知師父是誰</td>
+  <td>刁五兒在客棧感受到無相功法氣息，推測師父在場。嚴逸傳的是殘缺版，因此刁五兒反噬更嚴重。</td>
+</tr>
+<tr style="background:#fff5f5">
+  <td>賈三娘（歸雪）</td>
+  <td>嚴逸（殘手）</td>
+  <td><strong>繡衣使同僚</strong>；賈三娘掌握嚴逸把柄（何彥滅門任務時目睹嚴逸放走何乃清）</td>
+  <td>賈三娘知（掌握把柄）；嚴逸知（欠她人情）</td>
+  <td>賈三娘用此把柄壓制嚴逸，但尚未動用。嚴逸地位高但在此事上受制。</td>
+</tr>
+<tr>
+  <td>冷佛林</td>
+  <td>丁崧（農叟）</td>
+  <td><strong>昔日敵→知交</strong>；冷佛林被丁崧俘獲後，丁崧因欣賞其人而私放；丁崧因此被龐萬金出賣流放；冷佛林收養丁崧之子丁典</td>
+  <td>農叟知；冷佛林已故</td>
+  <td>冷佛林死後農叟失去兒子線索。農叟知曉冷佛林對他的恩義。</td>
+</tr>
+<tr style="background:#fff5f5">
+  <td>賈三娘（歸雪）</td>
+  <td>冷佛林</td>
+  <td><strong>賈三娘是冷佛林真正的殺手</strong>；她用茶靈毒匕首刺其右肋；被冷降塵反擊於左肩（留黑紫掌印）</td>
+  <td>賈三娘知；冷降塵在死前才確認了殺父之人在客棧</td>
+  <td>★ 關鍵謎底。刁五兒誤以為冷降塵殺父。賈三娘左肩有黑紫掌印是線索。</td>
+</tr>
+</tbody>
+</table>
 </div>
 
-<!-- Legend -->
-<div class="legend">
-  <div class="legend-item"><div class="l-line" style="background:#c44;"></div>寇俠陣營</div>
-  <div class="legend-item"><div class="l-line" style="background:#44c;"></div>绣衣使陣營</div>
-  <div class="legend-item"><div class="l-line" style="background:#666;"></div>自由/中立</div>
-  <div class="legend-item"><div class="l-line" style="background:#c00;height:4px;"></div> ★ 失散兄妹（核心秘密）</div>
-  <div class="legend-item"><div class="l-line" style="background:#a56000;"></div>上司指揮</div>
-  <div class="legend-item"><div class="l-line" style="background:#14427a;"></div>舊主-舊部</div>
-  <div class="legend-item"><div class="l-line" style="background:#c00;border-top:3px solid #c00;"></div>凶案（殺害）</div>
-  <div class="legend-item"><div class="l-line" style="background:#5b2c8d;border-top:2px dashed #5b2c8d;height:1px;margin-top:4px;"></div>不確定關係</div>
+<div class="notice notice-warning" style="margin-top:1em">
+  <strong>凶案最終確認：</strong>冷降塵死亡的完整鏈：嚴逸在天字四號房放赤霞迷香迷倒冷降塵→賈三娘發現屍體（以為死了），扛到庫房→庫房已有王順燃的赤霞（原為陷阱針對農叟）→嚴氏前往庫房（20:10後），發現冷降塵仍有氣息，用茶靈毒匕首插入背心，確認殺死→兇手為嚴氏，主謀為嚴逸。
 </div>
-
-<div class="graph-wrap">
-<svg viewBox="0 0 1000 660" width="100%" style="min-width:720px;max-width:1000px;display:block;margin:0 auto">
-  <defs>
-    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="8" refY="3.5" orient="auto">
-      <path d="M0,0 L0,7 L9,3.5 z" fill="#c00"/>
-    </marker>
-    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="8" refY="3.5" orient="auto">
-      <path d="M0,0 L0,7 L9,3.5 z" fill="#a56000"/>
-    </marker>
-    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="8" refY="3.5" orient="auto">
-      <path d="M0,0 L0,7 L9,3.5 z" fill="#7a2d9d"/>
-    </marker>
-    <style>
-      /* White halo on text via paint-order — no background rects needed */
-      .rl{font-weight:700;paint-order:stroke;stroke:white;stroke-width:5;stroke-linejoin:round}
-      .rs{paint-order:stroke;stroke:white;stroke-width:4;stroke-linejoin:round}
-      .nn{font-weight:700;paint-order:stroke;stroke:white;stroke-width:3;stroke-linejoin:round}
-      .ns{paint-order:stroke;stroke:white;stroke-width:2.5;stroke-linejoin:round}
-    </style>
-  </defs>
-
-  <!-- ─── Faction zone backgrounds ─── -->
-  <rect x="8" y="100" width="255" height="360" rx="8" fill="#fff0f0" stroke="#c44" stroke-width="1.5" stroke-dasharray="5,3" opacity=".7"/>
-  <text x="22" y="120" font-size="12" fill="#8b0000" font-weight="700">寇俠陣營</text>
-
-  <rect x="288" y="140" width="322" height="350" rx="8" fill="#f7f7f7" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3" opacity=".65"/>
-  <text x="302" y="158" font-size="12" fill="#555" font-weight="700">自由 / 中立</text>
-
-  <rect x="600" y="100" width="390" height="340" rx="8" fill="#eef0ff" stroke="#44c" stroke-width="1.5" stroke-dasharray="5,3" opacity=".65"/>
-  <text x="614" y="120" font-size="12" fill="#003399" font-weight="700">绣衣使陣營</text>
-
-  <rect x="428" y="566" width="148" height="62" rx="6" fill="#ffe8e8" stroke="#c44" stroke-width="1" stroke-dasharray="3,3" opacity=".75"/>
-  <text x="444" y="582" font-size="10" fill="#8b0000">已故 / 被害人</text>
-
-  <!-- ─── RELATIONSHIP PATHS ─── -->
-
-  <!-- ★ 金四刀 ↔ 嚴氏: 失散兄妹 — arc HIGH above all nodes -->
-  <path d="M 130 230 C 220 32 570 32 650 268"
-        stroke="#c00" stroke-width="3" stroke-dasharray="9,4" fill="none"/>
-  <text x="390" y="24" text-anchor="middle" font-size="11" fill="#c00" class="rl">★ 失散兄妹（雙方皆不知）</text>
-
-  <!-- 嚴逸 → 嚴氏: 指揮殺人 orange arrow -->
-  <path d="M 824 215 C 792 232 755 248 691 257"
-        stroke="#a56000" stroke-width="2" fill="none" marker-end="url(#arr-orange)"/>
-  <text x="760" y="220" text-anchor="middle" font-size="10" fill="#a56000" class="rl">指揮→殺人</text>
-
-  <!-- 嚴逸 ↔ 賈三娘: 绣衣使同僚 blue, arc right -->
-  <path d="M 850 238 C 905 290 905 340 834 355"
-        stroke="#44c" stroke-width="2" fill="none"/>
-  <text x="912" y="299" text-anchor="start" font-size="10" fill="#44c" class="rl">绣衣使同僚</text>
-
-  <!-- 嚴氏 ↔ 賈三娘: 绣衣使同陣 dashed blue -->
-  <path d="M 684 290 C 730 322 780 355 805 369"
-        stroke="#44c" stroke-width="1.5" stroke-dasharray="5,3" fill="none"/>
-  <text x="748" y="312" text-anchor="middle" font-size="9" fill="#44c" class="rs">绣衣使同陣</text>
-
-  <!-- 農叟 ↔ 王順: 昔日舊部，今日叛徒（王順欲滅口農叟）-->
-  <path d="M 426 241 C 428 283 444 325 449 346"
-        stroke="#7a1414" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-red)"/>
-  <text x="375" y="294" text-anchor="middle" font-size="10" fill="#7a1414" class="rl">★ 昔日舊部→今日叛徒</text>
-
-  <!-- 嚴氏 → 冷降塵: 殺害（凶案）thick red arrow -->
-  <path d="M 634 306 C 610 405 578 508 512 584"
-        stroke="#c00" stroke-width="3.5" fill="none" marker-end="url(#arr-red)"/>
-  <text x="618" y="428" text-anchor="start" font-size="11" fill="#c00" class="rl">★ 殺害（凶案）</text>
-
-  <!-- 刁五兒 ↔ 冷降塵: 義兄義妹（冷佛林義子×親女）-->
-  <path d="M 537 496 C 527 535 516 562 510 583"
-        stroke="#7a2d9d" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-purple)"/>
-  <text x="554" y="538" text-anchor="start" font-size="9" fill="#7a2d9d" class="rs">義兄妹（冷佛林義子×親女）</text>
-
-  <!-- 金四刀 ↔ 王思涵: 初始同陣營 dashed coral -->
-  <path d="M 137 264 C 133 318 150 360 159 380"
-        stroke="#c44" stroke-width="1.5" stroke-dasharray="5,3" fill="none"/>
-  <text x="68" y="323" text-anchor="middle" font-size="9" fill="#c44" class="rs">初始同陣營</text>
-
-  <!-- 農叟 ↔ 金四刀: 大夏歷史關聯? gray dashed -->
-  <path d="M 389 212 C 330 208 265 215 165 228"
-        stroke="#aaa" stroke-width="1.5" stroke-dasharray="3,4" fill="none"/>
-  <text x="273" y="198" text-anchor="middle" font-size="9" fill="#888" font-style="italic" class="rs">大夏關聯?（待確認）</text>
-
-  <!-- ─── CHARACTER NODES ─── (drawn AFTER lines so nodes are on top) -->
-
-  <!-- 金四刀 (130,230) 寇俠 -->
-  <circle cx="130" cy="230" r="35" fill="#fff0f0" stroke="#c44" stroke-width="2.5"/>
-  <text x="130" y="225" text-anchor="middle" font-size="13" fill="#8b0000" class="nn">金四刀</text>
-  <text x="130" y="240" text-anchor="middle" font-size="9" fill="#c44" class="ns">何乃武</text>
-  <text x="130" y="253" text-anchor="middle" font-size="8" fill="#555" class="ns">寇俠核心</text>
-
-  <!-- 王思涵 (165,410) 初始寇俠 -->
-  <circle cx="165" cy="410" r="31" fill="white" stroke="#c44" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <text x="165" y="405" text-anchor="middle" font-size="12" fill="#8b0000" class="nn">王思涵</text>
-  <text x="165" y="419" text-anchor="middle" font-size="9" fill="#c44" class="ns">旭敏芝</text>
-  <text x="165" y="431" text-anchor="middle" font-size="7.5" fill="#666" class="ns">自由（初寇俠）</text>
-
-  <!-- 農叟 (420,210) 自由 -->
-  <circle cx="420" cy="210" r="31" fill="white" stroke="#666" stroke-width="1.5"/>
-  <text x="420" y="205" text-anchor="middle" font-size="12" fill="#333" class="nn">農叟</text>
-  <text x="420" y="219" text-anchor="middle" font-size="9" fill="#555" class="ns">丁崧</text>
-  <text x="420" y="231" text-anchor="middle" font-size="7.5" fill="#666" class="ns">跟隨大夏血脈</text>
-
-  <!-- 王順 (455,375) 自由 -->
-  <circle cx="455" cy="375" r="30" fill="white" stroke="#666" stroke-width="1.5"/>
-  <text x="455" y="370" text-anchor="middle" font-size="12" fill="#333" class="nn">王順</text>
-  <text x="455" y="384" text-anchor="middle" font-size="9" fill="#555" class="ns">龐萬金</text>
-  <text x="455" y="396" text-anchor="middle" font-size="7.5" fill="#666" class="ns">自由</text>
-
-  <!-- 刁五兒 (545,468) 自由 -->
-  <circle cx="545" cy="468" r="29" fill="white" stroke="#666" stroke-width="1.5"/>
-  <text x="545" y="463" text-anchor="middle" font-size="12" fill="#333" class="nn">刁五兒</text>
-  <text x="545" y="477" text-anchor="middle" font-size="9" fill="#5b2c8d" class="ns">冷鈺（女）</text>
-  <text x="545" y="489" text-anchor="middle" font-size="7.5" fill="#666" class="ns">自由</text>
-
-  <!-- 張猛 (330,470) NPC 在自由區 -->
-  <circle cx="330" cy="470" r="26" fill="#f0f0e8" stroke="#888" stroke-width="1"/>
-  <text x="330" y="465" text-anchor="middle" font-size="12" fill="#555" class="nn">張猛</text>
-  <text x="330" y="479" text-anchor="middle" font-size="8.5" fill="#888" class="ns">NPC</text>
-
-  <!-- 嚴氏 (650,268) PIVOT: 绣衣使/大夏皇族 — LARGEST NODE -->
-  <circle cx="650" cy="268" r="41" fill="#fff0f0" stroke="#c44" stroke-width="2"/>
-  <circle cx="650" cy="268" r="41" fill="#eef0ff" stroke="#44c" stroke-width="2" opacity=".55"/>
-  <text x="650" y="256" text-anchor="middle" font-size="13" fill="#8b0000" class="nn">嚴氏</text>
-  <text x="650" y="270" text-anchor="middle" font-size="9" fill="#c00" font-weight="700" class="ns">栾绛 / 何乃清</text>
-  <text x="650" y="283" text-anchor="middle" font-size="8.5" fill="#8b0000" class="ns">★ 凶手 ★</text>
-  <text x="650" y="295" text-anchor="middle" font-size="7.5" fill="#44c" class="ns">绣衣使執行者</text>
-
-  <!-- 嚴逸 (855,205) 绣衣使 -->
-  <circle cx="855" cy="205" r="33" fill="white" stroke="#44c" stroke-width="2"/>
-  <text x="855" y="199" text-anchor="middle" font-size="13" fill="#003399" class="nn">嚴逸</text>
-  <text x="855" y="213" text-anchor="middle" font-size="9" fill="#44c" class="ns">殘手（第一）</text>
-  <text x="855" y="226" text-anchor="middle" font-size="7.5" fill="#555" class="ns">绣衣使核心</text>
-
-  <!-- 賈三娘 (830,385) 绣衣使 -->
-  <circle cx="830" cy="385" r="30" fill="white" stroke="#44c" stroke-width="1.5"/>
-  <text x="830" y="379" text-anchor="middle" font-size="12" fill="#003399" class="nn">賈三娘</text>
-  <text x="830" y="393" text-anchor="middle" font-size="9" fill="#44c" class="ns">歸雪</text>
-  <text x="830" y="405" text-anchor="middle" font-size="7.5" fill="#555" class="ns">绣衣使輔助</text>
-
-  <!-- 冷降塵 (502,608) 已故 -->
-  <circle cx="502" cy="608" r="26" fill="#ffe8e8" stroke="#c44" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <text x="502" y="603" text-anchor="middle" font-size="12" fill="#8b0000" class="nn">冷降塵</text>
-  <text x="502" y="617" text-anchor="middle" font-size="8" fill="#c00" class="ns">被害人（已故）</text>
-
-  <!-- Caption -->
-  <text x="500" y="652" text-anchor="middle" font-size="9" fill="#aaa">來源：DM手册.pdf + input-text 人工整理版（2026-06-17）</text>
-</svg>
-</div>
-
-<h3>Unresolved / Uncertain Relationships</h3>
-<ul>
-  <li>
-    <span class="r-unclear">農叟（丁崧）↔ 金四刀（何乃武）</span>：
-    nong-sou.md 確認農叟因在盤興口發現帶「何」字暗語的安民告示（落款「人口丁」=「何」字），判斷是大夏皇族血脈留下的召集信號，因此前往天福客棧。兩人皆為大夏舊勢力，但 source 未記載二人遊戲前直接相識。DM手册所述「赴汲洲接洽」細節未獲 source 確認。
-    <span class="badge bn">Needs DM手册 confirmation</span>
-  </li>
-  <li>
-    <strong class="r-family">★ 農叟（丁崧）↔ 嚴氏（何乃清）— 新確認</strong>：
-    nong-sou.md 確認：農叟曾親眼目睹何彥府宅滅門（十八口），追上掠走何彥幼女（= 何乃清 = 嚴氏）的兇手，以掌擊中其<strong>右肩</strong>，未能救出女童。情景二（20:55），農叟在天字三號房外認出此人背影，再次出掌攻擊，但此人以<strong>左手</strong>揚粉末使農叟昏迷。此人身份待確認，但「慣用左手」特徵與王順（龐萬金）吻合。（參照§5：嚴逸右肩紫黑掌印亦來自同一時段「不明身份者」攻擊。）
-    <span class="badge bm">Medium — 已確認關聯，施害者身份待確認</span>
-  </li>
-  <li>
-    <strong class="r-family">刁五兒 ↔ 冷降塵（已確認）</strong>：刁五兒（冷鈺）為冷佛林親生女兒；冷降塵為冷佛林義子——兩人是義兄妹關係（非「父親舊識」）。冷降塵認出刁五兒，說出真相並交付近衛軍兵符。<span class="badge bh">High — 已確認（source）</span>
-  </li>
-  <li>
-    <strong>賈三娘感情線</strong>：source（賈三娘劇本）確認<strong>無感情線</strong>。DM手册所述感情線為舊版 GM 文件推測，不獲 source 支持，已排除。<span class="badge bh">已確認（source）— 無感情線</span>
-  </li>
-  <li>
-    <strong>張猛（NPC）行動序列（已確認）</strong>：張猛=冷降塵（化名），鶴須軍大統領，幼名丁典。凶案環節扮演屍體，攜帶3張屍體線索卡＋1封書信；負責帶節奏、炒場。<span class="badge bh">High — 已確認（source）</span>
-  </li>
-  <li>
-    <strong>王思涵 ↔ 王順（已確認）</strong>：wang-si-han.md 確認，王思涵<strong>不知道</strong>王順（龐萬金）就是殺害其兄旭晨的兇手。她知道兇手慣用左手（由屍首割口判斷），但尚未將此線索聯繫到王順。她甚至親自將王順招入玄甲軍擔任小頭目。王順是左撇子——若王思涵得知真相，將觸發極強衝突。
-    <span class="badge bh">High — 已確認（source）</span>
-  </li>
-  <li>
-    <strong>王順 ↔ 農叟（已確認）</strong>：王順（龐萬金）已確認出賣農叟（丁崧）予綉衣使，並親手殺害玄甲軍統領旭晨（慣用左手）。現為玄甲軍小頭目兼綉衣使線人。恐懼農叟認出自己，設計在庫房燃赤霞香欲殺農叟。<span class="badge bh">High — 已確認（source）</span>
-  </li>
-</ul>
 </div><!-- /s2 -->
 
-<!-- ═══════════════════════════════ S3: RELATIONSHIP MATRIX ═══════════════════════════════ -->
+<!-- ============================================================ -->
+<!-- S3: FACTION MAP -->
+<!-- ============================================================ -->
 <div class="section" id="s3">
-<h2>§3 關係矩陣 Relationship Matrix</h2>
-<p>橫列為角色A，直行為角色B，格內說明兩人之間的關係（從A視角）。</p>
+<h2>§3 陣營一覽 Faction &amp; Loyalty Map</h2>
+
+<div class="faction-block faction-xiu">
+  <h3>繡衣使（固定）</h3>
+  <p>起朝特務機構，清剿前朝大夏殘黨、顛覆寇俠組織。</p>
+  <ul>
+    <li><strong>嚴逸（殘手）</strong> — 一號殺手，主謀，固定繡衣使，不可換。<br>目標：消滅金四刀（何乃武）；恢復在繡衣使中的地位。<br>動搖可能：無（固定陣營）。</li>
+    <li><strong>嚴氏（欒絳）</strong> — 二號殺手，執行凶殺，可選陣營。<br>目標：完成任務、找回記憶。<br>動搖可能：★★★ 若恢復記憶發現自己是何乃清，極可能轉投寇俠（兄妹重逢線）。</li>
+    <li><strong>賈三娘（歸雪）</strong> — 密探輔助，固定繡衣使，不可換。<br>目標：情報任務、顛覆玄甲軍、拉攏王思涵。<br>動搖可能：無（固定陣營）。</li>
+  </ul>
+</div>
+
+<div class="faction-block faction-kou">
+  <h3>寇俠（鶴須軍 + 玄甲軍）</h3>
+  <ul>
+    <li><strong>金四刀（何乃武）</strong> — 鶴須軍高級將領，固定寇俠，不可換。<br>目標：光復大夏；集齊兵符。<br>動搖可能：無（固定陣營）；但若集齊所有兵符可觸發個人勝利線。</li>
+    <li><strong>王思涵（旭敏芝）</strong> — 玄甲軍統帥，初始寇俠，可選任一陣營。<br>目標：查明旭晨之死；守護玄甲軍。<br>動搖可能：★★ 若繡衣使承諾保護玄甲軍可能倒戈；若發現王順殺兄則怒火中燒，傾向寇俠。</li>
+  </ul>
+</div>
+
+<div class="faction-block faction-double">
+  <h3>雙重間諜</h3>
+  <ul>
+    <li><strong>刁五兒（冷鈺）</strong> — 鶴須軍小頭目 + 繡衣使線人，可選任一陣營。<br>目標：初始殺冷降塵（已放棄）→ 查明父親真正死因。<br>動搖可能：★★★ 得知師父是嚴逸後極可能轉投寇俠；得知賈三娘殺父後可能優先報仇。</li>
+    <li><strong>王順（龐萬金）</strong> — 玄甲軍小頭目 + 繡衣使線人，可選任一陣營。<br>目標：謀取個人利益，滅口農叟。<br>動搖可能：★★★ 純粹追求自身利益，哪邊對他有利就投哪邊；但若農叟揭穿他則局面大亂。</li>
+</ul>
+</div>
+
+<div class="faction-block faction-free">
+  <h3>獨立／可選陣營</h3>
+  <ul>
+    <li><strong>農叟（丁崧）</strong> — 大夏舊將，初始跟隨大夏血脈，可選任一陣營。<br>目標：守護大夏血脈；找到親子（= 冷降塵，已被害）；為知交冷佛林報仇；制裁叛徒王順。<br>動搖可能：★ 傾向跟隨金四刀（大夏血脈）；若發現王順是叛徒，會強烈驅使行動。</li>
+  </ul>
+  <p class="meta-line">注：農叟的親子冷降塵在遊戲當日被害身亡，這是農叟最大的悲痛動力。</p>
+</div>
+
+<h3>陣營勝利條件</h3>
 <div class="scroll-x">
-<table class="matrix-table">
-<thead>
-<tr>
-  <th>A ↓ / B →</th>
-  <th>金四刀</th><th>嚴逸</th><th>嚴氏</th><th>賈三娘</th>
-  <th>農叟</th><th>王思涵</th><th>王順</th><th>刁五兒</th>
-</tr>
-</thead>
+<table>
+<thead><tr><th>陣營</th><th>勝利條件</th><th>關鍵人物必須存活</th></tr></thead>
+<tbody>
+<tr style="background:#fff0f0"><td><span class="chip-kou">寇俠</span></td><td>陣營搏殺後寇俠方存活人數 &ge; 繡衣使方</td><td><strong>金四刀</strong>（死亡=寇俠必敗）</td></tr>
+<tr style="background:#eef0ff"><td><span class="chip-xiu">繡衣使</span></td><td>陣營搏殺後繡衣使方存活人數 &ge; 寇俠方</td><td><strong>嚴逸</strong>（死亡=繡衣使必敗）</td></tr>
+<tr><td>個人勝利</td><td>金四刀集齊所有兵符（前提：寇俠方勝）</td><td>金四刀存活</td></tr>
+</tbody>
+</table>
+</div>
+</div><!-- /s3 -->
+
+<!-- ============================================================ -->
+<!-- S4: MURDER CASE SUMMARY -->
+<!-- ============================================================ -->
+<div class="section" id="s4">
+<h2>§4 凶案摘要 Murder Case Summary</h2>
+
+<div class="murder-box">
+  <p><span class="key">死者：</span>張猛（真名冷降塵，幼名丁典，鶴須軍大統領）</p>
+  <p><span class="key">兇手：</span>嚴氏（欒絳 / 何乃清）</p>
+  <p><span class="key">主謀：</span>嚴逸（殘手，繡衣使一號殺手）</p>
+  <p><span class="key">手法：</span>茶靈毒（繡衣使特製劇毒）塗於匕首，插入冷降塵背心；茶靈毒發作後屍體發黑</p>
+  <p><span class="key">動機：</span>繡衣使任務：消滅鶴須軍最高威脅；冷降塵即將揭露冷佛林真兇（= 賈三娘），必須滅口</p>
+  <h4>案發時間線（GM 重建版）</h4>
+  <p><span class="key">入住：</span>七月十一，白天，眾人陸續入住天福客棧</p>
+  <p><span class="key">成時 19:20：</span>農叟（丁崧）與冷降塵父子重逢；計劃當晚除掉龐萬金（王順）</p>
+  <p><span class="key">成時 19:35–40：</span>王思涵（旭敏芝）潛入冷降塵房間欲行刺，被冷降塵制服；冷降塵說旭晨之死有真兇在客棧</p>
+  <p><span class="key">成時 20:00：</span>金四刀從冷降塵房間取得虎賁衛兵符；嚴氏下樓去廚房煮茶（準備化清散）</p>
+  <p><span class="key">成時 20:18–25：</span>賈三娘接近天字四號房窗外（廚房後院），觀察室內，見刁五兒與冷降塵打架後退離</p>
+  <p><span class="key">成時 20:20：</span>刁五兒（冷鈺）接受冷降塵揭示真相，獲得近衛軍兵符</p>
+  <p><span class="key">成時 20:28：</span>王順從暗處觀察繡衣使桌上符號，尾隨至天字四號房屋頂</p>
+  <p><span class="key">成時 20:30：</span>嚴逸在天字四號房門外放赤霞迷香，冷降塵被迷倒</p>
+  <p><span class="key">成時 20:35：</span>王順從屋頂觀察，見刁五兒攻打冷降塵（已迷倒）的畫面</p>
+  <p><span class="key">成時 20:40：</span>王順偷取庫房鑰匙，在庫房角落燃赤霞（原計劃陷阱針對農叟），用木板封後窗</p>
+  <p><span class="key">成時 20:50：</span>農叟進入庫房（中計），王順從外鎖門；農叟擊碎後窗逃出</p>
+  <p><span class="key">成時 20:50：</span>刁五兒離開冷降塵房間；嚴逸偷擊金四刀昏暈</p>
+  <p><span class="key">成時 20:55：</span>嚴逸在二樓被農叟偷擊（農叟認出他的背影是當年掠走何乃清的人）；嚴逸用赤霞迷藥擊退農叟</p>
+  <p><span class="key">亥時 21:00：</span>賈三娘從廚房後院爬進天字四號房，見冷降塵昏倒，以為已死；扛屍至庫房，開庫房門，吸入赤霞；發現冷降塵手指微動後放下屍體撤退，昏睡</p>
+  <p><span class="key">亥時 21:10：</span>嚴氏前往庫房（原約金四刀），發現庫房敞開，見冷降塵趴在地上一動不動；用茶靈毒匕首插入其背心，確認殺死；匆忙離開</p>
+  <p><span class="key">亥時 21:15：</span>王順返回庫房取走赤霞，發現冷降塵屍體（張猛），不敢久留離去</p>
+  <p><span class="key">翌日清晨：</span>小二餘哥兒發現庫房門虛掩，見冷降塵屍體（張猛），呼叫眾人</p>
+</div>
+
+<h3>有殺機者（非真兇）</h3>
+<div class="scroll-x">
+<table>
+<thead><tr><th>角色</th><th>殺機動機</th><th>實際行動</th><th>是真兇嗎</th></tr></thead>
 <tbody>
 <tr>
-  <td>金四刀</td>
-  <td class="self">—</td>
-  <td class="r-enemy">敵對陣營<br><small>绣衣使清查目標</small></td>
-  <td class="r-family">★ 失散妹妹（不知情）<br><small>嚴氏=何乃清</small></td>
-  <td class="r-unclear">表面未知<br><small>實為敵方情報員</small></td>
-  <td class="r-unclear">大夏任務關聯<br><small>農叟曾受命聯絡，出差錯（細節待確認）</small></td>
-  <td class="r-ally">初始同陣營<br><small>玄甲軍統師</small></td>
-  <td class="r-unclear">未知<br><small>農叟舊部，不直接認識金四刀</small></td>
-  <td class="r-unclear">未知<br><small>刁五兒追查冷降塵案，與金四刀無直接認識</small></td>
+  <td>刁五兒（冷鈺）</td>
+  <td>誤以為冷降塵殺父冷佛林</td>
+  <td>用無相功法攻擊冷降塵（冷降塵硬撐），後被說服放棄</td>
+  <td>否。冷降塵在其離去後才死。</td>
 </tr>
 <tr>
-  <td>嚴逸</td>
-  <td class="r-enemy">主要目標（消滅）<br><small>大夏皇族後裔</small></td>
-  <td class="self">—</td>
-  <td class="r-cmd">部下，發出殺人命令</td>
-  <td class="r-ally">绣衣使同僚</td>
-  <td class="r-enemy">清查目標<br><small>大夏舊將，身份威脅</small></td>
-  <td class="r-enemy">敵對陣營<br><small>王思涵傾向寇俠</small></td>
-  <td class="r-unclear">王順為綉衣使線人<br><small>王順曾出賣農叟予綉衣使；是否直接接觸嚴逸本人待確認</small></td>
-  <td class="r-unclear">未知<br><small>嚴逸不知刁五兒與冷降塵的關係</small></td>
+  <td>王順（龐萬金）</td>
+  <td>冷降塵即將揭露他是叛徒，冷降塵已知曉庫房有關鍵證據</td>
+  <td>設赤霞陷阱（針對農叟，非冷降塵）；見到屍體後離去</td>
+  <td>否。他設的赤霞陷阱目標是農叟，非冷降塵。</td>
 </tr>
 <tr>
-  <td>嚴氏</td>
-  <td class="r-family">★ 失散哥哥（不知情）<br><small>金四刀=何乃武</small></td>
-  <td class="r-cmd">上司，奉命行事</td>
-  <td class="self">—</td>
-  <td class="r-ally">绣衣使同陣營</td>
-  <td class="r-unclear">未知<br><small>嚴氏與農叟無直接關聯</small></td>
-  <td class="r-enemy">潛在對立<br><small>绣衣使 vs 自由陣營（王思涵）</small></td>
-  <td class="r-unclear">未知</td>
-  <td class="r-unclear">★ 間接關聯<br><small>嚴氏殺了冷降塵（刁五兒之父舊識）；刁五兒不知</small></td>
+  <td>王思涵（旭敏芝）</td>
+  <td>誤以為冷降塵是殺兄兇手</td>
+  <td>潛入房間持匕首行刺，但被制服；後被說服暫緩</td>
+  <td>否。冷降塵制服她，說真兇另有其人。</td>
 </tr>
 <tr>
-  <td>賈三娘</td>
-  <td class="r-enemy">監視/情報對象</td>
-  <td class="r-ally">上司/同僚</td>
-  <td class="r-ally">绣衣使同陣營</td>
-  <td class="self">—</td>
-  <td class="r-unclear">未知<br><small>無直接關聯記錄</small></td>
-  <td class="r-unclear">未知<br><small>無感情線（input-text 確認）</small></td>
-  <td class="r-unclear">未知</td>
-  <td class="r-unclear">未知</td>
-</tr>
-<tr>
-  <td>農叟</td>
-  <td class="r-unclear">大夏任務關聯<br><small>曾受命赴汲洲聯絡，差錯（待確認）</small></td>
-  <td class="r-enemy">敵對<br><small>绣衣使是消滅大夏舊勢力的組織</small></td>
-  <td class="r-unclear">未知</td>
-  <td class="r-unclear">未知</td>
-  <td class="self">—</td>
-  <td class="r-unclear">可能相識<br><small>玄甲軍/大夏舊軍背景關聯（信心度低）</small></td>
-  <td class="r-enemy">★ 昔日舊部→今日叛徒<br><small>王順出賣農叟予綉衣使，欲除農叟滅口；農叟不知</small></td>
-  <td class="r-unclear">未知<br><small>無直接關聯；冷降塵可能是農叟認識的人</small></td>
-</tr>
-<tr>
-  <td>王思涵</td>
-  <td class="r-ally">初始同陣營（可轉換）<br><small>寇俠初始接觸</small></td>
-  <td class="r-enemy">敵對陣營<br><small>嚴逸=绣衣使核心</small></td>
-  <td class="r-enemy">潛在對立<br><small>绣衣使成員</small></td>
-  <td class="r-unclear">未知<br><small>無感情線（input-text 確認）</small></td>
-  <td class="r-unclear">可能相識<br><small>玄甲軍與大夏舊軍關聯（信心度低）</small></td>
-  <td class="self">—</td>
-  <td class="r-unclear">可能相識<br><small>同自由陣營，玄甲軍/丁崧舊部可能有歷史交集（信心度低）</small></td>
-  <td class="r-unclear">未知</td>
-</tr>
-<tr>
-  <td>王順</td>
-  <td class="r-unclear">未知<br><small>農叟舊部，不直接認識金四刀</small></td>
-  <td class="r-unclear">★ 綉衣使線人<br><small>王順為綉衣使民間線人，曾出賣農叟；現任玄甲軍小頭目身份為掩護</small></td>
-  <td class="r-unclear">未知</td>
-  <td class="r-unclear">未知</td>
-  <td class="r-enemy">★ 昔日舊主→今日死敵<br><small>出賣農叟予綉衣使；殺害旭晨；極度恐懼農叟認出自己，欲除之滅口</small></td>
-  <td class="r-unclear">可能相識<br><small>同自由陣營，大夏舊軍背景（信心度低）</small></td>
-  <td class="self">—</td>
-  <td class="r-unclear">未知</td>
-</tr>
-<tr>
-  <td>刁五兒</td>
-  <td class="r-unclear">未知<br><small>金四刀與冷降塵案有間接關聯</small></td>
-  <td class="r-unclear">間接關聯<br><small>嚴逸指使殺了冷降塵（刁五兒的追查目標），刁五兒不知</small></td>
-  <td class="r-unclear">★ 追查關聯<br><small>嚴氏=冷降塵的凶手；冷降塵=刁五兒之義兄（非「父親舊識」）；刁五兒不知凶手是誰</small></td>
-  <td class="r-unclear">未知</td>
-  <td class="r-unclear">未知</td>
-  <td class="r-unclear">未知</td>
-  <td class="r-unclear">未知</td>
-  <td class="self">—</td>
+  <td>賈三娘（歸雪）</td>
+  <td>繡衣使任務（消滅鶴須軍統帥）</td>
+  <td>扛屍至庫房，但發現冷降塵仍有氣息後放棄；吸赤霞昏睡</td>
+  <td>否。她沒有對冷降塵施毒，只是轉移屍體。</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p class="meta-line">未知格：DM手册未提及直接關係，角色劇本 OCR 受限。帶「待確認」說明者為 OCR 部分讀取結果，信心度低至中。<span class="badge bm">Medium–Low confidence</span> &nbsp; 帶「間接關聯」者為推論關係，非DM手册原文。</p>
-</div><!-- /s3 -->
 
-<!-- ═══════════════════════════════ S4: FACTION MAP ═══════════════════════════════ -->
-<div class="section" id="s4">
-<h2>§4 陣營與組織 Faction / Organization Map</h2>
-<table>
-<thead>
-<tr><th>陣營/組織</th><th>成員</th><th>目標</th><th>衝突對象</th><th>GM注意</th><th>來源</th></tr>
-</thead>
-<tbody>
-<tr class="f-kou">
-  <td><strong>寇俠組織</strong><br>（大夏復國地下組織）</td>
-  <td>
-    <strong>金四刀</strong>（何乃武，核心）<br>
-    <em>王思涵</em>（旭敏芝，玄甲軍統師，初始成員）<br>
-    <em>農叟/王順/刁五兒</em>（可加入，非必然）
-  </td>
-  <td>守護大夏皇族後裔；大夏復國計畫</td>
-  <td>绣衣使陣營</td>
-  <td>
-    金四刀是唯一必勝條件角色（死亡=寇俠敗）<br>
-    王思涵可背叛轉換
-  </td>
-  <td>DM手册</td>
-</tr>
-<tr class="f-xiu">
-  <td><strong>绣衣使</strong><br>（大順朝廷秘密特務）</td>
-  <td>
-    <strong>嚴逸</strong>（殘手，第一殺手，核心）<br>
-    <strong>嚴氏</strong>（栾绛，殺手/執行者）<br>
-    <strong>賈三娘</strong>（歸雪，密探/輔助）
-  </td>
-  <td>清除大夏殘黨；追殺金四刀（何乃武）</td>
-  <td>寇俠組織</td>
-  <td>
-    嚴逸是唯一必勝條件（死亡=绣衣使敗）<br>
-    嚴氏是凶手，也是最大內部秘密（大夏皇族後裔）<br>
-    賈三娘無感情線（input-text 確認），立場固定
-  </td>
-  <td>DM手册</td>
-</tr>
-<tr class="f-free">
-  <td><strong>大夏皇族後裔</strong><br>（非正式陣營，跨陣營）</td>
-  <td>
-    金四刀（何乃武，知情）<br>
-    嚴氏（何乃清，不知情，失憶）
-  </td>
-  <td>個別目標不同（復國 vs 執行任務）</td>
-  <td>大順/绣衣使（理論上）</td>
-  <td>
-    ★ 核心彩蛋：二人為失散兄妹，雙方皆不知情<br>
-    若嚴氏恢復記憶，會觸發感情結局
-  </td>
-  <td>DM手册</td>
-</tr>
-<tr class="f-free">
-  <td><strong>大夏舊軍殘部</strong><br>（玄甲軍/丁崧舊部）</td>
-  <td>
-    農叟（丁崧，舊將）<br>
-    王思涵（旭敏芝，玄甲軍統師）<br>
-    <del>王順（龐萬金）</del>——<em>實為叛徒，已投靠綉衣使</em>
-  </td>
-  <td>農叟/王思涵：守護大夏血脈；王順：滅口農叟</td>
-  <td>視陣營選擇而定（王順傾向綉衣使）</td>
-  <td>
-    ⚠️ 王順（龐萬金）表面屬此陣營，實為綉衣使線人，並非農叟的忠誠舊部<br>
-    農叟↔王順的衝突是推動劇情的核心炸彈（農叟不知王順是叛徒）<br>
-    王思涵之兄旭晨被王順殺害——若王思涵得知，是重大衝突點
-  </td>
-  <td>input-text（王順劇本）</td>
-</tr>
-<tr>
-  <td><strong>大順朝廷</strong><br>（幕後勢力）</td>
-  <td>绣衣使（代表）</td>
-  <td>維持大順統治，清除大夏殘黨</td>
-  <td>大夏殘黨/寇俠</td>
-  <td>非玩家陣營，作為背景設定</td>
-  <td>DM手册（背景設定）</td>
-</tr>
-</tbody>
-</table>
-
-<h3>陣營勝利條件（快速查閱）</h3>
-<table>
-<thead><tr><th>陣營</th><th>勝利條件</th><th>關鍵角色存活</th></tr></thead>
-<tbody>
-<tr class="f-kou">
-  <td>寇俠陣營勝</td>
-  <td>陣營搏殺後寇俠方存活人數 ≥ 绣衣使方</td>
-  <td><strong>金四刀必須存活</strong></td>
-</tr>
-<tr class="f-xiu">
-  <td>绣衣使陣營勝</td>
-  <td>陣營搏殺後绣衣使方存活人數 ≥ 寇俠方</td>
-  <td><strong>嚴逸必須存活</strong></td>
-</tr>
-</tbody>
-</table>
+<h3>屍體線索</h3>
+<ul>
+  <li>張猛（冷降塵）屍體上：<strong>3 張線索卡 + 1 封書信</strong>（NPC 隨身攜帶）</li>
+  <li>死因：茶靈毒，屍體呈黑色（茶靈特徵）</li>
+  <li>發現屍體者：小二餘哥兒（翌日清晨於庫房）</li>
+  <li>庫房鑰匙：王順偷走（備用鑰匙）；賈三娘的正式鑰匙完好</li>
+</ul>
 </div><!-- /s4 -->
 
-<!-- ═══════════════════════════════ S5: GM MUST-KNOW ═══════════════════════════════ -->
+<!-- ============================================================ -->
+<!-- S5: UNRESOLVED MYSTERIES -->
+<!-- ============================================================ -->
 <div class="section" id="s5">
-<h2>§5 GM 必知重點 GM Must-Know Facts</h2>
+<h2>§5 待推理事項 Unresolved Mysteries</h2>
+<p>以下事項為玩家需在遊戲中自行發現的核心謎題，僅基於 source md 所載線索，GM 不填補任何猜測。</p>
 
 <details open>
-<summary>核心真相 Critical Truths</summary>
+<summary>金四刀 ↔ 嚴氏：兄妹相認的可能（★ 最大彩蛋）</summary>
+<div>
+<p><strong>現況：</strong>兩人皆不知對方身份。金四刀尋找妹妹何乃清多年，知道妹妹脖子有青色胎記。嚴氏（欒絳 = 何乃清）脖子確實有青色胎記（原文：嚴氏「脖子上有一處不起眼的青色痕跡」），左臉有紅色疤痕。</p>
+<p><strong>玩家如何發現：</strong>金四刀在廚房見嚴氏時，穿堂風吹起面紗，他看到青色胎記，直接詢問「是否姓何」，嚴氏否認。金四刀提到「故人名何乃清」，嚴氏腦中有記憶閃回。嚴氏的面紗被扯破，露出紅色疤痕（= 嚴逸掌風的傷）。嚴氏告知「半個時辰後庫房見」（最終她去庫房殺了冷降塵）。</p>
+<p><strong>GM 提示：</strong>金四刀有「武林秘笈」（小時候和妹妹一起翻到並練習的）；若兩人對照，可能是認親關鍵。復盤時壓軸揭露。</p>
+</div>
+</details>
+
+<details>
+<summary>農叟 ↔ 冷降塵：父子相認（19:20 已完成）</summary>
+<div>
+<p><strong>現況：</strong>父子已於遊戲當日 19:20 重逢，冷降塵主動叩首認父。農叟確認（丁典講述童年回憶）。</p>
+<p><strong>玩家如何發現：</strong>農叟收到金四刀貼的何字安民告示（暗語），前往天福客棧。他認出龐萬金（王順），並在 20:55 認出嚴逸（在何彥府宅上見過其身影）並偷擊，但被赤霞迷藥擊退。農叟沒有等到與冷降塵計劃的聯合行動，因為冷降塵已被殺。</p>
+<p><strong>GM 提示：</strong>農叟在小劇場中的「哭腔」台詞正是父親知道兒子被害的情緒外化。</p>
+</div>
+</details>
+
+<details>
+<summary>冷佛林真正的殺手是誰</summary>
+<div>
+<div class="notice notice-danger">
+  <strong>Source 確認真相（GM Only）：冷佛林的殺手是賈三娘（歸雪）。</strong><br>
+  jia-san-niang.md 原文：「你在他無力抵抗之時抓住機會，拿匕首往他的右肋上狠狠地刺下了一刀。為了這一擊，你硬接下了那少年的一掌。」「因茶靈而死的人，屍體會變成黑色。」賈三娘的左肩因此留下「黑紫色掌痕」（被冷降塵反擊）。
+</div>
+<p><strong>玩家的誤解鏈：</strong></p>
+<ul>
+  <li>刁五兒（冷鈺）誤以為是冷降塵殺父（因為冷降塵毫髮無傷地回來了）</li>
+  <li>冷降塵在死前告訴刁五兒：「殺義父之人就住在客棧的地字……」（被打斷，未說完）</li>
+  <li>「地字」 = 地字四號房 = 賈三娘的房間（待玩家自行連結）</li>
+</ul>
+<p><strong>關鍵線索：</strong>賈三娘左肩有黑紫色掌印（穿著包裹全身的深衣遮蓋）；茶靈毒是繡衣使特製毒藥（賈三娘持有）；賈三娘參與過擊殺冷佛林的任務。</p>
+<p><strong>GM 提示：</strong>「地字」未說完是故意設計的懸念，讓玩家去推測冷降塵想說的是地字幾號房（賈三娘的房間）。</p>
+</div>
+</details>
+
+<details>
+<summary>王順的雙重罪：王思涵不知身邊的人殺了她哥哥</summary>
+<div>
+<p><strong>現況：</strong>王思涵知道旭晨死亡時「旁邊有鶴須軍兵屍，傷口來自短柄手戟，兇手慣用左手」——但尚未將此線索聯繫到王順（龐萬金）。</p>
+<p><strong>關鍵線索：</strong>王順慣用左手；冷降塵知道有人穿著鶴須軍軍服混入渾水摸魚（他說「我鶴須軍軍紀嚴明，絕不會行此卑鄙之事」）。若王思涵得知王順是左撇子，且其背景（前丁崧部曲）能持有類似武器，可串連。</p>
+<p><strong>GM 提示：</strong>冷降塵曾告訴王思涵「我知道兇手是誰，此刻就在客棧」——此線索推動玩家在私聊中互相試探。</p>
+</div>
+</details>
+
+<details>
+<summary>嚴逸是刁五兒師父：刁五兒不知蒙面師父是誰</summary>
+<div>
+<p><strong>現況：</strong>刁五兒在客棧感受到無相功法的氣息（「你感受到了無相功法的氣息，莫非你的師父就在這寥寥數人之中」），知道師父可能就在場，但不知是嚴逸。嚴逸也感受到徒弟在客棧（「世間修煉無相功法的就只有那少女一人，難道她也在天福客棧中」）。</p>
+<p><strong>關鍵線索：</strong>嚴逸持有完整版《無相功法》（道具卡）；刁五兒持有師父給的殘缺版手抄本。若兩人對照，可確認師父身份。</p>
+<p><strong>GM 提示：</strong>嚴逸功法反噬嚴重、身體虛弱，且嚴氏給他的化清散正在悄悄削弱他的功力——這是嚴逸「久病在身」表象的真實原因。</p>
+</div>
+</details>
+
+<details>
+<summary>賈三娘移動冷降塵屍體：她是否知道玩家懷疑她</summary>
+<div>
+<p><strong>現況（source確認）：</strong>賈三娘在亥時 21:00 扛起冷降塵屍體，從天字四號房拖至庫房（她持有庫房正式鑰匙）。她進庫房後吸入赤霞（王順燃的迷香）昏睡，因此沒有對冷降塵施任何毒害。她的備用鑰匙完好，被偷的是餘哥兒的備用鑰匙（王順偷的）。</p>
+<p><strong>玩家的推理陷阱：</strong>賈三娘移動屍體是最明顯的嫌疑行動，但她的目的是「幫繡衣使善後」而非行兇。真正下毒者是嚴氏。</p>
+<p><strong>待確認：</strong>賈三娘是否知道玩家已發現屍體被移動——她在小劇場中若被問及鑰匙，可合理辯稱自己的鑰匙完好無缺。</p>
+</div>
+</details>
+
+<details>
+<summary>冷降塵說「地字……」未說完的暗示</summary>
+<div>
+<p><strong>原文（張猛 NPC 劇本 + 刁五兒劇本）：</strong>冷降塵告訴刁五兒：「其實今日為兄對你全盤托出，是因為我發現了當日殺死義父之人就住在客棧的地字……罷了，還是待我將證據收集得更加充分再告訴你吧。」——說到地字未說完便中止。</p>
+<p><strong>GM解讀：</strong>「地字」指地字幾號房；賈三娘的房間待對照客棧平面圖確認是否為「地字」房；若是，則此線索直接指向賈三娘。</p>
+<p class="meta-line"><span class="badge btodo">待確認</span> 賈三娘房間是否為「地字」字輩房間——需對照天福客棧平面圖或盒裝道具確認。</p>
+</div>
+</details>
+
+</div><!-- /s5 -->
+
+<!-- ============================================================ -->
+<!-- S6: GM MUST-KNOW -->
+<!-- ============================================================ -->
+<div class="section" id="s6">
+<h2>§6 GM 必知重點 GM Must-Know Facts</h2>
+
+<details open>
+<summary>核心真相（不可錯）</summary>
 <ol>
-  <li>
-    <strong class="star">★ 凶手是嚴氏（何乃清 / 栾绛）</strong>，奉绣衣使嚴逸（殘手）之命，殺死冷降塵以滅口。
-    凶案細節（已從 input-text 確認）：嚴逸放赤霞迷香迷倒冷降塵、擊暈金四刀；嚴氏在亥時21:10用綉衣使特製毒藥茶靈塗匕首插入冷降塵背心。嚴逸本人隨後被不明身份者偷襲，右肩留紫黑掌印。
-    <span class="badge bh">High</span> <small>來源：DM手册 + input-text（2026-06-17）</small>
-  </li>
-  <li>
-    <strong class="star">★ 嚴氏與金四刀是失散兄妹，雙方皆不知情。</strong>
-    嚴氏（何乃清）是金四刀（何乃武）幼年失散的妹妹；失憶後被绣衣使訓練為殺手「栾绛」。
-    金四刀多年來一直在尋找她。
-    <span class="badge bh">High</span> <small>來源：DM手册</small>
-  </li>
-  <li>
-    嚴逸的真正目標是找到並消滅金四刀（何乃武，大夏皇族後裔）。
-    <span class="badge bh">High</span> <small>來源：DM手册</small>
-  </li>
-  <li>
-    陣營搏殺決定最終勝負，勝方需核心角色（金四刀/嚴逸）存活。
-    <span class="badge bh">High</span> <small>來源：DM手册</small>
-  </li>
-  <li>
-    若嚴氏在遊戲中被正確指認為凶手，绣衣使陣營失分，影響結局。
-    <span class="badge bh">High</span> <small>來源：DM手册</small>
-  </li>
+  <li><strong>冷降塵（張猛）被害：</strong>兇手嚴氏（欒絳），指使者嚴逸（殘手），茶靈毒匕首，亥時 21:10 在庫房。</li>
+  <li><strong>冷佛林被害：</strong>賈三娘（歸雪）用茶靈毒匕首刺右肋；被冷降塵擊中左肩留黑紫掌痕。</li>
+  <li><strong>嚴氏 = 金四刀之妹：</strong>兩人皆不知，脖子青色胎記是認親關鍵線索。</li>
+  <li><strong>王順（龐萬金）</strong>出賣農叟（丁崧）、親手殺旭晨（左手持戟），是農叟和王思涵的仇人。</li>
+  <li><strong>刁五兒蒙面師父 = 嚴逸：</strong>嚴逸傳的是刪去調和部分的殘缺版無相功法，造成刁五兒反噬更嚴重。</li>
+  <li><strong>農叟（丁崧）= 冷降塵親父：</strong>兩人 19:20 在客棧相認，冷降塵計劃當晚除掉龐萬金（王順），但被殺。</li>
+  <li><strong>賈三娘移動屍體但未行兇：</strong>她扛屍至庫房是「繡衣使善後」，非凶殺行為。</li>
+  <li><strong>兵符現況：</strong>近衛軍兵符在刁五兒手中（冷降塵臨死前交付）；虎賁衛兵符在金四刀手中（冷降塵主動交付）；玄甲軍兵符在王思涵手中。</li>
 </ol>
 </details>
 
 <details>
-<summary>隱藏身份 Hidden Identities（全表）</summary>
+<summary>道具關鍵清單</summary>
+<div class="scroll-x">
 <table>
-<thead><tr><th>角色名</th><th>真實姓名</th><th>隱藏身份</th><th>來源</th><th>信心度</th></tr></thead>
+<thead><tr><th>道具</th><th>持有者</th><th>說明</th></tr></thead>
 <tbody>
-<tr><td>金四刀</td><td>何乃武</td><td>大夏皇族旁系後裔；寇俠核心聯絡人</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>嚴逸</td><td>「殘手」</td><td>绣衣使排名第一殺手</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>嚴氏</td><td>栾绛 / 何乃清</td><td>绣衣使殺手；大夏皇族後裔；金四刀之妹；失憶</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>賈三娘</td><td>「歸雪」</td><td>绣衣使密探</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>農叟</td><td>丁崧</td><td>大夏舊朝武將</td><td>DM手册</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>王思涵</td><td>旭敏芝</td><td>寇俠玄甲軍統師；兄旭晨（玄甲軍統領）被王順殺害</td><td>input-text</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>王順</td><td>龐萬金</td><td>昔日丁崧舊部→今日叛徒；綉衣使民間線人；玄甲軍小頭目（雙重身份）；殺害旭晨（慣用左手）；偽裝旭敏芝之兄</td><td>input-text</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>刁五兒</td><td>冷鈺</td><td>冷佛林親生女兒；實為女性（男裝喬裝）；綉衣使民間線人；武功：無相功法（皮膚潰爛副作用）；冷降塵之義妹</td><td>input-text</td><td><span class="badge bh">High</span></td></tr>
-<tr><td>張猛</td><td>冷降塵（幼名丁典）</td><td>NPC；鶴須軍大統領；農叟（丁崧）親生兒子；冷佛林義子；冷鈺（刁五兒）義兄；武功：缚阳掌</td><td>input-text</td><td><span class="badge bh">High</span></td></tr>
+<tr><td>鶴須軍近衛軍兵符</td><td>刁五兒（冷鈺）</td><td>冷降塵在 20:50 交付；代表鶴須軍半數軍權</td></tr>
+<tr><td>鶴須軍虎賁衛兵符</td><td>金四刀（何乃武）</td><td>冷降塵主動交付</td></tr>
+<tr><td>玄甲軍兵符</td><td>王思涵（旭敏芝）</td><td>玄甲軍統帥兵符</td></tr>
+<tr><td>《無相功法》全卷</td><td>嚴逸</td><td>完整版，含調和功法；刁五兒只有殘缺版</td></tr>
+<tr><td>《無相功法》手抄殘本</td><td>刁五兒</td><td>師父（嚴逸）給的殘缺版，無調和部分</td></tr>
+<tr><td>茶靈毒（匕首上）</td><td>嚴氏（已用於犯案）</td><td>繡衣使特製毒藥，中毒屍體變黑</td></tr>
+<tr><td>赤霞迷香</td><td>嚴逸（已用部分）；王順（已燃部分於庫房）</td><td>繡衣使特製迷香，吸入即昏迷</td></tr>
+<tr><td>鶴紅草</td><td>農叟</td><td>珍稀藥材，無相功法調和藥物主要成分</td></tr>
+<tr><td>化清散</td><td>嚴氏（私藏）</td><td>化解無相功法積毒，她偷偷放入嚴逸茶中</td></tr>
+<tr><td>潤黃玉牌</td><td>農叟（撿到）</td><td>王順暗殺農叟時掉落的玄甲軍身份牌（王順鑲了金邊）</td></tr>
+<tr><td>繡衣使傳音令（紫）</td><td>嚴逸</td><td>繡衣使核心令牌</td></tr>
+<tr><td>繡衣使傳音令（赤）</td><td>賈三娘</td><td>繡衣使密探令牌</td></tr>
+<tr><td>繡衣使傳音令（玄）</td><td>嚴氏</td><td>繡衣使殺手令牌</td></tr>
+<tr><td>玄甲軍布防圖</td><td>賈三娘</td><td>她重新繪製的玄甲軍布防圖（王思涵委託）；王思涵想取回</td></tr>
+<tr><td>屍體線索卡 × 3 + 書信 × 1</td><td>NPC張猛（隨身）</td><td>凶案核心線索，玩家搜查屍體時取得</td></tr>
 </tbody>
 </table>
+</div>
 </details>
 
 <details>
-<summary>秘密關係 Secret Relationships</summary>
-<ul>
-  <li class="r-family"><strong>嚴氏 ↔ 金四刀：失散兄妹（最大彩蛋，雙方互不知情）</strong><br>
-    <small>建議復盤時最後揭露，情感衝擊最大。確認兩位玩家心理狀態後再公布。DM手册 — <span class="badge bh">High</span></small>
-  </li>
-  <li class="r-enemy"><strong>農叟（丁崧）↔ 王順（龐萬金）：昔日舊主-舊部，今日仇敵</strong><br>
-    <small>王順出賣農叟予綉衣使，致農叟被迫流亡；又親手殺害玄甲軍統領旭晨（慣用左手割頭）。
-    現為玄甲軍小頭目兼綉衣使線人，極度恐懼農叟認出自己是叛徒，目標是消滅農叟滅口。
-    設陷阱：20:40在庫房點燃赤霞迷香→20:50鎖門→21:15取走赤霞逃離（張猛倒地）。
-    input-text — <span class="badge bh">High</span></small>
-  </li>
-  <li class="r-family"><strong>農叟（丁崧）↔ 張猛（冷降塵）：親生父子</strong><br>
-    <small>農叟（丁崧）是冷降塵的親生父親；兩人於遊戲當日19:20重逢。input-text — <span class="badge bh">High</span></small>
-  </li>
-  <li class="r-family"><strong>刁五兒（冷鈺）↔ 冷降塵：義兄妹（冷佛林的義子×親女）</strong><br>
-    <small>冷降塵認出刁五兒，說出真相（自己並非殺父凶手），並交付近衛軍兵符。input-text — <span class="badge bh">High</span></small>
-  </li>
-  <li class="r-secret"><strong>嚴氏（何乃清）= 大夏皇族後裔</strong>，但在绣衣使效力——自身矛盾身份<br>
-    <small>若嚴氏記憶恢復，觸發感情/道德衝突結局。DM手册 — <span class="badge bh">High</span></small>
-  </li>
-  <li class="r-suspect"><strong>刁五兒（冷鈺）真實性別為女</strong>：全場以男性身份喬裝，是輕鬆彩蛋<br>
-    <small>建議復盤時在兄妹彩蛋後公布。DM手册 — <span class="badge bh">High</span></small>
-  </li>
-</ul>
+<summary>手勢符號系統</summary>
+<div class="scroll-x">
+<table>
+<thead><tr><th>手勢</th><th>含義</th><th>知道者</th></tr></thead>
+<tbody>
+<tr><td>握拳伸小指</td><td>寇俠組織</td><td>金四刀、王思涵、刁五兒（寇俠成員）、王順（雙重間諜）</td></tr>
+<tr><td>食指比「叉」</td><td>大夏皇族</td><td>金四刀（何乃武）、農叟（丁崧）</td></tr>
+<tr><td>三指向下</td><td>繡衣使內部</td><td>嚴逸、嚴氏、賈三娘</td></tr>
+<tr><td>拇指左划</td><td>繡衣使民間線人</td><td>刁五兒、王順（民間線人）；嚴逸、嚴氏、賈三娘（也知道線人手勢）</td></tr>
+</tbody>
+</table>
+</div>
+<p class="meta-line">注意：「掌握線人手勢的並不一定是繡衣使中人」——繡衣使核心成員可藉此識別線人，但反之不成立。繡衣使內部還使用「三短一長」叩擊方式驗證身份。</p>
 </details>
 
 <details>
-<summary>關鍵衝突 Key Conflicts</summary>
-<ul>
-  <li><strong>寇俠 vs 绣衣使</strong>：全場主要陣營對抗，貫穿全局</li>
-  <li><strong>嚴逸 → 金四刀</strong>：绣衣使此行主任務是清除金四刀（何乃武）</li>
-  <li><strong>嚴氏內心衝突</strong>：執行任務 vs 潛在的大夏皇族認同（若記憶恢復）</li>
-  <li><strong>凶案揭露 vs 陣營利益</strong>：若嚴氏被指認，绣衣使失分；部分玩家可能隱瞞</li>
-  <li><strong>自由陣營選邊壓力</strong>：農叟/王順/王思涵/刁五兒在私聊中被兩方拉攏</li>
-</ul>
+<summary>戰鬥數值（陣營搏殺用）</summary>
+<div class="scroll-x">
+<table>
+<thead><tr><th>角色</th><th>HP</th><th>武力值</th><th>陣營（預設）</th><th>備註</th></tr></thead>
+<tbody>
+<tr style="background:#fff0f0"><td>金四刀</td><td>30</td><td>5–8</td><td>寇俠（固定）</td><td>個人技能：浩然正氣</td></tr>
+<tr style="background:#eef0ff"><td>嚴逸</td><td>30</td><td>4–7</td><td>繡衣使（固定）</td><td>個人技能：配製；武功衰退中（化清散影響）</td></tr>
+<tr style="background:#eef0ff"><td>嚴氏</td><td>20</td><td>2–5</td><td>繡衣使（可換）</td><td>個人技能：迷醉；武功秘笈可提升</td></tr>
+<tr style="background:#eef0ff"><td>賈三娘</td><td>30</td><td>5</td><td>繡衣使（固定）</td><td>個人技能：美色惑人；武功卡</td></tr>
+<tr><td>農叟</td><td>40</td><td>6</td><td>自由（大夏血脈）</td><td>個人技能：採藥；HP最高</td></tr>
+<tr><td>王思涵</td><td>30</td><td>5</td><td>自由（初寇俠）</td><td>個人技能：獻藝；玄甲軍兵符</td></tr>
+<tr><td>王順</td><td>30</td><td>5</td><td>自由（雙重）</td><td>個人技能：銷贓；武功：玄武劈</td></tr>
+<tr style="background:#f5eaff"><td>刁五兒</td><td>25</td><td>3–6</td><td>自由（雙重）</td><td>個人技能：敲詐；絕學卡：卸器</td></tr>
+</tbody>
+</table>
+</div>
 </details>
+</div><!-- /s6 -->
 
-<details>
-<summary>道具與機制 Items / Clues / Mechanics</summary>
+<!-- ============================================================ -->
+<!-- S7: TIMELINE -->
+<!-- ============================================================ -->
+<div class="section" id="s7">
+<h2>§7 劇情時間線 Timeline</h2>
+
+<h3>歷史背景（按事件順序）</h3>
+<div class="scroll-x">
 <table>
-<thead><tr><th>類別</th><th>數量</th><th>用途</th><th>來源</th></tr></thead>
+<thead><tr><th>時期</th><th>事件</th><th>涉及角色</th><th>GM視角真相</th></tr></thead>
 <tbody>
-<tr><td>線索卡</td><td>44張</td><td>調查凶案、找到線索</td><td>DM手册</td></tr>
-<tr><td>物品卡</td><td>30張</td><td>道具互動</td><td>DM手册</td></tr>
-<tr><td>武器卡</td><td>27張</td><td>陣營搏殺武力值</td><td>DM手册</td></tr>
-<tr><td>Buff卡</td><td>4張</td><td>特殊效果</td><td>DM手册</td></tr>
-<tr><td>技能卡</td><td>若干</td><td>角色特殊技能（武力值可升）</td><td>DM手册</td></tr>
-<tr><td>銀票</td><td>若干</td><td>答題獎勵、武器拍賣競標貨幣</td><td>DM手册</td></tr>
-<tr><td>陣營卡</td><td>13張</td><td>確認陣營歸屬</td><td>DM手册</td></tr>
-<tr><td>拍賣單</td><td>8份</td><td>武器拍賣清單</td><td>DM手册</td></tr>
+<tr><td>大夏末年，嚴逸 ~22歲</td><td>何彥（濟陽縣令）全家滅門；嚴逸放走幼女何乃清；農叟追上嚴逸，擊中其右肩；何乃清失憶，被嚴逸收為「欒絳」</td><td>嚴逸、農叟、何乃清（嚴氏）、金四刀（哥哥）、賈三娘</td><td>農叟的右肩掌印是嚴逸身份的關鍵線索。賈三娘也參與了此次任務。</td></tr>
+<tr><td>大夏末年，農叟 ~30歲</td><td>農叟（丁崧）抓住冷佛林，與之成知交；私放冷佛林；被龐萬金（王順）出賣；流放，全家失散；將親子丁典託付冷佛林</td><td>農叟、冷佛林、王順（龐萬金）</td><td>王順出賣農叟是本劇最大的背叛。</td></tr>
+<tr><td>冷鈺7歲，冷佛林被俘時</td><td>丁典（冷降塵）被帶入鶴須軍，成為冷佛林義子，改名冷降塵</td><td>冷降塵、冷佛林、刁五兒（冷鈺，7歲）</td><td>冷鈺從小視冷降塵為義兄，後誤認他殺父。</td></tr>
+<tr><td>冷鈺9歲</td><td>鄭木篡位建「起」朝，成立繡衣使</td><td>全體背景</td><td>繡衣使正式成為國家特務機構。</td></tr>
+<tr><td>龍瑞二年，冷鈺17歲</td><td>冷佛林出行，遭繡衣使伏擊；賈三娘刺其右肋（茶靈毒）；冷降塵反擊，掌印打在賈三娘左肩；冷佛林毒發身亡；冷降塵毫髮無傷帶屍回來</td><td>冷佛林、冷降塵、賈三娘</td><td>賈三娘左肩黑紫掌印 = 被冷降塵擊中。刁五兒（冷鈺）因此誤認冷降塵殺父。</td></tr>
+<tr><td>龍瑞二年後，刁五兒離開鶴須軍</td><td>刁五兒投靠繡衣使，成為民間線人；嚴逸奉命以蒙面身份傳她殘缺版無相功法約半年</td><td>刁五兒、嚴逸</td><td>刁五兒不知師父是嚴逸。嚴逸知道她是「冷降塵身邊的線人」。</td></tr>
+<tr><td>龍瑞四年</td><td>寇俠聯軍攻宛平府；王順穿鶴須軍軍服，用左手短柄手戟殺旭晨割頭；旭晨陣亡；聯軍大敗</td><td>王順、王思涵（旭晨之妹）、冷降塵</td><td>冷降塵目擊穿鶴須軍服者殺旭晨，判斷是「有人渾水摸魚」。王順慣用左手。</td></tr>
+<tr><td>麒安一年，刁五兒重返鶴須軍</td><td>刁五兒以「刁五兒」男裝重返鶴須軍，成為冷降塵近侍，等待機會復仇</td><td>刁五兒、冷降塵</td><td>無人認出刁五兒是女性或冷鈺本人。</td></tr>
+<tr><td>麒安一年，王順加入玄甲軍</td><td>龐萬金改名王順，化名入玄甲軍成為小頭目，偽裝旭敏芝（王思涵）的「父親」</td><td>王順、王思涵</td><td>王思涵不知王順殺了她哥哥。</td></tr>
+<tr><td>麒安二年，晚春</td><td>王思涵以叔父名義寫信邀請冷降塵赴盤興口；冷降塵明知是鴻門宴仍決定赴約</td><td>王思涵、冷降塵</td><td>冷降塵早已確認玄甲軍統帥在客棧，準備化解誤會。</td></tr>
+<tr><td>遊戲前數日</td><td>王順發現農叟（疑似丁崧），寫密信給繡衣使但無回應；夜間獨自刺殺農叟失敗</td><td>王順、農叟</td><td>農叟在夜間擊退刺客（王順），拾得潤黃玉牌（王順的身份玉牌）。</td></tr>
 </tbody>
 </table>
-<h4>手勢符號系統（4種組織秘語）</h4>
-<table>
-<thead><tr><th>手勢</th><th>動作</th><th>代表</th></tr></thead>
-<tbody>
-<tr><td>A</td><td>握拳伸小指</td><td>寇俠組織</td></tr>
-<tr><td>B</td><td>食指比「叉」</td><td>大夏皇族</td></tr>
-<tr><td>C</td><td>三指向下</td><td>绣衣使內部</td></tr>
-<tr><td>D</td><td>拇指左划</td><td>绣衣使線人</td></tr>
-</tbody>
-</table>
-<h4>答題系統（3輪）</h4>
-<p>每輪每人3題，答對1題獎10兩銀票。銀票用於進程10武器拍賣競標。</p>
-<ul>
-  <li>第1輪：情境一閱讀後（配合第一輪私聊）</li>
-  <li>第2輪：情境二後（盤凶期間）</li>
-  <li>第3輪：情境三後（第三輪私聊）</li>
-</ul>
-</details>
+</div>
 
-<details>
-<summary>戰鬥數值表 Combat Stats（陣營搏殺用）</summary>
+<h3>遊戲當日流程（GM操作重點）</h3>
+<div class="scroll-x">
 <table>
-<thead><tr><th>角色</th><th>HP</th><th>武力值</th><th>陣營（預設）</th></tr></thead>
-<tbody>
-<tr class="f-kou"><td>金四刀</td><td>30</td><td>5–8（技能可升）</td><td>寇俠核心</td></tr>
-<tr class="f-xiu"><td>嚴逸</td><td>30</td><td>4–7（技能可升）</td><td>绣衣使核心</td></tr>
-<tr class="f-pivot"><td>嚴氏</td><td>20</td><td>2–5（技能可升）</td><td>绣衣使執行</td></tr>
-<tr class="f-xiu"><td>賈三娘</td><td>30</td><td>5</td><td>绣衣使輔助</td></tr>
-<tr class="f-free"><td>農叟</td><td>40</td><td>6</td><td>自由（最高HP）</td></tr>
-<tr class="f-free"><td>王思涵</td><td>30</td><td>5</td><td>自由（初寇俠）</td></tr>
-<tr class="f-free"><td>王順</td><td>30</td><td>5</td><td>自由</td></tr>
-<tr class="f-free"><td>刁五兒</td><td>25</td><td>3–6（技能可升）</td><td>自由</td></tr>
-</tbody>
-</table>
-</details>
-</div><!-- /s5 -->
-
-<!-- ═══════════════════════════════ S6: TIMELINE ═══════════════════════════════ -->
-<div class="section" id="s6">
-<h2>§6 劇情時間線 Timeline for GM</h2>
-
-<h3>歷史背景</h3>
-<table>
-<thead><tr><th>時間</th><th>事件</th><th>涉及角色</th><th>GM視角真相</th><th>來源</th><th>信心度</th></tr></thead>
-<tbody>
-<tr>
-  <td>大夏末年</td>
-  <td>大夏皇族覆滅，餘黨流散江湖</td>
-  <td>全體</td>
-  <td>背景設定</td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr>
-  <td>大夏末年</td>
-  <td>幼年何乃武帶妹妹何乃清流亡，途中失散</td>
-  <td>金四刀、嚴氏</td>
-  <td>兄妹分離起點，此後互不相識</td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr>
-  <td>大夏末年</td>
-  <td>丁崧（農叟）率玄甲軍殘部護送部分皇族出逃</td>
-  <td>農叟、王思涵（玄甲軍）</td>
-  <td>大夏舊軍仍有部分成員潛伏</td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr>
-  <td>數年前</td>
-  <td>何乃清被绣衣使收容，訓練成殺手「栾绛」，以「嚴氏」身份臥底</td>
-  <td>嚴氏、嚴逸</td>
-  <td>嚴氏失憶/洗腦，不知自己為大夏皇族</td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr>
-  <td>數年前</td>
-  <td>旭敏芝（王思涵）以玄甲軍統師身份加入寇俠</td>
-  <td>王思涵、金四刀</td>
-  <td>王思涵是寇俠重要戰力，但立場非絕對</td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr>
-  <td>近年</td>
-  <td>嚴逸（殘手）帶領嚴氏、賈三娘等滲透江湖聚會</td>
-  <td>嚴逸、嚴氏、賈三娘</td>
-  <td>绣衣使此行計畫針對大夏殘黨</td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-<tr>
-  <td>遊戲當日情境一前</td>
-  <td>嚴氏奉嚴逸命令，殺死冷降塵（滅口知情者）</td>
-  <td>嚴氏（凶手）、嚴逸（主謀）、冷降塵（被害人）</td>
-  <td>玩家公開版：冷降塵死因不明<br>GM視角：嚴氏是凶手</td>
-  <td>DM手册</td>
-  <td><span class="badge bh">High</span></td>
-</tr>
-</tbody>
-</table>
-
-<h3>遊戲當日進程（簡表）</h3>
-<table>
-<thead><tr><th>進程</th><th>事件</th><th>時長</th><th>GM操作重點</th></tr></thead>
+<thead><tr><th>進程</th><th>事件</th><th>時長</th><th>GM重點</th></tr></thead>
 <tbody>
 <tr><td>01</td><td>發本、宣讀背景</td><td>~5分</td><td>分發角色劇本；開場說詞</td></tr>
 <tr><td>02</td><td>閱讀情境一</td><td>~15分</td><td>靜默閱讀；個別答疑</td></tr>
 <tr><td>03</td><td>道具發放</td><td>~5分</td><td>初始線索卡、物品卡、武器說明</td></tr>
-<tr><td>04</td><td>江湖軼事（公聊）</td><td>~20分</td><td>宣讀公告；手勢暗號說明</td></tr>
-<tr><td>05</td><td>第一輪私聊</td><td>~30分</td><td>發第1輪答題卡；計時</td></tr>
+<tr><td>04</td><td>江湖軼事（公聊）</td><td>~20分</td><td>宣讀公告；手勢暗號說明；NPC張猛帶節奏</td></tr>
+<tr><td>05</td><td>第一輪私聊</td><td>~30分</td><td>發第1輪答題卡；19:20農叟與冷降塵父子重逢在此階段發生</td></tr>
 <tr><td>06</td><td>江湖密行（挖寶）</td><td>~30分</td><td>提前佈置隱藏線索</td></tr>
-<tr><td>07</td><td>情境二＋布置凶案現場</td><td>~15分</td><td>趁玩家閱讀時佈置現場；宣布凶案</td></tr>
-<tr><td>08</td><td>盤凶</td><td>~50–60分</td><td>發第2輪答題卡；不主動引導</td></tr>
-<tr><td>09</td><td>引蛇出洞（第二輪私聊）</td><td>~30分</td><td>陣營斡旋關鍵階段</td></tr>
-<tr><td>10</td><td>情境三 武器拍賣（公聊）</td><td>~30分</td><td>宣讀情境三；主持拍賣</td></tr>
-<tr><td>11</td><td>暗通款曲（第三輪私聊）</td><td>~30分</td><td>發第3輪答題卡；最後串聯時間</td></tr>
-<tr><td>12</td><td>陣營搏殺</td><td>~30分</td><td>宣告陣營；執行戰鬥；確認勝負</td></tr>
-<tr><td>13</td><td>故事結局</td><td>~15分</td><td>依陣營勝負宣讀結局；個人結局</td></tr>
-<tr><td>14</td><td>復盤</td><td>~20分</td><td>公開所有秘密；推薦順序見§7嚴氏</td></tr>
+<tr><td>07</td><td>情境二 + 布置凶案現場</td><td>~15分</td><td>趁玩家閱讀時佈置庫房現場；宣布凶案發現</td></tr>
+<tr><td>08</td><td>盤凶（公聊調查）</td><td>~50–60分</td><td>發第2輪答題卡；不主動引導；小劇場台詞</td></tr>
+<tr><td>09</td><td>引蛇出洞（第二輪私聊）</td><td>~30分</td><td>陣營拉攏關鍵階段；監控立場動向</td></tr>
+<tr><td>10</td><td>情境三武器拍賣（公聊）</td><td>~30分</td><td>主持拍賣；銀票競標</td></tr>
+<tr><td>11</td><td>暗通款曲（第三輪私聊）</td><td>~30分</td><td>發第3輪答題卡；陣營最終確認</td></tr>
+<tr><td>12</td><td>陣營搏殺</td><td>~30分</td><td>宣告陣營；HP/武力計算；確認勝負</td></tr>
+<tr><td>13</td><td>故事結局</td><td>~15分</td><td>依陣營勝負宣讀結局</td></tr>
+<tr><td>14</td><td>復盤</td><td>~20分</td><td>揭示順序見下</td></tr>
 </tbody>
 </table>
-<p class="meta-line">來源：DM手册.pdf — <span class="badge bh">High confidence</span></p>
-</div><!-- /s6 -->
-
-<!-- ═══════════════════════════════ S7: CHARACTER NOTES ═══════════════════════════════ -->
-<div class="section" id="s7">
-<h2>§7 角色個別 GM 注記 Character-by-Character Notes</h2>
-<p class="meta-line">以下角色細節來自 DM手册 及 input-text 人工整理版（2026-06-17 更新）。</p>
-
-<div class="char-card f-kou">
-  <h3>金四刀（何乃武）— 寇俠核心</h3>
-  <dl>
-    <dt>玩家知道</dt>
-    <dd>自己是武者「金四刀」，寇俠組織的聯絡人；大夏皇族旁系後裔；一直尋找失散多年的妹妹</dd>
-    <dt>只有GM知道</dt>
-    <dd>
-      ★ 嚴氏（何乃清）就是他失散的妹妹，雙方互不相識<br>
-      若嚴氏在陣營搏殺中存活並被揭穿真實身份，觸發兄妹重逢線<br>
-      若嚴氏殺死他（绣衣使勝線），兄妹陰陽相隔
-    </dd>
-    <dt>角色目標</dt>
-    <dd>守護寇俠成員；復興大夏；找到妹妹（何乃清）</dd>
-    <dt>可能隱藏</dt>
-    <dd>皇族後裔身份；對嚴氏的查找線索</dd>
-    <dt>相關線索</dt>
-    <dd><span class="badge bm">詳見DM手冊（道具/線索卡清單）</span></dd>
-    <dt>GM提醒</dt>
-    <dd>若玩家在遊戲中接近發現嚴氏身份，GM不要提示，讓情節自然發展</dd>
-    <dt>來源</dt>
-    <dd>DM手册 <span class="badge bh">High</span></dd>
-  </dl>
 </div>
 
-<div class="char-card f-xiu">
-  <h3>嚴逸（殘手 / 绣衣使排名第一）— 绣衣使核心</h3>
-  <dl>
-    <dt>玩家知道</dt>
-    <dd>自己是绣衣使排名第一「殘手」；此行任務是追查大夏殘黨；指使嚴氏殺死冷降塵</dd>
-    <dt>只有GM知道</dt>
-    <dd>
-      嚴氏（其部下）實際上是大夏皇族後裔——最大的諷刺<br>
-      若遊戲結束後得知嚴氏身份，嚴逸應有複雜內心反應
-    </dd>
-    <dt>角色目標</dt>
-    <dd>確認並消滅金四刀（何乃武）；完成绣衣使任務</dd>
-    <dt>可能隱藏</dt>
-    <dd>對嚴氏的指揮命令；绣衣使身份</dd>
-    <dt>相關線索</dt>
-    <dd><span class="badge bm">詳見DM手冊（道具/線索卡清單）</span></dd>
-    <dt>GM提醒</dt>
-    <dd>需要表演欲強的玩家；這個角色在盤凶時壓力最大（知道凶手是自己派的）</dd>
-    <dt>來源</dt>
-    <dd>DM手册 <span class="badge bh">High</span></dd>
-  </dl>
-</div>
-
-<div class="char-card" style="border-left:4px solid #c44;background:#fff0f0">
-  <h3>嚴氏（栾绛 / 何乃清）— ★ 凶手 / 最複雜角色</h3>
-  <div class="notice notice-danger" style="margin:.5em 0">
-    <strong>⛔ GM 特別注意：嚴氏是凶手，需要能忍住不洩露的玩家。同時是全場最大秘密的核心人物。</strong>
-  </div>
-  <dl>
-    <dt>玩家知道</dt>
-    <dd>自己是绣衣使殺手「栾绛」，以「嚴氏」臥底；此次奉命殺死冷降塵；表面是「嚴氏」</dd>
-    <dt>只有GM知道</dt>
-    <dd>
-      ★ 嚴氏（何乃清）是金四刀（何乃武）的失散妹妹<br>
-      她本是大夏皇族後裔，幼年失憶後被绣衣使訓練為殺手<br>
-      從某種角度，她是悲劇受害者（被洗腦成了殺自己族人的工具）<br>
-      若記憶恢復，觸發深度感情線
-    </dd>
-    <dt>角色目標</dt>
-    <dd>完成殺手任務（確保冷降塵之死不被發現）；（潛在）恢復失去的記憶</dd>
-    <dt>可能隱藏</dt>
-    <dd>凶手身份（全場最重要秘密）；与金四刀的血緣關係（她不知道）</dd>
-    <dt>相關線索</dt>
-    <dd><span class="badge bm">凶案線索卡（詳見DM手冊道具清單）</span></dd>
-    <dt>GM提醒</dt>
-    <dd>
-      選角關鍵：需要能表演複雜情感且自律的玩家<br>
-      建議在復盤時最後揭露兄妹真相（確認兩位玩家心理狀態後）<br>
-      若嚴氏存活且被揭穿：兄妹重逢線（最高情感衝擊）<br>
-      若嚴氏死亡：兄妹陰陽相隔線（仍有強烈衝擊）
-    </dd>
-    <dt>復盤公告</dt>
-    <dd>1.公布凶手 → 2.公布各角色身份 → 3.<strong>最後壓軸揭露兄妹真相</strong></dd>
-    <dt>來源</dt>
-    <dd>DM手册 <span class="badge bh">High</span></dd>
-  </dl>
-</div>
-
-<div class="char-card f-xiu">
-  <h3>賈三娘（歸雪）— 绣衣使輔助</h3>
-  <dl>
-    <dt>玩家知道</dt>
-    <dd>自己是绣衣使密探「歸雪」；協助嚴逸蒐集情報</dd>
-    <dt>只有GM知道</dt>
-    <dd>
-      绣衣使密探「歸雪」；主要任務是協助嚴逸蒐集情報<br>
-      <span class="badge bh">確認：無感情線（input-text 賈三娘劇本確認，舊版 DM 手册感情線說法不獲支持）</span>
-    </dd>
-    <dt>角色目標</dt>
-    <dd>完成情報任務；立場以绣衣使任務為主</dd>
-    <dt>可能隱藏</dt>
-    <dd>绣衣使身份</dd>
-    <dt>GM提醒</dt>
-    <dd>舊 DM 手册曾提及「感情線可能動搖立場」，input-text 不支持此設定，GM 無需準備感情線倒戈預案</dd>
-    <dt>來源</dt>
-    <dd>input-text（賈三娘劇本）<span class="badge bh">High</span></dd>
-  </dl>
-</div>
-
-<div class="char-card f-free">
-  <h3>農叟（丁崧）— 大夏舊將 / 跟隨大夏血脈</h3>
-  <dl>
-    <dt>玩家知道</dt>
-    <dd>自己是大夏舊朝武將丁崧，帶殘部歸隱多年；王順（龐萬金）是舊部（農叟不知他已叛變）</dd>
-    <dt>只有GM知道</dt>
-    <dd>
-      ★ 親生兒子是冷降塵（化名張猛），兩人於19:20重逢<br>
-      王順（龐萬金）已出賣農叟予綉衣使，農叟毫不知情——王順是農叟身邊最危險的敵人<br>
-      農叟屬「跟隨大夏血脈」陣營，非無陣營<br>
-      與金四刀的歷史關聯尚待確認（同為大夏舊勢力）
-    </dd>
-    <dt>角色目標</dt>
-    <dd>守護舊部；不讓大夏遺民再受迫害；跟隨大夏血脈；與兒子重逢</dd>
-    <dt>可能隱藏</dt>
-    <dd>大夏舊將身份；親生兒子冷降塵的存在</dd>
-    <dt>GM提醒</dt>
-    <dd>農叟HP最高（40），在戰鬥中是重要存在；⚠️ 王順是農叟的最大隱患——GM需掌握農叟是否發現王順叛徒身份的時機</dd>
-    <dt>來源</dt>
-    <dd>input-text（農叟劇本）<span class="badge bh">High</span></dd>
-  </dl>
-</div>
-
-<div class="char-card f-free">
-  <h3>王思涵（旭敏芝）— 玄甲軍統師 / 靈活陣營</h3>
-  <dl>
-    <dt>玩家知道</dt>
-    <dd>自己是寇俠玄甲軍統師旭敏芝；武力超群；對大夏復國半信半疑</dd>
-    <dt>只有GM知道</dt>
-    <dd>
-      可加入任一陣營（最靈活的角色）<br>
-      主要在乎舊部族人安危而非政治立場<br>
-      ★ 親兄旭晨（玄甲軍統領）被王順（龐萬金）用左手割頭殺害<br>
-      王思涵是否知悉此事影響她與王順的關係——若揭穿，殺兄之仇觸發極強衝突
-    </dd>
-    <dt>角色目標</dt>
-    <dd>守護玄甲軍舊部；視私聊結果選邊</dd>
-    <dt>可能隱藏</dt>
-    <dd>真實立場；兄長被殺的真相；對各陣營的實際態度</dd>
-    <dt>GM提醒</dt>
-    <dd>王思涵的武力（HP30/武5）讓她是兩方都想拉攏的資源；⚠️ 若她得知王順殺兄，立場將劇烈變化</dd>
-    <dt>來源</dt>
-    <dd>input-text（王思涵/王順劇本）<span class="badge bh">High</span></dd>
-  </dl>
-</div>
-
-<div class="char-card" style="border-left:4px solid #7a1414;background:#fff5f5">
-  <h3>王順（龐萬金）— 叛徒 / 綉衣使線人 <span class="badge bkill">⚠️ 危險</span></h3>
-  <div class="notice notice-danger" style="margin:.5em 0">
-    <strong>⛔ GM 特別注意：王順絕非農叟的保護者——他是背叛者，欲殺農叟滅口！</strong>
-  </div>
-  <dl>
-    <dt>玩家知道</dt>
-    <dd>自己是龐萬金；偽裝成旭敏芝（王思涵）的「兄長」；認出了農叟（丁崧）</dd>
-    <dt>只有GM知道</dt>
-    <dd>
-      ★ 曾出賣農叟（丁崧）予綉衣使，致農叟被迫流亡——農叟至今不知<br>
-      ★ 親手殺害玄甲軍統領旭晨（用左手割頭；王順慣用左手）<br>
-      現為玄甲軍小頭目 <em>兼</em> 綉衣使民間線人（雙重身份）<br>
-      極度恐懼農叟認出自己是叛徒，目標：消滅農叟以永久滅口<br>
-      凶案時間線：20:40 偷鑰匙並在庫房點燃赤霞迷香 → 20:50 鎖門 → 21:15 返回發現張猛倒地，取走赤霞逃離
-    </dd>
-    <dt>角色目標</dt>
-    <dd>消滅農叟滅口；隱瞞綉衣使線人身份；維持玄甲軍小頭目偽裝</dd>
-    <dt>可能隱藏</dt>
-    <dd>叛徒身份；殺害旭晨之事；綉衣使線人雙重身份；庫房赤霞陷阱</dd>
-    <dt>GM提醒</dt>
-    <dd>
-      ⚠️ 王順與農叟的關係是劇情核心炸彈——農叟毫不知情<br>
-      若農叟發現王順是叛徒，是全場最強烈的情感翻轉之一<br>
-      王思涵（旭敏芝）若知王順殺兄，二人衝突激烈<br>
-      王順的左撇子特徵（殺旭晨時用左手）可成為識破他的線索
-    </dd>
-    <dt>來源</dt>
-    <dd>input-text（王順劇本）<span class="badge bh">High</span></dd>
-  </dl>
-</div>
-
-<div class="char-card f-free">
-  <h3>刁五兒（冷鈺）— 冷佛林親女 / 綉衣使民間線人</h3>
-  <dl>
-    <dt>玩家知道</dt>
-    <dd>自己是冷佛林親生女兒冷鈺；以男裝喬裝身份行走；為父追查真相</dd>
-    <dt>只有GM知道</dt>
-    <dd>
-      ★ 實際上是女性（全場男裝喬裝），是輕鬆彩蛋<br>
-      ★ 綉衣使民間線人——初始任務是殺死冷降塵（誤以為他殺父）<br>
-      ★ 冷降塵（冷佛林義子）認出她，說出真相：冷降塵並非殺父凶手，並交付近衛軍兵符<br>
-      冷降塵 = 刁五兒之義兄（兩人皆為冷佛林的孩子——義兄妹）<br>
-      武功：無相功法（副作用：皮膚潰爛，故全程以包裹遮蓋身體）
-    </dd>
-    <dt>角色目標</dt>
-    <dd>查明父親冷佛林之死真相；為義兄冷降塵（已故）追凶；（初始）綉衣使線人任務已因義兄揭真相而動搖</dd>
-    <dt>可能隱藏</dt>
-    <dd>真實性別（女）；冷鈺真實身份；綉衣使線人身份；無相功法副作用</dd>
-    <dt>GM提醒</dt>
-    <dd>
-      性別彩蛋建議在復盤時「兄妹真相」之後公布（作為輕鬆收場）<br>
-      ⚠️ 刁五兒是綉衣使線人——其初始立場並非純粹「自由」，GM需掌握她的立場轉換時機<br>
-      刁五兒對凶案有最強動機（義兄被殺）
-    </dd>
-    <dt>來源</dt>
-    <dd>input-text（刁五兒劇本）<span class="badge bh">High</span></dd>
-  </dl>
-</div>
-
-<div class="char-card" style="border-left:4px solid #888;background:#f5f5f5">
-  <h3>張猛（冷降塵 / 幼名丁典）— NPC</h3>
-  <dl>
-    <dt>玩家知道</dt>
-    <dd>NPC角色，由GM或助理扮演；化名「張猛」出現於遊戲初期</dd>
-    <dt>只有GM知道</dt>
-    <dd>
-      真名：<strong>冷降塵</strong>（幼名丁典）<br>
-      職位：鶴須軍大統領<br>
-      親生父親：丁崧（農叟）——兩人於19:20重逢<br>
-      義父：冷佛林；義妹：冷鈺（刁五兒）<br>
-      武功：缚阳掌<br>
-      ★ 認出刁五兒（冷鈺），告知真相（自己並非殺冷佛林的凶手），並交付近衛軍兵符<br>
-      被嚴氏（栾绛）奉嚴逸之命殺害（凶案被害人）
-    </dd>
-    <dt>角色目標</dt>
-    <dd>帶動遊戲節奏、炒場；凶案環節扮演屍體，攜帶3張屍體線索卡＋1封書信</dd>
-    <dt>GM提醒</dt>
-    <dd>
-      張猛在凶案發生前（進程07）擔任NPC演員帶節奏<br>
-      凶案佈置時即轉為「屍體」，屍體上需備妥3張線索卡＋1封書信<br>
-      農叟玩家知道自己的兒子是冷降塵——GM需掌握這一情感核心的揭示時機
-    </dd>
-    <dt>來源</dt>
-    <dd>input-text（張猛劇本）<span class="badge bh">High</span></dd>
-  </dl>
-</div>
+<h3>復盤揭示建議順序</h3>
+<ol>
+  <li>公布凶手：嚴氏（欒絳）及作案過程（茶靈毒匕首，亥時21:10，庫房）</li>
+  <li>公布主謀：嚴逸（殘手）及其指揮鏈</li>
+  <li>公布冷佛林真兇：賈三娘（歸雪）——刁五兒誤解冷降塵的長期謎底</li>
+  <li>公布各角色真實身份（由簡至複雜）</li>
+  <li>公布農叟 = 冷降塵親父（父子生死之交）</li>
+  <li>公布王順雙重罪（出賣農叟 + 殺旭晨）</li>
+  <li>★ 壓軸：嚴氏（何乃清）= 金四刀（何乃武）失散妹妹（確認兩位玩家心理狀態後揭露）</li>
+  <li>輕鬆收場：刁五兒真實性別（女）彩蛋</li>
+</ol>
 </div><!-- /s7 -->
 
-<!-- ═══════════════════════════════ S8: CHECKLIST ═══════════════════════════════ -->
+<!-- ============================================================ -->
+<!-- S8: CHARACTER NOTES -->
+<!-- ============================================================ -->
 <div class="section" id="s8">
-<h2>§8 主持人 Checklist</h2>
+<h2>§8 角色 GM 注記 Character-by-Character Notes</h2>
+
+<details open>
+<summary>嚴氏（欒絳 / 何乃清）— 凶手 × 最複雜角色</summary>
+<div>
+<div class="notice notice-danger">
+  <strong>GM 特別注意：嚴氏是凶手，同時是全場最大彩蛋（何乃武失散妹妹）的核心人物。</strong>
+</div>
+<ul>
+  <li>選角要點：需要能忍住不洩露凶手身份、同時能演繹失憶困惑情感的玩家</li>
+  <li>凶殺細節：亥時21:10，在庫房用茶靈毒匕首插入冷降塵背心，確認殺死；匆忙撤退；鞋底沾了庫房碎石（她清晨起床時刻意清除）</li>
+  <li>身份線索：脖子青色胎記（金四刀的認親線索）；左臉紅色疤痕（嚴逸掌風留下，謊稱胎記）</li>
+  <li>化清散：她私自在嚴逸茶中加藥，嚴逸不知——這是嚴逸武功衰退的原因</li>
+  <li>金四刀在廚房見她時，嚴氏有「腦中驚雷」的閃回反應——這是記憶碎片</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>嚴逸（殘手）— 繡衣使一號 × 主謀</summary>
+<div>
+<ul>
+  <li>凶案主謀：知會嚴氏冷降塵是任務目標；放赤霞迷香迷倒冷降塵；偷擊昏金四刀</li>
+  <li>身份線索：右肩紫黑掌印（農叟在何彥府宅屋頂擊中）；完整版無相功法（vs 刁五兒的殘缺版）</li>
+  <li>刁五兒的師父：嚴逸用面具傳功給刁五兒，刁五兒感受到氣息但不知他是嚴逸</li>
+  <li>身體衰弱：被化清散悄悄削弱武功（嚴氏未告知）；仍是繡衣使一號但地位下滑</li>
+  <li>嚴氏關係：名為師徒/假夫妻，實為上下線；他對嚴氏有保護之情但刻意保持距離</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>賈三娘（歸雪）— 繡衣使二號 × 冷佛林真兇</summary>
+<div>
+<ul>
+  <li><strong>冷佛林真兇：</strong>用茶靈毒匕首刺其右肋；被冷降塵反擊，左肩留黑紫掌印；此後習慣穿包裹全身的深衣遮掩</li>
+  <li>移動屍體：扛冷降塵屍體至庫房；吸入赤霞迷香昏睡；未對冷降塵施任何毒</li>
+  <li>把柄：掌握嚴逸當年放走何乃清的把柄</li>
+  <li>客棧任務：情報據點，兼任玄甲軍線人；持有玄甲軍布防圖（王思涵委託繪製）</li>
+  <li>GM提示：「地字……」可能指她的房間——是冷降塵死前未說完的線索</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>金四刀（何乃武）— 寇俠核心 × 大夏皇族</summary>
+<div>
+<ul>
+  <li>大夏皇族九世孫，鶴須軍實際軍事核心；固定寇俠，不可換陣營</li>
+  <li>王思涵（陽敏芝/旭敏芝）是他的未婚妻；在盤興口重逢令他震驚（她的真實身份）</li>
+  <li>嚴氏（何乃清）是他失散妹妹；廚房對話時他問「是否姓何」和提到「乃清」名字，嚴氏有記憶閃回</li>
+  <li>被嚴逸偷擊後頸昏倒，在農叟等人事件發生時不在場</li>
+  <li>集齊所有兵符（近衛軍＋虎賁衛＋玄甲軍）可觸發個人勝利線（需寇俠陣營勝）</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>農叟（丁崧）— 大夏重將 × 孤獨的父親</summary>
+<div>
+<ul>
+  <li>親生兒子冷降塵（丁典）19:20 重逢，父子感情強烈——冷降塵死後農叟最悲痛</li>
+  <li>認出農叟手袋中的玉牌是王順（龐萬金）暗殺時掉落的；拿到此牌可識破王順身份</li>
+  <li>20:55 在二樓認出嚴逸背影（何彥府宅屋頂的人），偷擊但被赤霞迷藥擊退；嚴逸右肩確認有農叟掌印</li>
+  <li>HP 最高（40），戰力強；是兩方都想拉攏的資源</li>
+  <li>不知王順是叛徒——此為最強情感炸彈之一</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>王順（龐萬金）— 叛徒 × 雙重間諜</summary>
+<div>
+<ul>
+  <li>出賣農叟：此為農叟被流放的直接原因，農叟至今不知</li>
+  <li>殺旭晨：宛平府之戰，穿鶴須軍軍服用左手短柄手戟割頭，偽裝成鶴須軍所為；慣用左手是識破他的關鍵線索</li>
+  <li>庫房赤霞陷阱：20:40偷庫房鑰匙→燃赤霞、封窗→20:50鎖門（針對農叟）→農叟擊破後窗逃脫</li>
+  <li>偽裝王思涵之父：王思涵和他是單線聯繫，互相不了解；王思涵不知他的真實身份</li>
+  <li>潤黃玉牌：暗殺農叟時掉落，現在農叟手中；王牌被農叟取得，可追溯到王順</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>王思涵（旭敏芝）— 玄甲軍統帥 × 靈活陣營</summary>
+<div>
+<ul>
+  <li>她寫信邀請冷降塵赴盤興口（以叔父名義）；原本計劃刺殺冷降塵（誤以為殺兄），後被制服說服</li>
+  <li>亥時21:05，她從門縫看到有人拖重物進庫房（= 賈三娘扛屍），但沒看清來人樣貌</li>
+  <li>未婚夫金四刀在客棧令她困惑（她懷疑他是鶴須軍人，玉佩與鶴須軍銘牌吻合）</li>
+  <li>旭晨死亡線索：旭晨的傷口是左手短柄手戟割頭——若她得知王順慣用左手，極可能觸發衝突</li>
+  <li>賈三娘是她信任的部下，且持有玄甲軍布防圖——她希望在遊戲中取回</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>刁五兒（冷鈺）— 雙重間諜 × 女性身份</summary>
+<div>
+<ul>
+  <li>全場唯一女性偽裝男性；武功反噬導致皮膚潰爛，以黑布蒙面、繃帶纏身、束胸裝束</li>
+  <li>成時20:20 與冷降塵對話：冷降塵認出她是冷鈺，說明不是殺父兇手，交付近衛軍兵符；「地字……」線索未說完</li>
+  <li>成時20:20前，她聽到有人敲門（王順尾隨）；成時20:50，冷降塵送她離開時，他已被迷倒（赤霞生效）</li>
+  <li>她感受到客棧中有無相功法氣息，推測師父就在場；師父 = 嚴逸，她不知道</li>
+  <li>初始立場：繡衣使線人 → 冷降塵揭示真相後立場動搖 → 可選任何陣營</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>張猛（冷降塵 / 幼名丁典）— NPC</summary>
+<div>
+<ul>
+  <li>NPC，由主持人或助理扮演；凶案前帶節奏炒場，凶案後扮演屍體</li>
+  <li>19:20 與農叟（親父）重逢；認出刁五兒（冷鈺）說出真相，交付近衛軍兵符；交付金四刀虎賁衛兵符</li>
+  <li>告知王思涵：殺旭晨者不是鶴須軍，真兇就在客棧中（「此人不但殺了你的兄長，還謀害了我的父親」= 冷佛林）</li>
+  <li>他的話術：「我已確定殺義父之人就住在客棧地字……」——死前線索，刻意未說完</li>
+  <li>屍體攜帶：3張線索卡 + 1封書信（NPC需提前備妥）</li>
+</ul>
+</div>
+</details>
+</div><!-- /s8 -->
+
+<!-- ============================================================ -->
+<!-- S9: CHECKLIST -->
+<!-- ============================================================ -->
+<div class="section" id="s9">
+<h2>§9 主持人 Checklist</h2>
 
 <details open>
 <summary>開本前 Before Session</summary>
 <ul class="checklist">
-  <li>確認所有盒裝道具齊全（線索卡44、物品卡30、武器卡27、Buff卡4、陣營卡13、拍賣單8）</li>
-  <li>閱讀本頁所有GM注記（§5–§7），熟悉各角色真實身份</li>
-  <li>確認凶手：嚴氏（何乃清）、被害人：冷降塵、主謀：嚴逸</li>
-  <li>確認最大彩蛋：嚴氏 = 金四刀之失散妹妹（雙方不知）</li>
-  <li>確認刁五兒真實性別（女）</li>
-  <li>預先閱讀所有9份角色劇本（至少略讀）</li>
-  <li>確認張猛（NPC）的扮演方式</li>
-  <li>準備3輪答題卡（各8份）及答案</li>
-  <li>提前佈置場地（座位分隔、隱私空間供私聊）</li>
-  <li>提前佈置挖寶線索（進程06，建議8–12張隱藏線索卡）</li>
-  <li>準備凶案現場道具（進程07）</li>
-  <li>確認拍賣武器清單（拍賣單×8）</li>
-  <li>確認銀票初始分配</li>
+  <li>確認所有道具齊全（線索卡、物品卡、武器卡、Buff卡、陣營卡、拍賣單、答題卡3輪）</li>
+  <li>閱讀本頁所有GM注記，熟悉各角色真實身份</li>
+  <li>確認：凶手 = 嚴氏（欒絳）；主謀 = 嚴逸（殘手）；冷佛林真兇 = 賈三娘</li>
+  <li>確認最大彩蛋：嚴氏（何乃清）= 金四刀（何乃武）失散妹妹，雙方皆不知</li>
+  <li>確認刁五兒真實性別（女性）</li>
+  <li>確認農叟（丁崧）是冷降塵親父</li>
+  <li>確認王順（龐萬金）是農叟的叛徒舊部、旭晨的殺手（左撇子線索）</li>
+  <li>確認兵符分配：近衛軍兵符→刁五兒，虎賁衛兵符→金四刀，玄甲軍兵符→王思涵</li>
+  <li>預先閱讀所有9份角色劇本</li>
+  <li>確認NPC張猛的扮演方式；備妥屍體線索卡3張 + 書信1封</li>
+  <li>提前佈置場地（私聊空間、隱私隔離）</li>
+  <li>提前佈置挖寶線索（進程06）</li>
+  <li>確認銀票初始分配及拍賣武器清單</li>
 </ul>
 </details>
 
 <details>
-<summary>開場說明 Opening / Briefing（進程01–03）</summary>
+<summary>關鍵時間點提示（進程中）</summary>
 <ul class="checklist">
-  <li>發放人物劇本（按角色分配），強調不讓他人看</li>
-  <li>宣讀開場故事背景</li>
-  <li>介紹手勢符號系統（說明規則，不透露各手勢含義）</li>
-  <li>確認所有人閱讀情境一完畢後進入下一進程</li>
-  <li>發放道具卡、初始線索卡</li>
-  <li>說明武器卡規則</li>
+  <li>情境一進程05（第一輪私聊）：農叟與冷降塵父子重逢場景（19:20）</li>
+  <li>情境一進程05：冷降塵交付近衛軍兵符給刁五兒（20:20–20:50）</li>
+  <li>情境一進程05：冷降塵交付虎賁衛兵符給金四刀（20:00）</li>
+  <li>進程07（情境二）：趁玩家閱讀時佈置凶案現場（庫房），NPC轉為屍體</li>
+  <li>進程08（盤凶）：發第2輪答題卡；不主動引導</li>
+  <li>進程11（暗通款曲）：發第3輪答題卡；確認陣營最終歸屬</li>
 </ul>
 </details>
 
 <details>
-<summary>遊戲中 During Investigation（進程04–11）</summary>
+<summary>復盤揭示 Debrief Order（重要）</summary>
 <ul class="checklist">
-  <li>進程05：發放第1輪答題卡，計時30分鐘</li>
-  <li>進程06：宣布挖寶開始，計時30分鐘</li>
-  <li>進程07：趁玩家閱讀情境二時佈置凶案現場</li>
-  <li>進程08：發放第2輪答題卡；不主動引導玩家</li>
-  <li>進程08：若討論停滯可提示「是否有新線索要公開？」</li>
-  <li>進程10：主持武器拍賣，逐件競標，最高銀票者得</li>
-  <li>進程11：發放第3輪答題卡</li>
+  <li>步驟1：宣布凶手：嚴氏（欒絳）；茶靈毒匕首；庫房；亥時21:10</li>
+  <li>步驟2：宣布主謀：嚴逸（殘手）及繡衣使任務背景</li>
+  <li>步驟3：宣布冷佛林真兇：賈三娘（歸雪）；茶靈毒（刁五兒/冷鈺誤解冷降塵的根源）</li>
+  <li>步驟4：公布各角色真實身份（刁五兒為女性輕鬆點出）</li>
+  <li>步驟5：揭露農叟 = 冷降塵親父（丁崧 × 丁典）</li>
+  <li>步驟6：揭露王順（龐萬金）雙重罪：出賣農叟 + 殺旭晨（左撇子線索）</li>
+  <li>步驟7 ★：最後壓軸揭露嚴氏（何乃清）= 金四刀（何乃武）失散妹妹；確認兩位玩家心理狀態後公布</li>
+  <li>步驟8：輕鬆收場，公布刁五兒真實性別（女）彩蛋</li>
+  <li>步驟9：開放玩家提問，GM解惑</li>
 </ul>
 </details>
+</div><!-- /s9 -->
 
-<details>
-<summary>關鍵揭示點 Key Reveal Points（進程12–13）</summary>
-<ul class="checklist">
-  <li>陣營搏殺開始前，確認所有人完成選邊</li>
-  <li>戰鬥時依HP/武力值計算，被攻擊方HP歸零出局</li>
-  <li>計算存活人數確認陣營勝負</li>
-  <li>依勝負宣讀對應大結局（寇俠勝/绣衣使勝）</li>
-  <li>宣讀各角色個人結局（依存活/陣營條件）</li>
-</ul>
-</details>
+<!-- ============================================================ -->
+<!-- S10: OPEN QUESTIONS -->
+<!-- ============================================================ -->
+<div class="section" id="s10">
+<h2>§10 待確認事項 Open Questions</h2>
+<p class="meta-line">以下為從 source md 無法單獨確認、需對照盒裝道具或開本現場確認的事項。</p>
 
-<details>
-<summary>結局與復盤 Ending / Debrief（進程14）</summary>
-<ul class="checklist">
-  <li>宣布凶手：嚴氏（栾绛 / 何乃清）及作案動機</li>
-  <li>公布各角色真實身份（建議由簡到複雜）</li>
-  <li>★ 最後壓軸：揭露嚴氏與金四刀為失散兄妹（確認兩位玩家心理狀態後）</li>
-  <li>公布刁五兒真實性別（輕鬆彩蛋，作為收場）</li>
-  <li>開放玩家提問，GM解惑</li>
-  <li>讓玩家分享角色扮演感受與心得</li>
-</ul>
-</details>
-</div><!-- /s8 -->
-
-<!-- ═══════════════════════════════ S9: UNCLEAR ITEMS ═══════════════════════════════ -->
-<div class="section" id="s9">
-<h2>§9 待確認事項 Open Questions</h2>
-<p class="meta-line">以下為全角色 input-text 補強後仍無法從角色劇本確認、需對照 DM手冊道具或開本現場確認的事項。</p>
-
+<div class="scroll-x">
 <table>
 <thead>
-<tr>
-  <th>#</th><th>問題</th><th>為何不確定</th><th>相關來源</th><th>建議後續</th>
-</tr>
+<tr><th>#</th><th>問題</th><th>為何不確定</th><th>來源</th><th>建議後續</th></tr>
 </thead>
 <tbody>
 <tr>
   <td>1</td>
-  <td><strong>農叟（丁崧）↔ 金四刀（何乃武）的直接關係</strong></td>
-  <td>
-    兩人皆為大夏舊勢力（丁崧護送皇族出逃，金四刀為皇族後裔）。<br>
-    農叟 input-text 提及「何乃青」疑為「何乃武」，但二人是否相識需交叉確認。
-  </td>
-  <td>input-text（農叟/金四刀）</td>
-  <td>開本前交叉核對農叟劇本「何乃青」段落；若二人相識可能是重要關係線</td>
+  <td><strong>「地字……」指的是哪個房間</strong></td>
+  <td>冷降塵說「殺義父之人就住在客棧地字……」未說完。需對照天福客棧平面圖，確認賈三娘住的是否為「地字」字輩房間。</td>
+  <td>張猛劇本、刁五兒劇本</td>
+  <td>對照天福客棧平面圖道具確認</td>
 </tr>
 <tr>
   <td>2</td>
-  <td><strong>3輪答題的具體題目與答案（完整版）</strong></td>
-  <td>各角色劇本均有個別答題，但答案卡/評分標準的官方版本需對照盒裝道具</td>
-  <td>DM手册 / 答題卡（盒裝物品）</td>
-  <td>開本前確認答題卡在盒裝中，或向遊戲工作室確認</td>
+  <td><strong>3輪答題完整題目與答案</strong></td>
+  <td>各角色劇本有個別答題題目，但評分標準和答案卡的官方版本需對照盒裝道具</td>
+  <td>各角色 source md</td>
+  <td>開本前確認答題卡在盒裝中</td>
 </tr>
 <tr>
   <td>3</td>
-  <td><strong>王思涵 ↔ 農叟 的歷史關係</strong></td>
-  <td>二人皆為大夏/玄甲軍背景，但 input-text 中無直接相識記載</td>
-  <td>input-text（王思涵/農叟）</td>
-  <td>若玩家觸發對話 GM 可靈活處理；非關鍵謎題</td>
+  <td><strong>農叟 ↔ 金四刀 是否遊戲前相識</strong></td>
+  <td>兩人都是大夏舊勢力，但 source md 中無記載遊戲前直接相識。金四刀的「人口丁」安民告示是農叟進客棧的直接原因，兩人在客棧首次接觸。</td>
+  <td>農叟劇本、金四刀劇本</td>
+  <td>非關鍵謎題，GM可靈活處理</td>
 </tr>
 <tr>
   <td>4</td>
-  <td><strong>凶器確認（屍體線索卡內容）</strong></td>
-  <td>嚴氏凶器為綉衣使特製毒藥茶靈塗匕首（嚴氏 input-text 確認），但實體線索卡上的措辭需對照道具</td>
-  <td>DM手册 / 線索卡（盒裝物品）</td>
-  <td>開本前確認線索卡中的凶器描述與 input-text 一致</td>
+  <td><strong>屍體線索卡的具體文字</strong></td>
+  <td>知道冷降塵屍體有3張線索卡 + 1封書信，但線索卡上的具體措辭需對照道具</td>
+  <td>張猛劇本（NPC規則說明）</td>
+  <td>開本前確認NPC攜帶道具齊全</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><strong>嚴氏殺人後，冷降塵是否立刻死亡或稍後才死</strong></td>
+  <td>嚴氏劇本說她插入匕首後「感覺血液噴湧而出」；賈三娘更早時「發現冷降塵手指微微動了一下」。死亡確認時間點影響線索卡措辭。</td>
+  <td>嚴氏劇本、賈三娘劇本</td>
+  <td>以嚴氏插刀為「確認死亡」時間點（亥時21:10）；賈三娘看到的「手指動」應是中赤霞後的最後反應</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><strong>金四刀持有的「武林秘笈」是否是認親道具</strong></td>
+  <td>金四刀劇本說秘笈是「小時候和妹妹一起翻到並且練習過的」，封面殘破。嚴氏劇本提到她幼年「發現自己身上有另一種截然不同的功法但不得要領」。兩者可能關聯，但 source 未明說是認親機制。</td>
+  <td>金四刀劇本、嚴氏劇本</td>
+  <td>若玩家發現此關聯，GM可確認；需確認盒裝是否有對應線索卡說明</td>
 </tr>
 </tbody>
 </table>
+</div>
 
 <div class="notice notice-info" style="margin-top:1em">
-  <strong>📌 狀態（2026-06-17）：</strong>全 9 個角色劇本均已以 input-text 人工整理版確認（存於 <code>materials/kou-xia/input-text/</code>）。<br>
-  剩餘 4 個待確認事項均屬道具/開本現場範疇，非劇本正文疑義。
+  <strong>狀態（2026-06-21）：</strong>全 9 個角色劇本已從 <code>materials/kou-xia/source/</code> source md 重新讀取確認。<br>
+  冷佛林真兇（賈三娘）、嚴氏殺人手法、農叟 × 冷降塵父子相認等關鍵事實均已從 source 原文確認。<br>
+  剩餘 6 個待確認事項屬道具/開本現場範疇，非劇本正文疑義。
 </div>
-</div><!-- /s9 -->
+</div><!-- /s10 -->
 
 <!-- Footer -->
 <p style="text-align:center;color:var(--muted);font-size:.8em;margin-top:3em">
-  《寇侠》GM 人物關係圖 &nbsp;|&nbsp; 整理自 DM手册.pdf（K的遊戲工作室）&nbsp;|&nbsp; 以 input-text 全角色補強（2026-06-17）<br>
-  <a href="#top">↑ 回頁首</a>
+  《寇俠》GM 人物關係圖 &nbsp;|&nbsp; 全 9 份 source md 確認版（2026-06-21）<br>
+  <a href="#top">回頁首</a>
 </p>
 
 </div><!-- .wrapper -->

@@ -306,7 +306,7 @@ TEMPLATE = '''\
     .script-section{{background:#fff;border:1px solid #e0d4c0;border-radius:6px;padding:1.4rem 1.8rem;margin-bottom:1.1rem}}
     .script-section h3{{color:var(--red,#8b0000);margin-top:0;border-bottom:1px solid #e0d4c0;padding-bottom:.4rem;font-size:1rem;letter-spacing:.04em}}
     .script-section p{{margin:.8rem 0;line-height:1.9;text-align:justify}}
-    .script-section strong{{color:#2c4a6e;font-weight:700}}
+    .script-section strong{{color:#8a4b16;font-weight:800}}
     .script-section h4{{color:#6b4a24;font-size:.96rem;margin:1.1rem 0 .45rem;font-weight:700;border-left:4px solid #c8b89a;padding-left:.55rem}}
     .script-section ol,.script-section ul{{margin:.7rem 0 1rem 0;padding-left:1.5rem;line-height:1.9}}
     .script-section li{{margin:.35rem 0}}
