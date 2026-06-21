@@ -242,6 +242,7 @@ TEMPLATE = '''\
     .script-section{{background:#fff;border:1px solid #e0d4c0;border-radius:6px;padding:1.4rem 1.8rem;margin-bottom:1.1rem}}
     .script-section h3{{color:var(--red,#8b0000);margin-top:0;border-bottom:1px solid #e0d4c0;padding-bottom:.4rem;font-size:1rem;letter-spacing:.04em}}
     .script-section p{{margin:.8rem 0;line-height:1.9;text-align:justify}}
+    .script-section strong{{color:#7a0000}}
     .script-section h4{{color:#4a3a2a;font-size:.92rem;margin:1rem 0 .3rem;font-weight:600}}
     /* ── Mobile ───────────────────────────────── */
     @media(max-width:600px){{
