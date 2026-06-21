@@ -307,54 +307,6 @@ tr:nth-child(even) { background: rgba(255,255,255,0.03); }
 .top-nav a { color: var(--color-text-muted); }
 .top-nav a:hover { color: var(--color-accent-light); text-decoration: none; }
 
-/* ── Script pages (player/scripts/*.html) ── */
-/* Override inline #fff / light colours that break the dark theme */
-.script-cover {
-  background: var(--color-card) !important;
-  border-color: var(--color-border) !important;
-}
-.script-cover blockquote {
-  background: transparent !important;
-  border-color: var(--color-accent) !important;
-  color: var(--color-accent-light) !important;
-  padding: .4rem .8rem !important;
-}
-.script-cover .char-meta { color: var(--color-text-muted) !important; }
-.script-section {
-  background: var(--color-card) !important;
-  border-color: var(--color-border) !important;
-}
-.script-section h3 {
-  color: var(--color-accent-light) !important;
-  border-color: var(--color-border) !important;
-}
-.ocr-notice {
-  background: #2d2200 !important;
-  border-color: var(--color-accent-light) !important;
-  color: #f5c56a !important;
-}
-.ocr-tag {
-  background: #3d2c00 !important;
-  color: var(--color-accent-light) !important;
-  border-radius: 3px;
-  padding: 1px 5px;
-  font-size: .82em;
-  font-family: var(--font-mono);
-}
-.skill-block {
-  background: var(--color-surface) !important;
-  border-color: var(--color-border) !important;
-}
-.skill-block strong { color: #7ec8e3 !important; }
-.ending-block {
-  background: #001624 !important;
-  border-color: #3498db !important;
-  border-radius: 0 4px 4px 0;
-}
-
-/* Inline OCR annotations (<small> after ocr-tag) are GM-level metadata;
-   hide in player view — the badge alone is sufficient signal. */
-.ocr-tag + small { display: none; }
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
@@ -363,7 +315,5 @@ tr:nth-child(even) { background: rgba(255,255,255,0.03); }
   main { padding: 1.5rem 1rem 3rem; }
   .gate-row { flex-direction: column; }
   .gate-button { width: 100%; }
-  .script-section { padding: .8rem 1rem !important; }
-  .script-cover  { padding: 1rem 1.2rem !important; }
-  .section-nav { grid-template-columns: 1fr; }
+.section-nav { grid-template-columns: 1fr; }
 }
