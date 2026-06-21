@@ -152,6 +152,17 @@ class PageBuilder:
             elif s == '' or s == '---':
                 self._flush_para()
 
+            elif s.strip().startswith('!['):
+                m_img = re.match(r'!\[([^\]]*)\]\(([^)]+)\)', s.strip())
+                if m_img:
+                    self._flush_para()
+                    alt = html_mod.escape(m_img.group(1))
+                    src = m_img.group(2).strip()
+                    self._parts.append(
+                        f'    <figure class="gesture-img"><img src="{src}" alt="{alt}"'
+                        f' style="max-width:100%;border-radius:8px;margin:.8rem 0;'
+                        f'box-shadow:0 1px 6px rgba(0,0,0,.18)"></figure>')
+
             else:
                 cleaned = process_inline(s)
                 if not cleaned.strip():
