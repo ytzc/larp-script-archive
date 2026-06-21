@@ -309,14 +309,14 @@ TEMPLATE = '''\
     .script-chapter > h2{{color:var(--red,#8b0000);border-bottom:2px solid #c8b89a;padding-bottom:.5rem;font-size:1.3rem;margin-top:0;margin-bottom:1.2rem;letter-spacing:.06em}}
     .script-section{{background:#fff;border:1px solid #e0d4c0;border-radius:6px;padding:1.4rem 1.8rem;margin-bottom:1.1rem}}
     .script-section h3{{color:var(--red,#8b0000);margin-top:0;border-bottom:1px solid #e0d4c0;padding-bottom:.4rem;font-size:1rem;letter-spacing:.04em}}
-    .script-section p{{margin:.8rem 0;line-height:1.9;text-align:justify}}
+    .script-section p{{margin:.8rem 0;line-height:2;text-align:justify;text-indent:2em}}
     .script-section strong{{color:#8a4b16;font-weight:800}}
     .script-section h4{{color:#6b4a24;font-size:.96rem;margin:1.1rem 0 .45rem;font-weight:700;border-left:4px solid #c8b89a;padding-left:.55rem}}
     .script-section ol,.script-section ul{{margin:.7rem 0 1rem 0;padding-left:1.5rem;line-height:1.9}}
     .script-section li{{margin:.35rem 0}}
     .script-section .question-list{{list-style:none;padding-left:.2rem}}
     .script-section .question-list li{{margin-bottom:.55rem}}
-    .script-section .scene-info{{color:#5a3a1a;font-size:.9em;margin:.2rem 0;padding:.1rem .6rem;border-left:3px solid #c8b89a;background:#faf5ee}}
+    .script-section .scene-info{{color:#5a3a1a;font-size:.9em;margin:.2rem 0;padding:.1rem .6rem;border-left:3px solid #c8b89a;background:#faf5ee;text-indent:0}}
     .script-section .prop-list{{list-style:none;padding-left:.2rem}}
     .script-section .prop-list li::before{{content:'▫ ';color:#8b6040;font-size:.9em}}
     /* ── Mobile ───────────────────────────────── */
