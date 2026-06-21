@@ -139,6 +139,39 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
   .section{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
   .toc{page-break-after:always}
 }
+
+/* ── Mobile-friendly ── */
+@media (max-width:768px){
+  .wrapper{padding:1em .7em 4em}
+  .page-header{padding:1.1em 1em}
+  .section{padding:1.1em 1em}
+  h1{font-size:1.6em}
+  h2{font-size:1.15em;margin:1.5em 0 .5em}
+  h3{font-size:1.05em}
+  .char-card dl{grid-template-columns:1fr;gap:.1em}
+  .char-card dt{margin-top:.5em;color:var(--red)}
+  .legend{font-size:.8em;gap:.4em .8em}
+  .toc{padding:.8em 1em}
+  .toc ol{margin:.4em 0 0 1em}
+  ul,ol{margin:.3em 0 .6em 1.2em}
+}
+@media (max-width:480px){
+  .wrapper{padding:.7em .4em 3em}
+  .page-header{padding:.8em .8em}
+  .section{padding:.8em .8em}
+  .char-card{padding:.8em .9em}
+  h1{font-size:1.25em}
+  h2{font-size:1.08em}
+  .gm-banner{font-size:.8em;padding:.35em .6em;letter-spacing:.15px}
+  body{font-size:14.5px}
+  table{font-size:.78em}
+  th{padding:.4em .55em}
+  td{padding:.35em .45em}
+  .matrix-table td{min-width:68px;font-size:.72em}
+  details summary{padding:.4em .7em;font-size:.95em}
+  details[open]>*:not(summary){padding:.6em .7em}
+  .badge{font-size:.72em}
+}
 </style>
 </head>
 <body>
@@ -181,6 +214,27 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
     <li><a href="#s9">待確認事項 Unclear Items / Questions</a></li>
   </ol>
 </div>
+
+<!-- ═══════════════════════════════ FLOOR PLANS ═══════════════════════════════ -->
+<div class="section" id="floor-plans">
+<h2 style="color:#7a4000;border-color:#b87333">天福客棧平面圖 Floor Plans</h2>
+<div style="display:flex;flex-wrap:wrap;gap:1.5em;align-items:flex-start">
+  <div style="flex:1;min-width:260px">
+    <a href="../assets/天福客棧俯視圖.JPEG" target="_blank">
+      <img src="../assets/天福客棧俯視圖.JPEG" alt="天福客棧俯視圖"
+           style="max-width:100%;border:1px solid #ddd;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.12);display:block">
+    </a>
+    <p style="font-size:.82em;color:var(--muted);margin-top:.4em;text-align:center">天福客棧俯視圖（點擊放大）</p>
+  </div>
+  <div style="flex:1;min-width:260px">
+    <a href="../assets/天福客棧全貌.JPEG" target="_blank">
+      <img src="../assets/天福客棧全貌.JPEG" alt="天福客棧全貌"
+           style="max-width:100%;border:1px solid #ddd;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.12);display:block">
+    </a>
+    <p style="font-size:.82em;color:var(--muted);margin-top:.4em;text-align:center">天福客棧全貌（點擊放大）</p>
+  </div>
+</div>
+</div><!-- /floor-plans -->
 
 <!-- ═══════════════════════════════ S1: CHARACTER OVERVIEW ═══════════════════════════════ -->
 <div class="section" id="s1">
@@ -579,12 +633,32 @@ svg text{font-family:'Segoe UI','Microsoft JhengHei',sans-serif}
 
 <h3>Unresolved / Uncertain Relationships</h3>
 <ul>
-  <li><span class="r-unclear">農叟（丁崧）↔ 金四刃（何乃武）</span>：農叟曾受大夏舊主之命赴汲洲與金四刃（何乃青）接洽，但任務出了差錯。農叟視此事為心結。差錯具體內容需人工確認農叟.pdf。<span class="badge bn">Needs confirmation</span></li>
-  <li><strong class="r-family">刁五兒 ↔ 冷降塵（已確認）</strong>：刁五兒（冷鈺）為冷佛林親生女兒；冷降塵為冷佛林義子——兩人是義兄妹關係（非「父親舊識」）。冷降塵認出刁五兒，說出真相並交付近衛軍兵符。<span class="badge bh">High — 已確認（input-text）</span></li>
-  <li><strong>賈三娘感情線</strong>：input-text（賈三娘劇本）確認<strong>無感情線</strong>。DM手册所述感情線為舊版 GM 文件推測，不獲 input-text 支持，已排除。<span class="badge bh">已確認（input-text）— 無感情線</span></li>
-  <li><strong>張猛（NPC）行動序列（已確認）</strong>：張猛=冷降塵（化名），鶴須軍大統領，幼名丁典。凶案環節扮演屍體，攜帶3張屍體線索卡＋1封書信；負責帶節奏、炒場。<span class="badge bh">High — 已確認（input-text）</span></li>
-  <li><span class="r-unclear">王思涵 ↔ 農叟/王順</span>：王思涵（旭敏芝）之兄旭晨為玄甲軍統領，已被王順殺害。王思涵是否知悉王順為殺兄仇人需確認。<span class="badge bm">Needs confirmation</span></li>
-  <li><strong>王順 ↔ 農叟（已確認）</strong>：王順（龐萬金）已確認出賣農叟（丁崧）予綉衣使，並親手殺害玄甲軍統領旭晨（慣用左手）。現為玄甲軍小頭目兼綉衣使線人。恐懼農叟認出自己，設計在庫房燃赤霞香欲殺農叟。<span class="badge bh">High — 已確認（input-text）</span></li>
+  <li>
+    <span class="r-unclear">農叟（丁崧）↔ 金四刀（何乃武）</span>：
+    nong-sou.md 確認農叟因在盤興口發現帶「何」字暗語的安民告示（落款「人口丁」=「何」字），判斷是大夏皇族血脈留下的召集信號，因此前往天福客棧。兩人皆為大夏舊勢力，但 source 未記載二人遊戲前直接相識。DM手册所述「赴汲洲接洽」細節未獲 source 確認。
+    <span class="badge bn">Needs DM手册 confirmation</span>
+  </li>
+  <li>
+    <strong class="r-family">★ 農叟（丁崧）↔ 嚴氏（何乃清）— 新確認</strong>：
+    nong-sou.md 確認：農叟曾親眼目睹何彥府宅滅門（十八口），追上掠走何彥幼女（= 何乃清 = 嚴氏）的兇手，以掌擊中其<strong>右肩</strong>，未能救出女童。情景二（20:55），農叟在天字三號房外認出此人背影，再次出掌攻擊，但此人以<strong>左手</strong>揚粉末使農叟昏迷。此人身份待確認，但「慣用左手」特徵與王順（龐萬金）吻合。（參照§5：嚴逸右肩紫黑掌印亦來自同一時段「不明身份者」攻擊。）
+    <span class="badge bm">Medium — 已確認關聯，施害者身份待確認</span>
+  </li>
+  <li>
+    <strong class="r-family">刁五兒 ↔ 冷降塵（已確認）</strong>：刁五兒（冷鈺）為冷佛林親生女兒；冷降塵為冷佛林義子——兩人是義兄妹關係（非「父親舊識」）。冷降塵認出刁五兒，說出真相並交付近衛軍兵符。<span class="badge bh">High — 已確認（source）</span>
+  </li>
+  <li>
+    <strong>賈三娘感情線</strong>：source（賈三娘劇本）確認<strong>無感情線</strong>。DM手册所述感情線為舊版 GM 文件推測，不獲 source 支持，已排除。<span class="badge bh">已確認（source）— 無感情線</span>
+  </li>
+  <li>
+    <strong>張猛（NPC）行動序列（已確認）</strong>：張猛=冷降塵（化名），鶴須軍大統領，幼名丁典。凶案環節扮演屍體，攜帶3張屍體線索卡＋1封書信；負責帶節奏、炒場。<span class="badge bh">High — 已確認（source）</span>
+  </li>
+  <li>
+    <strong>王思涵 ↔ 王順（已確認）</strong>：wang-si-han.md 確認，王思涵<strong>不知道</strong>王順（龐萬金）就是殺害其兄旭晨的兇手。她知道兇手慣用左手（由屍首割口判斷），但尚未將此線索聯繫到王順。她甚至親自將王順招入玄甲軍擔任小頭目。王順是左撇子——若王思涵得知真相，將觸發極強衝突。
+    <span class="badge bh">High — 已確認（source）</span>
+  </li>
+  <li>
+    <strong>王順 ↔ 農叟（已確認）</strong>：王順（龐萬金）已確認出賣農叟（丁崧）予綉衣使，並親手殺害玄甲軍統領旭晨（慣用左手）。現為玄甲軍小頭目兼綉衣使線人。恐懼農叟認出自己，設計在庫房燃赤霞香欲殺農叟。<span class="badge bh">High — 已確認（source）</span>
+  </li>
 </ul>
 </div><!-- /s2 -->
 
