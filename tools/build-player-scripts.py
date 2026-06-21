@@ -160,9 +160,13 @@ class PageBuilder:
                 m_q      = re.match(r'^(問題\s*\d+)\s*[：:]\s*(.*)', s)
                 is_prop  = (s.lstrip().startswith('【') or
                             bool(re.match(r'^\d+\s*兩', s)))
-                is_bullet = bool(re.match(r'^-\s+\S', s))
+                is_bullet    = bool(re.match(r'^-\s+\S', s))
+                is_scene_info = s.lstrip().startswith('◎')
 
-                if m_num:
+                if is_scene_info:
+                    self._flush_para()
+                    self._parts.append(f'    <p class="scene-info">{cleaned}</p>')
+                elif m_num:
                     if self._list_mode != 'ol':
                         self._flush_para()
                         self._list_mode = 'ol'
@@ -312,6 +316,7 @@ TEMPLATE = '''\
     .script-section li{{margin:.35rem 0}}
     .script-section .question-list{{list-style:none;padding-left:.2rem}}
     .script-section .question-list li{{margin-bottom:.55rem}}
+    .script-section .scene-info{{color:#5a3a1a;font-size:.9em;margin:.2rem 0;padding:.1rem .6rem;border-left:3px solid #c8b89a;background:#faf5ee}}
     .script-section .prop-list{{list-style:none;padding-left:.2rem}}
     .script-section .prop-list li::before{{content:'▫ ';color:#8b6040;font-size:.9em}}
     /* ── Mobile ───────────────────────────────── */
