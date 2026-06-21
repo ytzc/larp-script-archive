@@ -98,7 +98,7 @@
   <div class="step-block">
     <h3><span class="step-num">3</span>把提取結果合併進 md 整理稿</h3>
     <ul>
-      <li>找到 <code>docs/scripts/kou-xia/scripts/角色名.md</code> 中對應的 <code>[需要補拍]</code> 段落</li>
+      <li>找到 <code>materials/kou-xia/source/角色名.md</code> 中對應的 <code>[需要補拍]</code> 段落</li>
       <li>用新提取的文字替換，保留 <code>[需要人工確認]</code> 標記（如有低信心詞語）</li>
       <li>同步更新 <code>local-private/kou-xia/clean-md/script-book/角色名.md</code></li>
     </ul>
@@ -192,7 +192,7 @@
   <p>把 OCR 提取結果整合進現有 md 檔案時，可用此 Prompt 讓 Claude 自動合併。</p>
 
   <div class="copy-hint">複製此 Prompt（在 Claude Code 中使用）：</div>
-  <div class="prompt-block">請更新 `docs/scripts/kou-xia/scripts/[角色拼音].md` 中的 [頁碼] 段落。
+  <div class="prompt-block">請更新 `materials/kou-xia/source/[角色拼音].md` 中的 [頁碼] 段落。
 
 現有內容（[需要補拍] 佔位段落）在 ## 正文 的 ### [段落標題] 下。
 
@@ -276,7 +276,7 @@
 請根據以下規則更新角色 md 檔：
 
 1. 來源：input-text/[角色名]文字劇本.md
-2. 目標：docs/scripts/kou-xia/scripts/[slug].md
+2. 目標：materials/kou-xia/source/[slug].md
 3. 規則：
    - 完整使用 input-text 的內容，不保留舊 OCR 版本的任何不確定標記
    - 保留原文語言（簡體/繁體依原稿）

@@ -149,7 +149,7 @@ python3 tools/build-player-script-index.py
    更多模板（跨頁比對、印刷過淡頁面等）請見 GM 區的 [OCR 提示詞指引](docs/scripts/kou-xia/gm/ocr-prompt-guide.html)。
 
 3. **整合進 md 整理稿**
-   - 找到對應角色 `docs/scripts/<劇本>/scripts/角色名.md` 中的 `[需要補拍]` 段落
+   - 找到對應角色 `materials/<劇本>/source/角色名.md` 中的 `[需要補拍]` 段落
    - 用新提取的文字替換，保留低信心詞語的 `[需要人工確認]` 標記
    - 同步更新 `local-private/<劇本>/clean-md/script-book/角色名.md`
 
