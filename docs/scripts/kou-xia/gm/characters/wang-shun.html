@@ -6,55 +6,39 @@
 <title>王順 GM 筆記 — 寇侠</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;--gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;--paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;--shadow:0 1px 5px rgba(0,0,0,.1);}
-body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
-a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
-h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
-h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:#1c1c1c;background:#faf6ef}
+a{color:#664400;text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.2em;color:#664400;border-bottom:2px solid #664400;padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1em;color:#333;margin:1em 0 .4em;font-weight:600}
+h4{font-size:.93em;color:#555;margin:.8em 0 .2em}
 ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
 p{margin-bottom:.8em}
-.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+code{background:#f0f0f0;padding:.1em .4em;border-radius:3px;font-size:.88em}
+strong{font-weight:700}
+.gm-banner{position:sticky;top:0;z-index:999;background:#8b0000;color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
 .top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
 .top-nav .nav-links,.top-nav .page-nav{display:flex;gap:1em;align-items:center}
-.top-nav a{color:var(--red)}
+.top-nav a{color:#664400}
 .wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
-.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+.section{background:#fff;padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:0 1px 5px rgba(0,0,0,.1)}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
-.n-tip{background:var(--gold-lt);border-color:#e0a800}
-.n-dark{background:#2a1a00;color:#ffeebb;border-color:#a07000;padding:1em 1.4em}
+.n-tip{background:#fff8e0;border-color:#e0a800}
+.n-dark{background:#1a1a1a;color:#eee;border-color:#888;padding:1em 1.4em}
 .n-dark strong{color:#fff}
 table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
-th{background:#6b4800;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+th{background:#664400;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
 td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
-tr:nth-child(even) td{background:#fffaf0}
-.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
-.tag-todo{background:#fff3cd;color:#856404}
-.tag-high{background:#ffd5d5;color:#7a0000}
-.tag-conf{background:#d4edda;color:#155724}
-.char-hero{background:linear-gradient(135deg,#2a1a00,#6b4800);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
-.char-hero .hero-pub{font-size:.85em;color:#ffddaa;letter-spacing:.5px;margin-bottom:.3em}
-.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
-.char-hero .hero-alias{font-size:1em;color:#ffeebb;margin-bottom:.5em}
-.char-hero .hero-desc{font-size:.9em;color:#ffeecc;line-height:1.7}
-.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
-.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
-.hb-free{background:#444;color:#ddd;border:1px solid #777}
-.hb-loyal{background:#6b4800;color:#ffeebb;border:1px solid #a07000}
-.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
-.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
-.id-pub{border-color:#888;background:var(--gray-lt)}
-.id-true{border-color:#a07000;background:#fffaf0}
-.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
-.id-layer .layer-value{font-weight:700;font-size:1.05em}
-.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
-.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
-.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
-.stat-box .stat-label{font-size:.72em;color:var(--muted)}
-.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#6b4800}
+tr:nth-child(even) td{background:#fffae0}
+.char-hero{background:linear-gradient(135deg,#2a1a00, #664400);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.hero-sub{font-size:.88em;color:rgba(255,255,255,.72);margin:.2em 0}
+.hero-src{font-size:.82em;color:rgba(255,255,255,.6);margin-top:.5em}
+.footer-nav{margin-top:2em;font-size:.85em;color:#666;display:flex;gap:1em;flex-wrap:wrap}
+@media(max-width:600px){.top-nav{flex-direction:column;align-items:flex-start}.section{padding:1rem 1.1rem}}
 </style>
 </head>
 <body>
-<div class="gm-banner">🔒 GM Only — 王順認出農叟是本角色最關鍵的情節觸發點</div>
+<div class="gm-banner">🔒 GM Only — 龐萬金：出賣丁崧的叛徒、殺旭晨的凶手，設庫房赤霞香圈套針對農叟</div>
 <nav class="top-nav">
   <div class="nav-links">
     <a href="../../../../index.html">首頁</a> ›
@@ -63,92 +47,142 @@ tr:nth-child(even) td{background:#fffaf0}
     <a href="index.html">角色筆記</a> ›
     王順
   </div>
-  <div class="page-nav">
-    <a href="nong-sou.html">← 農叟</a>
-    <a href="diao-wu-er.html">刁五兒 →</a>
-  </div>
+  <div class="page-nav"><a href="nong-sou.html">← 農叟</a> <a href="diao-wu-er.html">刁五兒 →</a></div>
 </nav>
 <div class="wrapper">
 
   <div class="char-hero">
-    <div class="hero-pub">公開身份</div>
     <div class="hero-name">王順</div>
-    <div class="hero-alias">真名 龐萬金</div>
-    <div class="hero-desc">前朝武將丁崧（農叟）的舊部。認出農叟後，個人目標轉為保護舊主。無初始陣營，忠誠度是最大變數。</div>
-    <div class="hero-badges">
-      <span class="hero-badge hb-free">自由陣營</span>
-      <span class="hero-badge hb-loyal">義氣忠誠</span>
-    </div>
+    <div class="hero-sub">GM 專用筆記 · 最後更新：2026-06-17</div>
+    <div class="hero-src">來源：王順全.pdf &nbsp;·&nbsp; input-text/# 【王順】文字劇本.md</div>
   </div>
 
   <div class="notice n-dark">
-    <strong>GM Summary：</strong>
-    王順（龐萬金）的角色核心是「義氣」——他認出了他的舊主農叟（丁崧），從此個人目標轉為保護舊主。他的陣營選擇與農叟高度綁定。GM 要注意他認出農叟的時機，並確保這個情節在私聊環節自然發生。
+    <strong>GM Summary：</strong><br>
+    <strong>本文件為 GM-only 高度劇透資料。請勿讓玩家接觸。</strong>
   </div>
 
-  <h2>身份層次</h2>
-  <div class="id-layers">
-    <div class="id-layer id-pub">
-      <div class="layer-label">公開身份</div>
-      <div class="layer-value">王順</div>
-      <div class="layer-sub">普通旅人（偽裝）</div>
-    </div>
-    <div class="id-layer id-true">
-      <div class="layer-label">真實身份</div>
-      <div class="layer-value">龐萬金</div>
-      <div class="layer-sub">丁崧（農叟）的舊部<br>大夏舊朝武將之部下</div>
-    </div>
-  </div>
-
-  <h2>GM 戰鬥數值</h2>
-  <div class="stats">
-    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">30</div></div>
-    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">5</div></div>
-  </div>
-
-  <h2>陣營與勝利條件</h2>
+  <h2>角色真相一覽</h2>
   <div class="section">
-    <table>
-      <tr><th>項目</th><th>內容</th></tr>
-      <tr><td>初始陣營</td><td>無（自由），忠誠度取決於農叟的選擇</td></tr>
-      <tr><td>核心動機</td><td>認出農叟（丁崧）後→保護舊主</td></tr>
-      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 需人工核對原始劇本</span></td></tr>
-      <tr><td>結局A（寇俠勝）</td><td>隨農叟（舊主）行動，守護義氣</td></tr>
-      <tr><td>結局B（綉衣使勝）</td><td>隨農叟（舊主）同命</td></tr>
-    </table>
+<table>
+<tr><th>項目</th><th>內容</th></tr>
+<tr><td><strong>真實姓名</strong></td><td>龐萬金</td></tr>
+<tr><td><strong>化名</strong></td><td>王順</td></tr>
+<tr><td><strong>年齡</strong></td><td>43歲</td></tr>
+<tr><td><strong>慣用手</strong></td><td>左手（重要線索）</td></tr>
+<tr><td><strong>道具</strong></td><td>70兩銀兩卡、【武功卡－玄武劈】×1、【天賦卡－銷贓】×1</td></tr>
+<tr><td><strong>初始陣營</strong></td><td>可選任一陣營（雙面間諜，遊戲中段確認陣營）</td></tr>
+<tr><td><strong>核心身份</strong></td><td>玄甲軍小頭目（表面）＋綉衣使民間線人（隱藏）＝雙面間諜</td></tr>
+<tr><td><strong>最大秘密</strong></td><td>曾告發舊主丁崧；曾殺害玄甲軍統帥旭晨（旭敏芝的父親）</td></tr>
+</table>
   </div>
 
-  <h2>關係表</h2>
+  <h2>公開身份</h2>
   <div class="section">
-    <table>
-      <tr><th>關聯角色</th><th>王順視角</th><th>GM真相</th><th>信心度</th></tr>
-      <tr><td><strong>農叟</strong>（丁崧）</td><td>陌生人（一開始）→ 認出後：舊主</td><td>丁崧是他效忠的前朝武將</td><td><span class="tag tag-conf">High</span></td></tr>
-    </table>
+<p>王順對外自稱是江湖賣藝父女中的父親，與「女兒」<strong>王思涵</strong>（旭敏芝的化名）一同在天福客棧落腳。此為旭敏芝交付他的掩護任務——他二人以父女身份同行，旭敏芝並未告知他任務的具體內容。</p>
+<p><strong>玄甲軍小頭目身份</strong>：在寇俠陣營中，王順的公開身份是玄甲軍小頭目，效力於旭敏芝（王思涵）麾下，混得風生水起。</p>
   </div>
 
-  <h2>主持人提示</h2>
+  <h2>真實身份與背景（完整）</h2>
   <div class="section">
-    <div class="notice n-tip">
-      <strong>角色分配建議：</strong>中等難度，適合喜歡情感驅動的玩家——「義氣」是這個角色的核心。
-    </div>
-    <ul>
-      <li>私聊環節：王順認出農叟是關鍵情節觸發點，GM 要確保這個場景發生</li>
-      <li>他的陣營會跟著農叟走——如果農叟選擇寇俠，王順也跟；農叟選綉衣使，王順也跟</li>
-    </ul>
+<h3>一、告發舊主——龐萬金的第一次背叛</h3>
+<p>龐萬金曾是大夏重將<strong>丁崧</strong>麾下私人部曲中的一名小校。他素有更大的野心，苦於地位無法支撐。</p>
+<p>機會來了：丁崧違抗權臣鄭木之命，私放了已被囚禁的寇俠鶴須軍大統領冷佛林。龐萬金於是<strong>秘密聯絡綉衣使，告發了丁崧將軍</strong>。</p>
+<p>後果：</p>
+<ul><li>綉衣使以「叛國之罪」秘密逮捕丁崧，最終只定了流放之罪（丁崧在大夏朝中頗具威望，鄭木不敢張揚）</li><li>丁崧麾下私人部曲被強制解散</li><li>丁崧全家離散，其唯一的兒子也失蹤</li></ul>
+<p>然而，<strong>綉衣使對叛主之人並不信任</strong>，龐萬金僅成為外圍線人，並未獲得期盼的高位。心中極為不甘。</p>
+<h3>二、殺害旭晨——龐萬金的第二次出手</h3>
+<p>為向綉衣使證明自己的能力，龐萬金將目標定在寇俠玄甲軍上。</p>
+<p>龍瑞四年，寇俠聯軍攻打朝廷重鎮宛平府。龐萬金混入鶴須軍內部（他曾是丁崧部眾，熟悉鶴須軍的短柄手戟打法），<strong>穿著偷來的鶴須軍軍服，在亂軍中以左手持短柄手戟，擊殺了玄甲軍行軍統帥旭晨，並斬下首級</strong>。</p>
+<div class="notice n-tip"><strong>GM 關鍵線索</strong>：王順是左撇子，這次殺人也是用左手完成的。若其他玩家調查旭晨之死的傷口方向，這是可能暴露他的重要線索。</div>
+<p>結果：聯軍大敗，玄甲軍與鶴須軍因此役積怨極深，互不往來。綉衣使對龐萬金改觀，交付他新任務——潛入玄甲軍臥底。</p>
+<h3>三、改頭換面，潛入玄甲軍</h3>
+<p>龐萬金知道自己是旭晨的凶手，不敢輕易踏足玄甲軍。他在江湖遊蕩數年，刻意增胖至大腹便便，面貌大變，與昔日瘦削的小校判若兩人。隨後以化名「王順」，於麒安一年加入玄甲軍，並逐漸混成小頭目。</p>
+<p>接任旭晨手中軍權的是旭晨的<strong>親生妹妹旭敏芝</strong>。王順如今在旭敏芝麾下效力——<strong>他殺了她的父親，卻偽裝成她的部屬，如今甚至扮作她的「父親」外出執行任務</strong>。旭敏芝對此一無所知。</p>
+<h3>四、認出農叟——導致今晚凶案的根源</h3>
+<p>王順在盤興口鎮外探查時，遠遠看到一位走出農舍的老者，模樣與當年的丁崧十分相像。他立刻冷汗直流：<strong>若此人真是丁崧，丁崧一旦認出龐萬金，他的告發身份就會暴露，更可能遭到報復</strong>。</p>
+<p>他當機立斷，先寫了一封密信交由綉衣使：「逆夏重臣做農人狀隱於盤興口郊，必除之。」（刻意不寫明是誰，只說發現大夏重將）。密信如石沉大海，綉衣使未有行動。</p>
+<p>他決定親自動手，換上黑衣深夜出行，結果對方武功高強，王順竟無法匹敵，倉皇而逃——他甚至連對方使的什麼武功都沒認出來。</p>
+<p><strong>王順害怕農叟的根本原因</strong>：不是「農叟是舊主所以要保護」，而是「農叟若認出我是告發者，我就死定了」。這是完全出於自保的恐懼，而非忠義。</p>
   </div>
 
-  <h2>TODO / 待確認</h2>
+  <h2>凶案時間線（情景二 GM 版）</h2>
   <div class="section">
-    <table>
-      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
-      <tr><td>1</td><td>個人勝利條件</td><td>劇本頁7/8</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>2</td><td>認出農叟的具體方式（線索卡？台詞？）</td><td>劇本頁3/4</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>3</td><td>他對謀殺案的知情程度</td><td>劇本頁5</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>4</td><td>道具/技能卡</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
-    </table>
+<table>
+<tr><th>時間</th><th>事件</th></tr>
+<tr><td><strong>20:00 戌時</strong></td><td>回到房間，發現桌上匿名信：「我知道你是誰，若不想暴露，客棧庫房見。」大驚，收起信件，決定先下手為強。此前已在大堂桌上刻下綉衣使聯絡符號，躲在房中透過鏤空裝飾牆縫暗中觀察。</td></tr>
+<tr><td><strong>20:28 戌時</strong></td><td>從黑暗中看到一個人影在桌旁駐足，仔細觀察刻在桌上的印記，隨後上了二樓。尾隨，看到黑影進入二樓天字四號房前。</td></tr>
+<tr><td><strong>20:35 戌時</strong></td><td>從客棧後窗躍出，翻上屋頂，揭開天字四號房屋頂的瓦片窺探，看到刁五兒以淩厲攻勢拍了張猛幾掌。心想綉衣使恐怕靠不住，決定自己設陷阱解決農叟。</td></tr>
+<tr><td><strong>20:40 戌時</strong></td><td>從客棧櫃臺<strong>偷走庫房鑰匙</strong>。翻出後窗，繞到庫房外，用鑰匙打開庫房門，在庫房角落<strong>燃起綉衣使提供的迷香「赤霞」</strong>，並用木板封牢庫房後窗。計畫：引農叟進庫房→鎖門→迷香迷倒→再下手。埋伏在庫房外等候。</td></tr>
+<tr><td><strong>20:50 戌時</strong></td><td>看到一個人影閃入庫房，迅速<strong>趁其不注意鎖住庫房門</strong>。庫房內的人推了幾下門便沒了動靜，判斷迷藥快要生效。此時庫房後窗方向傳來碎裂聲，立刻快步回到自己房間。隨後擔心赤霞迷香暴露身份，決定再去一次取回。</td></tr>
+<tr><td><strong>21:15 亥時</strong></td><td>快到庫房時，看到雜院通往客棧內部的旁門處有一女子身影閃入客棧。走進庫房，<strong>發現地上趴著高大身形的客商張猛</strong>（非農叟！），貨物蓋了他一身。不敢久留，<strong>收回赤霞迷香</strong>後從後巷返回房間。一夜惴惴難安，直到小二余哥兒的叫喊聲才出門。</td></tr>
+</table>
+<div class="notice n-tip"><strong>GM 關鍵</strong>：進庫房的人是張猛，不是農叟。王順設下的陷阱殺錯了人（或張猛恰巧也進了庫房）。凶案的最終死亡結果需與其他角色線索交叉核對。</div>
   </div>
 
-  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
+  <h2>今日遊戲資訊</h2>
+  <div class="section">
+<h3>王順開場已知</h3>
+<ol><li>自己的真實身份是龐萬金（對外全程隱瞞）</li><li>農叟可能是丁崧——他無法百分之百確定，但懷疑極深</li><li>自己是綉衣使民間線人，同時是玄甲軍小頭目（雙面間諜）</li><li>旭敏芝（王思涵）不知道他的真實身份，也不知道他殺了她的父親旭晨</li><li>身上攜帶的黃色玉牌（玄甲軍身份憑証，他特意鑲了金邊）已丟失——懷疑在上次暗殺農叟時遺落，暗中留意尋回</li></ol>
+<h3>王順需要完成的任務（原文）</h3>
+<ol><li>不要主動暴露自己的真實身份</li><li>盡量隱瞞當年告發丁崧以及暗殺旭晨等事</li><li>盡量隱瞞自己最近前去暗殺農叟的事實</li><li>想辦法拿回自己的黃色玉牌</li></ol>
+<h3>雙面間諜機制</h3>
+<p>王順同時掌握綉衣使與寇俠兩套暗語手勢符號，可以在私聊中識別各陣營的人。<strong>他可以在任意時間點選擇最終陣營</strong>，直到情景三確認為止。GM 應在遊戲中段提醒他完成陣營選擇，並在情景三開始時交給他【絕學卡－替身牽制】1張。</p>
+  </div>
+
+  <h2>關係網（GM 完整版）</h2>
+  <div class="section">
+<h3>農叟（丁崧）— 核心關係</h3>
+<ul><li><strong>王順視角</strong>：昔日舊主，被自己告發而流放；若農叟認出他，王順將萬劫不復。他對農叟的情感是<strong>恐懼與自保</strong>，並非忠義愧疚。他試圖殺掉農叟正是出於這份恐懼。</li><li><strong>農叟視角</strong>：需與農叟劇本交叉核對——農叟是否已認出龐萬金？農叟對告發事件的掌握程度？</li><li><strong>GM 注意</strong>：舊版 GM 筆記將這段關係描述為「忠義愧疚驅動王順保護農叟」，這是<strong>完全錯誤</strong>的。王順的真實動力是恐懼農叟認出他，進而想殺掉農叟滅口。這是全場最重要的身份張力之一。</li></ul>
+<h3>旭敏芝（王思涵）— 偽父女關係</h3>
+<ul><li><strong>王順視角</strong>：旭敏芝是他在玄甲軍中的長官，此行任務中扮作他的「女兒」。她不知道王順是龐萬金，更不知道王順就是殺死她父親旭晨的凶手。</li><li><strong>GM 注意</strong>：舊版 GM 筆記誤稱此角色為「秀明」或「王秀明」，正確名稱為<strong>旭敏芝</strong>（化名王思涵）。若旭敏芝在遊戲中發現王順的真實身份，劇情衝突將爆炸性升級。</li></ul>
+<h3>旭晨（已故）</h3>
+<ul><li>旭晨是旭敏芝的親生父親，玄甲軍行軍統帥。</li><li><strong>龐萬金於龍瑞四年亂軍中以左手殺害了旭晨，並斬下首級。</strong></li><li>旭敏芝不知道父親是被誰殺的；王順的左撇子特徵是調查此案的潛在線索。</li></ul>
+<h3>綉衣使（組織）</h3>
+<ul><li><strong>王順視角</strong>：為了往上爬而投靠的組織，但始終未獲重用。現在內心搖擺——玄甲軍的安逸生活讓他對未來迷茫，究竟是繼續為綉衣使效力，還是在玄甲軍成就一番事業？</li><li><strong>GM 注意</strong>：王順對綉衣使的情感是「功利性」而非真正忠誠。他選擇陣營的邏輯完全是利益最大化，而非任何道義。</li></ul>
+<h3>張猛（死亡受害者）</h3>
+<ul><li>王順在庫房設下的赤霞迷香陷阱，最後進去的是張猛而非農叟。</li><li>王順是布置凶器（迷香）的人，但他並非刻意殺張猛——他的目標是農叟。</li><li><strong>GM 注意</strong>：這使王順的法律責任在凶案調查中極為複雜。他偷了鑰匙、燃了迷香、鎖了庫房門，事後取回了迷香銷毀證據（天賦卡「銷贓」的使用時機）。</li></ul>
+<h3>貾三娘（客棧老板）</h3>
+<ul><li>王順對貾三娘有好感，心想「若能打動她，以後做個伴也不錯」。</li><li>這條情感線可由 GM 視場上節奏選擇性觸發，用以豐富王順的人物層次。</li></ul>
+  </div>
+
+  <h2>結局分支</h2>
+  <div class="section">
+<table>
+<tr><th>陣營選擇</th><th>結局方向</th></tr>
+<tr><td><strong>選擇寇俠</strong></td><td>以玄甲軍小頭目身份全力幫助寇俠陣營；但農叟（丁崧）若認出他，仍是最大的內部炸彈</td></tr>
+<tr><td><strong>選擇綉衣使</strong></td><td>以線人身份歸位，繼續為朝廷服務；但他殺害旭晨的秘密若在此時暴露，旭敏芝將成死敵</td></tr>
+</table>
+<p>王順的角色核心在於：他是一個<strong>完全以利益為驅動的雙面間諜</strong>，「忠誠」對他只是工具。他的最終勝利條件是「活下來、獲得榮華富貴」。</p>
+  </div>
+
+  <h2>GM 主持注意事項</h2>
+  <div class="section">
+<ol><li><strong>農叟身份的張力</strong>：王順最核心的壓力源是農叟是否認出他。GM 應在遊戲中段視情況給農叟玩家提示，這是全場最重要的一對人物關係。</li></ol>
+<ol><li><strong>凶案的灰色地帶</strong>：王順布置了凶器卻殺錯人，還用「銷贓」天賦卡取回了迷香。這使他在凶案調查中處境極為微妙——他既是嫌疑人，又自稱受害者（收到匿名信）。GM 可用這層模糊性製造緊張感。</li></ol>
+<ol><li><strong>左撇子線索</strong>：旭晨之死的傷口若被玩家檢驗，「左手」是可能暴露王順的線索。GM 可視情況在凶案調查環節植入此線索。</li></ol>
+<ol><li><strong>玉牌道具</strong>：王順的黃色鑲金玉牌（玄甲軍身份證）在暗殺農叟時遺落，若其他玩家找到此物，可成為重要的身份揭露道具。</li></ol>
+<ol><li><strong>雙面間諜機制</strong>：王順同時掌握兩套暗語手勢，GM 需確保在私聊環節說明此機制的使用規則，讓玩家能充分利用這個角色優勢。</li></ol>
+<ol><li><strong>陣營選擇時機</strong>：情景三開始時提醒王順完成陣營選擇，交付【絕學卡－替身牽制】1張，並強調不要讓敵對陣營知道此技能。</li></ol>
+  </div>
+
+  <h2>世界觀速查</h2>
+  <div class="section">
+<table>
+<tr><th>名稱</th><th>說明</th></tr>
+<tr><td>大夏</td><td>已滅亡的前朝；丁崧是大夏重將</td></tr>
+<tr><td>起朝</td><td>現在朝廷（前稱大順；權臣鄭木篡位後改國號為「起」）；設有綉衣使</td></tr>
+<tr><td>綉衣使</td><td>起朝秘密特務組織；王順是其民間線人</td></tr>
+<tr><td>寇俠</td><td>大夏皇族後裔及盟友組成的復國地下組織</td></tr>
+<tr><td>玄甲軍</td><td>寇俠旗下一支隊伍；旭晨（已故）曾任統帥，現由旭敏芝掌部分軍權</td></tr>
+<tr><td>鶴須軍</td><td>寇俠旗下另一支隊伍；大統領冷降塵（已死）；與玄甲軍長期不和</td></tr>
+<tr><td>農叟</td><td>丁崧的隱居化名；王順的舊主，也是王順最恐懼的人</td></tr>
+<tr><td>龍翔四年</td><td>劇本發生的年代背景</td></tr>
+<tr><td>旭晨</td><td>玄甲軍已故統帥，旭敏芝之父；被王順以左手殺害</td></tr>
+</table>
+  </div>
+
+  <div class="footer-nav">
     <a href="nong-sou.html">← 農叟</a> &nbsp;|&nbsp;
     <a href="index.html">角色列表</a> &nbsp;|&nbsp;
     <a href="diao-wu-er.html">刁五兒 →</a>

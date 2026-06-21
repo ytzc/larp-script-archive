@@ -3,119 +3,181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>張猛（NPC）GM 筆記 — 寇侠</title>
+<title>張猛 GM 筆記 — 寇侠</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;--gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;--paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;--shadow:0 1px 5px rgba(0,0,0,.1);}
-body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
-a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
-h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
-h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:#1c1c1c;background:#faf6ef}
+a{color:#444444;text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.2em;color:#444444;border-bottom:2px solid #444444;padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1em;color:#333;margin:1em 0 .4em;font-weight:600}
+h4{font-size:.93em;color:#555;margin:.8em 0 .2em}
 ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
 p{margin-bottom:.8em}
-.gm-banner{position:sticky;top:0;z-index:999;background:#555;color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #888}
+code{background:#f0f0f0;padding:.1em .4em;border-radius:3px;font-size:.88em}
+strong{font-weight:700}
+.gm-banner{position:sticky;top:0;z-index:999;background:#8b0000;color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
 .top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
 .top-nav .nav-links,.top-nav .page-nav{display:flex;gap:1em;align-items:center}
-.top-nav a{color:var(--red)}
+.top-nav a{color:#444444}
 .wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
-.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+.section{background:#fff;padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:0 1px 5px rgba(0,0,0,.1)}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
-.n-tip{background:var(--gold-lt);border-color:#e0a800}
-.n-gray{background:#f0f0f0;border-color:#888;color:#444}
+.n-tip{background:#fff8e0;border-color:#e0a800}
+.n-dark{background:#1a1a1a;color:#eee;border-color:#888;padding:1em 1.4em}
+.n-dark strong{color:#fff}
 table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
-th{background:#555;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+th{background:#444444;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
 td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
 tr:nth-child(even) td{background:#f5f5f5}
-.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
-.tag-todo{background:#fff3cd;color:#856404}
-.tag-npc{background:#555;color:#fff}
-.char-hero{background:linear-gradient(135deg,#333,#666);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
-.char-hero .hero-pub{font-size:.85em;color:#ccc;letter-spacing:.5px;margin-bottom:.3em}
-.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
-.char-hero .hero-alias{font-size:1em;color:#ddd;margin-bottom:.5em}
-.char-hero .hero-desc{font-size:.9em;color:#eee;line-height:1.7}
-.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
-.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
-.hb-npc{background:#555;color:#fff;border:1px solid #888}
+.char-hero{background:linear-gradient(135deg,#222222, #555555);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.hero-sub{font-size:.88em;color:rgba(255,255,255,.72);margin:.2em 0}
+.hero-src{font-size:.82em;color:rgba(255,255,255,.6);margin-top:.5em}
+.footer-nav{margin-top:2em;font-size:.85em;color:#666;display:flex;gap:1em;flex-wrap:wrap}
+@media(max-width:600px){.top-nav{flex-direction:column;align-items:flex-start}.section{padding:1rem 1.1rem}}
 </style>
 </head>
 <body>
-<div class="gm-banner">🎭 GM 扮演 NPC — 張猛由 GM 或助理扮演，無玩家版本</div>
+<div class="gm-banner">🔒 GM Only — NPC 冷降塵（幼名丁典）：農叟之子，屍體藏 3 張線索卡 + 1 封書信</div>
 <nav class="top-nav">
   <div class="nav-links">
     <a href="../../../../index.html">首頁</a> ›
     <a href="../../index.html">寇侠</a> ›
     <a href="../index.html">GM Area</a> ›
     <a href="index.html">角色筆記</a> ›
-    張猛（NPC）
+    張猛
   </div>
-  <div class="page-nav">
-    <a href="diao-wu-er.html">← 刁五兒</a>
-    <a href="index.html">角色列表</a>
-  </div>
+  <div class="page-nav"><a href="diao-wu-er.html">← 刁五兒</a> <span></span></div>
 </nav>
 <div class="wrapper">
 
   <div class="char-hero">
-    <div class="hero-pub">NPC — GM 或助理扮演</div>
     <div class="hero-name">張猛</div>
-    <div class="hero-alias">NPC 角色</div>
-    <div class="hero-desc">由 GM 或助理扮演的 NPC。無玩家版本。具體功能和台詞需從原始 PDF 確認。</div>
-    <div class="hero-badges">
-      <span class="hero-badge hb-npc">NPC</span>
-    </div>
+    <div class="hero-sub">GM 專用筆記 · 最後更新：2026-06-17</div>
+    <div class="hero-src">來源：張猛全.pdf &nbsp;·&nbsp; input-text/# 【張猛】文字劇本.md</div>
   </div>
 
-  <div class="notice n-gray">
-    <strong>GM Summary：</strong>
-    張猛是 GM 或助理扮演的 NPC 角色，不分配給玩家。他的具體功能（是否提供線索、是否有台詞、在哪個場景出現）需從原始劇本 PDF 確認。本頁資訊有限，以 OCR 結果為準。
+  <div class="notice n-dark">
+    <strong>GM Summary：</strong><br>
+    <strong>重要</strong>：張猛為 NPC，由 GM 或助理扮演，<strong>無玩家版本</strong>。本文件僅供 GM 使用。<br>
+    本文件已以 <code>input-text/# 【張猛】文字劇本.md</code> 全面核對補強（2026-06-17）。
   </div>
 
-  <h2>基本資訊</h2>
+  <h2>GM Summary（GM 扮演指引）</h2>
   <div class="section">
-    <table>
-      <tr><th>項目</th><th>內容</th></tr>
-      <tr><td>類型</td><td>NPC <span class="tag tag-npc">GM 扮演</span></td></tr>
-      <tr><td>性別</td><td>男</td></tr>
-      <tr><td>劇本頁數</td><td>7 頁（較其他角色少）</td></tr>
-      <tr><td>玩家版本</td><td>無（NPC 不分配給玩家）</td></tr>
-      <tr><td>HP / 武力</td><td>未列於 DM手册戰鬥數值表（NPC 可能不參與搏殺）</td></tr>
-    </table>
+<p>張猛是本場遊戲的主要 NPC，由 GM 或指定助理扮演。扮演者以<strong>化名「張猛」</strong>出場（真實身份為<strong>冷降塵</strong>，幼名<strong>丁典</strong>）。外觀特徵：客商打扮，27歲。</p>
+<p>GM 扮演此角色時需注意：</p>
+<ul><li>張猛的真實身份是冷降塵（鶴須軍大統領），但在本次任務中以「張猛」的化名行動。</li><li>公開身份：客商，和金四刀、刁五兒一同到天福客栈「採購鶴紅草」。</li><li><strong>核心任務：帶節奏、炒場、增強現場活躍度</strong>。</li><li>在「凶案環節」，張猛扮演<strong>屍體</strong>：攜帶3張「屍體線索」卡及一封書信，分別藏於身上不同位置，讓玩家搜查發現。完成線索搜證後，NPC 任務結束，退場。</li></ul>
   </div>
 
-  <h2>NPC 功能（待確認）</h2>
+  <h2>Public Identity（公開身份）</h2>
   <div class="section">
-    <div class="notice n-tip">
-      以下為待從原始劇本 PDF OCR 確認的項目：
-    </div>
-    <ul>
-      <li>張猛在遊戲中的具體角色功能 <span class="tag tag-todo">TODO — OCR 進行中</span></li>
-      <li>他出現在哪些場景 <span class="tag tag-todo">TODO</span></li>
-      <li>他需要傳遞哪些信息給玩家 <span class="tag tag-todo">TODO</span></li>
-      <li>他是否有預設台詞或劇本說詞 <span class="tag tag-todo">TODO</span></li>
-      <li>他與謀殺案的關聯 <span class="tag tag-todo">TODO</span></li>
-    </ul>
+<ul><li><strong>化名</strong>：張猛</li><li><strong>對外介紹</strong>：客商，和另外兩個客商一起四處收貨，此次來到盤興口採購珍貴藥材鶴紅草</li><li><strong>年齡</strong>：27歲（約）</li><li><strong>性別</strong>：男</li><li><strong>同伴</strong>：金四刀（金四刀）、刁五兒</li></ul>
   </div>
 
-  <h2>TODO / 待確認</h2>
+  <h2>True Identity（真實身份）</h2>
   <div class="section">
-    <table>
-      <tr><th>#</th><th>待確認事項</th><th>來源</th></tr>
-      <tr><td>1</td><td>張猛的具體 NPC 功能和劇情定位</td><td>劇本全文（OCR 進行中）</td></tr>
-      <tr><td>2</td><td>他出現的場景和時機</td><td>劇本 + DM手册</td></tr>
-      <tr><td>3</td><td>他是否有預設台詞</td><td>劇本</td></tr>
-      <tr><td>4</td><td>他的公開身份說明</td><td>封面頁</td></tr>
-      <tr><td>5</td><td>他在陣營搏殺中的角色（是否出現）</td><td>DM手册</td></tr>
-    </table>
+<table>
+<tr><th>欄位</th><th>真相</th></tr>
+<tr><td>真實姓名</td><td>冷降塵</td></tr>
+<tr><td>幼名</td><td><strong>丁典</strong>（非「丁勇」，舊 OCR 誤讀）</td></tr>
+<tr><td>化名</td><td><strong>張猛</strong>（非「孟猛」，舊 OCR 誤讀）</td></tr>
+<tr><td>職位</td><td>鶴須軍大統領</td></tr>
+<tr><td>義父</td><td><strong>冷佛林</strong>（非「冷俠林」，舊 OCR 誤讀），原鶴須軍首領，已故</td></tr>
+<tr><td>親生父親</td><td>丁崧（即農叟），大夏重臣</td></tr>
+<tr><td>義妹</td><td>冷鈺（即刁五兒），冷佛林獨女</td></tr>
+<tr><td>武功</td><td><strong>缚阳掌</strong>（非「搏阳锤/搏陽錘」，舊 OCR 誤讀），由親生父親丁崧傳授</td></tr>
+<tr><td>軍隊</td><td><strong>鶴須軍</strong>（非「鶴駕軍/鶴翼軍」，舊 OCR 誤讀）</td></tr>
+</table>
   </div>
 
-  <p style="font-size:.85em;color:var(--muted);margin-top:1.5em">
-    本頁將在 OCR 完成後更新。請等待 `local-private/kou-xia/organized/gm/characters/zhang-meng.md` 完成後補充。
-  </p>
+  <h2>Background（背景故事）</h2>
+  <div class="section">
+<p>冷降塵幼名丁典，親生父親為大夏王朝重臣及名將丁崧。大夏末年，權臣鄭木（郑木）把持朝政，民間興起了許多反抗鄭木的武裝勢力，被稱為「寇侠」。</p>
+<p>丁崧抓住了寇侠鶴須軍首領冷佛林，卻發現對方義薄雲天、心懷大義，二人多次交談成為好友，最終丁崧決定<strong>私放冷佛林</strong>。此事被丁崧手下告發，鄭木得知後震怒，下令流放丁氏全家，派綉衣使押送。丁崧（農叟）拼盡全力將丁典（冷降塵）救出，並把他托付給冷佛林。父子就此別離。</p>
+<p>冷佛林收丁典為義子，改名冷降塵，在鶴須軍中成長。冷佛林獨女冷鈺（刁五兒）小冷降塵五歲，二人情同親兄妹。</p>
+<p><strong>冷佛林之死</strong>：冷降塵21歲時，冷佛林秘密聯繫天下寇侠首領籌劃大事，途中遭伏擊。一名蒙面刺客用帶毒匕首刺傷冷佛林右肋，冷降塵一掌（缚阳掌）打在刺客<strong>左肩</strong>上，刺客落荒而逃，冷佛林毒發身亡。</p>
+<p><strong>宛平大戰</strong>：繼承鶴須軍大統領後，冷降塵與天下寇侠軍聯合攻打宛平府，然而與玄甲軍起了嫌隙，合作不默契，大敗。玄甲軍統帥旭晨在此役中戰死，冷降塵遠遠看見一個穿鶴須軍軍服的男子割下旭晨首級後趁亂逃走，知道是有人渾水摸魚，鶴須軍軍紀嚴明，絕不會行此卑鄙之事。</p>
+<p><strong>金四刀（金四刀）</strong>：重建鶴須軍時，冷降塵廣納人才，結識了表現出色的年輕將領金四刀，知道其真實身份是前朝大夏皇族旁支宗親，真名何乃武。給了他鶴須軍將領才有的碧綠玉佩（刻有羽毛痕跡），軍中只有二人各持一塊。</p>
+<p><strong>刁五兒</strong>：冷降塵為自身安全找了武功高強的近衛—刁五兒（身材矮小，黑布蒙面，身形佝僂，終日陰鬱）。<strong>冷降塵收到密信後，知道刁五兒其實是失蹤多年的義妹冷鈺</strong>，遊戲中將在第一輪私聊快結束時傳遞近衛軍兵符給她。</p>
+  </div>
 
-  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
+  <h2>今日行動（遊戲各場景）</h2>
+  <div class="section">
+<h3>情景一入場</h3>
+<p>和金四刀、刁五兒一同到達天福客棧，三人皆作客商打扮，以「張猛」化名掩護。</p>
+<h3>NPC 最重要任務：帶節奏</h3>
+<ul><li>幫助引導場上氣氛，積極參與公聊互動</li><li>在安全情況下向各角色私聊透露信息（詳見下方話術指引）</li><li>在第一輪私聊快結束時完成兵符傳遞</li></ul>
+<h3>凶案時間線（張猛視角）</h3>
+<table>
+<tr><th>時間</th><th>事件</th></tr>
+<tr><td>20:20</td><td>有人敲門（刁五兒傳遞的消息？）</td></tr>
+<tr><td>20:30</td><td>冷降塵去天字四號房找刁五兒，說「冷钰妹子，你要装到几时」，二人打鬥，冷降塵給刁五兒近衛軍兵符</td></tr>
+<tr><td>20:50</td><td>冷降塵被送出 / 離開（此後遇害）</td></tr>
+</table>
+  </div>
+
+  <h2>兵符傳遞台詞（劇本原文）</h2>
+  <div class="section">
+<h3>將虎贲軍兵符交予金四刀：</h3>
+<div class="notice n-tip">「世子若想復興大夏，單靠我鶴須軍的力量是遠遠不夠的。這兩塊兵符，一個是鶴須虎贲衛兵符，一個是近衛軍兵符。如今的鶴須軍聲勢大漲，都是世子的功勞，冷某是不敢搶功的。更何況世子乃大夏正統，冷某更是會全力支持世子的大計。只是鶴須軍原本就是冷某代義父領導，如今我已經找到了他的後人，這塊近衛軍兵符，自然要交到他後人的手上。至於此人是否能像冷某一樣支持世子，就要看世子的造化了。」</div>
+<h3>將近衛軍兵符交予刁五兒：</h3>
+<div class="notice n-tip">「這是我鶴須軍的近衛軍兵符，今日我將鶴須軍的半數軍權交給你。」</div>
+  </div>
+
+  <h2>私聊話術指引（各角色）</h2>
+  <div class="section">
+<table>
+<tr><th>角色</th><th>話術要點</th></tr>
+<tr><td>刁五兒</td><td>告知：「我收到密信，知道了你是我的義妹冷鈺。我想告訴你義父絕不是我殺的。義父當年被一個蒙面刺客刺傷右肋，由於匕首帶毒，義父毒發身亡。凶手逃走時左肩中了我的缚阳掌。」<strong>不要告訴其他玩家刁五兒身份。</strong></td></tr>
+<tr><td>王思涵</td><td>若詢問旭晨之死：「我知道你是為何而來，不過我並非殺害旭晨的真兇，我鶴須軍中也不會有人幹出如此卑鄙的事。當年之事是有人借機挑撥，陷害於鶴須軍。」</td></tr>
+<tr><td>農叟</td><td>「我對你有種莫名的親切感。」若農叟提到小木劍可以父子相認。若農叟沒有透露兒子名字丁典、也沒有提到小木劍，可以不作引導。相認之後可暗示「當年的事情是被他的部下陷害。」</td></tr>
+<tr><td>嚴氏/嚴逸</td><td>聊江湖消息：「江湖上有傳聞，當年前朝皇族何氏，一夜之間被滅門。當時何氏夫婦還有一大家子的尸體都被發現了，現場唯獨少了他們家兒子和女兒的尸體，不知道是不是另有造化。」</td></tr>
+<tr><td>賈三娘</td><td>若提起殺冷佛林之事：「我覺得你長得很眼熟。」其他玩家問起賈三娘：「我看這位老板娘長得十分眼熟，也許是我曾經見過的人。」</td></tr>
+<tr><td>王順</td><td>「這個人頗有城府，不可小覷。」（劇情上已了解其所作所為，但無確凿證據）</td></tr>
+<tr><td>金四刀</td><td>可提及：「我知道你的身份，是大夏後裔一族，何氏的血脈。」對其他玩家不說出此內容。</td></tr>
+</table>
+<p><strong>不需要隱藏、可透露給所有人的線索：</strong></p>
+<ul><li>「我在盤興口發現了前朝大夏將領的蹤跡，應該就在我們之中。」</li><li>「這些日子天福客棧會有綉衣使來接頭。」</li><li>「我知道現在客棧中應該有玄甲軍的實際統帥，你知道是誰嗎？」</li><li>「何氏滅門慘案我有所耳聞，據說當時何氏夫婦還有一大家子的尸體都被發現了，現場唯獨少了他們家兒子和女兒的尸體。」</li><li>可提及丁崧往事，用「聽說過嗎，前朝大夏有個將領丁崧是被部下陷害的」話術。</li></ul>
+  </div>
+
+  <h2>凶案環節（情景二）</h2>
+  <div class="section">
+<p>本環節唯一任務：<strong>扮演屍體</strong>。</p>
+<ul><li>準備 3 張《屍體線索》和一封書信</li><li>連同之前獲得的所有卡片獎勵和銀兩，同時藏在身上不同的位置</li><li>屍體搜證環節完成真人線索搜證後，NPC 任務到此結束，<strong>退場</strong></li></ul>
+  </div>
+
+  <h2>Key Relationships</h2>
+  <div class="section">
+<table>
+<tr><th>角色</th><th>關係</th><th>GM 真相</th></tr>
+<tr><td>丁崧（農叟）</td><td>親生父親（不知對方在場）</td><td>農叟進庫房被鎖，凌晨才破窗逃出；父子可能在本場相認</td></tr>
+<tr><td>冷佛林（已故）</td><td>義父，鶴須軍前首領</td><td>被帶毒匕首刺死，左肩中缚阳掌—凶手很可能是王順（龐萬金）左手慣用者</td></tr>
+<tr><td>冷鈺（刁五兒）</td><td>義妹，冷佛林獨女</td><td>冷降塵已認出其真實身份，將傳遞近衛軍兵符</td></tr>
+<tr><td>金四刀（金四刀）</td><td>部將，知悉其真實身份</td><td>何乃武，大夏皇族旁支，冷降塵會傳遞虎贲衛兵符</td></tr>
+<tr><td>王順（龐萬金）</td><td>已知其所作所為（無確凿證據）</td><td>王順告發了冷降塵的父親丁崧，殺了旭晨，還設陷阱謀害冷降塵</td></tr>
+<tr><td>嚴氏（栾绛）</td><td>真正的凶手</td><td>嚴氏奉嚴逸之命殺死冷降塵</td></tr>
+<tr><td>嚴逸</td><td>幕後主謀</td><td>指使嚴氏謀殺冷降塵</td></tr>
+</table>
+  </div>
+
+  <h2>道具清單</h2>
+  <div class="section">
+<ul><li><strong>屍體線索卡</strong> × 3（分藏身上不同位置）</li><li><strong>書信</strong> × 1（分藏身上不同位置）</li><li>以上道具在凶案環節前備齊</li></ul>
+<h3>書信原文</h3>
+<div class="notice n-tip">降塵兄，中元節將至，可否請君至玄甲軍中，共祭宛平大戰數萬兄弟，且當前朝廷昏庸，當盡快定下再舉之策。此乃密謀，我等將化身前往盤興口天福客棧等待降塵兄。</div>
+<p><strong>GM注：</strong> 書信落款為玄甲軍大統領（旭敏芝，即王思涵），是引冷降塵赴約的「鴻門宴」邀請函。玩家在搜查屍體時可發現此信，作為凶案線索之一。</p>
+  </div>
+
+  <h2>Hosting Notes</h2>
+  <div class="section">
+<ul><li>NPC 全程以「張猛」化名，對外不暴露鶴須軍大統領身份</li><li><strong>一定不要暴露金四刀是大夏何氏皇族後裔</strong></li><li>手勢符號可畫到便簽上使用，也可在對方掌心直接作畫，遊戲全程可用</li><li>與農叟相認時機視玩家互動而定，不強制推動；農叟提到小木劍則可相認</li><li>江湖密行環節：作為普通玩家參與，獲勝正常抽取獎勵</li></ul>
+  </div>
+
+  <div class="footer-nav">
     <a href="diao-wu-er.html">← 刁五兒</a> &nbsp;|&nbsp;
-    <a href="index.html">角色列表</a>
+    <a href="index.html">角色列表</a> &nbsp;|&nbsp;
+    <span></span>
   </div>
 </div>
 </body>

@@ -6,79 +6,39 @@
 <title>嚴氏 GM 筆記 — 寇侠</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
-  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
-  --gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;
-  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
-  --shadow:0 1px 5px rgba(0,0,0,.1);
-}
-body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
-a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
-h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
-h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:#1c1c1c;background:#faf6ef}
+a{color:#7a0030;text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.2em;color:#7a0030;border-bottom:2px solid #7a0030;padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1em;color:#333;margin:1em 0 .4em;font-weight:600}
+h4{font-size:.93em;color:#555;margin:.8em 0 .2em}
 ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
 p{margin-bottom:.8em}
-
-.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+code{background:#f0f0f0;padding:.1em .4em;border-radius:3px;font-size:.88em}
+strong{font-weight:700}
+.gm-banner{position:sticky;top:0;z-index:999;background:#8b0000;color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
 .top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
-.top-nav .nav-links{display:flex;gap:1em;align-items:center}
-.top-nav .page-nav{display:flex;gap:1em;align-items:center;color:var(--muted)}
-.top-nav a{color:var(--red)}
-
+.top-nav .nav-links,.top-nav .page-nav{display:flex;gap:1em;align-items:center}
+.top-nav a{color:#7a0030}
 .wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
-.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
-
+.section{background:#fff;padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:0 1px 5px rgba(0,0,0,.1)}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
-.n-danger{background:var(--red-lt);border-color:var(--red-b)}
-.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
-.n-tip{background:var(--gold-lt);border-color:#e0a800}
-.n-dark{background:#2d0000;color:#ffcccc;border-color:#ff4444;padding:1em 1.4em}
+.n-tip{background:#fff8e0;border-color:#e0a800}
+.n-dark{background:#1a1a1a;color:#eee;border-color:#888;padding:1em 1.4em}
 .n-dark strong{color:#fff}
-
 table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
-th{background:var(--red);color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+th{background:#7a0030;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
 td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
-tr:nth-child(even) td{background:#faf5ee}
-
-.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
-.tag-high{background:#ffd5d5;color:#7a0000}
-.tag-conf{background:#d4edda;color:#155724}
-.tag-info{background:#cce;color:#003}
-
-/* character hero */
-.char-hero{background:linear-gradient(135deg,#2d0000,#5a0000);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
-.char-hero .hero-pub{font-size:.85em;color:#ffaaaa;letter-spacing:.5px;margin-bottom:.3em}
-.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
-.char-hero .hero-alias{font-size:1em;color:#ffcccc;margin-bottom:.5em}
-.char-hero .hero-desc{font-size:.9em;color:#ffdddd;line-height:1.7}
-.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
-.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
-.hb-killer{background:#8b0000;color:#ffcccc;border:1px solid #c44}
-.hb-xiu{background:#003399;color:#cce;border:1px solid #44c}
-.hb-easter{background:#664400;color:#ffe0a0;border:1px solid #a07000}
-
-/* identity layers */
-.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
-.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
-.id-pub{border-color:#888;background:var(--gray-lt)}
-.id-code{border-color:var(--blue-b);background:var(--blue-lt)}
-.id-true{border-color:#884400;background:#fffff0}
-.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
-.id-layer .layer-value{font-weight:700;font-size:1.05em}
-.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
-
-/* stat bar */
-.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
-.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
-.stat-box .stat-label{font-size:.72em;color:var(--muted)}
-.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#5a0000}
+tr:nth-child(even) td{background:#fff0f5}
+.char-hero{background:linear-gradient(135deg,#2a0010, #7a0030);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.hero-sub{font-size:.88em;color:rgba(255,255,255,.72);margin:.2em 0}
+.hero-src{font-size:.82em;color:rgba(255,255,255,.6);margin-top:.5em}
+.footer-nav{margin-top:2em;font-size:.85em;color:#666;display:flex;gap:1em;flex-wrap:wrap}
+@media(max-width:600px){.top-nav{flex-direction:column;align-items:flex-start}.section{padding:1rem 1.1rem}}
 </style>
 </head>
 <body>
-
-<div class="gm-banner">🔒 GM Only — 嚴氏包含完整凶手真相與最大彩蛋，請勿分享給玩家</div>
-
+<div class="gm-banner">🔒 GM Only — 凶手：嚴氏（何乃清）受嚴逸指使殺冷降塵，兄妹壓軸彩蛋另一半</div>
 <nav class="top-nav">
   <div class="nav-links">
     <a href="../../../../index.html">首頁</a> ›
@@ -87,219 +47,143 @@ tr:nth-child(even) td{background:#faf5ee}
     <a href="index.html">角色筆記</a> ›
     嚴氏
   </div>
-  <div class="page-nav">
-    <a href="index.html">← 角色列表</a>
-    <a href="wang-si-han.html">王思涵 →</a>
-  </div>
+  <div class="page-nav"><a href="yan-yi.html">← 嚴逸</a> <a href="jia-san-niang.html">賈三娘 →</a></div>
 </nav>
-
 <div class="wrapper">
 
-  <div class="notice n-info" style="margin-bottom:1em;font-size:.85em">
-    <strong>來源：</strong> 已依 <code>input-text/嚴氏文字劇本.md</code> 更新（2026-06-17）。所有 TODO 標記已消除，以人工整理版取代。
-  </div>
-
   <div class="char-hero">
-    <div class="hero-pub">公開身份</div>
     <div class="hero-name">嚴氏</div>
-    <div class="hero-alias">代號 栾绛 · 真名 何乃清</div>
-    <div class="hero-desc">22歲，嚴逸之妻，臉上有紅色疤痕（赤紗遮擋），脖頸有青色胎記（辨認線索）。</div>
-    <div class="hero-badges">
-      <span class="hero-badge hb-killer">凶手</span>
-      <span class="hero-badge hb-xiu">綉衣使</span>
-      <span class="hero-badge hb-easter">最大彩蛋核心</span>
-    </div>
+    <div class="hero-sub">GM 專用筆記 · 最後更新：updated from input-text 2026-06-17</div>
+    <div class="hero-src">來源：嚴氏全.pdf &nbsp;·&nbsp; input-text/嚴氏文字劇本.md</div>
   </div>
 
   <div class="notice n-dark">
-    <strong>GM Summary：</strong>
-    嚴氏是本遊戲複雜度最高、情感衝擊最強的角色。她同時是<strong>凶手</strong>（亥時21:10用毒匕首插入冷降塵背心）、<strong>悲劇受害者</strong>（幼年全家被嚴逸所殺，臉被嚴逸掌風所傷，卻被告知是「胎記」，從此被訓練成殺手），以及<strong>最大彩蛋的核心</strong>（金四刀之失散妹妹何乃清——雙方均不知情）。
+    <strong>GM Summary：</strong><br>
+    <strong>GM Only — 本文件包含嚴氏所有秘密、真實身份、任務內容及GM知道但玩家不知道的全部資訊。</strong><br>
+    <strong>已依 input-text/嚴氏文字劇本.md 更新，所有 TODO 標記已消除。</strong>
   </div>
 
-  <h2>身份層次</h2>
-  <div class="id-layers">
-    <div class="id-layer id-pub">
-      <div class="layer-label">公開身份</div>
-      <div class="layer-value">嚴氏</div>
-      <div class="layer-sub">嚴逸之妻，普通女性</div>
-    </div>
-    <div class="id-layer id-code">
-      <div class="layer-label">綉衣使代號</div>
-      <div class="layer-value">栾绛（Luan Jiàng）</div>
-      <div class="layer-sub">綉衣使殺手，嚴逸直屬</div>
-    </div>
-    <div class="id-layer id-true">
-      <div class="layer-label">真實身份（本人不知）</div>
-      <div class="layer-value">何乃清</div>
-      <div class="layer-sub">大夏皇族後裔<br>金四刀（何乃武）的失散妹妹</div>
-    </div>
-  </div>
-
-  <h2>GM 戰鬥數值</h2>
-  <div class="stats">
-    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">20</div></div>
-    <div class="stat-box"><div class="stat-label">陣營</div><div class="stat-val">自由</div></div>
-  </div>
-
-  <h2>隱藏背景（GM 真相）</h2>
+  <h2>GM Summary</h2>
   <div class="section">
-    <ol>
-      <li><strong>大夏皇族後裔</strong>：嚴氏出生時的真實身份是何乃清，大夏皇族血脈，何彦之女。</li>
-      <li><strong>幼年創傷</strong>：何家19口被嚴逸（殘手）殺害，她是唯一倖存者。嚴逸臨時收招，但掌風仍重創她左臉，留下紅色疤痕。事後嚴逸告訴她「那是你小時候就有的胎記」，從此她相信了謊言。</li>
-      <li><strong>被殘手收留並訓練</strong>：嚴逸把失憶、受傷的她帶走，給了她「栾绛」這個身份，訓練她成為殺手，以「妻子」身份作為掩護。</li>
-      <li><strong>臉上紅色疤痕</strong>：<strong>嚴逸掌風所致</strong>（非胎記）——嚴逸一手造成了這個傷，又謊稱是「胎記」。嚴氏不知真相。</li>
-      <li><strong>脖頸青色胎記</strong>：天生胎記，是辨認她為何乃清的關鍵線索。金四刀在遊戲中已因此追問過她是否姓何。</li>
-      <li><strong>化清散</strong>：嚴氏偷偷在嚴逸茶中下「化清散」，以化解《無相功法》的積毒。嚴逸完全不知情。這是嚴逸功力衰減的第三個原因。</li>
-      <li><strong>與金四刀的關係</strong>：她是金四刀（何乃武）的親妹妹——<strong>雙方均不知情</strong>。</li>
-    </ol>
+<p>嚴氏是本遊戲<strong>複雜度最高、情感衝擊最強</strong>的角色。她同時是：</p>
+<ul><li><strong>凶手</strong>（奉殘手命令，親手持毒匕首殺死冷降塵）</li><li><strong>悲劇受害者</strong>（幼年全家遭嚴逸殺害，臉被嚴逸掌風所傷，被嚴逸說謊說是「胎記」，從此失去真實身份）</li><li><strong>最大彩蛋的核心</strong>（金四刀（何乃武）之失散妹妹何乃清）</li></ul>
+<p>GM 必須熟悉她的所有面向，才能在復盤時完整呈現情感衝擊。</p>
   </div>
 
-  <h2>凶案角色（已從 input-text 確認）</h2>
+  <h2>Public Identity</h2>
   <div class="section">
-    <table>
-      <tr><th>項目</th><th>內容</th><th>信心度</th></tr>
-      <tr><td>凶手身份</td><td>確認。嚴氏親手執行了殺死冷降塵的任務。</td><td><span class="tag tag-conf">已確認</span></td></tr>
-      <tr><td>動機</td><td>奉殘手（嚴逸）指令，消除知情者冷降塵，防止洩露綉衣使行動計畫</td><td><span class="tag tag-conf">已確認</span></td></tr>
-      <tr><td>凶器</td><td>綉衣使特製毒藥茶靈塗抹的匕首（插入背心）</td><td><span class="tag tag-conf">已確認</span></td></tr>
-      <tr><td>作案時間</td><td>亥時 21:10（庫房內，冷降塵已被赤霞迷香迷倒，無力抵抗）</td><td><span class="tag tag-conf">已確認</span></td></tr>
-      <tr><td>現場</td><td>客棧庫房後窗打開狀態；她嗅到赤霞迷香後閉氣進入；行事後聽到腳步聲逃離</td><td><span class="tag tag-conf">已確認</span></td></tr>
-      <tr><td>知情程度</td><td>她知道自己殺了人，這是奉命執行的任務</td><td><span class="tag tag-conf">已確認</span></td></tr>
-    </table>
+<ul><li><strong>角色名：</strong> 嚴氏</li><li><strong>對外身份：</strong> 嚴逸之妻，陪同丈夫出行的普通女性</li><li><strong>年齡：</strong> 22歲</li><li><strong>外貌：</strong> 臉上有紅色疤痕（用赤紗遮），脖頸有青色胎記（辨認線索）</li></ul>
   </div>
 
-  <h2>凶案時間線（嚴氏視角）</h2>
+  <h2>True Identity / Hidden Identity</h2>
   <div class="section">
-    <table>
-      <tr><th>時間</th><th>事件</th></tr>
-      <tr><td>20:00</td><td>下樓取茶水，廚房遇金四刀追問「是否姓何」；化清散紙揉入懷中</td></tr>
-      <tr><td>20:20</td><td>回房，告訴嚴逸「透氣」，嚴逸隨後離開</td></tr>
-      <tr><td>21:10</td><td>前往庫房，後窗已開，聞到赤霞迷香後閉氣進入</td></tr>
-      <tr><td>21:10</td><td>庫房內發現冷降塵趴地（已被嚴逸放的赤霞迷暈）→ 用毒匕首插入背心</td></tr>
-      <tr><td>21:10後</td><td>聽到腳步聲逃離，少量赤霞影響下昏睡至天亮</td></tr>
-      <tr><td>次日晨</td><td>剔除鞋底碎石（消除去過庫房的痕跡）才出房門</td></tr>
-    </table>
+<table>
+<tr><th>身份層次</th><th>內容</th></tr>
+<tr><td>公開身份</td><td>嚴逸之妻「嚴氏」</td></tr>
+<tr><td>綉衣使代號</td><td>栾绛（Luan Jiang）——綉衣使殺手</td></tr>
+<tr><td>真實身份（本人不知）</td><td><strong>何乃清</strong>，大夏皇族後裔，金四刀（何乃武）的失散妹妹</td></tr>
+</table>
   </div>
 
-  <h2>道具清單（已從 input-text 確認）</h2>
+  <h2>Hidden Background（GM Truth）</h2>
   <div class="section">
-    <table>
-      <tr><th>道具</th><th>說明</th></tr>
-      <tr><td>70兩銀兩卡</td><td>可用於玩家間交易或與NPC交易</td></tr>
-      <tr><td>【武功卡】×1</td><td>個人武功</td></tr>
-      <tr><td>【天賦卡——迷醉】×1</td><td>個人技能，謹慎使用</td></tr>
-      <tr><td>【物品卡——綉衣使傳音令一玄】×1</td><td>綉衣使聯絡道具（玄色令）</td></tr>
-    </table>
+<ol><li><strong>大夏皇族後裔</strong>：嚴氏的真實身份是何乃清，大夏皇族血脈，何彦之女</li><li><strong>幼年創傷</strong>：何家19口被嚴逸（殘手）殺害，她是唯一倖存者。嚴逸臨時收招，但掌風仍重創她左臉，留下紅色疤痕。事後嚴逸告訴她「那是你小時候就有的胎記」，從此她相信了謊言</li><li><strong>被嚴逸收留並訓練</strong>：嚴逸把失憶、受傷的她帶走，給了她「栾绛」這個身份，訓練她成為殺手，以「妻子」身份作為掩護</li><li><strong>臉上紅色疤痕</strong>：嚴逸掌風所致（<strong>非胎記</strong>）——嚴氏本人不知真相</li><li><strong>脖頸青色胎記</strong>：天生胎記，是辨認她為何乃清身份的關鍵線索。金四刀在遊戲中已注意到此胎記，並曾試圖問她是否姓何</li><li><strong>化清散</strong>：嚴氏偷偷在嚴逸的茶中下「化清散」，造成其功力衰減，嚴逸不知情</li><li><strong>與金四刀的關係</strong>：她是金四刀（何乃武）的親妹妹——<strong>雙方均不知情</strong></li></ol>
   </div>
 
-  <h2>陣營與勝利條件</h2>
+  <h2>Role in Main Plot</h2>
   <div class="section">
-    <table>
-      <tr><th>項目</th><th>內容</th></tr>
-      <tr><td>初始陣營</td><td>綉衣使（執行者）</td></tr>
-      <tr><td>陣營選擇</td><td><strong>自由選擇</strong>（非固定）——劇本明確標注，找回記憶後可能背叛綉衣使</td></tr>
-      <tr><td>已知任務目標</td><td>確保殺人任務不被揭穿；協助嚴逸完成清除大夏殘黨的行動</td></tr>
-      <tr><td>結局A（寇俠勝）</td><td>若陣營自由選擇寇俠，可與哥哥金四刀並肩；若揭穿身份則情感衝擊極大</td></tr>
-      <tr><td>結局B（綉衣使勝）</td><td>任務完成；若得知自己是金四刀妹妹，內心矛盾</td></tr>
-    </table>
+<ol><li><strong>凶手</strong>：嚴氏在亥時（21:10）用綉衣使特製毒藥茶靈塗抹的匕首，插入冷降塵背心，造成其中毒身亡</li><li><strong>掩護角色</strong>：以「嚴逸之妻」身份掩護，讓綉衣使行動不引人注意</li><li><strong>情感衝擊點</strong>：若揭露她即為金四刀之妹，是全場最大的情感高潮</li></ol>
   </div>
 
-  <h2>知情 / 不知情 / GM Only</h2>
+  <h2>Relationship to Murder Case</h2>
   <div class="section">
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1em">
-      <div>
-        <h3 style="color:#155724">✓ 嚴氏知道</h3>
-        <ul>
-          <li>她是栾绛，綉衣使殺手</li>
-          <li>嚴逸是殘手，是她的上司和名義「丈夫」</li>
-          <li>她有失憶，殘手告訴她的過去就是她相信的全部</li>
-          <li>她殺了冷降塵（按殘手指令，用毒匕首）</li>
-          <li>她在嚴逸茶中下了化清散（但沒告訴任何人）</li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="color:#856404">✗ 嚴氏不知道</h3>
-        <ul>
-          <li>她自己的真實身份：何乃清</li>
-          <li>金四刀（何乃武）是她的哥哥</li>
-          <li>她臉上的紅色疤痕是嚴逸掌風所致，不是胎記</li>
-          <li>嚴逸殺害了她的全家19口</li>
-          <li>大夏皇族血統的完整背景</li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
-        <ul>
-          <li>她是金四刀的失散妹妹（最大彩蛋）</li>
-          <li>她臉上的疤是嚴逸造成的——嚴逸一手傷了她，又訓練她成為工具</li>
-          <li>金四刀在遊戲中因脖頸青色胎記已察覺可能性，在廚房問過她是否姓何</li>
-        </ul>
-      </div>
-    </div>
+<ul><li><strong>凶手身份</strong>：確認。嚴氏親手執行了殺死冷降塵的任務。</li><li><strong>動機</strong>：奉殘手（嚴逸）指令，消除知情者冷降塵</li><li><strong>凶器</strong>：綉衣使特製毒藥茶靈塗抹的匕首</li><li><strong>作案時間</strong>：亥時 21:10（情景二中冷降塵陷入睡意、無力抵抗之時）</li><li><strong>作案手法</strong>：匕首插入冷降塵背心，毒發身亡</li><li><strong>嚴氏的知情程度</strong>：她知道自己殺了人，這是奉命執行的任務</li></ul>
   </div>
 
-  <h2>關係表</h2>
+  <h2>Faction / Alignment</h2>
   <div class="section">
-    <table>
-      <tr><th>關聯角色</th><th>嚴氏視角</th><th>GM真相</th><th>信心度</th></tr>
-      <tr>
-        <td><strong>嚴逸</strong>（殘手）</td>
-        <td>丈夫＋上司，依賴感複雜；她偷偷在他茶中下了化清散</td>
-        <td>殺了她全家的凶手，把失憶的她訓練成工具；她臉上的疤也是他造成的</td>
-        <td><span class="tag tag-conf">已確認</span></td>
-      </tr>
-      <tr>
-        <td><strong>金四刀</strong>（何乃武）</td>
-        <td>陌生人（他在廚房問過她是否姓何，令她緊張）</td>
-        <td><strong>失散哥哥</strong>——雙方均不知；金四刀因脖頸青色胎記已有所察覺</td>
-        <td><span class="tag tag-conf">已確認</span></td>
-      </tr>
-      <tr>
-        <td><strong>賈三娘</strong>（歸雪）</td>
-        <td>綉衣使同僚，協同行動</td>
-        <td>同在嚴逸指揮下；歸雪的感情線可能影響立場</td>
-        <td><span class="tag tag-conf">已確認</span></td>
-      </tr>
-      <tr>
-        <td><strong>冷降塵</strong></td>
-        <td>任務目標（已死）</td>
-        <td>被她奉命用毒匕首殺死（亥時21:10）</td>
-        <td><span class="tag tag-conf">已確認</span></td>
-      </tr>
-    </table>
+<ul><li><strong>初始陣營</strong>：綉衣使（執行者）</li><li><strong>陣營選擇</strong>：陣營可自由選擇（劇本明確標注，非固定）</li><li><strong>真實歸屬</strong>：大夏皇族血統（本人不知）</li></ul>
   </div>
 
-  <h2>主持人提示</h2>
+  <h2>Goals and Win Conditions</h2>
   <div class="section">
-    <div class="notice n-tip">
-      <strong>角色分配建議：</strong>扮演嚴氏的玩家應有能守口如瓶、能承受壓力的性格（凶手角色難度高）。建議在發本前確認玩家理解凶手角色的壓力。
-    </div>
-    <ul>
-      <li>搏殺環節中注意嚴氏與金四刀的位置——若發生直接對決，應觸發特殊演出</li>
-      <li>她是凶手，盤凶環節壓力最大，需要一邊參與討論一邊自保</li>
-      <li>陣營可自由選擇，若她選擇寇俠，則與哥哥金四刀同陣營，情感張力更大</li>
-      <li>注意：她在嚴逸茶中下了化清散，這是嚴逸不知道的秘密，GM 應確保不提前洩露</li>
-    </ul>
+<p><strong>綉衣使任務目標</strong>（已知）：</p>
+<ul><li>確保殺人任務不被揭穿</li><li>協助嚴逸完成清除大夏殘黨的行動</li></ul>
+<p><strong>陣營</strong>：可在暗通款曲環節自由選擇陣營歸屬</p>
   </div>
 
-  <h2>復盤公告順序</h2>
+  <h2>Clues / Items / Skills</h2>
   <div class="section">
-    <ol>
-      <li>宣布凶手：嚴氏（栾绛 / 何乃清）</li>
-      <li>說明作案動機（嚴逸指使，亥時21:10用毒匕首插入冷降塵背心）</li>
-      <li>公布嚴氏真實身份（何乃清，大夏皇族後裔，失憶被訓練為殺手，臉上疤痕是嚴逸所傷）</li>
-      <li><strong>壓軸彩蛋</strong>：嚴氏 = 金四刀之失散妹妹</li>
-    </ol>
-    <div class="notice n-danger" style="margin-top:.8em">
-      揭露兄妹真相前，先確認兩位玩家的心理狀態是否穩定，確保最大情感衝擊。
-    </div>
+<table>
+<tr><th>道具</th><th>說明</th></tr>
+<tr><td>70兩銀兩卡</td><td>可用於玩家間交易或與NPC交易</td></tr>
+<tr><td>【武功卡】×1</td><td>個人武功</td></tr>
+<tr><td>【天賦卡——迷醉】×1</td><td>個人技能，謹慎使用</td></tr>
+<tr><td>【物品卡——綉衣使傳音令一玄】×1</td><td>綉衣使聯絡道具</td></tr>
+</table>
   </div>
 
-  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
-    <a href="index.html">← 角色列表</a> &nbsp;|&nbsp;
-    <a href="wang-si-han.html">王思涵 →</a> &nbsp;|&nbsp;
-    <a href="../spoilers.html">劇情真相 →</a>
+  <h2>What This Character Knows</h2>
+  <div class="section">
+<ul><li>她是栾绛，綉衣使殺手</li><li>嚴逸是殘手，她的上司和名義「丈夫」</li><li>她有失憶，殘手告訴她的過去就是她相信的全部（臉上疤痕被說成是「胎記」）</li><li>她殺了冷降塵（按殘手指令，用毒匕首）</li><li>她在嚴逸茶中下了化清散，但沒有告訴任何人</li></ul>
   </div>
 
+  <h2>What This Character Does Not Know</h2>
+  <div class="section">
+<ul><li>她自己的真實身份：何乃清</li><li>金四刀（何乃武）是她的哥哥</li><li>她臉上的紅色疤痕是嚴逸掌風所致，不是胎記</li><li>大夏皇族血統的完整背景</li><li>嚴逸殺害了她的全家19口</li></ul>
+  </div>
+
+  <h2>What Only GM Knows</h2>
+  <div class="section">
+<ul><li>她是金四刀的失散妹妹（最大彩蛋）</li><li>她臉上的疤是嚴逸造成的——嚴逸等於親手傷了她，又訓練她成為工具</li><li>金四刀在遊戲中已因脖頸青色胎記察覺可能性，在廚房問過她是否姓何</li></ul>
+  </div>
+
+  <h2>Key Relationships</h2>
+  <div class="section">
+<table>
+<tr><th>關聯角色</th><th>嚴氏視角</th><th>GM真相</th></tr>
+<tr><td>嚴逸</td><td>丈夫＋上司，依賴感複雜</td><td>殺了她全家的凶手，現在把她當工具；她臉上的疤也是他造成的</td></tr>
+<tr><td>金四刀</td><td>陌生人（他在廚房問過她是否姓何，令她緊張）</td><td><strong>失散哥哥</strong>——雙方均不知</td></tr>
+<tr><td>賈三娘（歸雪）</td><td>綉衣使同僚，協同行動</td><td>同在嚴逸指揮下</td></tr>
+<tr><td>冷降塵</td><td>任務目標（已死）</td><td>被她奉命用毒匕首殺死</td></tr>
+</table>
+  </div>
+
+  <h2>Timeline</h2>
+  <div class="section">
+<table>
+<tr><th>時間</th><th>事件</th></tr>
+<tr><td>幼年（4歲前）</td><td>何家19口被嚴逸殺害，她是唯一倖存者，嚴逸臨時收招但掌風傷其左臉，被帶走</td></tr>
+<tr><td>被嚴逸收留後</td><td>成為栾绛，被訓練成殺手，以「妻子」身份與嚴逸一同行動</td></tr>
+<tr><td>遊戲前</td><td>接到殺死冷降塵的命令；偷偷在嚴逸茶中下化清散</td></tr>
+<tr><td>遊戲期間 19:50後</td><td>下樓，被金四刀注意到脖頸胎記，廚房被追問是否姓何</td></tr>
+<tr><td>亥時 21:10</td><td>用毒匕首插入冷降塵背心，完成凶案</td></tr>
+<tr><td>隔日清晨</td><td>冷降塵遺體被發現，進入盤凶環節</td></tr>
+</table>
+  </div>
+
+  <h2>How This Character May Affect the Game</h2>
+  <div class="section">
+<ol><li><strong>盤凶環節</strong>：她是凶手，壓力最大，需要一邊參與討論一邊自保</li><li><strong>陣營搏殺</strong>：陣營可自由選擇，立場靈活</li><li><strong>情感衝擊</strong>：若在搏殺中面對金四刀，或身份被揭穿——觸發兄妹彩蛋</li><li><strong>復盤高潮</strong>：兄妹真相是整場最大的情感爆點</li></ol>
+  </div>
+
+  <h2>Hosting Notes</h2>
+  <div class="section">
+<ul><li>扮演嚴氏的玩家應有<strong>能守口如瓶</strong>、能承受壓力的性格（凶手角色難度高）</li><li>建議在發本前確認玩家理解凶手角色的壓力</li><li>搏殺環節中注意嚴氏與金四刀的位置——若發生直接對決，應觸發特殊演出</li></ul>
+  </div>
+
+  <h2>Reveal / Debrief Notes</h2>
+  <div class="section">
+<p><strong>復盤公告順序（嚴氏相關）：</strong></p>
+<ol><li>宣布凶手：嚴氏（栾绛 / 何乃清）</li><li>說明作案動機（嚴逸指使，亥時21:10用毒匕首插入冷降塵背心）</li><li>公布嚴氏真實身份（何乃清，大夏皇族後裔，失憶被訓練為殺手，臉上疤痕是嚴逸所傷）</li><li><strong>壓軸彩蛋</strong>：嚴氏 = 金四刀之失散妹妹</li></ol>
+<p><strong>注意</strong>：建議在揭露兄妹真相前，先確認兩位玩家的心理狀態是否穩定，確保最大情感衝擊。</p>
+  </div>
+
+  <div class="footer-nav">
+    <a href="yan-yi.html">← 嚴逸</a> &nbsp;|&nbsp;
+    <a href="index.html">角色列表</a> &nbsp;|&nbsp;
+    <a href="jia-san-niang.html">賈三娘 →</a>
+  </div>
 </div>
 </body>
 </html>

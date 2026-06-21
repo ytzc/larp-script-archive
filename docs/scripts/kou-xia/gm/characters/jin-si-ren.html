@@ -6,65 +6,39 @@
 <title>金四刀 GM 筆記 — 寇侠</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
-  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
-  --gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;
-  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
-  --shadow:0 1px 5px rgba(0,0,0,.1);
-}
-body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
-a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
-h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
-h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:#1c1c1c;background:#faf6ef}
+a{color:#8b0000;text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.2em;color:#8b0000;border-bottom:2px solid #8b0000;padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1em;color:#333;margin:1em 0 .4em;font-weight:600}
+h4{font-size:.93em;color:#555;margin:.8em 0 .2em}
 ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
 p{margin-bottom:.8em}
-.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+code{background:#f0f0f0;padding:.1em .4em;border-radius:3px;font-size:.88em}
+strong{font-weight:700}
+.gm-banner{position:sticky;top:0;z-index:999;background:#8b0000;color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
 .top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
-.top-nav .nav-links{display:flex;gap:1em;align-items:center}
-.top-nav .page-nav{display:flex;gap:1em;align-items:center;color:var(--muted)}
-.top-nav a{color:var(--red)}
+.top-nav .nav-links,.top-nav .page-nav{display:flex;gap:1em;align-items:center}
+.top-nav a{color:#8b0000}
 .wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
-.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+.section{background:#fff;padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:0 1px 5px rgba(0,0,0,.1)}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
-.n-danger{background:var(--red-lt);border-color:var(--red-b)}
-.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
-.n-tip{background:var(--gold-lt);border-color:#e0a800}
-.n-dark{background:#2d0000;color:#ffcccc;border-color:#ff4444;padding:1em 1.4em}
+.n-tip{background:#fff8e0;border-color:#e0a800}
+.n-dark{background:#1a1a1a;color:#eee;border-color:#888;padding:1em 1.4em}
 .n-dark strong{color:#fff}
 table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
-th{background:var(--red);color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+th{background:#8b0000;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
 td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
-tr:nth-child(even) td{background:#faf5ee}
-.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
-.tag-high{background:#ffd5d5;color:#7a0000}
-.tag-conf{background:#d4edda;color:#155724}
-.tag-info{background:#cce;color:#003}
-.char-hero{background:linear-gradient(135deg,#3d0000,#8b0000);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
-.char-hero .hero-pub{font-size:.85em;color:#ffaaaa;letter-spacing:.5px;margin-bottom:.3em}
-.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
-.char-hero .hero-alias{font-size:1em;color:#ffcccc;margin-bottom:.5em}
-.char-hero .hero-desc{font-size:.9em;color:#ffdddd;line-height:1.7}
-.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
-.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
-.hb-kou{background:#6a0000;color:#ffcccc;border:1px solid #c44}
-.hb-royal{background:#4a3300;color:#ffe0a0;border:1px solid #a07000}
-.hb-easter{background:#1a3a1a;color:#aaffaa;border:1px solid #4a4}
-.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
-.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
-.id-pub{border-color:#888;background:var(--gray-lt)}
-.id-true{border-color:var(--red-b);background:var(--red-lt)}
-.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
-.id-layer .layer-value{font-weight:700;font-size:1.05em}
-.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
-.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
-.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
-.stat-box .stat-label{font-size:.72em;color:var(--muted)}
-.stat-box .stat-val{font-size:1.3em;font-weight:700;color:var(--red)}
+tr:nth-child(even) td{background:#fff0f0}
+.char-hero{background:linear-gradient(135deg,#3d0000, #8b0000);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.hero-sub{font-size:.88em;color:rgba(255,255,255,.72);margin:.2em 0}
+.hero-src{font-size:.82em;color:rgba(255,255,255,.6);margin-top:.5em}
+.footer-nav{margin-top:2em;font-size:.85em;color:#666;display:flex;gap:1em;flex-wrap:wrap}
+@media(max-width:600px){.top-nav{flex-direction:column;align-items:flex-start}.section{padding:1rem 1.1rem}}
 </style>
 </head>
 <body>
-<div class="gm-banner">🔒 GM Only — 金四刀是「壓軸彩蛋」核心，嚴氏即為其失散妹妹，絕對不能提前洩露</div>
+<div class="gm-banner">🔒 GM Only — 壓軸彩蛋核心：嚴氏（何乃清）即為金四刀失散妹妹，絕對不能提前洩露</div>
 <nav class="top-nav">
   <div class="nav-links">
     <a href="../../../../index.html">首頁</a> ›
@@ -73,200 +47,129 @@ tr:nth-child(even) td{background:#faf5ee}
     <a href="index.html">角色筆記</a> ›
     金四刀
   </div>
-  <div class="page-nav">
-    <a href="jia-san-niang.html">← 賈三娘</a>
-    <a href="yan-yi.html">嚴逸 →</a>
-  </div>
+  <div class="page-nav"><span></span> <a href="yan-yi.html">嚴逸 →</a></div>
 </nav>
 <div class="wrapper">
 
-  <div class="notice n-info" style="margin-bottom:1em;font-size:.85em">
-    <strong>來源：</strong> 已依 <code>input-text/# 【金四刀】文字劇本.md</code> 更新（2026-06-17）。凶案時間線、道具已確認。所有 TODO 已消除。<br>
-    <strong>注：</strong>金四刀劇本中稱王思涵為「阳敏芝」（其家族舊姓），但 wang-si-han input-text 確認現名為<strong>旭敏芝</strong>（家族響應寇俠起義將阳氏改旭氏）。兩種稱法均正確，「旭敏芝」為其現用名。
-  </div>
-
   <div class="char-hero">
-    <div class="hero-pub">公開身份</div>
     <div class="hero-name">金四刀</div>
-    <div class="hero-alias">公開化名 金四刀 · 真名 何乃武</div>
-    <div class="hero-desc">26歲，大夏皇族旁系九世孫，以高級將領「金四刀」身份在寇俠鹤須軍行事。此行隨冷降塵到盤兴口，希望拿到兵符。凶案期間被嚴逸擊暈，是全場最無辜的旁觀者。</div>
-    <div class="hero-badges">
-      <span class="hero-badge hb-kou">寇俠（固定陣營）</span>
-      <span class="hero-badge hb-royal">大夏皇族後裔</span>
-      <span class="hero-badge hb-easter">壓軸彩蛋核心</span>
-    </div>
+    <div class="hero-sub">GM 專用筆記 · 最後更新：updated from input-text 2026-06-17</div>
+    <div class="hero-src">來源：金四刀全.pdf &nbsp;·&nbsp; input-text/# 【金四刀】文字劇本.md</div>
   </div>
 
   <div class="notice n-dark">
-    <strong>GM Summary：</strong>
-    金四刀是寇俠組織的高級將領，同時是全場「壓軸彩蛋」的另一半——他失散多年的妹妹何乃清，就是凶手嚴氏（栾绛）。雙方均不知情。金四刀在遊戲中已因嚴氏脖頸的青色胎記而察覺可能性，在廚房追問過她是否姓何。這個真相必須作為復盤的最後高潮揭露，GM 需要全程確保兩人都不提前知曉。
+    <strong>GM Summary：</strong><br>
+    <strong>⚠️ GM ONLY — 严禁玩家查阅</strong><br>
+    本文件包含全场最高级别的剧透内容，其中「嚴氏即为金四刀之妹妹」一事是游戏的压轴彩蛋，须在复盘最后阶段才能揭露。<br>
+    <strong>已依 input-text/# 【金四刀】文字劇本.md 更新，王思涵真名已更正，凶案时间线已确认。</strong>
   </div>
 
-  <h2>身份層次</h2>
-  <div class="id-layers">
-    <div class="id-layer id-pub">
-      <div class="layer-label">公開身份</div>
-      <div class="layer-value">金四刀（化名）</div>
-      <div class="layer-sub">寇俠鹤須軍高級將領<br>（對外均用化名，「金四刀」為劇本封面名）</div>
-    </div>
-    <div class="id-layer id-true">
-      <div class="layer-label">真實身份</div>
-      <div class="layer-value">何乃武</div>
-      <div class="layer-sub">大夏皇族旁系九世孫<br>生父：何彦（濟陽縣令，被嚴逸所殺）<br>妹妹：何乃清 = 嚴氏</div>
-    </div>
-  </div>
-
-  <h2>GM 戰鬥數值</h2>
-  <div class="stats">
-    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">30</div></div>
-    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">5–8</div></div>
-    <div class="stat-box"><div class="stat-label">陣營</div><div class="stat-val">固定</div></div>
-  </div>
-
-  <h2>關鍵資訊確認（已確認）</h2>
+  <h2>角色基本信息</h2>
   <div class="section">
-    <div class="notice n-info">
-      <strong>王思涵名字說明：</strong> 金四刀劇本中稱她「阳敏芝」（谷阳府阳氏千金），是其家族舊名。<br>
-      王思涵 input-text 確認：家族響應寇俠起義將阳氏改為旭氏，現名為<strong>旭敏芝</strong>。<br>
-      <small>金四刀自幼認識她時她姓「阳」，故對她一直用舊名。GM 主要以「旭敏芝」為準。</small>
-    </div>
+<table>
+<tr><th>项目</th><th>内容</th></tr>
+<tr><td>角色封面名</td><td>金四刀</td></tr>
+<tr><td>公开化名</td><td>金四刀（游戏中对外使用）</td></tr>
+<tr><td>真实姓名</td><td>何乃武</td></tr>
+<tr><td>年龄</td><td>26岁</td></tr>
+<tr><td>真实身份</td><td>大夏皇族旁系九世孙</td></tr>
+<tr><td>生父</td><td>何彦（济阳县令，被绣衣使（残手等）杀害）</td></tr>
+<tr><td>妹妹</td><td>何乃清（脖颈青色胎记）= <strong>嚴氏（栾绛）</strong></td></tr>
+<tr><td>戀人/婚约</td><td><strong>阳敏芝</strong>（谷阳府阳氏千金）= 王思涵（化名）</td></tr>
+<tr><td>阵营</td><td>寇侠（固定，不可更改）</td></tr>
+<tr><td>个人胜利条件</td><td>集齐所有兵符（前提是寇侠方胜利）</td></tr>
+<tr><td>HP</td><td>30</td></tr>
+<tr><td>武力</td><td>5–8（技能可升）</td></tr>
+</table>
   </div>
 
-  <h2>在主線凶案中的角色（已確認）</h2>
+  <h2>GM 真相总览</h2>
   <div class="section">
-    <ul>
-      <li>金四刀與謀殺案<strong>沒有直接關係</strong>——他是全場最無辜的旁觀者</li>
-      <li>20:50 前往庫房途中，被嚴逸從背後擊暈脖頸，直到天亮才醒</li>
-      <li>他持有冷降塵在 19:50 給他的【鶴須軍虎賁衛兵符】</li>
-      <li>但嚴逸（殘手）此行的核心目標是<strong>確認並消滅他</strong></li>
-      <li>他的存活是結局A（寇俠勝）的關鍵條件之一</li>
-    </ul>
+<h3>1. 真实身份与隐藏背景</h3>
+<p>金四刀的本名是<strong>何乃武</strong>。他是大夏皇族旁系九世孙，8岁时家园遭绣衣使（嚴逸「残手」）突袭，父亲（济阳县令何彦）和全家19口全部遇难，仅有他和妹妹何乃清存活。妹妹何乃清在那夜失散（就是现在的嚴氏），金四刀此后独自流落，改名「金四刀」，以大夏皇族血统为旗帜，加入寇侠鹤须军，成为核心高级将领。</p>
+<h3>2. 最大秘密：嚴氏即为他的妹妹何乃清</h3>
+<p><strong>这是全场最大的压轴彩蛋。</strong></p>
+<ul><li>嚴氏（栾绛）的真实身份是<strong>何乃清</strong>——金四刀失散多年的亲妹妹。</li><li>金四刀不知道嚴氏就是他的妹妹。</li><li>嚴氏也不知道金四刀就是她的哥哥。</li><li>金四刀在游戏中已<strong>因脖颈青色胎记察觉到可能性</strong>：他在厨房跟进嚴氏，问过「是否姓何」，但嚴氏矢口否认并离开。</li><li>该真相<strong>仅在复盘最后阶段由 GM 揭露</strong>，不得提前泄露。</li></ul>
+<div class="notice n-tip">GM 须全程管控：凡涉及「嚴氏身份」「何乃清下落」的对话或线索发放，均须向 GM 报备，避免玩家自行拼出真相。</div>
+<h3>3. 嚴氏（何乃清）是本次谋杀的凶手</h3>
+<ul><li>嚴氏受<strong>嚴逸（残手）</strong>指使，是本次命案的真正凶手。</li><li>嚴逸的目标是借命案破坏寇侠聚会，并消灭金四刀。</li><li>金四刀在调查凶案时，完全不知道自己的妹妹正是杀手。</li></ul>
+<h3>4. 胎记线索的 GM 管控</h3>
+<p>金四刀的剧本中记载：他唯一记得妹妹的特征是「颈后有一处青色胎记」。</p>
+<ul><li>他在游戏中已主动注意并追问嚴氏，嚴氏拒绝承认。</li><li>若金四刀玩家在游戏中主动向他人询问此事，GM 不得在游戏阶段放出嚴氏胎记的确认信息。</li><li>该线索属于复盘彩蛋专用，游戏期间须被屏蔽。</li></ul>
   </div>
 
-  <h2>凶案時間線（金四刀視角，已確認）</h2>
+  <h2>凶案时间线（金四刀视角，已确认）</h2>
   <div class="section">
-    <table>
-      <tr><th>時間</th><th>事件</th></tr>
-      <tr><td>19:35</td><td>找阳敏芝（王思涵）但她不在房中，返回</td></tr>
-      <tr><td>19:50</td><td>去見冷降塵，獲得【鶴須軍虎賁衛兵符】</td></tr>
-      <tr><td>20:00</td><td>拿著兵符出冷降塵房間，看到嚴氏下樓，注意到脖頸青色胎記</td></tr>
-      <tr><td>~20:00</td><td>跟進廚房，問「是否姓何」，嚴氏拒絕，約好半時辰後庫房相見</td></tr>
-      <tr><td>20:20</td><td>去阳敏芝（王思涵）房間詢問，她閉口不談，拂袖而去，打翻茶杯</td></tr>
-      <tr><td>20:50</td><td>出門前往庫房，被人（嚴逸）擊暈脖頸，昏迷至天亮</td></tr>
-    </table>
+<table>
+<tr><th>时间</th><th>事件</th></tr>
+<tr><td>19:35</td><td>找阳敏芝（王思涵）但她不在房中，返回</td></tr>
+<tr><td>19:50</td><td>去见冷降尘，冷降尘给了他【鹤须军虎贲卫兵符】</td></tr>
+<tr><td>20:00</td><td>拿着兵符出冷降尘房间，看到嚴氏下楼，注意到脖颈青色胎记</td></tr>
+<tr><td>~20:00</td><td>跟进厨房，问「是否姓何」，嚴氏拒绝，约好半时辰后库房相见</td></tr>
+<tr><td>20:20</td><td>去阳敏芝（王思涵）房间询问，她闭口不谈，拂袖而去，打翻茶杯</td></tr>
+<tr><td>20:50</td><td>出门前往库房，被人（嚴逸）击晕脖颈，昏迷至天亮</td></tr>
+</table>
+<p><strong>金四刀是全场最无辜的旁观者</strong>：凶案期间被嚴逸击晕，完全不知道冷降尘被杀。</p>
   </div>
 
-  <h2>道具清單（已從 input-text 確認）</h2>
+  <h2>道具清单（已确认）</h2>
   <div class="section">
-    <table>
-      <tr><th>道具</th><th>說明</th></tr>
-      <tr><td>120兩銀兩卡</td><td>可用於玩家間交易或與NPC交易</td></tr>
-      <tr><td>【武功卡】×1</td><td>個人武功</td></tr>
-      <tr><td>【天賦卡——浩然正氣】×1</td><td>個人技能，謹慎使用</td></tr>
-      <tr><td>【物品卡——武林秘籍】×1</td><td>小時候和妹妹何乃清一起翻到並練習過的秘籍，封面有些殘破</td></tr>
-      <tr><td>【鶴須軍虎賁衛兵符】×1</td><td>冷降塵在19:50給的；是個人勝利條件的第一塊兵符</td></tr>
-    </table>
+<table>
+<tr><th>道具</th><th>说明</th></tr>
+<tr><td>120两银两卡</td><td>可用于玩家间交易或与NPC交易</td></tr>
+<tr><td>【武功卡】×1</td><td>个人武功</td></tr>
+<tr><td>【天赋卡——浩然正气】×1</td><td>个人技能，谨慎使用</td></tr>
+<tr><td>【物品卡——武林秘籍】×1</td><td>小时候和妹妹（何乃清/嚴氏）一起翻到并练习过的秘籍，封面有些残破</td></tr>
+<tr><td>【鹤须军虎贲卫兵符】×1</td><td>冷降尘在20:00给的，是个人胜利条件的第一块兵符</td></tr>
+</table>
   </div>
 
-  <h2>陣營與勝利條件</h2>
+  <h2>关键 OCR 修正（重要）</h2>
   <div class="section">
-    <table>
-      <tr><th>項目</th><th>內容</th></tr>
-      <tr><td>陣營</td><td>寇俠（<strong>固定，不可更改</strong>）</td></tr>
-      <tr><td>個人動機</td><td>尋找失散妹妹何乃清；光復大夏；集齊所有兵符</td></tr>
-      <tr><td>個人勝利條件</td><td><strong>集齊所有兵符</strong>（前提是寇俠方贏得勝利）</td></tr>
-      <tr><td>結局A（寇俠勝）</td><td>若存活，個人勝利可觸發；若得知嚴氏身份，觸發情感衝擊</td></tr>
-      <tr><td>結局B（綉衣使勝）</td><td>若存活，踏上更艱難的流亡之路；若阵亡，含恨而終</td></tr>
-    </table>
+<table>
+<tr><th>项目</th><th>旧版OCR误读</th><th>input-text确认正确内容</th></tr>
+<tr><td>王思涵真名</td><td>旭敏芝</td><td><strong>阳敏芝</strong>（谷阳府阳氏千金）</td></tr>
+</table>
+<p>此修正影响所有涉及「王思涵真名」的GM材料，须同步更新 wang-si-han.md 及 relationship-map.html。</p>
   </div>
 
-  <h2>知情 / 不知情 / GM Only</h2>
+  <h2>胜利条件与结局</h2>
   <div class="section">
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1em">
-      <div>
-        <h3 style="color:#155724">✓ 金四刀知道</h3>
-        <ul>
-          <li>他是何乃武，大夏皇族旁系九世孫</li>
-          <li>他是寇俠鹤須軍高級將領「金四刀」</li>
-          <li>他有一個失散的妹妹何乃清（脖頸有青色胎記）</li>
-          <li>冷降塵給了他【鶴須軍虎賁衛兵符】</li>
-          <li>嚴氏脖頸有青色胎記，他已在廚房問過她是否姓何</li>
-          <li>他的戀人阳敏芝在此地以王思涵身份出現，但閉口不談</li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="color:#856404">✗ 金四刀不知道</h3>
-        <ul>
-          <li><strong>嚴氏就是他的妹妹何乃清</strong>（最大彩蛋）</li>
-          <li>嚴氏是凶手</li>
-          <li>嚴逸（殘手）的真實意圖是消滅他</li>
-          <li>他在20:50被嚴逸擊暈，整個凶案發生時他是昏迷狀態</li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
-        <ul>
-          <li>嚴氏 = 何乃清 = 他失散多年的妹妹</li>
-          <li>嚴氏不知道他就是她的哥哥</li>
-          <li>【武林秘籍】就是他和妹妹小時候一起翻到的秘籍——嚴氏身上的「截然不同的功法」可能與此有關</li>
-          <li>兄妹真相是全場壓軸，復盤最後揭露</li>
-        </ul>
-      </div>
-    </div>
+<h3>个人胜利条件</h3>
+<p>金四刀须<strong>集齐所有寇侠兵符</strong>，前提是寇侠方赢得胜利。目前已持有【鹤须军虎贲卫兵符】，还需要其他兵符。</p>
+<h3>结局A — 寇侠胜</h3>
+<ul><li>金四刀存活是结局A的胜利条件之一（他是寇侠核心战力）。</li><li>若游戏中金四刀对嚴氏已有「似曾相识」的隐约感，结局时 GM 应在复盘环节揭露嚴氏=何乃清，让金四刀玩家体验情感冲击。</li></ul>
+<h3>结局B — 绣衣使胜</h3>
+<ul><li>若金四刀存活：踏上更艰难的流亡之路。</li><li>若金四刀阵亡：含恨而终，「寻妹」遗愿未了。</li><li>若嚴氏在结局B揭晓身份：兄妹阴阳相隔，为全场最高情感烈度的结局。</li></ul>
   </div>
 
-  <h2>關係表</h2>
+  <h2>搏杀阶段 GM 特别提示</h2>
   <div class="section">
-    <table>
-      <tr><th>關聯角色</th><th>金四刀視角</th><th>GM真相</th><th>信心度</th></tr>
-      <tr><td><strong>嚴氏</strong>（栾绛/何乃清）</td><td>陌生人，脖頸胎記令他疑惑；在廚房追問過她是否姓何</td><td><strong>失散妹妹何乃清——雙方均不知；嚴氏是凶手</strong></td><td><span class="tag tag-conf">已確認</span></td></tr>
-      <tr><td><strong>嚴逸</strong>（殘手）</td><td>警戒對象，陌生的客商同伴</td><td>此行要消滅金四刀的主謀；20:50擊暈金四刀</td><td><span class="tag tag-conf">已確認</span></td></tr>
-      <tr><td><strong>王思涵</strong>（阳敏芝）</td><td>戀人/婚約對象，青梅竹馬，已贈碧綠玉佩定情</td><td>王思涵真名為<strong>阳敏芝</strong>（谷阳府阳氏千金）；她在此地另有目的</td><td><span class="tag tag-conf">已確認</span></td></tr>
-      <tr><td><strong>冷降塵</strong></td><td>寇俠鹤須軍大統領，此行一同前來的長官</td><td>被赤霞迷香迷倒後由嚴氏殺死；已給金四刀兵符</td><td><span class="tag tag-conf">已確認</span></td></tr>
-    </table>
+<div class="notice n-tip">若搏杀阶段金四刀与嚴氏对决，<strong>应触发特殊演出</strong>。</div>
+<p><strong>触发条件</strong>：金四刀向嚴氏发动攻击，或嚴氏向金四刀发动攻击。</p>
+<p><strong>特殊演出流程</strong>：</p>
+<ol><li>GM 暂停该回合战斗，对双方玩家私下提示：「你们两人之间有一种难以言说的熟悉感，但你说不清楚原因。」</li><li>若双方均未「认出」对方，战斗照常继续。</li><li>GM 不得在此时点明兄妹关系，须留至复盘。</li></ol>
   </div>
 
-  <h2>主持人提示</h2>
+  <h2>与其他角色的 GM 视角</h2>
   <div class="section">
-    <div class="notice n-tip">
-      <strong>角色分配建議：</strong>核心角色，建議熟悉規則的玩家。金四刀作為寇俠中心，需要積極引導陣營合作。陣營固定，不可更改。
-    </div>
-    <ul>
-      <li>GM 要全程確保金四刀玩家不提前發現嚴氏是他妹妹</li>
-      <li>嚴氏脖頸青色胎記是遊戲中的線索——金四刀已察覺，但尚未確認；GM 應確認此互動不要過早解謎</li>
-      <li>搏殺環節若金四刀與嚴氏對決，應觸發特殊演出（GM 暂停戰鬥，提示「你們之間有種難以言說的熟悉感」）</li>
-      <li>他的存活對結局A（寇俠勝）是重要條件，搏殺阶段應提醒其他寇俠玩家優先保護他</li>
-      <li>追蹤兵符持有狀態——他已持有虎賁衛兵符，集齊所有兵符可觸發個人勝利</li>
-    </ul>
+<h3>王思涵（阳敏芝）</h3>
+<p>金四刀对她有深度信任，是两人青梅竹马的婚约对象。<strong>王思涵真名为阳敏芝</strong>（非旭敏芝，OCR误读已更正）。金四刀已将碧绿玉佩作为定情信物给她，但两人在游戏中关系有所紧张（阳敏芝在20:20时闭口不谈，拂袖而去）。</p>
+<h3>嚴逸（残手）</h3>
+<p>嚴逸是消灭金四刀的幕后指使人，并在20:50击晕了金四刀。金四刀对他有戒心，但不知道嚴逸已将他列为目标。</p>
+<h3>嚴氏（栾绛/何乃清）</h3>
+<p><strong>全场最重要的秘密关系。</strong> 金四刀已经察觉嚴氏脖颈青色胎记，并追问过是否姓何，但嚴氏否认。GM 须严格管控两人互动的信息边界。</p>
+<h3>冷降尘</h3>
+<p>金四刀视冷降尘为寇侠大统领，并在19:50获得了他给的虎贲卫兵符。冷降尘是在20:50后的某时点被嚴氏杀害，金四刀那时已被嚴逸击晕，对此一无所知。</p>
   </div>
 
-  <h2>搏殺特殊演出流程</h2>
+  <h2>场控要点</h2>
   <div class="section">
-    <div class="notice n-danger">
-      若搏殺阶段金四刀與嚴氏對決，必須觸發此特殊演出：
-    </div>
-    <ol>
-      <li>GM 暂停該回合戰鬥</li>
-      <li>對雙方玩家私下提示：「你們兩人之間有一種難以言說的熟悉感，但你說不清楚原因。」</li>
-      <li>若雙方均未「認出」對方，戰鬥照常繼續</li>
-      <li>GM 不得在此時點明兄妹關係，須留至復盤</li>
-    </ol>
+<ol><li><strong>信息隔离</strong>：金四刀玩家绝对不能在游戏内知晓「嚴氏=何乃清」；嚴氏玩家同样不能得知「金四刀=何乃武=她的哥哥」。</li><li><strong>线索节奏</strong>：关于何乃清下落的支线任务，GM 可逐步放出「济阳府见过相符女子」的模糊消息，维持玩家的期待感，但不揭底。</li><li><strong>搏杀演出</strong>：若两人正面对决，执行「特殊演出流程」（见上）。</li><li><strong>复盘揭露时机</strong>：在所有结局宣告完毕、玩家互相道谢之后，作为「压轴彩蛋」最后揭露兄妹关系，配合 BGM 或旁白效果最佳。</li><li><strong>存活优先级</strong>：金四刀是寇侠阵营核心，存活是结局A的条件之一，搏杀阶段应提醒其他寇侠玩家优先保护他。</li><li><strong>兵符任务</strong>：金四刀有个人胜利条件（集齐所有兵符），GM 须追踪他的兵符持有状态。</li></ol>
   </div>
 
-  <h2>復盤公告</h2>
-  <div class="section">
-    <ol>
-      <li>先公布一般角色真相</li>
-      <li><strong>壓軸</strong>：公布嚴氏真實身份是何乃清，是金四刀失散多年的妹妹</li>
-      <li>建議在揭露前確認兩位玩家心理狀態穩定</li>
-    </ol>
-    <div class="notice n-danger" style="margin-top:.8em">
-      兄妹彩蛋是全場最大情感高潮，必須作為復盤的最後揭露。絕對不能提前洩露。
-    </div>
-  </div>
-
-  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
-    <a href="jia-san-niang.html">← 賈三娘</a> &nbsp;|&nbsp;
+  <div class="footer-nav">
+    <span></span> &nbsp;|&nbsp;
     <a href="index.html">角色列表</a> &nbsp;|&nbsp;
     <a href="yan-yi.html">嚴逸 →</a>
   </div>

@@ -6,58 +6,39 @@
 <title>刁五兒 GM 筆記 — 寇侠</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;--gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;--paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;--shadow:0 1px 5px rgba(0,0,0,.1);}
-body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
-a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
-h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
-h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:#1c1c1c;background:#faf6ef}
+a{color:#1a5050;text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.2em;color:#1a5050;border-bottom:2px solid #1a5050;padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1em;color:#333;margin:1em 0 .4em;font-weight:600}
+h4{font-size:.93em;color:#555;margin:.8em 0 .2em}
 ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
 p{margin-bottom:.8em}
-.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+code{background:#f0f0f0;padding:.1em .4em;border-radius:3px;font-size:.88em}
+strong{font-weight:700}
+.gm-banner{position:sticky;top:0;z-index:999;background:#8b0000;color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
 .top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
 .top-nav .nav-links,.top-nav .page-nav{display:flex;gap:1em;align-items:center}
-.top-nav a{color:var(--red)}
+.top-nav a{color:#1a5050}
 .wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
-.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
+.section{background:#fff;padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:0 1px 5px rgba(0,0,0,.1)}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
-.n-danger{background:var(--red-lt);border-color:var(--red-b)}
-.n-tip{background:var(--gold-lt);border-color:#e0a800}
-.n-dark{background:#1a0a2a;color:#ddbbff;border-color:#88a;padding:1em 1.4em}
+.n-tip{background:#fff8e0;border-color:#e0a800}
+.n-dark{background:#1a1a1a;color:#eee;border-color:#888;padding:1em 1.4em}
 .n-dark strong{color:#fff}
 table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
-th{background:#4a2080;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+th{background:#1a5050;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
 td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
-tr:nth-child(even) td{background:#f8f5ff}
-.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
-.tag-todo{background:#fff3cd;color:#856404}
-.tag-high{background:#ffd5d5;color:#7a0000}
-.tag-conf{background:#d4edda;color:#155724}
-.tag-easter{background:#4a2080;color:#fff;border:1px solid #88a}
-.char-hero{background:linear-gradient(135deg,#1a0a2a,#4a2080);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
-.char-hero .hero-pub{font-size:.85em;color:#ccbbff;letter-spacing:.5px;margin-bottom:.3em}
-.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
-.char-hero .hero-alias{font-size:1em;color:#ddbbff;margin-bottom:.5em}
-.char-hero .hero-desc{font-size:.9em;color:#eeddff;line-height:1.7}
-.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
-.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
-.hb-free{background:#444;color:#ddd;border:1px solid #777}
-.hb-gender{background:#4a2080;color:#ddbbff;border:1px solid #88a}
-.hb-revenge{background:#2d0000;color:#ffaaaa;border:1px solid #c44}
-.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
-.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
-.id-pub{border-color:#888;background:var(--gray-lt)}
-.id-true{border-color:#88a;background:#f8f5ff}
-.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
-.id-layer .layer-value{font-weight:700;font-size:1.05em}
-.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
-.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
-.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
-.stat-box .stat-label{font-size:.72em;color:var(--muted)}
-.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#4a2080}
+tr:nth-child(even) td{background:#f0ffff}
+.char-hero{background:linear-gradient(135deg,#0a2020, #1a6060);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.hero-sub{font-size:.88em;color:rgba(255,255,255,.72);margin:.2em 0}
+.hero-src{font-size:.82em;color:rgba(255,255,255,.6);margin-top:.5em}
+.footer-nav{margin-top:2em;font-size:.85em;color:#666;display:flex;gap:1em;flex-wrap:wrap}
+@media(max-width:600px){.top-nav{flex-direction:column;align-items:flex-start}.section{padding:1rem 1.1rem}}
 </style>
 </head>
 <body>
-<div class="gm-banner">🔒 GM Only — 刁五兒實為女性（輕鬆彩蛋），冷佛林之女，為父復仇</div>
+<div class="gm-banner">🔒 GM Only — 冷鈺（女扮男裝）：冷佛林之女，復仇者，真實性別是輕鬆彩蛋</div>
 <nav class="top-nav">
   <div class="nav-links">
     <a href="../../../../index.html">首頁</a> ›
@@ -66,137 +47,196 @@ tr:nth-child(even) td{background:#f8f5ff}
     <a href="index.html">角色筆記</a> ›
     刁五兒
   </div>
-  <div class="page-nav">
-    <a href="wang-shun.html">← 王順</a>
-    <a href="zhang-meng.html">張猛 →</a>
-  </div>
+  <div class="page-nav"><a href="wang-shun.html">← 王順</a> <a href="zhang-meng.html">張猛 →</a></div>
 </nav>
 <div class="wrapper">
 
   <div class="char-hero">
-    <div class="hero-pub">公開身份</div>
     <div class="hero-name">刁五兒</div>
-    <div class="hero-alias">真名 冷鈺（女性，以男裝示人）</div>
-    <div class="hero-desc">冷佛林之女，前來為父（冷佛林，已故）追查真相。冷降塵是其父的舊識，死亡與她的個人目標相關。全程以男性裝扮出現——真實性別是「輕鬆彩蛋」，在復盤最後公布。</div>
-    <div class="hero-badges">
-      <span class="hero-badge hb-free">自由陣營</span>
-      <span class="hero-badge hb-gender">女扮男裝</span>
-      <span class="hero-badge hb-revenge">為父復仇</span>
-    </div>
+    <div class="hero-sub">GM 專用筆記 · 最後更新：2026-06-17</div>
+    <div class="hero-src">來源：刁五兒全.pdf &nbsp;·&nbsp; input-text/# 【刁五兒】文字劇本.md</div>
   </div>
 
   <div class="notice n-dark">
-    <strong>GM Summary：</strong>
-    刁五兒（冷鈺）是遊戲中的「復仇者」角色，同時帶有「女扮男裝」的輕鬆彩蛋。她的個人目標與謀殺案有直接關聯（冷降塵是她父親的舊識），讓她自然投入調查。她的真實性別是全場最後一個彩蛋，在兄妹真相之後公布，作為輕鬆的結尾。
+    <strong>GM Summary：</strong><br>
+    <strong>GM ONLY — 請勿讓玩家看到本文件。</strong><br>
+    本文件整合了角色劇本（人工整理版 input-text）與DM手冊真相。所有關鍵事實已由 input-text 核對確認。
   </div>
 
-  <h2>身份層次</h2>
-  <div class="id-layers">
-    <div class="id-layer id-pub">
-      <div class="layer-label">公開身份（偽裝）</div>
-      <div class="layer-value">刁五兒（男性）</div>
-      <div class="layer-sub">以男性江湖人身份出現</div>
-    </div>
-    <div class="id-layer id-true">
-      <div class="layer-label">真實身份</div>
-      <div class="layer-value">冷鈺（女性）</div>
-      <div class="layer-sub">冷佛林之女<br>輕鬆彩蛋：實際上是女性</div>
-    </div>
-  </div>
-
-  <h2>GM 戰鬥數值</h2>
-  <div class="stats">
-    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">25</div></div>
-    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">3–6</div></div>
-    <div class="stat-box"><div class="stat-label">技能</div><div class="stat-val">可升</div></div>
-  </div>
-
-  <h2>在主線凶案中的角色</h2>
+  <h2>GM Summary</h2>
   <div class="section">
-    <ul>
-      <li>冷降塵是她父親（冷佛林）的舊識</li>
-      <li>冷降塵的死亡與她的個人目標（為父復仇/追查真相）直接相關</li>
-      <li>她可能是最積極調查謀殺案的角色之一</li>
-      <li>她具體調查的目標和線索 <span class="tag tag-todo">TODO 從劇本確認</span></li>
-    </ul>
+<p>刁五兒是本場遊戲中<strong>情感核心最強烈的角色之一</strong>。她並非任何陣營的正式成員，而是一個以女扮男裝、孤身入局的女兒，唯一的初始目的是為父（冷佛林）報仇——殺死她認為的兇手：義兄冷降塵。她的故事弧線從「復仇」走向「真相揭曉後的重新選擇」：與冷降塵的密室對峙中得知父親死亡另有真凶，並從義兄手中接過近衛軍兵符，讓她在陣營搏殺環節中的最終站隊充滿戲劇張力。</p>
+<p>她還承載著一個<strong>輕鬆的彩蛋</strong>——她的真實性別（女性）在遊戲結尾才公開，是復盤時的趣味揭曉時刻，可以在氛圍緊張的結局後為全體玩家提供一個情緒出口。</p>
   </div>
 
-  <h2>陣營與勝利條件</h2>
+  <h2>Public Identity（公開身份）</h2>
   <div class="section">
-    <table>
-      <tr><th>項目</th><th>內容</th></tr>
-      <tr><td>初始陣營</td><td>無（自由），可選邊</td></tr>
-      <tr><td>核心動機</td><td>為父（冷佛林）追查真相、復仇</td></tr>
-      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 需人工核對原始劇本</span></td></tr>
-      <tr><td>結局A（寇俠勝）</td><td>為父報仇，冷降塵真相大白，可功成身退</td></tr>
-      <tr><td>結局B（綉衣使勝）</td><td>父仇得報（真相揭曉），但大夏覆滅</td></tr>
-    </table>
+<ul><li><strong>名稱</strong>：刁五兒</li><li><strong>外貌</strong>：瘦小乾枯，黑布裹面的漢子，客商打扮（22歲）；全身皮膚潰爛，脖頸纏著厚厚繃帶，聲音嘶啞如男人</li><li><strong>公開職業</strong>：客商隨行護衛（與冷降塵〔張猛〕、金四刀同行採買鶴紅草）</li><li><strong>公開性別</strong>：男（偽裝）</li><li><strong>表面個性</strong>：沉默寡言，讓人不舒服的古怪感，其他人傾向迴避他</li></ul>
   </div>
 
-  <h2>知情 / 不知情</h2>
+  <h2>True Identity / Hidden Identity</h2>
   <div class="section">
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1em">
-      <div>
-        <h3 style="color:#155724">✓ 刁五兒知道</h3>
-        <ul>
-          <li>她是冷鈺，冷佛林之女</li>
-          <li>她以男裝掩護身份</li>
-          <li>她在追查父親有關的真相</li>
-          <li>冷降塵與父親有關聯</li>
-          <li>其他知情事項 <span class="tag tag-todo">TODO</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="color:#856404">✗ 刁五兒不知道</h3>
-        <ul>
-          <li>嚴氏是凶手</li>
-          <li>嚴氏是大夏皇族後裔</li>
-          <li>其他各角色的GM真相</li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
-        <ul>
-          <li>刁五兒是女性（輕鬆彩蛋）</li>
-          <li>復盤公告順序：真實性別是<strong>最後</strong>的輕鬆彩蛋（在兄妹真相之後）</li>
-        </ul>
-      </div>
-    </div>
+<table>
+<tr><th>欄位</th><th>真相</th></tr>
+<tr><td>真實姓名</td><td>冷鈺</td></tr>
+<tr><td>真實性別</td><td><strong>女性</strong>（全程男裝）</td></tr>
+<tr><td>家族</td><td>冷佛林之女（冷佛林已故）</td></tr>
+<tr><td>身份關鍵</td><td>原<strong>鶴須軍</strong>大統領冷佛林的獨生女兒</td></tr>
+<tr><td>組織身份</td><td><strong>綉衣使民間線人</strong>（雙重間諜：同時是鶴須軍小頭目）</td></tr>
+<tr><td>使命</td><td>殺死冷降塵（義兄）以為父報仇</td></tr>
+</table>
+<p><strong>性別彩蛋說明（GM專注）：</strong> 刁五兒全程以男裝示人，其他角色與玩家均不知情。這個秘密設計為<strong>輕鬆的復盤彩蛋</strong>，在主線真相揭曉之後再公布，可以讓全場在沉重的結局氣氛後得到一次歡樂的鬆弛時刻。GM在遊戲中不主動提示，待結局復盤環節按順序公告。</p>
   </div>
 
-  <h2>主持人提示</h2>
+  <h2>Hidden Background（GM 真相）</h2>
   <div class="section">
-    <div class="notice n-tip">
-      <strong>角色分配建議：</strong>中等難度。適合靈活的玩家，因為陣營選擇自由，且有「為父復仇」的清晰動機驅動。
-    </div>
-    <ul>
-      <li>刁五兒的男裝在整場遊戲中都不能被揭穿——GM 要確保玩家理解這一點</li>
-      <li>她是調查謀殺案最有動機的角色，GM 可以引導她積極參與盤凶</li>
-      <li>復盤時，在兄妹真相之後公布刁五兒的真實性別，作為輕鬆結尾</li>
-    </ul>
+<ul><li>真名冷鈺，原<strong>鶴須軍</strong>大統領冷佛林之女。</li><li>冷降塵（化名張猛）是她的<strong>義兄</strong>——本名丁典，原為敵將丁崧之子。丁崧因放走冷佛林入獄後，託人請冷佛林照顧其子。丁典在鶴須軍中成長後被冷佛林收為義子，改名冷降塵，冷鈺打心底把他當親哥哥。</li><li>龍瑞二年，冷佛林與冷降塵同行出發籌謀大事，途中遭人伏擊。冷降塵帶回冷佛林遺體，聲稱十數人圍攻，但本身毫髮無傷。冷鈺懷疑義兄謀殺父親、覬覦統領之位。</li><li>她趁機混入綉衣使，成為<strong>綉衣使民間線人</strong>，由一名戴面具的高手傳授她<strong>無相功法</strong>。此功法提高武功極快，但<strong>副作用</strong>是皮膚潰爛脫落，最終臉上留下可怖疤痕（這解釋了她厚厚繃帶、黑布蒙面的外貌）。</li><li>以男性身份「刁五兒」重返鶴須軍，成為冷降塵最信任的近侍，等待動手機會。</li></ul>
   </div>
 
-  <h2>復盤公告順序</h2>
+  <h2>Role in Main Plot</h2>
   <div class="section">
-    <ol>
-      <li>（先完成兄妹彩蛋等主要情感衝擊）</li>
-      <li>最後公布：刁五兒的真實性別是女性（冷鈺）<span class="tag tag-easter">輕鬆彩蛋</span></li>
-    </ol>
+<p>刁五兒在主線中扮演<strong>雙重間諜 / 情感牽引角色</strong>：</p>
+<ul><li>她是鶴須軍的小頭目，同時是綉衣使的民間線人，掌握雙方手勢符號。</li><li>她最初的任務是<strong>殺死冷降塵</strong>，但兇案環節中冷降塵主動找她攤牌，並告知父親另有真凶，從而改變了她的動機軸。</li><li>她的最終站隊（寇俠或綉衣使）可以影響陣營搏殺結果——劇本明文她<strong>可選任一陣營</strong>。</li></ul>
   </div>
 
-  <h2>TODO / 待確認</h2>
+  <h2>Relationship to Murder Case</h2>
   <div class="section">
-    <table>
-      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
-      <tr><td>1</td><td>個人勝利條件</td><td>劇本頁7/8</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>2</td><td>她的父親冷佛林的具體死因/故事</td><td>劇本頁2/3</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>3</td><td>冷降塵與冷佛林的關係說明</td><td>劇本頁3</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>4</td><td>她在調查謀殺案中能獲得的具體線索</td><td>劇本頁4/5</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>5</td><td>道具/技能卡</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
-    </table>
+<p><strong>冷降塵謀殺案（主案）：</strong></p>
+<ul><li>刁五兒<strong>不是</strong>兇手——她在 20:30–20:50 與冷降塵在天字四號房密談，20:50 將冷降塵送出房門後回到自己房間，徹夜未眠。</li><li>兇手另有其人（詳見 DM 手册、嚴氏/栾绛/嚴逸線索）。</li></ul>
+<p><strong>凶案時間線（刁五兒視角）：</strong></p>
+<table>
+<tr><th>時間</th><th>事件</th></tr>
+<tr><td>20:20（戌時）</td><td>有人敲刁五兒房門；她喝問後對方無應聲離去；她看到人影從二樓左側樓梯下至一樓，未看清是誰</td></tr>
+<tr><td>20:30（戌時）</td><td>冷降塵敲門，邀她前往天字四號房密談</td></tr>
+<tr><td>兩人在房中打鬥</td><td>冷降塵叫出她真名「冷鈺妹子，你要裝到幾時」；她出掌攻去，冷降塵硬接，咳血；兩人繼續糾纏</td></tr>
+<tr><td>冷降塵攤牌</td><td>告知她：義父（冷佛林）非他所殺，是有人戴面具、持毒匕首行刺，被他用<strong>縛陽掌</strong>擊中<strong>左肩</strong>後逃走；真凶住在客栈「地字…」（因證據未充分，話說到一半停下）</td></tr>
+<tr><td>交付兵符</td><td>冷降塵從懷中取出<strong>近衛軍兵符</strong>交給她，等於交出鶴須軍半數軍權</td></tr>
+<tr><td>20:50（戌時）</td><td>冷降塵將她送出房間；她拿著兵符回到自己房間，徹夜未眠</td></tr>
+<tr><td>次日清晨</td><td>聽到小二余哥兒呼叫，推門進入大堂</td></tr>
+</table>
   </div>
 
-  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
+  <h2>Faction / Alignment</h2>
+  <div class="section">
+<table>
+<tr><th>欄位</th><th>內容</th></tr>
+<tr><td>陣營</td><td><strong>可選任一陣營</strong>（劇本明文）</td></tr>
+<tr><td>驅動力</td><td>為父（冷佛林）報仇，查清父親死亡真相，奪回鶴須軍控制權</td></tr>
+<tr><td>可拉攏方向</td><td>寇俠（若認同其路線）或 綉衣使（若認為復仇需依賴朝廷）</td></tr>
+</table>
+  </div>
+
+  <h2>Goals and Win Conditions</h2>
+  <div class="section">
+<table>
+<tr><th>目標</th><th>說明</th></tr>
+<tr><td>主目標 1</td><td>不主動暴露真實身份與目的</td></tr>
+<tr><td>主目標 2</td><td>盡可能找到父親死亡的真相</td></tr>
+<tr><td>主目標 3</td><td>找到綉衣使中人（已在布告欄留下線人標記「雀至，福聚」）</td></tr>
+<tr><td>主目標 4</td><td>找到師父（傳授無相功法者），也許他有緩解功法反噬的辦法</td></tr>
+<tr><td>陣營搏殺目標</td><td>協助所選陣營勝利（活下來是最終的勝利）</td></tr>
+</table>
+  </div>
+
+  <h2>Clues / Items / Skills</h2>
+  <div class="section">
+<table>
+<tr><th>項目</th><th>內容</th></tr>
+<tr><td>道具：銀兩</td><td>60兩</td></tr>
+<tr><td>道具：武功卡</td><td>×1（師父傳授的無相功法）</td></tr>
+<tr><td>道具：天賦卡—敲詐</td><td>×1（個人技能，謹慎使用）</td></tr>
+<tr><td>情景三道具：絕學卡—卸器</td><td>×1（從DM處領取，陣營搏殺用，勿讓敵對陣營知道）</td></tr>
+<tr><td>武功</td><td><strong>無相功法</strong>（副作用：皮膚潰爛、脫落；修煉越快反噬越快）</td></tr>
+<tr><td>近衛軍兵符</td><td>冷降塵在兇案環節密談中親手交給她（鶴須軍半數軍權）</td></tr>
+<tr><td>手勢符號</td><td>掌握兩種（綉衣使線人手勢、鶴須軍小頭目手勢），可畫在便箋或對方掌心</td></tr>
+</table>
+  </div>
+
+  <h2>Key Relationships</h2>
+  <div class="section">
+<table>
+<tr><th>角色</th><th>關係</th><th>刁五兒視角</th><th>GM真相補充</th></tr>
+<tr><td>冷佛林（已故）</td><td>父親</td><td>全場動機根源，為他報仇</td><td>原<strong>鶴須軍</strong>大統領；非冷降塵所殺</td></tr>
+<tr><td>冷降塵（已故）</td><td><strong>義兄</strong>（冷佛林的義子，改名前叫丁典）</td><td>最初認定是殺父仇人；密談後得知真相</td><td>兇案當晚 20:30 主動找她攤牌；交出近衛軍兵符；兇手另有其人</td></tr>
+<tr><td>金四刀</td><td>鶴須軍高級將領，此行同伴</td><td>充滿戒心，感覺其眼神充滿野心，不像甘心當普通將領的人</td><td>詳見金四刀角色資料</td></tr>
+<tr><td>面具師父（戴面具者）</td><td>綉衣使派來傳授她武功的高手</td><td>相處半年，對他有深厚情感，視之為父親以外真正教她的人；她感受到他散發無相功法的氣息</td><td>身份未在劇本中直接揭曉；玩家任務之一是找出師父真名</td></tr>
+<tr><td>丁崧（已故）</td><td>義兄冷降塵的生父，冷佛林昔日的仇人/知交</td><td>不直接相關</td><td>兩人一見如故，丁崧因放走冷佛林入獄，後請冷佛林照顧其子丁典</td></tr>
+</table>
+  </div>
+
+  <h2>Relationship Table（含 GM 真相欄）</h2>
+  <div class="section">
+<table>
+<tr><th>角色</th><th>刁五兒公開態度</th><th>刁五兒內心</th><th>GM真相</th></tr>
+<tr><td>冷降塵</td><td>以近侍身份掩護，表面恭順</td><td>初始：認定殺父仇人，伺機擊殺；密談後：震驚、重新評估</td><td>他已死，兇手是別人；他主動攤牌並交出兵符</td></tr>
+<tr><td>金四刀</td><td>正常同行</td><td>戒備，感覺他野心勃勃</td><td>詳見金四刀資料</td></tr>
+<tr><td>各寇俠成員</td><td>不露身份，觀察為主</td><td>評估是否可以成為盟友</td><td>各有秘密陣營</td></tr>
+<tr><td>各綉衣使成員</td><td>偽裝普通護衛；嘗試以線人手勢聯絡</td><td>需找到真正的綉衣使同僚</td><td>她是綉衣使線人，但不知道誰是真正的同僚</td></tr>
+</table>
+  </div>
+
+  <h2>Timeline</h2>
+  <div class="section">
+<table>
+<tr><th>時間點</th><th>事件</th></tr>
+<tr><td>冷鈺7歲</td><td>鶴須軍與朝廷發生衝突，父親冷佛林被敵將丁崧俘虜後被放回</td></tr>
+<tr><td>冷鈺7歲後數月</td><td>丁崧將軍入獄，請冷佛林收養其子丁典；丁典比冷鈺大六歲</td></tr>
+<tr><td>後數年</td><td>冷佛林收丁典為義子，改名冷降塵；鶴須軍在二人共同努力下壯大</td></tr>
+<tr><td>龍瑞二年（冷鈺17歲）</td><td>冷佛林與冷降塵同行籌謀大事，途中遭人伏擊；冷佛林遇害，冷降塵毫髮無傷地帶回遺體</td></tr>
+<tr><td>龍瑞二年後兩年</td><td>冷鈺在鶴須軍中「與虎謀皮」，趁冷降塵率大軍出發後悄悄離開，找到綉衣使密探</td></tr>
+<tr><td>此後半年</td><td>戴面具的綉衣使高手傳授她無相功法；皮膚開始潰爛，臉上留下疤痕</td></tr>
+<tr><td>無相功法習成後</td><td>以男性身份「刁五兒」重返鶴須軍，成為冷降塵最信任的近侍</td></tr>
+<tr><td>麒安二年</td><td>冷降塵收到玄甲軍統領來信，邀至盤興口議事；帶刁五兒與金四刀出行</td></tr>
+<tr><td>七月十一（今日）</td><td>抵達盤興口天福客栈；在布告欄留下綉衣使線人標記「雀至，福聚」</td></tr>
+<tr><td>今日 20:20</td><td>有人敲她房門後逃走；她在大堂漆黑中看到人影下樓</td></tr>
+<tr><td>今日 20:30</td><td>冷降塵來敲門，密談；兩人打鬥，冷降塵攤牌並交出近衛軍兵符</td></tr>
+<tr><td>今日 20:50</td><td>冷降塵送她出房；她徹夜未眠</td></tr>
+<tr><td>次日清晨</td><td>小二余哥兒發現冷降塵（張猛）死在庫房，全員聚集</td></tr>
+<tr><td>陣營搏殺環節</td><td>選擇站隊（寇俠或綉衣使）</td></tr>
+<tr><td>結局</td><td>真相揭曉，父仇得報</td></tr>
+<tr><td>復盤</td><td>真實性別「冷鈺」作為輕鬆彩蛋公開</td></tr>
+</table>
+  </div>
+
+  <h2>What This Character Knows（遊戲開始時刁五兒知道的）</h2>
+  <div class="section">
+<ul><li>父親冷佛林已死，她確信是冷降塵所殺（這是她的初始認知，尚未被修正）。</li><li>冷降塵是她的義兄（原名丁典），她打心底把他當親哥哥——這也是這段仇恨的殘酷性所在。</li><li>她是綉衣使線人，也是鶴須軍小頭目，掌握雙方手勢。</li><li>她感受到客栈某人身上有無相功法氣息，推測師父就在這寥寥數人之中。</li><li>她知道布告欄落款「人口丁」很古怪（此人可能另有深意）。</li></ul>
+  </div>
+
+  <h2>What This Character Learns（兇案環節密談後）</h2>
+  <div class="section">
+<ul><li>冷降塵<strong>並非</strong>殺父真凶——父親是被一名戴面具、用毒匕首的刺客所殺；冷降塵用縛陽掌擊中刺客<strong>左肩</strong>，刺客傷後逃走。</li><li>冷降塵懷疑真凶就住在客栈的「地字…」（話說到一半停下）。</li><li>她從冷降塵手中接過<strong>近衛軍兵符</strong>（鶴須軍半數軍權）。</li></ul>
+  </div>
+
+  <h2>What This Character Does Not Know</h2>
+  <div class="section">
+<ul><li>父親的具體真凶是誰，以及與冷降塵謀殺案是否同出一脈。</li><li>各角色的真實陣營與秘密任務。</li><li>面具師父的真實身份。</li></ul>
+  </div>
+
+  <h2>What Only GM Knows</h2>
+  <div class="section">
+<ul><li>刁五兒真實性別為女性（冷鈺）——其他玩家直到復盤才知道。</li><li>她是冷佛林之女、冷降塵義妹這一點，在遊戲中其他玩家可能完全不知道。</li><li>她的身份曝光時機由GM控制，或由玩家自行選擇何時揭曉。</li><li>傳授她無相功法的面具師父，其身份是本遊戲的另一條謎線。</li></ul>
+  </div>
+
+  <h2>How This Character May Affect the Game</h2>
+  <div class="section">
+<ol><li><strong>情感張力</strong>：她本來要殺冷降塵，結果冷降塵先找她攤牌、交出軍權就被人殺了——這個反轉對玩家而言情感衝擊極大，GM可以關注玩家的反應。</li><li><strong>陣營天平</strong>：她初始可選任一陣營，最終站隊可影響陣營搏殺結果，GM應注意兩陣營都可能積極拉攏她。</li><li><strong>線索提供者</strong>：她知道冷降塵密談中提到的「刺客縛陽掌擊中左肩」細節，這是查明父親真凶的關鍵線索。</li><li><strong>近衛軍兵符</strong>：她持有兵符，這是鶴須軍半數軍權的象徵，可能成為陣營談判的籌碼。</li><li><strong>性別彩蛋</strong>：她的秘密不影響主線勝負，但是復盤時的重要趣味時刻。GM需要在正確時機揭曉（見 Reveal Notes）。</li></ol>
+  </div>
+
+  <h2>Hosting Notes</h2>
+  <div class="section">
+<ul><li>刁五兒的玩家需要全程保持「男裝」表演，建議GM在遊戲前和玩家確認其意願及舒適度。</li><li>她的沉默個性（「古怪沉默讓人迴避」）是有意識的保護機制，玩家應理解這背後有深刻情感。</li><li>她的武功反噬（皮膚潰爛）是劇本設定，建議引導玩家在描述外貌時強調這一點，增加代入感。</li><li>她持有近衛軍兵符但不一定知道該如何使用，GM可適時引導她與其他鶴須軍相關角色互動。</li><li>她可選任一陣營——玩家可能在遊戲中期感到迷茫。GM可在適當時機給予輕微引導（「你的目標是真相和軍權，陣營只是手段」）。</li></ul>
+  </div>
+
+  <h2>Reveal / Debrief Notes</h2>
+  <div class="section">
+<p><strong>揭曉順序建議：</strong></p>
+<ol><li>主線真相揭曉（冷降塵謀殺案凶手與主謀）</li><li>父親冷佛林真凶揭曉（與冷降塵謀殺案的關聯）</li><li><strong>刁五兒真實性別「冷鈺」</strong>——作為輕鬆彩蛋，在最後揭曉</li></ol>
+<p><strong>GM說法建議：</strong> 「最後，我們的刁五兒，這個看起來沉默怪異的男護衛……其實是一位女俠！她的真名是冷鈺，原鶴須軍大統領冷佛林的女兒，女扮男裝前來為父報仇。大家鼓掌！」</p>
+<p><strong>設計意圖：</strong> 此彩蛋屬於「輕鬆」揭示，在重量級的主線真相之後提供情緒出口。不建議提前劇透，也不建議在緊張對決時機揭示，以免破壞氣氛。</p>
+  </div>
+
+  <div class="footer-nav">
     <a href="wang-shun.html">← 王順</a> &nbsp;|&nbsp;
     <a href="index.html">角色列表</a> &nbsp;|&nbsp;
     <a href="zhang-meng.html">張猛 →</a>

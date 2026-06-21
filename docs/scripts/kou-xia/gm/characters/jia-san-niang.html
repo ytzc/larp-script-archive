@@ -6,79 +6,39 @@
 <title>賈三娘 GM 筆記 — 寇侠</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
-  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
-  --gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;
-  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
-  --shadow:0 1px 5px rgba(0,0,0,.1);
-}
-body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
-a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
-h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
-h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:#1c1c1c;background:#faf6ef}
+a{color:#003399;text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.2em;color:#003399;border-bottom:2px solid #003399;padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1em;color:#333;margin:1em 0 .4em;font-weight:600}
+h4{font-size:.93em;color:#555;margin:.8em 0 .2em}
 ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
 p{margin-bottom:.8em}
-
-.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+code{background:#f0f0f0;padding:.1em .4em;border-radius:3px;font-size:.88em}
+strong{font-weight:700}
+.gm-banner{position:sticky;top:0;z-index:999;background:#8b0000;color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
 .top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
-.top-nav .nav-links{display:flex;gap:1em;align-items:center}
-.top-nav .page-nav{display:flex;gap:1em;align-items:center;color:var(--muted)}
-.top-nav a{color:var(--red)}
-
+.top-nav .nav-links,.top-nav .page-nav{display:flex;gap:1em;align-items:center}
+.top-nav a{color:#003399}
 .wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
-.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
-
+.section{background:#fff;padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:0 1px 5px rgba(0,0,0,.1)}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
-.n-danger{background:var(--red-lt);border-color:var(--red-b)}
-.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
-.n-tip{background:var(--gold-lt);border-color:#e0a800}
-.n-dark{background:#1a1a3a;color:#cce;border-color:#44c;padding:1em 1.4em}
+.n-tip{background:#fff8e0;border-color:#e0a800}
+.n-dark{background:#1a1a1a;color:#eee;border-color:#888;padding:1em 1.4em}
 .n-dark strong{color:#fff}
-.n-urgent{background:#2d0000;color:#ffcccc;border-color:#ff4444;padding:1em 1.4em}
-.n-urgent strong{color:#fff}
-
 table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
 th{background:#003399;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
 td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
-tr:nth-child(even) td{background:#f5f7ff}
-
-.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
-.tag-todo{background:#fff3cd;color:#856404}
-.tag-high{background:#ffd5d5;color:#7a0000}
-.tag-urgent{background:#c00;color:#fff}
-.tag-conf{background:#d4edda;color:#155724}
-.tag-med{background:#d1ecf1;color:#0c5460}
-
-.char-hero{background:linear-gradient(135deg,#1a1a3a,#003399);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
-.char-hero .hero-pub{font-size:.85em;color:#aac;letter-spacing:.5px;margin-bottom:.3em}
-.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
-.char-hero .hero-alias{font-size:1em;color:#ccddff;margin-bottom:.5em}
-.char-hero .hero-desc{font-size:.9em;color:#dde;line-height:1.7}
-.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
-.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
-.hb-xiu{background:#003399;color:#cce;border:1px solid #44c}
-.hb-pivot{background:#664400;color:#ffe0a0;border:1px solid #a07000}
-.hb-defect{background:#1a4a1a;color:#aaffaa;border:1px solid #4a4}
-
-.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
-.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
-.id-pub{border-color:#888;background:var(--gray-lt)}
-.id-code{border-color:var(--blue-b);background:var(--blue-lt)}
-.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
-.id-layer .layer-value{font-weight:700;font-size:1.05em}
-.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
-
-.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
-.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
-.stat-box .stat-label{font-size:.72em;color:var(--muted)}
-.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#003399}
+tr:nth-child(even) td{background:#eef0ff}
+.char-hero{background:linear-gradient(135deg,#001a4a, #003399);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.hero-sub{font-size:.88em;color:rgba(255,255,255,.72);margin:.2em 0}
+.hero-src{font-size:.82em;color:rgba(255,255,255,.6);margin-top:.5em}
+.footer-nav{margin-top:2em;font-size:.85em;color:#666;display:flex;gap:1em;flex-wrap:wrap}
+@media(max-width:600px){.top-nav{flex-direction:column;align-items:flex-start}.section{padding:1rem 1.1rem}}
 </style>
 </head>
 <body>
-
-<div class="gm-banner">🔒 GM Only — 賈三娘感情線對象未確認，開本前必須人工核對</div>
-
+<div class="gm-banner">🔒 GM Only — 歸雪（綉衣使二號）：陣營固定無感情線，移動了冷降塵屍體至庫房</div>
 <nav class="top-nav">
   <div class="nav-links">
     <a href="../../../../index.html">首頁</a> ›
@@ -87,201 +47,152 @@ tr:nth-child(even) td{background:#f5f7ff}
     <a href="index.html">角色筆記</a> ›
     賈三娘
   </div>
-  <div class="page-nav">
-    <a href="wang-si-han.html">← 王思涵</a>
-    <a href="jin-si-ren.html">金四刀 →</a>
-  </div>
+  <div class="page-nav"><a href="yan-shi.html">← 嚴氏</a> <a href="wang-si-han.html">王思涵 →</a></div>
 </nav>
-
 <div class="wrapper">
 
   <div class="char-hero">
-    <div class="hero-pub">公開身份</div>
     <div class="hero-name">賈三娘</div>
-    <div class="hero-alias">代號 歸雪（Guī Xuě）</div>
-    <div class="hero-desc">34歲，風韻猶存的客棧老板娘，身着一袭紅衣。詩句：「精誠去來枝，孤鴻嫁自飛。」</div>
-    <div class="hero-badges">
-      <span class="hero-badge hb-xiu">綉衣使（輔助）</span>
-      <span class="hero-badge hb-pivot">感情線 X 因素</span>
-      <span class="hero-badge hb-defect">倒戈可能</span>
-    </div>
-  </div>
-
-  <div class="notice n-urgent">
-    <strong>⚠️ 最高優先待確認：</strong>
-    賈三娘感情線對象（頁7 OCR quality issue）——<strong>開本前必須人工核對物理小冊</strong>。
-    感情線對象決定她是否倒戈寇俠，直接影響陣營搏殺勝負。
+    <div class="hero-sub">GM 專用筆記 · 最後更新：2026-06-17</div>
+    <div class="hero-src">來源：賈三娘全.pdf &nbsp;·&nbsp; input-text/# 【賈三娘】文字劇本.md</div>
   </div>
 
   <div class="notice n-dark">
-    <strong>GM Summary：</strong>
-    賈三娘是綉衣使的在地情報樞紐，表面是客棧老板娘，實際是密探「歸雪」。她的特殊之處在於<strong>感情線可能動搖她的立場</strong>——這使她從綉衣使固定成員，變成遊戲中最大的陣營不確定因素之一（另一個是王思涵）。GM 需密切關注感情線的發展。
+    <strong>GM Summary：</strong><br>
+    <strong>GM Only — 本文件包含賈三娘所有秘密、真實身份、任務內容及GM知道但玩家不知道的全部資訊。</strong>
   </div>
 
-  <h2>身份層次</h2>
-  <div class="id-layers">
-    <div class="id-layer id-pub">
-      <div class="layer-label">公開身份</div>
-      <div class="layer-value">賈三娘</div>
-      <div class="layer-sub">客棧老板娘，34歲，紅衣，天然情報優勢</div>
-    </div>
-    <div class="id-layer id-code">
-      <div class="layer-label">綉衣使代號</div>
-      <div class="layer-value">歸雪（Guī Xuě）</div>
-      <div class="layer-sub">綉衣使密探，在地多年，嚴逸直屬</div>
-    </div>
-  </div>
-
-  <h2>GM 戰鬥數值</h2>
-  <div class="stats">
-    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">30</div></div>
-    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">5</div></div>
-  </div>
-
-  <h2>隱藏背景（GM 真相）</h2>
+  <h2>GM Summary</h2>
   <div class="section">
-    <ol>
-      <li><strong>綉衣使密探</strong>：賈三娘以「歸雪」代號為綉衣使服務，在此地深耕多年。</li>
-      <li><strong>情報樞紐</strong>：她的客棧位置天然適合情報蒐集，為嚴逸提供在地支援。</li>
-      <li><strong>感情線 X 因素</strong>：她有一個在遊戲中可發展的感情對象。若感情線推進，她可能倒戈。<span class="tag tag-urgent">感情對象待確認 — 最高優先</span></li>
-      <li><strong>加入綉衣使的背景</strong>：<span class="tag tag-todo">TODO — 需人工核對原始小冊</span></li>
-    </ol>
+<p>賈三娘是綉衣使的在地情報樞紐，表面是客棧老板娘、實際是密探「歸雪」。她是綉衣使二號殺手，陣營固定、立場忠誠，無法倒戈。她的主要戲劇張力來自：她與殘手（嚴逸）之間存在多年的把柄關係、她曾親手重傷冷降塵之父冷佛林、她在凶案當晚親自移動了冷降塵的屍體。<strong>此前GM文件中關於「感情線可能動搖立場」的描述來自OCR錯誤，原文並無此設定，請勿採用。</strong></p>
   </div>
 
-  <h2>在主線凶案中的角色</h2>
+  <h2>Public Identity</h2>
   <div class="section">
-    <table>
-      <tr><th>項目</th><th>內容</th><th>信心度</th></tr>
-      <tr><td>直接關係</td><td>她可能知道或不知道嚴氏殺死冷降塵的事</td><td><span class="tag tag-todo">待確認</span></td></tr>
-      <tr><td>情報協助</td><td>她的情報工作使她可能掌握冷降塵的情報（是否提供行蹤？）</td><td><span class="tag tag-todo">待確認</span></td></tr>
-      <tr><td>GM注意</td><td>若她向嚴逸提供了冷降塵行蹤情報，她間接協助了謀殺</td><td><span class="tag tag-todo">待確認</span></td></tr>
-    </table>
+<ul><li><strong>角色名：</strong> 賈三娘</li><li><strong>對外身份：</strong> 風韻猶存的客棧老板娘，34歲，身着一袭紅衣</li><li><strong>對外說法：</strong> 原本在盤興口經營成衣坊，後投資客棧，生意清淡，賠了不少錢</li><li><strong>客棧功能：</strong> 她的客棧是所有人聚集的場所，天然佔有情報優勢</li></ul>
   </div>
 
-  <h2>陣營與勝利條件</h2>
+  <h2>True Identity / Hidden Identity</h2>
   <div class="section">
-    <table>
-      <tr><th>項目</th><th>內容</th></tr>
-      <tr><td>初始陣營</td><td>綉衣使（輔助）</td></tr>
-      <tr><td>任務目標</td><td>協助嚴逸蒐集情報，確保行動不暴露</td></tr>
-      <tr><td>感情副線</td><td>感情線完成（對象、具體條件待確認）<span class="tag tag-urgent">最高優先</span></td></tr>
-      <tr><td>若倒戈</td><td>以全新身份重生（結局A，寇俠勝）</td></tr>
-      <tr><td>若堅守</td><td>在綉衣使勝利框架下維持臥底身份（結局B）</td></tr>
-      <tr><td>個人勝利條件</td><td><span class="tag tag-high">TODO — 頁8 OCR 不完整，需人工核對</span></td></tr>
-    </table>
+<table>
+<tr><th>身份層次</th><th>內容</th></tr>
+<tr><td>公開身份</td><td>客棧老板娘「賈三娘」</td></tr>
+<tr><td>綉衣使代號</td><td>歸雪（Gui Xue）——綉衣使排名第二的頂尖殺手</td></tr>
+<tr><td>掩護身份</td><td>可偽稱玄甲軍成員（已混入其中，深得旭敏芝信任）</td></tr>
+</table>
   </div>
 
-  <h2>知情 / 不知情 / GM Only</h2>
+  <h2>Hidden Background（GM Truth）</h2>
   <div class="section">
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1em">
-      <div>
-        <h3 style="color:#155724">✓ 賈三娘知道</h3>
-        <ul>
-          <li>她是歸雪，綉衣使密探</li>
-          <li>嚴逸是殘手，是她的上司</li>
-          <li>嚴氏（栾绛）是她的線衣使同僚</li>
-          <li>綉衣使此行的大致任務方向</li>
-          <li>她對凶案的知情程度 <span class="tag tag-todo">TODO</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="color:#856404">✗ 賈三娘不知道</h3>
-        <ul>
-          <li>嚴氏（何乃清）是金四刀之妹（最大彩蛋）</li>
-          <li>嚴氏的大夏皇族真實身份</li>
-          <li>其他不知情事項 <span class="tag tag-todo">TODO</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
-        <ul>
-          <li>她的感情線對象 <span class="tag tag-urgent">待確認</span></li>
-          <li>她的倒戈潛力使她成為寇俠方潛在的關鍵盟友</li>
-          <li>她是場上最大的陣營不確定因素之一</li>
-        </ul>
-      </div>
-    </div>
+<ol><li><strong>出身：</strong> 自幼流浪街頭的小乞丐，8歲時被起朝權臣鄭木相中，帶入綉衣使秘密訓練營。真實姓名不詳，「歸雪」亦只是綉衣使代號。</li><li><strong>訓練：</strong> 在訓練營10年，習得暗殺、暗器、制毒、蠱惑等術。14歲開始外出執行任務，升遷迅速，21歲鄭木建立起朝後成為綉衣使二號殺手。</li><li><strong>殺何彦一家（大夏元始三年，16歲）：</strong> 她與殘手共同刺殺濟陽縣令何彦一家，任務完成後殘手私自放過了何彦的幼女。她以此作為把柄，但一直未動用，因尚不足以撼動殘手地位。</li><li><strong>擊殺冷佛林（龍瑞二年）：</strong> 她是刺殺鹤須軍大統領冷佛林行動的參與者之一，親手以茶靈毒匕首刺入冷佛林右肋，致其中毒身亡。行動中被冷降塵以缚阳掌擊中左肩，留下永久黑紫色掌痕，此後慣穿深衣遮掩。</li><li><strong>混入玄甲軍：</strong> 龍瑞四年宛平府一役後，奉命臥底玄甲軍，取得統帥旭敏芝信任，重新繪製了玄甲軍布防圖。旭敏芝還派她在盤興口開設天福客棧作為情報據點。</li><li><strong>無感情線：</strong> 原GM文件中「感情線」條目為OCR錯誤所致，原文劇本中並無此設定。賈三娘的個人動機完全圍繞忠於鄭木與綉衣使。</li></ol>
   </div>
 
-  <h2>關係表</h2>
+  <h2>Role in Main Plot</h2>
   <div class="section">
-    <table>
-      <tr><th>關聯角色</th><th>賈三娘視角</th><th>GM真相</th><th>來源</th><th>信心度</th></tr>
-      <tr>
-        <td><strong>嚴逸</strong>（殘手）</td>
-        <td>上司，服從</td>
-        <td>綉衣使指揮官，利用她的情報網絡；指使嚴氏殺人</td>
-        <td>DM手册</td>
-        <td><span class="tag tag-conf">High</span></td>
-      </tr>
-      <tr>
-        <td><strong>嚴氏</strong>（栾绛）</td>
-        <td>線衣使同僚</td>
-        <td>凶手，大夏皇族後裔——她不知道嚴氏的皇族身份</td>
-        <td>DM手册</td>
-        <td><span class="tag tag-conf">High</span></td>
-      </tr>
-      <tr>
-        <td><strong>感情對象</strong></td>
-        <td>心動的人</td>
-        <td>對象身份待確認 <span class="tag tag-urgent">OCR quality issue</span></td>
-        <td>角色劇本</td>
-        <td><span class="tag tag-todo">待確認</span></td>
-      </tr>
-    </table>
+<ol><li><strong>在地情報樞紐：</strong> 掌握玄甲軍布防圖，情報網絡覆蓋盤興口</li><li><strong>接頭任務：</strong> 等待殘手（嚴逸）前來接頭，共同執行任務</li><li><strong>凶案關鍵人物：</strong> 凶案當晚親自移動冷降塵屍體至庫房（詳見凶案時間線）</li><li><strong>前朝追殺任務：</strong> 收到線人密信，盤興口有大夏前朝重臣隱匿，須查明並除之</li></ol>
   </div>
 
-  <h2>主持人提示</h2>
+  <h2>Relationship to Murder Case</h2>
   <div class="section">
-    <div class="notice n-tip">
-      <strong>角色分配建議：</strong>建議由善於情感演繹、能處理複雜人際關係的玩家扮演。
-    </div>
-    <ul>
-      <li>GM 在第二輪私聊（引蛇出洞）時應注意她的感情線動態</li>
-      <li>若感情對象是寇俠方成員，兩個陣營都需要知道她是可爭取的</li>
-      <li>她的客棧身份天然佔有情報優勢，GM 可考慮給她一張「在地情報」特殊技能卡（待確認）</li>
-      <li>她是綉衣使方重要的 HP 支柱（HP30），若倒戈則大幅削弱綉衣使</li>
-    </ul>
+<p>賈三娘是冷降塵屍體被移至庫房的直接執行者，但她本人並非凶手。</p>
+<ul><li><strong>戌時（20:18）：</strong> 她在大堂看到嚴氏與金四刀交談，起疑嚴氏夫婦，決定去冷降塵房間探聽。</li><li><strong>戌時（20:25）：</strong> 以飛虎爪攀爬天字四號房窗框，發現冷降塵不在，在房梁等待。後見冷降塵返房，與刁五儿打鬥，遂退回廚房等待。</li><li><strong>亥時（21:00）：</strong> 再返天字四號房窗邊，見刁五儿已離去，冷降塵昏迷倒地、衣服有血跡，房中有赤霞（綉衣使特製迷香）。判斷是同僚動手。</li><li><strong>亥時（21:00–21:10）：</strong> 扛起冷降塵，從二樓拖至庫房，開鎖入內。庫房內亦有赤霞，她吸入兩口後頭昏，倉皇撤退。撤退時發現冷降塵手指微動（可能仍有氣息）。</li><li><strong>亥時（21:10）後：</strong> 踉蹌返回自室，因赤霞效果昏睡，直至清晨余哥兒呼叫才起身。</li></ul>
+<p><strong>GM注意：</strong> 她移動屍體的行為可能成為其他角色懷疑她的關鍵線索。她知道凶器是赤霞，知道是綉衣使同僚動手，但不知道具體是誰（雖然懷疑嚴氏夫婦）。</p>
   </div>
 
-  <h2>結局</h2>
+  <h2>Faction / Alignment</h2>
   <div class="section">
-    <table>
-      <tr><th>結局</th><th>條件</th><th>賈三娘個人結局</th></tr>
-      <tr><td>結局A（寇俠勝）</td><td>若她倒戈</td><td>以全新身份重生</td></tr>
-      <tr><td>結局A（寇俠勝）</td><td>若她堅守綉衣使</td><td>戰敗被俘或撤退</td></tr>
-      <tr><td>結局B（綉衣使勝）</td><td>—</td><td>維持臥底身份，繼續任務</td></tr>
-    </table>
+<ul><li><strong>陣營：</strong> 綉衣使（固定，無法更改）</li><li><strong>陣營說明：</strong> 原文明確寫明「你的角色賈三娘初始為綉衣使陣營，只能選擇綉衣使陣營，無法更改」</li><li><strong>情景三特殊技能：</strong> 可從DM處領取【絕學卡—吸星】1張，用於陣營博殺環節</li></ul>
   </div>
 
-  <h2>復盤說明</h2>
+  <h2>Goals and Win Conditions</h2>
   <div class="section">
-    <ol>
-      <li>公布賈三娘的真實身份：歸雪，綉衣使密探</li>
-      <li>說明她的感情線（若有發展）</li>
-      <li>說明她最終的選擇對比她作為密探的起點——情感落差是好的復盤討論點</li>
-    </ol>
+<h3>情景一任務</h3>
+<ol><li>盡可能對疑似敵對陣營的人隱瞞綉衣使真實身份</li><li>盡可能拉攏人，鞏固朝廷勢力</li><li>隱瞞暗殺濟陽縣令何彦一家及擊殺冷佛林的事實</li><li>找到綉衣使內應並完成接頭</li><li>盡可能獲得更多物品</li></ol>
+<p><strong>情景一問題（各答一次，答對得10兩）：</strong></p>
+<ul><li>問題1：上峰派誰來和你接頭？（客棧中的名字）</li><li>問題2：旭敏芝變裝化名來到天福客棧的目的是什麼？</li><li>問題3：誰和舊朝大夏有直接或間接關係？至少說出2個名字</li></ul>
+<h3>情景二任務</h3>
+<ul><li>參與線索討論，盡可能投出真凶</li></ul>
+<p><strong>情景二問題（各答一次，答對得10兩）：</strong></p>
+<ul><li>問題1：有幾個人中過缚阳掌，都是誰？</li><li>問題2：給你通風報信盤興口有大夏重臣的線人是誰？</li><li>問題3：王順的真實身份是？</li><li>問題4：目前在天福客棧中和大夏一朝有關的人都是誰？至少說出三人</li></ul>
+<h3>情景三任務</h3>
+<ol><li>單獨找到DM，完成「陣營選擇」（確認綉衣使陣營）</li><li>根據陣營牌正面任務行動</li><li>全力幫助綉衣使陣營在最終混戰中取得勝利</li></ol>
   </div>
 
-  <h2>TODO / 待確認（開本前）</h2>
+  <h2>道具 / Items</h2>
   <div class="section">
-    <table>
-      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
-      <tr><td>1</td><td><strong>感情線對象姓名</strong>——開本前必須確認</td><td>頁7</td><td><span class="tag tag-urgent">最高優先</span></td></tr>
-      <tr><td>2</td><td>個人勝利條件</td><td>頁8</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>3</td><td>她對嚴氏殺死冷降塵的知情程度</td><td>頁5/6</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>4</td><td>加入綉衣使的背景</td><td>頁2/3</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>5</td><td>在地情報內容：她掌握了哪些角色的具體情報？</td><td>頁4</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>6</td><td>道具/技能卡</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
-    </table>
+<table>
+<tr><th>道具</th><th>數量</th><th>說明</th></tr>
+<tr><td>銀兩卡（120兩）</td><td>1</td><td>可用於玩家間交易或與NPC交易</td></tr>
+<tr><td>【武功卡】</td><td>1</td><td>賈三娘所掌握的武功</td></tr>
+<tr><td>【天賦卡—美色惑人】</td><td>1</td><td>個人技能，謹慎使用</td></tr>
+<tr><td>【物品卡—綉衣使傳音令一赤】</td><td>1</td><td>屬於綉衣使的令牌</td></tr>
+<tr><td>【物品卡—玄甲軍布防圖】</td><td>1</td><td>重新繪製的玄甲軍布防圖</td></tr>
+<tr><td>【絕學卡—吸星】（情景三）</td><td>1</td><td>情景三初期從DM處領取，陣營博殺用，勿讓敵方知悉</td></tr>
+</table>
   </div>
 
-  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
-    <a href="wang-si-han.html">← 王思涵</a> &nbsp;|&nbsp;
+  <h2>What This Character Knows</h2>
+  <div class="section">
+<ul><li>她是歸雪，綉衣使密探（自知）</li><li>嚴逸是殘手，是她等待接頭的上司（需通過手勢確認）</li><li>嚴氏是嚴逸之妻（表面認知）；她懷疑嚴氏夫婦是綉衣使的同僚</li><li>冷降塵即「張猛」（她認出了他，因為綉衣使有各寇俠首領畫像，且她曾與冷降塵交手）</li><li>綉衣使手勢符號：分為內部成員手勢和線人手勢兩種；另有「三短一長」叩擊方式</li><li>庫房的赤霞迷香是綉衣使特製，說明有同僚動手</li><li>庫房鑰匙：她手中有一把，余哥兒有一把備用（備用鑰匙後被盜）</li><li>收到線人密信：盤興口郊有大夏前朝重臣偽裝農人隱居</li></ul>
+  </div>
+
+  <h2>What This Character Does Not Know</h2>
+  <div class="section">
+<ul><li>嚴氏（何乃清）是金四刀之妹（重大彩蛋）</li><li>嚴氏的大夏皇族真實身份</li><li>誰是那個通風報信的民間線人</li><li>冷降塵究竟是否在她撤退後仍存活</li></ul>
+  </div>
+
+  <h2>What Only GM Knows</h2>
+  <div class="section">
+<ul><li>賈三娘移動屍體是凶案的關鍵行動之一——她雖非凶手，但她的舉動使屍體出現在庫房</li><li>她左肩的掌痕是缚阳掌所留，這是冷降塵（或知情者）認出她真實身份的潛在線索</li><li>她16歲時與殘手同赴何彦刺殺任務，親眼見殘手放過幼女，這個把柄雙方都清楚</li></ul>
+  </div>
+
+  <h2>Key Relationships</h2>
+  <div class="section">
+<table>
+<tr><th>關聯角色</th><th>賈三娘視角</th><th>GM真相</th><th>信心度</th></tr>
+<tr><td>嚴逸（殘手）</td><td>等待接頭的上司，暗中使用手勢確認身份；她手中握有他年少時放過何彦幼女的把柄</td><td>綉衣使一號殺手，此行指揮，利用賈三娘的情報網絡</td><td>High</td></tr>
+<tr><td>嚴氏</td><td>懷疑是綉衣使同僚（嚴逸之妻），曾見她與金四刀交談感覺奇怪</td><td>凶手；真實身份是大夏皇族後裔何乃清，亦是金四刀之妹</td><td>High</td></tr>
+<tr><td>冷降塵（張猛）</td><td>認出其真實身份，視為重要目標，想借綉衣使同僚之力除之</td><td>鹤須軍大統領，其父冷佛林死於賈三娘之手；他留給賈三娘掌痕</td><td>High</td></tr>
+<tr><td>旭敏芝（王思涵）</td><td>玄甲軍統帥，已取得其信任，監視其行動目的</td><td>下山是為了會見某位寇俠將領，具體對象賈三娘尚不知</td><td>High</td></tr>
+<tr><td>金四刀</td><td>陌生人，疑似鹤須軍成員；見他與王思涵交談</td><td>—</td><td>Medium</td></tr>
+<tr><td>農叟（王順）</td><td>陌生老農，身份不明</td><td>—</td><td>待確認</td></tr>
+</table>
+  </div>
+
+  <h2>凶案時間線</h2>
+  <div class="section">
+<table>
+<tr><th>時間</th><th>事件</th><th>賈三娘行動</th><th>信心度</th></tr>
+<tr><td>戌時（20:18）</td><td>大堂見嚴氏與金四刀交談</td><td>起疑，決定去探冷降塵房間</td><td>High（原文）</td></tr>
+<tr><td>戌時（20:25）</td><td>攀爬天字四號房窗框</td><td>入窗探查，見冷降塵不在；等待後見其返房與刁五儿打鬥，遂退回廚房</td><td>High（原文）</td></tr>
+<tr><td>亥時（21:00）</td><td>再返天字四號房窗邊</td><td>見刁五儿離去、冷降塵昏迷、聞到赤霞香氣</td><td>High（原文）</td></tr>
+<tr><td>亥時（21:00–21:10）</td><td>移動屍體</td><td>扛冷降塵從二樓拖至庫房，開鎖入內；庫房亦有赤霞，吸入後頭昏，倉皇撤退；撤退時見冷降塵手指微動</td><td>High（原文）</td></tr>
+<tr><td>亥時（21:10）後</td><td>返回自室</td><td>因赤霞效果昏睡至清晨</td><td>High（原文）</td></tr>
+<tr><td>清晨</td><td>余哥兒呼叫</td><td>起身赴大堂，參與小劇場環節</td><td>High（原文）</td></tr>
+</table>
+  </div>
+
+  <h2>Hosting Notes</h2>
+  <div class="section">
+<ul><li>建議由<strong>能處理複雜情報推理、擅長表演謹慎觀察角色</strong>的玩家扮演</li><li>她的兩套手勢（內部成員手勢 vs. 線人手勢）是情景一的核心機制，GM需在開本前向玩家清楚說明如何使用</li><li>她認出了冷降塵（張猛），這是她在情景一中最重要的隱藏資訊</li><li>她移動了屍體——這在小劇場環節可能成為其他角色推理的關鍵線索</li></ul>
+  </div>
+
+  <h2>Reveal / Debrief Notes</h2>
+  <div class="section">
+<p><strong>復盤時：</strong></p>
+<ul><li>公布賈三娘的真實身份：歸雪，綉衣使二號殺手</li><li>說明她移動屍體的始末——她不是凶手，但她是把冷降塵放進庫房的人</li><li>說明她左肩掌痕的來源（缚阳掌，冷降塵所留）</li><li>說明她與殘手之間的把柄關係（殘手當年放過何彦幼女）</li></ul>
+  </div>
+
+  <h2>Conflicts with Existing GM Materials</h2>
+  <div class="section">
+<ul><li><strong>已解決：</strong> 原GM文件中「感情線可能動搖立場」的描述來自OCR錯誤，原文無此設定，已刪除</li><li><strong>已解決：</strong> 原文中「陣營固定，無法更改」已確認，已更新陣營說明</li><li><strong>待確認：</strong> 王順的真實身份（原文問題3要求玩家查明，但賈三娘劇本中並未說明答案）</li><li><strong>待確認：</strong> 情景二問題2（通風報信線人是誰）——需對照其他角色劇本交叉確認</li></ul>
+  </div>
+
+  <div class="footer-nav">
+    <a href="yan-shi.html">← 嚴氏</a> &nbsp;|&nbsp;
     <a href="index.html">角色列表</a> &nbsp;|&nbsp;
-    <a href="jin-si-ren.html">金四刀 →</a>
+    <a href="wang-si-han.html">王思涵 →</a>
   </div>
-
 </div>
 </body>
 </html>

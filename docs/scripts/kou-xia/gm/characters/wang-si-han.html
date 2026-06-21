@@ -6,77 +6,39 @@
 <title>王思涵 GM 筆記 — 寇侠</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
-  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
-  --gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;
-  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
-  --shadow:0 1px 5px rgba(0,0,0,.1);
-}
-body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:var(--ink);background:var(--paper)}
-a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
-h2{font-size:1.3em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .7em}
-h3{font-size:1.05em;color:#333;margin:1em 0 .4em}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.75;color:#1c1c1c;background:#faf6ef}
+a{color:#5a1a7a;text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.2em;color:#5a1a7a;border-bottom:2px solid #5a1a7a;padding-bottom:.3em;margin:2em 0 .7em}
+h3{font-size:1em;color:#333;margin:1em 0 .4em;font-weight:600}
+h4{font-size:.93em;color:#555;margin:.8em 0 .2em}
 ul,ol{margin:.4em 0 .8em 1.4em}li{margin-bottom:.3em}
 p{margin-bottom:.8em}
-
-.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
+code{background:#f0f0f0;padding:.1em .4em;border-radius:3px;font-size:.88em}
+strong{font-weight:700}
+.gm-banner{position:sticky;top:0;z-index:999;background:#8b0000;color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
 .top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
-.top-nav .nav-links{display:flex;gap:1em;align-items:center}
-.top-nav .page-nav{display:flex;gap:1em;align-items:center;color:var(--muted)}
-.top-nav a{color:var(--red)}
-
+.top-nav .nav-links,.top-nav .page-nav{display:flex;gap:1em;align-items:center}
+.top-nav a{color:#5a1a7a}
 .wrapper{max-width:960px;margin:0 auto;padding:1.5em 1em 5em}
-.section{background:var(--white);padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:var(--shadow)}
-
+.section{background:#fff;padding:1.3em 1.6em;margin-bottom:1.4em;border-radius:4px;box-shadow:0 1px 5px rgba(0,0,0,.1)}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
-.n-danger{background:var(--red-lt);border-color:var(--red-b)}
-.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
-.n-tip{background:var(--gold-lt);border-color:#e0a800}
-.n-dark{background:#1a1a3a;color:#cce;border-color:#44c;padding:1em 1.4em}
+.n-tip{background:#fff8e0;border-color:#e0a800}
+.n-dark{background:#1a1a1a;color:#eee;border-color:#888;padding:1em 1.4em}
 .n-dark strong{color:#fff}
-
 table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.88em}
-th{background:#003399;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
+th{background:#5a1a7a;color:#fff;padding:.5em .8em;text-align:left;font-weight:600}
 td{padding:.45em .8em;border-bottom:1px solid #e8ddd0;vertical-align:top}
-tr:nth-child(even) td{background:#f5f7ff}
-
-.tag{display:inline-block;font-size:.73em;padding:.1em .5em;border-radius:3px;font-weight:600;margin-left:.3em;vertical-align:middle}
-.tag-todo{background:#fff3cd;color:#856404}
-.tag-high{background:#ffd5d5;color:#7a0000}
-.tag-conf{background:#d4edda;color:#155724}
-.tag-med{background:#d1ecf1;color:#0c5460}
-
-/* character hero */
-.char-hero{background:linear-gradient(135deg,#111133,#003399);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
-.char-hero .hero-pub{font-size:.85em;color:#aac;letter-spacing:.5px;margin-bottom:.3em}
-.char-hero .hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
-.char-hero .hero-alias{font-size:1em;color:#ccddff;margin-bottom:.5em}
-.char-hero .hero-desc{font-size:.9em;color:#dde;line-height:1.7}
-.hero-badges{display:flex;gap:.5em;margin-top:.7em;flex-wrap:wrap}
-.hero-badge{padding:.25em .7em;border-radius:3px;font-size:.8em;font-weight:600}
-.hb-free{background:#444;color:#ddd;border:1px solid #777}
-.hb-kou{background:#5a0000;color:#ffcccc;border:1px solid #c44}
-.hb-key{background:#1a3a1a;color:#aaffaa;border:1px solid #4a4}
-
-.id-layers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1em;margin:1em 0}
-.id-layer{padding:1em 1.2em;border-radius:5px;border-left:4px solid}
-.id-pub{border-color:#888;background:var(--gray-lt)}
-.id-true{border-color:var(--blue-b);background:var(--blue-lt)}
-.id-layer .layer-label{font-size:.73em;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3em}
-.id-layer .layer-value{font-weight:700;font-size:1.05em}
-.id-layer .layer-sub{font-size:.85em;color:#555;margin-top:.2em}
-
-.stats{display:flex;gap:1.2em;flex-wrap:wrap;margin:.8em 0}
-.stat-box{background:var(--white);border:1px solid #e0d0c0;border-radius:4px;padding:.5em .9em;text-align:center;min-width:70px}
-.stat-box .stat-label{font-size:.72em;color:var(--muted)}
-.stat-box .stat-val{font-size:1.3em;font-weight:700;color:#003399}
+tr:nth-child(even) td{background:#f5eeff}
+.char-hero{background:linear-gradient(135deg,#1a003a, #5a1a7a);color:#fff;border-radius:6px;padding:1.5em 2em;margin:1em 0}
+.hero-name{font-size:2em;font-weight:700;margin-bottom:.2em}
+.hero-sub{font-size:.88em;color:rgba(255,255,255,.72);margin:.2em 0}
+.hero-src{font-size:.82em;color:rgba(255,255,255,.6);margin-top:.5em}
+.footer-nav{margin-top:2em;font-size:.85em;color:#666;display:flex;gap:1em;flex-wrap:wrap}
+@media(max-width:600px){.top-nav{flex-direction:column;align-items:flex-start}.section{padding:1rem 1.1rem}}
 </style>
 </head>
 <body>
-
-<div class="gm-banner">🔒 GM Only — 王思涵是陣營最大 X 因素，私聊動態需密切關注</div>
-
+<div class="gm-banner">🔒 GM Only — 玄甲軍統師旭敏芝：雇用了殺兄凶手王順，本人陣營選擇最靈活</div>
 <nav class="top-nav">
   <div class="nav-links">
     <a href="../../../../index.html">首頁</a> ›
@@ -85,191 +47,155 @@ tr:nth-child(even) td{background:#f5f7ff}
     <a href="index.html">角色筆記</a> ›
     王思涵
   </div>
-  <div class="page-nav">
-    <a href="yan-shi.html">← 嚴氏</a>
-    <a href="jia-san-niang.html">賈三娘 →</a>
-  </div>
+  <div class="page-nav"><a href="jia-san-niang.html">← 賈三娘</a> <a href="nong-sou.html">農叟 →</a></div>
 </nav>
-
 <div class="wrapper">
 
   <div class="char-hero">
-    <div class="hero-pub">公開身份</div>
     <div class="hero-name">王思涵</div>
-    <div class="hero-alias">真名 旭敏芝（阳敏芝？）</div>
-    <div class="hero-desc">21歲，才貌俱佳的歌姬，身着绛紫色細麻長裙，眉眼有傲氣。詩句：「桃李春風一杯酒，江湖夜雨十年燈。」</div>
-    <div class="hero-badges">
-      <span class="hero-badge hb-free">自由陣營</span>
-      <span class="hero-badge hb-kou">初始 寇俠 傾向</span>
-      <span class="hero-badge hb-key">陣營 X 因素</span>
-    </div>
+    <div class="hero-sub">GM 專用筆記 · 最後更新：2026-06-17</div>
+    <div class="hero-src">來源：王思涵全.pdf &nbsp;·&nbsp; input-text/# 【王思涵】文字劇本.md</div>
   </div>
 
   <div class="notice n-dark">
-    <strong>GM Summary：</strong>
-    王思涵是遊戲中<strong>陣營彈性最大</strong>的角色。她表面是歌姬，實為寇俠玄甲軍統師，對大夏復國的態度是半信半疑，最在乎自己部下族人的安危。她的陣營選擇對整場勝負影響極大——GM 需密切關注她在私聊環節中的動向。
+    <strong>GM Summary：</strong><br>
+    <strong>GM Only — 本文件包含王思涵所有秘密、真實身份、任務內容及GM知道但玩家不知道的全部資訊。</strong>
   </div>
 
-  <h2>身份層次</h2>
-  <div class="id-layers">
-    <div class="id-layer id-pub">
-      <div class="layer-label">公開身份</div>
-      <div class="layer-value">王思涵</div>
-      <div class="layer-sub">歌姬，21歲，傲骨從容</div>
-    </div>
-    <div class="id-layer id-true">
-      <div class="layer-label">真實身份</div>
-      <div class="layer-value">旭敏芝（阳敏芝？）</div>
-      <div class="layer-sub">寇俠玄甲軍統師<br><span class="tag tag-todo">名字需人工確認</span></div>
-    </div>
-  </div>
-
-  <div class="notice n-info">
-    <strong>名字問題：</strong>DM手册記載「旭敏芝（阳敏芝）」，角色劇本封面字跡需人工確認正確寫法。開本前須核對物理小冊。
-  </div>
-
-  <h2>GM 戰鬥數值</h2>
-  <div class="stats">
-    <div class="stat-box"><div class="stat-label">HP</div><div class="stat-val">30</div></div>
-    <div class="stat-box"><div class="stat-label">武力</div><div class="stat-val">5</div></div>
-  </div>
-
-  <h2>隱藏背景（GM 真相）</h2>
+  <h2>GM Summary</h2>
   <div class="section">
-    <ol>
-      <li><strong>玄甲軍統師</strong>：王思涵的真實身份是旭敏芝，寇俠玄甲軍的統師。</li>
-      <li><strong>雙重身份</strong>：以歌姬身份隱藏武者身份，在江湖中行走。武力值（5）遠高於歌姬外表暗示。</li>
-      <li><strong>半信半疑</strong>：她對大夏復國的大義半信半疑，但深切關心舊部族人的命運。</li>
-      <li><strong>加入玄甲軍背景</strong>：<span class="tag tag-todo">TODO — needs source confirmation</span></li>
-    </ol>
+<p>王思涵是遊戲中<strong>陣營彈性最大</strong>的角色。她表面上是以賣藝彈唱為生的歌姬，實為寇俠玄甲軍的實際統師<strong>旭敏芝</strong>。她喬裝為歌姬入住天福客棧，目的是引誘並刺殺鶴須軍大統領冷降塵，為兄長旭晨復仇。她的陣營選擇對整場搏殺勝負影響極大——GM 需留意她在私聊環節中的動向。</p>
   </div>
 
-  <h2>在主線凶案中的角色</h2>
+  <h2>Public Identity</h2>
   <div class="section">
-    <ul>
-      <li>王思涵與謀殺案<strong>沒有直接關係</strong></li>
-      <li>她可以作為中立的調查者，也可以選擇配合或阻礙真相揭露</li>
-      <li>是否有特定關於冷降塵的線索或任務？<span class="tag tag-todo">TODO</span></li>
-    </ul>
+<ul><li><strong>角色名：</strong> 王思涵</li><li><strong>對外身份：</strong> 才貌俱佳的賣藝歌姬，與「父親」王順一同在江湖上以賣藝彈唱為生</li><li><strong>氣質：</strong> 傲骨從容，有江湖閱歷</li><li><strong>對外說詞：</strong> 因天福客棧掌柜賈三娘待她們父女極好，所以在此住了下來</li></ul>
   </div>
 
-  <h2>陣營與勝利條件</h2>
+  <h2>True Identity / Hidden Identity</h2>
   <div class="section">
-    <table>
-      <tr><th>項目</th><th>內容</th></tr>
-      <tr><td>初始陣營</td><td>無（自由），可加入任一陣營</td></tr>
-      <tr><td>初始傾向</td><td>寇俠傾向（與金四刀有初始關聯），但可被綉衣使拉攏</td></tr>
-      <tr><td>個人目標</td><td>保護舊部族人的安危；對大夏復國半信半疑</td></tr>
-      <tr><td>關鍵決定因素</td><td>能否保護她在乎的舊部族人</td></tr>
-      <tr><td>個人勝利條件</td><td><span class="tag tag-todo">TODO — 頁8 OCR 不完整，需人工核對</span></td></tr>
-    </table>
+<table>
+<tr><th>身份層次</th><th>內容</th></tr>
+<tr><td>公開身份</td><td>歌姬「王思涵」（假名）</td></tr>
+<tr><td>發場身份（中途揭露）</td><td>谷陽府阳氏千金「阳敏芝」，與何乃武（金四刀）有一紙婚書</td></tr>
+<tr><td>真實身份</td><td>旭敏芝——寇俠玄甲軍目前掌握兵權的實際統師</td></tr>
+</table>
+<p><strong>說明</strong>：她家族原姓「阳」，後響應寇俠起義將姓氏改為「旭」（寓意初升驕陽），因此她的真名為<strong>旭敏芝</strong>（非阳敏芝）。「阳敏芝」是她從前的舊名，「旭敏芝」才是她現在的正式身份。</p>
   </div>
 
-  <h2>知情 / 不知情 / GM Only</h2>
+  <h2>Hidden Background（GM Truth）</h2>
   <div class="section">
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1em">
-      <div>
-        <h3 style="color:#155724">✓ 王思涵知道</h3>
-        <ul>
-          <li>她是旭敏芝，玄甲軍統師</li>
-          <li>她以歌姬身份掩護</li>
-          <li>她有選擇加入任一陣營的空間</li>
-          <li>對其他角色的預先了解程度 <span class="tag tag-todo">TODO</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="color:#856404">✗ 王思涵不知道</h3>
-        <ul>
-          <li>嚴氏是凶手</li>
-          <li>嚴氏是大夏皇族後裔（金四刀之妹）</li>
-          <li>其他不知情事項 <span class="tag tag-todo">TODO</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="color:#8b0000">🔑 只有 GM 知道</h3>
-        <ul>
-          <li>她的陣營選擇對搏殺勝負有重要影響</li>
-          <li>她的「半信半疑」是真誠的——她不是偽裝的背叛者</li>
-          <li>若綉衣使勝：可能「見風使舵成功者功成身退」</li>
-        </ul>
-      </div>
-    </div>
+<ol><li>王思涵（旭敏芝）出身谷陽府阳氏豪族，幼年孤單，三歲起與大她五歲的大哥哥<strong>何乃武</strong>青梅竹馬、兩小無猜</li><li>其家族不滿起朝新政，響應民間號召起義，改姓「旭」，在蒼脊山組建玄甲軍</li><li>她的叔父為玄甲軍大統領；兄長<strong>旭晨</strong>是玄甲軍最主要的統師</li><li>她年滿十四後前往蒼脊山接受訓練，未能與何乃武道別</li><li>麒安一年（三年前），她與何乃武在故居祭拜旭晨時重逢，兩人許下婚約；何乃武贈她一枚刻「武」字的碧綠玉佩作為定情信物</li><li>她後來發現這枚玉佩與鶴須軍高級將領的鑫牌描述一模一樣，懷疑何乃武也是鶴須軍成員</li><li>麒安二年晚春，她以叔父名義仿男子筆跡修書，邀請冷降塵至盤興口天福客棧，計劃刺殺</li><li>她選中王順（龐萬金）扮作她的「父親」，是因為王順在玄甲軍中是生面孔且表現突出</li><li><strong>王思涵不知道</strong>王順（龐萬金）殺害了她的兄長旭晨——她視王順為可信的玄甲軍同袍</li></ol>
   </div>
 
-  <h2>關係表</h2>
+  <h2>Role in Main Plot</h2>
   <div class="section">
-    <table>
-      <tr><th>關聯角色</th><th>王思涵視角</th><th>GM真相</th><th>來源</th><th>信心度</th></tr>
-      <tr>
-        <td><strong>金四刀</strong></td>
-        <td>寇俠初始接觸點（具體關係 TODO）</td>
-        <td>同為寇俠方，有初始關聯</td>
-        <td>DM手册</td>
-        <td><span class="tag tag-med">Medium</span></td>
-      </tr>
-      <tr>
-        <td><strong>嚴逸</strong></td>
-        <td>陌生人或危險人物</td>
-        <td>綉衣使核心，可能拉攏她</td>
-        <td>DM手册</td>
-        <td><span class="tag tag-med">Medium</span></td>
-      </tr>
-      <tr>
-        <td><strong>農叟</strong>（丁崧）</td>
-        <td>是否相識？<span class="tag tag-todo">TODO</span></td>
-        <td>兩人都有玄甲軍/大夏舊軍背景，可能相識</td>
-        <td>推斷</td>
-        <td><span class="tag tag-todo">Low</span></td>
-      </tr>
-      <tr>
-        <td><strong>王順</strong></td>
-        <td><span class="tag tag-todo">TODO</span></td>
-        <td>同為寇俠陣營</td>
-        <td>—</td>
-        <td><span class="tag tag-todo">Low</span></td>
-      </tr>
-    </table>
+<ol><li><strong>引誘者</strong>：她以叔父名義寫信引誘冷降塵至天福客棧，是本次聚會局面形成的幕後推手</li><li><strong>陣營X因素</strong>：初始為寇俠，但可在私聊環節自由選擇最終陣營</li><li><strong>情報中心</strong>：派遣賈三娘開設天福客棧作為情報據點，掌握多條暗線</li><li><strong>平衡因子</strong>：她的陣營選擇可能左右整場搏殺勝負</li></ol>
   </div>
 
-  <h2>主持人提示</h2>
+  <h2>Relationship to Murder Case</h2>
   <div class="section">
-    <div class="notice n-tip">
-      <strong>角色分配建議：</strong>建議由靈活思維、對政治局勢敏感的玩家扮演。
-    </div>
-    <ul>
-      <li>注意她在第一/二輪私聊的動態，若被某方拉攏成功，及早調整另一方的策略</li>
-      <li>她的個人底線（保護舊部）是拉攏她的最有效切入點</li>
-      <li>兩個陣營都應嘗試拉攏她：寇俠說「你本來就是玄甲軍」；綉衣使以族人安危誘之</li>
-    </ul>
+<ul><li>王思涵與冷降塵的謀殺案<strong>沒有直接責任</strong></li><li>情景二中她曾於成時（19:30）前往冷降塵房間意圖刺殺，但被冷降塵輕易制服</li><li>冷降塵告知她：真凶另有其人，就在客棧中，此人不但殺了旭晨，還謀害了冷降塵的父親</li><li>她未能得知真凶具體是誰（冷降塵稱需要更多線索才能告知）</li><li>亥時（21:05）她看到有人從偏門拖拽重物後返回客棧，進入地字四號房，但外面太黑無法辨認來人，只感覺此人身高偏矮、身材偏瘦</li></ul>
   </div>
 
-  <h2>復盤公告</h2>
+  <h2>Faction / Alignment</h2>
   <div class="section">
-    <ol>
-      <li>公布旭敏芝（阳敏芝）的真實身份——玄甲軍統師</li>
-      <li>說明她的陣營選擇背後的個人動機（保護舊部族人）</li>
-    </ol>
+<ul><li><strong>初始陣營</strong>：寇俠</li><li><strong>最終陣營</strong>：由玩家在情景三「暗通款曲」環節自由選擇（寇俠或綉衣使均可）</li><li><strong>陣營動機</strong>：</li></ul>
+<p>  - 繼續寇俠：為兄長復仇、守護玄甲軍家族命脈、與何乃武（金四刀）並肩   - 投靠朝廷：保全族人、藉朝廷力量重振玄甲軍實力</p>
+<ul><li><strong>情景三道具</strong>：在DM處領取【絕學卡——養心塊】×1</li></ul>
   </div>
 
-  <h2>TODO / 待確認（開本前）</h2>
+  <h2>Goals and Win Conditions</h2>
   <div class="section">
-    <table>
-      <tr><th>#</th><th>待確認事項</th><th>來源</th><th>優先度</th></tr>
-      <tr><td>1</td><td><strong>真實名字確認</strong>：旭敏芝 or 阳敏芝？</td><td>封面</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>2</td><td>與金四刀的初始關係：具體說明</td><td>頁3/4</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>3</td><td>個人勝利條件</td><td>頁8</td><td><span class="tag tag-high">高</span></td></tr>
-      <tr><td>4</td><td>舊部族人細節：具體是哪些人？</td><td>頁3-5</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>5</td><td>是否與農叟/王順有歷史連結</td><td>頁3</td><td><span class="tag tag-todo">中</span></td></tr>
-      <tr><td>6</td><td>道具/技能卡</td><td>盒裝</td><td><span class="tag tag-todo">中</span></td></tr>
-    </table>
+<p><strong>個人目標</strong>：</p>
+<ol><li>查明兄長旭晨死亡的真相（誰是真凶）</li><li>在真相揭露前不暴露何乃武（金四刀）的身份，公聊階段用「金四刀」稱呼他</li><li>不主動暴露自己的真實身份和此行目的</li><li>取回賈三娘手中的布防圖</li></ol>
+<p><strong>任務問題</strong>（情景一）：</p>
+<ul><li>問題1：何乃武的真實身份是什麼？</li><li>問題2：何乃武來盤興口的真實目的？</li><li>問題3：客棧衆人中誰是冷降塵？</li></ul>
+<p><strong>任務問題</strong>（情景二「引蛇出洞」）：</p>
+<ul><li>問題1：殺害旭晨的真凶是誰？</li><li>問題2：凶手如何殺害旭晨？</li><li>問題3：目前寇俠軍中究竟有無臥底，如果有，是誰？</li><li>問題4：天福客棧中和綉衣使有關的人都有誰？（至少說出3個名字）</li></ul>
   </div>
 
-  <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
-    <a href="yan-shi.html">← 嚴氏</a> &nbsp;|&nbsp;
+  <h2>What This Character Knows</h2>
+  <div class="section">
+<ul><li>她是旭敏芝，玄甲軍實際統師</li><li>她以歌姬「王思涵」身份掩護，以「王順」扮作父親</li><li>賈三娘是她安排在天福客棧的情報人員，但賈三娘與王順互不相識</li><li>何乃武（金四刀）的定情玉佩與鶴須軍將領鑫牌描述一樣，她對他的身份有疑慮</li><li>她知道「張猛」就是冷降塵（鶴須軍大統領）</li><li>全天下寇俠組織使用的手勢符號，可畫在便箋或掌心上使用</li><li>玄甲軍兵符在她手中</li></ul>
+  </div>
+
+  <h2>What This Character Does Not Know</h2>
+  <div class="section">
+<ul><li>嚴氏是凶手</li><li>嚴氏是大夏皇族後裔（金四刀之妹）</li><li>賈三娘（歸雪）的真實身份是綉衣使</li><li><strong>王順（龐萬金）殺害了她的兄長旭晨</strong>（她視王順為己方可信同袍）</li><li>冷降塵懷疑的真凶具體是誰（冷降塵只說「此人就在客棧中」）</li></ul>
+  </div>
+
+  <h2>What Only GM Knows</h2>
+  <div class="section">
+<ul><li>她的陣營選擇對搏殺勝負有重要影響</li><li>她引以為靠的「父親」王順（龐萬金）正是殺害她兄長旭晨的真凶</li><li>她委以重任的賈三娘（歸雪）是綉衣使臥底</li><li>她深愛的何乃武（金四刀）是鶴須軍成員，但並非殺兄凶手</li></ul>
+  </div>
+
+  <h2>凶案時間線（王思涵視角）</h2>
+  <div class="section">
+<table>
+<tr><th>時間</th><th>事件</th><th>王思涵行動</th></tr>
+<tr><td>成時 19:30</td><td>前往冷降塵（張猛）房間（天字四號房）</td><td>房中空無一人，決定埋伏</td></tr>
+<tr><td>成時 19:40</td><td>冷降塵返回房間</td><td>手持匕首出擊，被冷降塵輕易制服</td></tr>
+<tr><td>成時 19:40後</td><td>冷降塵告知：真凶另有其人，就在客棧，此人亦殺了冷降塵之父</td><td>震驚，返回自己房間心緒難平</td></tr>
+<tr><td>成時 20:20</td><td>金四刀敲門探問</td><td>不敢如實相告，金四刀拂袖而去，不慎打落茶杯</td></tr>
+<tr><td>亥時 21:05</td><td>打算去找冷降塵問清楚</td><td>聽見偏門有重物拖行聲，從門縫望去，看到一人踉蹌從偏門返回大堂，進入地字四號房；此人身高偏矮、身材偏瘦，外面漆黑無法辨認</td></tr>
+<tr><td>清晨</td><td>聽到余哥兒的叫喊聲才醒</td><td>—</td></tr>
+</table>
+  </div>
+
+  <h2>Key Relationships</h2>
+  <div class="section">
+<table>
+<tr><th>關聯角色</th><th>王思涵視角</th><th>GM真相</th><th>信心度</th></tr>
+<tr><td>金四刀（何乃武）</td><td>青梅竹馬的未婚夫，愛人；對其鶴須軍身份有疑慮</td><td>固定寇俠，是鶴須軍成員但非殺兄凶手；知道她的真實身份及婚約</td><td>高</td></tr>
+<tr><td>王順（龐萬金）</td><td>扮作她「父親」的玄甲軍同袍，新進人員中的小頭目</td><td><strong>殺害旭晨的真凶</strong>，以左手持鶴須軍短柄手戟割首；王思涵毫不知情</td><td>高</td></tr>
+<tr><td>賈三娘（歸雪）</td><td>她安排在天福客棧的情報人員，治軍能力出衆，手中持有布防圖</td><td>綉衣使臥底，王思涵不知情</td><td>高</td></tr>
+<tr><td>冷降塵（張猛）</td><td>懷疑是殺兄仇人，引誘至此欲刺殺</td><td>非殺兄凶手；知道真凶是誰（客棧中某男子），其父亦被同一人謀害</td><td>高</td></tr>
+<tr><td>農叟（丁崧）</td><td>陌生客人</td><td>—</td><td>低</td></tr>
+<tr><td>嚴逸</td><td>陌生客人</td><td>綉衣使核心，可能拉攏她</td><td>中</td></tr>
+<tr><td>嚴氏</td><td>陌生客人</td><td>冷降塵謀殺案的真兇</td><td>高</td></tr>
+</table>
+  </div>
+
+  <h2>凶案真相（兄長旭晨之死）</h2>
+  <div class="section">
+<ul><li><strong>死亡時間</strong>：龍瑞四年，宛平府之戰</li><li><strong>死亡方式</strong>：被人割首，傷口來自鶴須軍特制武器「短柄手戟」，凶手<strong>慣使左手</strong></li><li><strong>王思涵誤判</strong>：以為是鶴須軍或冷降塵所為</li><li><strong>GM真相</strong>：凶手是<strong>王順（龐萬金）</strong></li><li><strong>關鍵線索</strong>：旭晨屍首旁有一個鶴須軍兵士屍體（可能是王順故意製造的嫁禍現場）</li></ul>
+  </div>
+
+  <h2>道具 / 技能卡</h2>
+  <div class="section">
+<table>
+<tr><th>道具</th><th>說明</th></tr>
+<tr><td>銀兩卡 100兩</td><td>可用於玩家間私下交易，可與NPC交易</td></tr>
+<tr><td>【武功卡】×1</td><td>玄甲軍獨門絕學</td></tr>
+<tr><td>【天賦卡——獻藝】×1</td><td>個人技能，選擇合適時機使用</td></tr>
+<tr><td>【物品卡——玄甲軍兵符】×1</td><td>統領玄甲軍的兵符</td></tr>
+<tr><td>【絕學卡——養心塊】×1</td><td>情景三從DM處領取，陣營搏殺環節強力技能，勿讓敵對陣營知情</td></tr>
+</table>
+<p><strong>技能補充</strong>：她掌握全天下寇俠通用的<strong>手勢符號</strong>，可畫在便箋或對方掌心上使用（可在全程公聊或私聊中暗中溝通，需注意敵方可能已掌握此手勢）。</p>
+  </div>
+
+  <h2>How This Character May Affect the Game</h2>
+  <div class="section">
+<ol><li><strong>陣營平衡</strong>：她的選邊可能決定搏殺勝負，兩個陣營都應嘗試拉攏她</li><li><strong>情報網核心</strong>：她安排了賈三娘和王順兩條暗線，但她自己對雙方的真實身份並不完全掌握</li><li><strong>復仇執念</strong>：她對鶴須軍的敵意來自對旭晨之死的誤判，若真相揭露（王順才是凶手），她的心理衝擊極大</li><li><strong>布防圖風險</strong>：她需要取回賈三娘手中的玄甲軍布防圖，這是一個可製造衝突的關鍵道具</li></ol>
+  </div>
+
+  <h2>Hosting Notes</h2>
+  <div class="section">
+<ul><li>建議由<strong>靈活思維、對政治局勢敏感</strong>的玩家扮演</li><li>注意她在第一、二輪私聊的動向；若被某方拉攏成功，及早調整另一方的策略</li><li>她對王順的信任是一個重大的盲點，若有其他角色暗示王順有問題，GM可觀察她的反應</li><li>金四刀與她的婚約關係是情感牽引點，鶴須軍陣營可藉此影響她的陣營選擇</li></ul>
+  </div>
+
+  <h2>Reveal / Debrief Notes</h2>
+  <div class="section">
+<p><strong>復盤時</strong>：</p>
+<ul><li>公布旭敏芝（舊名阳敏芝）的真實身份——玄甲軍統師</li><li>說明她的「父親」王順（龐萬金）正是殺害她兄長旭晨的真凶</li><li>說明她委以重任的賈三娘（歸雪）是綉衣使臥底</li><li>說明她的陣營選擇背後的個人動機與最終結局</li></ul>
+  </div>
+
+  <div class="footer-nav">
+    <a href="jia-san-niang.html">← 賈三娘</a> &nbsp;|&nbsp;
     <a href="index.html">角色列表</a> &nbsp;|&nbsp;
-    <a href="jia-san-niang.html">賈三娘 →</a>
+    <a href="nong-sou.html">農叟 →</a>
   </div>
-
 </div>
 </body>
 </html>
