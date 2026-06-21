@@ -43,14 +43,23 @@
     .script-section{background:#fff;border:1px solid #e0d4c0;border-radius:6px;padding:1.4rem 1.8rem;margin-bottom:1.1rem}
     .script-section h3{color:var(--red,#8b0000);margin-top:0;border-bottom:1px solid #e0d4c0;padding-bottom:.4rem;font-size:1rem;letter-spacing:.04em}
     .script-section p{margin:.8rem 0;line-height:1.9;text-align:justify}
-    .script-section strong{color:#7a0000}
-    .script-section h4{color:#4a3a2a;font-size:.92rem;margin:1rem 0 .3rem;font-weight:600}
+    .script-section strong{color:#2c4a6e;font-weight:700}
+    .script-section h4{color:#6b4a24;font-size:.96rem;margin:1.1rem 0 .45rem;font-weight:700;border-left:4px solid #c8b89a;padding-left:.55rem}
+    .script-section ol,.script-section ul{margin:.7rem 0 1rem 0;padding-left:1.5rem;line-height:1.9}
+    .script-section li{margin:.35rem 0}
+    .script-section .question-list{list-style:none;padding-left:.2rem}
+    .script-section .question-list li{margin-bottom:.55rem}
+    .script-section .prop-list{list-style:none;padding-left:.2rem}
+    .script-section .prop-list li::before{content:'▫ ';color:#8b6040;font-size:.9em}
     /* ── Mobile ───────────────────────────────── */
     @media(max-width:600px){
       .script-section{padding:1rem 1.1rem}
       .script-cover{padding:1.8rem 1.2rem}
       .script-cover h1{font-size:1.9rem}
       .tab-btn{padding:.4rem .85rem;font-size:.85rem}
+      .script-section ol,.script-section ul{padding-left:1.2rem}
+      .script-section li{line-height:1.85;margin-bottom:.45rem}
+      .script-section h4{font-size:.98rem}
     }
     /* ── Print: show only the active chapter ─── */
     @media print{
@@ -183,9 +192,10 @@
     <p>你已經忘記了四歲之前的記憶。你知道自己有父母，有兄長，但是你想不起自己究竟是誰，</p>
     <p>家人何在。所以你把「嚴逸」當成了唯一，在他的影響下你以繡衣使的身份爲傲。如今你二人互相愛慕，可是誰也沒有說透，就算以夫妻之名執行任務，相互之間還是從不越界。你真心希望就這樣和「嚴逸」一起生活下去。</p>
     <h4>注意</h4>
-    <p>1.請儘量找回自己的記憶，在遊戲中爭取獲得更多的信息，以便在後續遊戲中獲得有利地位。
-2. 作爲繡衣使核心成員，你掌握以下手勢，你可以憑藉自身掌握的手勢符號對他人的身份進行進一步的證明，或對他人展示你的手勢符號以證自身。
-你掌握如下兩種手勢符號：</p>
+    <ol>
+      <li>請儘量找回自己的記憶，在遊戲中爭取獲得更多的信息，以便在後續遊戲中獲得有利地位。</li>
+      <li>作爲繡衣使核心成員，你掌握以下手勢，你可以憑藉自身掌握的手勢符號對他人的身份進行進一步的證明，或對他人展示你的手勢符號以證自身。 你掌握如下兩種手勢符號：</li>
+    </ol>
     <p>繡衣使正式成員掌握的手勢符號是你找到接頭人員的關鍵。
 要記住，掌握繡衣使線人手勢的並不一定是繡衣使中人。
 手勢符號可以畫到便箋上使用，也可以在對方掌心處直接作畫使用。
@@ -195,26 +205,32 @@
 除此之外，繡衣使內部還有更爲簡單的溝通方式，採用「三短一長」的叩擊方式就能印
 證彼此的身份。</p>
     <h4>本階段你能獲得的道具如下：</h4>
-    <p>70 兩銀兩卡：銀兩可以進行玩家間的私下交易，也可以同 NPC進行交易。
-【武功卡】×1：你掌握的繡衣使功法。
-【天賦卡一迷醉】×1：你的個人天賦技能，請謹慎使用。
-【物品卡一繡衣使傳音令一玄】×1：一塊屬於繡衣使的令牌。</p>
+    <ul class="prop-list">
+      <li>70 兩銀兩卡：銀兩可以進行玩家間的私下交易，也可以同 NPC進行交易。</li>
+      <li>【武功卡】×1：你掌握的繡衣使功法。</li>
+      <li>【天賦卡一迷醉】×1：你的個人天賦技能，請謹慎使用。</li>
+      <li>【物品卡一繡衣使傳音令一玄】×1：一塊屬於繡衣使的令牌。</li>
+    </ul>
   </div><!-- /script-section -->
 
   <div class="script-section">
     <h3>你的任務</h3>
-    <p>1.儘量找回自己失去的記憶。
-2. 找到自己身上未知的功法來源，也許能獲得完整的修煉方法。
-3.隱瞞自己給嚴逸下了化清散。
-4.儘量幫助嚴逸找到繡衣使的接頭人。</p>
+    <ol>
+      <li>儘量找回自己失去的記憶。</li>
+      <li>找到自己身上未知的功法來源，也許能獲得完整的修煉方法。</li>
+      <li>隱瞞自己給嚴逸下了化清散。</li>
+      <li>儘量幫助嚴逸找到繡衣使的接頭人。</li>
+    </ol>
   </div><!-- /script-section -->
 
   <div class="script-section">
     <h3>本環節你需要回答的問題</h3>
-    <p>問題1：上峯派遣你和殘手來天福客棧和誰接頭？說出接頭人的名字。
-問題2：你的記憶丟失，那麼你能回想起你是同哪個家族有關嗎？
-問題3：這次你們前來的任務具體都有什麼？
-每個問題只能作答一次，答對一題你能獲得10兩銀子，但你無法得知你回答的哪
+    <ol class="question-list">
+      <li><strong>問題1：</strong>　上峯派遣你和殘手來天福客棧和誰接頭？說出接頭人的名字。</li>
+      <li><strong>問題2：</strong>　你的記憶丟失，那麼你能回想起你是同哪個家族有關嗎？</li>
+      <li><strong>問題3：</strong>　這次你們前來的任務具體都有什麼？</li>
+    </ol>
+    <p>每個問題只能作答一次，答對一題你能獲得10兩銀子，但你無法得知你回答的哪
 案是正確的。</p>
   </div><!-- /script-section -->
 
@@ -299,18 +315,22 @@
 
   <div class="script-section">
     <h3>本階段你的任務</h3>
-    <p>1.儘可能地找到可以信任的夥伴。
-2. 本環節爲私聊模式，所以不要暴露你自身的重要線索。
-3.找到小時候修煉的《武功祕籍》，提升功力。</p>
+    <ol>
+      <li>儘可能地找到可以信任的夥伴。</li>
+      <li>本環節爲私聊模式，所以不要暴露你自身的重要線索。</li>
+      <li>找到小時候修煉的《武功祕籍》，提升功力。</li>
+    </ol>
   </div><!-- /script-section -->
 
   <div class="script-section">
     <h3>本環節你需要回答的問題</h3>
-    <p>問題1：你丟失記憶的原因是什麼？
-問題2：你知道殘手離開那半年是去做什麼了，或者是去見誰嗎？
-問題3：你臉上的紅色印記是被誰打的？
-問題4：作爲繡衣使的密探，繡衣使中的民間線人有幾個？都是誰？
-每個問題只能作答一次，答對一題你能獲得10兩銀子，但你無法得知你回答的哪個答
+    <ol class="question-list">
+      <li><strong>問題1：</strong>　你丟失記憶的原因是什麼？</li>
+      <li><strong>問題2：</strong>　你知道殘手離開那半年是去做什麼了，或者是去見誰嗎？</li>
+      <li><strong>問題3：</strong>　你臉上的紅色印記是被誰打的？</li>
+      <li><strong>問題4：</strong>　作爲繡衣使的密探，繡衣使中的民間線人有幾個？都是誰？</li>
+    </ol>
+    <p>每個問題只能作答一次，答對一題你能獲得10兩銀子，但你無法得知你回答的哪個答
 案是正確的。</p>
   </div><!-- /script-section -->
 
@@ -345,8 +365,10 @@
 
   <div class="script-section">
     <h3>你在本環節的主要任務</h3>
-    <p>1.單獨找到DM，完成「陣營選擇」。選擇「陣營」可以在本環節結束之前的任何時間完成只要壞節沒有結束，都可以隨時進行「陣營」調整。
-2. 根據你選擇的道路進行相關任務（「陣營」牌正面任務）。</p>
+    <ol>
+      <li>單獨找到DM，完成「陣營選擇」。選擇「陣營」可以在本環節結束之前的任何時間完成只要壞節沒有結束，都可以隨時進行「陣營」調整。</li>
+      <li>根據你選擇的道路進行相關任務（「陣營」牌正面任務）。</li>
+    </ol>
   </div><!-- /script-section -->
 
   <div class="script-section">

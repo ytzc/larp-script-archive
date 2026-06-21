@@ -43,14 +43,23 @@
     .script-section{background:#fff;border:1px solid #e0d4c0;border-radius:6px;padding:1.4rem 1.8rem;margin-bottom:1.1rem}
     .script-section h3{color:var(--red,#8b0000);margin-top:0;border-bottom:1px solid #e0d4c0;padding-bottom:.4rem;font-size:1rem;letter-spacing:.04em}
     .script-section p{margin:.8rem 0;line-height:1.9;text-align:justify}
-    .script-section strong{color:#7a0000}
-    .script-section h4{color:#4a3a2a;font-size:.92rem;margin:1rem 0 .3rem;font-weight:600}
+    .script-section strong{color:#2c4a6e;font-weight:700}
+    .script-section h4{color:#6b4a24;font-size:.96rem;margin:1.1rem 0 .45rem;font-weight:700;border-left:4px solid #c8b89a;padding-left:.55rem}
+    .script-section ol,.script-section ul{margin:.7rem 0 1rem 0;padding-left:1.5rem;line-height:1.9}
+    .script-section li{margin:.35rem 0}
+    .script-section .question-list{list-style:none;padding-left:.2rem}
+    .script-section .question-list li{margin-bottom:.55rem}
+    .script-section .prop-list{list-style:none;padding-left:.2rem}
+    .script-section .prop-list li::before{content:'▫ ';color:#8b6040;font-size:.9em}
     /* ── Mobile ───────────────────────────────── */
     @media(max-width:600px){
       .script-section{padding:1rem 1.1rem}
       .script-cover{padding:1.8rem 1.2rem}
       .script-cover h1{font-size:1.9rem}
       .tab-btn{padding:.4rem .85rem;font-size:.85rem}
+      .script-section ol,.script-section ul{padding-left:1.2rem}
+      .script-section li{line-height:1.85;margin-bottom:.45rem}
+      .script-section h4{font-size:.98rem}
     }
     /* ── Print: show only the active chapter ─── */
     @media print{
@@ -164,33 +173,38 @@
     <p>作爲前朝大夏的重要將領，如今你的雄心壯志早就隨着大夏一朝的隕落而逝去了。和親子失去聯繫，更是讓你鬱鬱寡歡。但是你知道，你的心中仍充盈着一團火，一團復闢大夏、掃清如今混亂局勢的希望之火。
 可是你心中最嚮往最信任的寇俠軍竟然派人暗殺於你，也許這其中有些誤會，但不論怎麼樣，身爲舊朝大夏的重臣，你當然會以大夏正統爲重。</p>
     <h4>注意</h4>
-    <p>1. 你的角色爲農叟，真實身份爲前朝大夏的重要將領，身爲前朝大夏的將領，保護大夏血統是你義不容辭的責任；
-2. 身爲前朝大夏的重要將領，你掌握着大夏血脈溝通用的手勢符號：
-手勢符號可以畫到便箋上使用，也可以在對方掌心處直接作畫使用。
-針對你的角色再次進行重點說明：在遊戲私聊的過程中，你應該使用出你掌握的手勢符號，如果使用對象錯誤，那可能會招來殺身之禍。
-手勢符號可以在遊戲全程加以使用（如果你膽大心細，在公聊階段拿來和其他人進行暗地裏的溝通也可以。）</p>
+    <ol>
+      <li>你的角色爲農叟，真實身份爲前朝大夏的重要將領，身爲前朝大夏的將領，保護大夏血統是你義不容辭的責任；</li>
+      <li>身爲前朝大夏的重要將領，你掌握着大夏血脈溝通用的手勢符號： 手勢符號可以畫到便箋上使用，也可以在對方掌心處直接作畫使用。 針對你的角色再次進行重點說明：在遊戲私聊的過程中，你應該使用出你掌握的手勢符號，如果使用對象錯誤，那可能會招來殺身之禍。 手勢符號可以在遊戲全程加以使用（如果你膽大心細，在公聊階段拿來和其他人進行暗地裏的溝通也可以。）</li>
+    </ol>
     <h4>本階段你能獲得的道具如下：</h4>
-    <p>60兩銀兩卡：銀兩可以進行玩家間的私下交易，可以同 NPC進行交易。
-【武功卡】×1：你所掌握的的武功。
-【天賦卡一採藥】×1：你的個人技能，請在合適的時機使用。
-【物品卡一鶴紅草】×2：珍貴草藥。
-【物品卡一潤黃玉牌】×1：一塊通體潤黃的玉牌。</p>
+    <ul class="prop-list">
+      <li>60兩銀兩卡：銀兩可以進行玩家間的私下交易，可以同 NPC進行交易。</li>
+      <li>【武功卡】×1：你所掌握的的武功。</li>
+      <li>【天賦卡一採藥】×1：你的個人技能，請在合適的時機使用。</li>
+      <li>【物品卡一鶴紅草】×2：珍貴草藥。</li>
+      <li>【物品卡一潤黃玉牌】×1：一塊通體潤黃的玉牌。</li>
+    </ul>
   </div><!-- /script-section -->
 
   <div class="script-section">
     <h3>你的任務</h3>
-    <p>1. 找到前朝血脈，並保護前朝血脈，幫助前朝血脈走向最終的勝利。你可以用安民告示中的「人口丁」去試探誰是前朝血脈。
-2.挖掘何彥一家滅門慘案的真相。
-3. 找到親子丁典去向。
-4.找到害自己被流放的人。</p>
+    <ol>
+      <li>找到前朝血脈，並保護前朝血脈，幫助前朝血脈走向最終的勝利。你可以用安民告示中的「人口丁」去試探誰是前朝血脈。</li>
+      <li>挖掘何彥一家滅門慘案的真相。</li>
+      <li>找到親子丁典去向。</li>
+      <li>找到害自己被流放的人。</li>
+    </ol>
   </div><!-- /script-section -->
 
   <div class="script-section">
     <h3>本環節你需要回答的問題</h3>
-    <p>問題1：你的兒子是誰？
-問題2：究竟是誰在最近偷襲暗殺你？請說出這個人的名字。
-問題3：除你之外，還有誰和舊朝大夏有關？（至少說出兩個）
-每個問題只能作答一次，答對一題你能獲得10 兩銀子，但你無法得知你回答的哪個答案是正確的。</p>
+    <ol class="question-list">
+      <li><strong>問題1：</strong>　你的兒子是誰？</li>
+      <li><strong>問題2：</strong>　究竟是誰在最近偷襲暗殺你？請說出這個人的名字。</li>
+      <li><strong>問題3：</strong>　除你之外，還有誰和舊朝大夏有關？（至少說出兩個）</li>
+    </ol>
+    <p>每個問題只能作答一次，答對一題你能獲得10 兩銀子，但你無法得知你回答的哪個答案是正確的。</p>
   </div><!-- /script-section -->
 
   </div><!-- /script-chapter -->
@@ -274,11 +288,15 @@
 
   <div class="script-section">
     <h3>本階段你的任務</h3>
-    <p>1.儘可能地找到信任的夥伴。
-2. 本環節爲私聊模式，所以不要暴露你自身的重要線索，並探聽更多消息問題1：你知道殺害兒子的兇手是誰嗎？請說出他現在的名字。
-問題2：是誰殺害了你好友何彥一家？
-問題3：何彥一家有人存活下來了嗎？請說出存活者的真名。
-問題4：天福客棧中誰是繡衣使核心人員？請至少說出兩個名字。每個問題只能作答一次，答對一題你能獲得10 兩銀子，但你無法得知你回答的哪個答案是正確的。</p>
+    <ol>
+      <li>儘可能地找到信任的夥伴。</li>
+      <li>本環節爲私聊模式，所以不要暴露你自身的重要線索，並探聽更多消息問題1：你知道殺害兒子的兇手是誰嗎？請說出他現在的名字。</li>
+    </ol>
+    <ol class="question-list">
+      <li><strong>問題2：</strong>　是誰殺害了你好友何彥一家？</li>
+      <li><strong>問題3：</strong>　何彥一家有人存活下來了嗎？請說出存活者的真名。</li>
+      <li><strong>問題4：</strong>　天福客棧中誰是繡衣使核心人員？請至少說出兩個名字。每個問題只能作答一次，答對一題你能獲得10 兩銀子，但你無法得知你回答的哪個答案是正確的。</li>
+    </ol>
   </div><!-- /script-section -->
 
   <div class="script-section">
@@ -316,8 +334,10 @@
 
   <div class="script-section">
     <h3>你在本環節的主要任務</h3>
-    <p>1.單獨找到 DM，完成「陣營選擇」。
-2.根據你選擇的道路進行相關任務（「陣營」牌正面任務）。</p>
+    <ol>
+      <li>單獨找到 DM，完成「陣營選擇」。</li>
+      <li>根據你選擇的道路進行相關任務（「陣營」牌正面任務）。</li>
+    </ol>
   </div><!-- /script-section -->
 
   <div class="script-section">

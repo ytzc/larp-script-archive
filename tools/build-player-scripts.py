@@ -53,10 +53,32 @@ class PageBuilder:
         self._in_chapter  = False
         self._in_section  = False
         self._para        = []
+        self._list_mode   = None     # None | 'ol' | 'ul' | 'question' | 'prop'
+        self._list_items  = []
 
     # ── flushing helpers ──────────────────────────────────────────────────────
 
+    def _flush_list(self):
+        if not self._list_items:
+            self._list_mode = None
+            return
+        if self._list_mode == 'question':
+            self._parts.append('    <ol class="question-list">')
+        elif self._list_mode == 'prop':
+            self._parts.append('    <ul class="prop-list">')
+        elif self._list_mode == 'ul':
+            self._parts.append('    <ul>')
+        else:
+            self._parts.append('    <ol>')
+        for item in self._list_items:
+            self._parts.append(f'      <li>{item}</li>')
+        close = 'ul' if self._list_mode in ('prop', 'ul') else 'ol'
+        self._parts.append(f'    </{close}>')
+        self._list_items = []
+        self._list_mode  = None
+
     def _flush_para(self):
+        self._flush_list()
         if self._para:
             txt = '\n'.join(l for l in self._para if l)
             if txt.strip():
@@ -132,7 +154,49 @@ class PageBuilder:
 
             else:
                 cleaned = process_inline(s)
-                if cleaned.strip():
+                if not cleaned.strip():
+                    continue
+                m_num    = re.match(r'^(\d+)[\.。．]\s*(.*)', s)
+                m_q      = re.match(r'^(問題\s*\d+)\s*[：:]\s*(.*)', s)
+                is_prop  = (s.lstrip().startswith('【') or
+                            bool(re.match(r'^\d+\s*兩', s)))
+                is_bullet = bool(re.match(r'^-\s+\S', s))
+
+                if m_num:
+                    if self._list_mode != 'ol':
+                        self._flush_para()
+                        self._list_mode = 'ol'
+                    self._list_items.append(process_inline(m_num.group(2).strip()))
+                elif m_q:
+                    if self._list_mode != 'question':
+                        self._flush_para()
+                        self._list_mode = 'question'
+                    label = html_mod.escape(m_q.group(1)) + '：'
+                    rest  = process_inline(m_q.group(2).strip())
+                    self._list_items.append(
+                        f'<strong>{label}</strong>　{rest}' if rest
+                        else f'<strong>{label}</strong>')
+                elif is_prop:
+                    if self._list_mode != 'prop':
+                        self._flush_para()
+                        self._list_mode = 'prop'
+                    self._list_items.append(cleaned)
+                elif is_bullet:
+                    m_b = re.match(r'^-\s+(.*)', s)
+                    if self._list_mode != 'ul':
+                        self._flush_para()
+                        self._list_mode = 'ul'
+                    self._list_items.append(process_inline(m_b.group(1)))
+                elif self._list_mode == 'ol' and self._list_items:
+                    # Continuation lines of last numbered item
+                    self._list_items[-1] += ' ' + cleaned
+                elif self._list_mode == 'question':
+                    # Trailing note after question block
+                    self._flush_para()
+                    self._para.append(cleaned)
+                else:
+                    if self._list_mode:
+                        self._flush_para()
                     self._para.append(cleaned)
 
         self._commit()
@@ -242,14 +306,23 @@ TEMPLATE = '''\
     .script-section{{background:#fff;border:1px solid #e0d4c0;border-radius:6px;padding:1.4rem 1.8rem;margin-bottom:1.1rem}}
     .script-section h3{{color:var(--red,#8b0000);margin-top:0;border-bottom:1px solid #e0d4c0;padding-bottom:.4rem;font-size:1rem;letter-spacing:.04em}}
     .script-section p{{margin:.8rem 0;line-height:1.9;text-align:justify}}
-    .script-section strong{{color:#7a0000}}
-    .script-section h4{{color:#4a3a2a;font-size:.92rem;margin:1rem 0 .3rem;font-weight:600}}
+    .script-section strong{{color:#2c4a6e;font-weight:700}}
+    .script-section h4{{color:#6b4a24;font-size:.96rem;margin:1.1rem 0 .45rem;font-weight:700;border-left:4px solid #c8b89a;padding-left:.55rem}}
+    .script-section ol,.script-section ul{{margin:.7rem 0 1rem 0;padding-left:1.5rem;line-height:1.9}}
+    .script-section li{{margin:.35rem 0}}
+    .script-section .question-list{{list-style:none;padding-left:.2rem}}
+    .script-section .question-list li{{margin-bottom:.55rem}}
+    .script-section .prop-list{{list-style:none;padding-left:.2rem}}
+    .script-section .prop-list li::before{{content:'▫ ';color:#8b6040;font-size:.9em}}
     /* ── Mobile ───────────────────────────────── */
     @media(max-width:600px){{
       .script-section{{padding:1rem 1.1rem}}
       .script-cover{{padding:1.8rem 1.2rem}}
       .script-cover h1{{font-size:1.9rem}}
       .tab-btn{{padding:.4rem .85rem;font-size:.85rem}}
+      .script-section ol,.script-section ul{{padding-left:1.2rem}}
+      .script-section li{{line-height:1.85;margin-bottom:.45rem}}
+      .script-section h4{{font-size:.98rem}}
     }}
     /* ── Print: show only the active chapter ─── */
     @media print{{
