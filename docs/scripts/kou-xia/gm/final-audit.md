@@ -44,7 +44,7 @@ All 9 characters complete (8 player + 1 NPC):
 
 | 角色 | slug | HTML | MD | OCR 品質 |
 |------|------|:----:|:--:|---------|
-| 金四刃 | jin-si-ren | ✓ | ✓ | ★★☆☆☆ 差 |
+| 金四刀 | jin-si-ren | ✓ | ✓ | ★★☆☆☆ 差 |
 | 嚴逸 | yan-yi | ✓ | ✓ | ★★★☆☆ 中 |
 | 嚴氏 | yan-shi | ✓ | ✓ | ★★★☆☆ 中 |
 | 賈三娘 | jia-san-niang | ✓ | ✓ | ★★★☆☆ 中 |
@@ -111,10 +111,10 @@ Note: No prev/next sequential navigation between character pages (back-to-index 
 Ordered by priority:
 
 1. **賈三娘感情線對象** — 頁7 OCR complete failure. HIGHEST PRIORITY, affects faction balance.
-2. **金四刃「復盤專用」頁** — 可能有隱藏 GM 揭露指引。需人工確認。
+2. **金四刀「復盤專用」頁** — 可能有隱藏 GM 揭露指引。需人工確認。
 3. **農叟搏殺特殊規則** — 頁7特殊規則方框遮擋，農叟全場最高HP的規則影響戰鬥結局。
 4. **各角色個人勝利條件** — 頁7/8 普遍受限，所有角色需人工核對。
-5. **農叟↔金四刃「差錯」具體內容** — 頁2下半裝訂遮擋。
+5. **農叟↔金四刀「差錯」具體內容** — 頁2下半裝訂遮擋。
 6. **張猛 NPC 行動序列** — 頁5-6 嚴重過曝，NPC 指令不完整。
 7. **王思涵真名** — 旭敏芝 or 阳敏芝？需實體手冊確認。
 
