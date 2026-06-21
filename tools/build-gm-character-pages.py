@@ -10,7 +10,7 @@ CHAR_DIR = os.path.join(BASE, 'docs/scripts/kou-xia/gm/characters')
 
 # Ordered list for prev/next navigation
 CHAR_ORDER = [
-    ('jin-si-ren',    '金四刀'),
+    ('jin-si-dao',    '金四刀'),
     ('yan-yi',        '嚴逸'),
     ('yan-shi',       '嚴氏'),
     ('jia-san-niang', '賈三娘'),
@@ -23,7 +23,7 @@ CHAR_ORDER = [
 
 # Faction color theme: (primary, light_bg, hero_gradient, table_th)
 THEMES = {
-    'jin-si-ren':    ('#8b0000', '#fff0f0', '#3d0000, #8b0000', '#8b0000'),
+    'jin-si-dao':    ('#8b0000', '#fff0f0', '#3d0000, #8b0000', '#8b0000'),
     'yan-yi':        ('#003399', '#eef0ff', '#001a4a, #003399', '#003399'),
     'yan-shi':       ('#7a0030', '#fff0f5', '#2a0010, #7a0030', '#7a0030'),
     'jia-san-niang': ('#003399', '#eef0ff', '#001a4a, #003399', '#003399'),
@@ -36,7 +36,7 @@ THEMES = {
 
 # GM banner lines — concise key fact for each character
 BANNERS = {
-    'jin-si-ren':    '壓軸彩蛋核心：嚴氏（何乃清）即為金四刀失散妹妹，絕對不能提前洩露',
+    'jin-si-dao':    '壓軸彩蛋核心：嚴氏（何乃清）即為金四刀失散妹妹，絕對不能提前洩露',
     'yan-yi':        '主謀殘手（綉衣使一號）：指使嚴氏殺冷降塵，目標消滅金四刀',
     'yan-shi':       '凶手：嚴氏（何乃清）受嚴逸指使殺冷降塵，兄妹壓軸彩蛋另一半',
     'jia-san-niang': '歸雪（綉衣使二號）：陣營固定無感情線，移動了冷降塵屍體至庫房',

@@ -1,6 +1,6 @@
 ---
 name: "金四刀"
-slug: "jin-si-ren"
+slug: "jin-si-dao"
 type: "player"
 identity_label: "真名"
 identity: "何乃武"

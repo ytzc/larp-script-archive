@@ -29,7 +29,7 @@ v0.1.11 (commit af8487a) + minor fix commit (final-audit)
 | `gm/characters/index.html` | ✓ Present, all 9 cards linked |
 | `gm/characters/yan-shi.html` | ✓ Present |
 | `gm/characters/yan-yi.html` | ✓ Present |
-| `gm/characters/jin-si-ren.html` | ✓ Present |
+| `gm/characters/jin-si-dao.html` | ✓ Present |
 | `gm/characters/jia-san-niang.html` | ✓ Present |
 | `gm/characters/wang-si-han.html` | ✓ Present |
 | `gm/characters/nong-sou.html` | ✓ Present |
@@ -44,7 +44,7 @@ All 9 characters complete (8 player + 1 NPC):
 
 | 角色 | slug | HTML | MD | OCR 品質 |
 |------|------|:----:|:--:|---------|
-| 金四刀 | jin-si-ren | ✓ | ✓ | ★★☆☆☆ 差 |
+| 金四刀 | jin-si-dao | ✓ | ✓ | ★★☆☆☆ 差 |
 | 嚴逸 | yan-yi | ✓ | ✓ | ★★★☆☆ 中 |
 | 嚴氏 | yan-shi | ✓ | ✓ | ★★★☆☆ 中 |
 | 賈三娘 | jia-san-niang | ✓ | ✓ | ★★★☆☆ 中 |

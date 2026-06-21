@@ -1,6 +1,6 @@
 ---
 character: "金四刀"
-slug: "jin-si-ren"
+slug: "jin-si-dao"
 visibility: "gm-only"
 spoiler_level: "high"
 review_status: "updated from input-text 2026-06-17"

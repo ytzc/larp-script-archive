@@ -20,7 +20,7 @@ INDEX_HTML   = 'docs/scripts/kou-xia/player/scripts/index.html'
 
 # ── 玩家角色的顯示順序（依遊戲慣例） ──────────────────────────────
 PLAYER_ORDER = [
-    'diao-wu-er', 'jia-san-niang', 'jin-si-ren',
+    'diao-wu-er', 'jia-san-niang', 'jin-si-dao',
     'nong-sou', 'wang-shun', 'wang-si-han',
     'yan-shi', 'yan-yi',
 ]
