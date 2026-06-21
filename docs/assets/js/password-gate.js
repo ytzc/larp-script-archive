@@ -68,6 +68,7 @@
   function _unlock(gate, content) {
     gate.style.display   = 'none';
     content.style.display = 'block';
+    document.dispatchEvent(new CustomEvent('gate:unlocked'));
   }
 
   function _buildHTML(c) {

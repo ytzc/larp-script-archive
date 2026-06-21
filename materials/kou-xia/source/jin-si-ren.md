@@ -5,7 +5,7 @@ type: "player"
 identity_label: "真名"
 identity: "何乃武"
 age: "26歲"
-cover_quote: "朝中藏敵利，腹內隱雄兵。"
+cover_quote: "胸中藏戰將，腹內隱雄兵。"
 status: "已以 source 補強"
 ---
 

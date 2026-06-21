@@ -5,7 +5,7 @@ type: "player"
 identity_label: "真名"
 identity: "龐萬金"
 age: "43歲"
-cover_quote: "平生不肆善果，只願親人燃火。"
+cover_quote: "平生不修善果，只愛殺人放火。"
 status: "已以 source 補強"
 ---
 

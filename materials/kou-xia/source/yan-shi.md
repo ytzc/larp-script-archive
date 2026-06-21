@@ -5,7 +5,7 @@ type: "player"
 identity_label: "化名"
 identity: "欒絳"
 age: "22歲"
-cover_quote: "（封面詩句待補拍確認）"
+cover_quote: "朝暮不棄，白首不離。"
 status: "已以 source 補強"
 ---
 
