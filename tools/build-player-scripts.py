@@ -273,8 +273,10 @@ TEMPLATE = '''\
   <title>{name} &#8212; 角色劇本 &#8212; 寇侠</title>
   <link rel="stylesheet" href="../../../../assets/css/style.css" />
   <style>
+    /* ── Page base ────────────────────────────── */
+    body{{background:#f4eadc;color:#2f261f}}
     /* ── Layout ───────────────────────────────── */
-    .script-body{{max-width:750px;margin:0 auto}}
+    .script-body{{max-width:780px;margin:0 auto}}
     /* ── Cover ────────────────────────────────── */
     .script-cover{{background:linear-gradient(150deg,#2a0808 0%,#4a1515 100%);color:#f5e6d3;border:2px solid #8b6040;border-radius:10px;padding:2.5rem 2rem;margin-bottom:1.5rem;text-align:center}}
     .script-cover h1{{font-size:2.4rem;margin:0 0 .3rem;letter-spacing:.18em;color:#f5e6d3;border:none;text-shadow:0 1px 4px rgba(0,0,0,.4)}}
@@ -306,14 +308,14 @@ TEMPLATE = '''\
     .unlock-err{{color:#c00;font-size:.85rem;margin:.5rem 0 0;display:none}}
     /* ── Script content ───────────────────────── */
     .script-chapter{{margin-bottom:2rem}}
-    .script-chapter > h2{{color:var(--red,#8b0000);border-bottom:2px solid #c8b89a;padding-bottom:.5rem;font-size:1.3rem;margin-top:0;margin-bottom:1.2rem;letter-spacing:.06em}}
-    .script-section{{background:#fff;border:1px solid #e0d4c0;border-radius:6px;padding:1.4rem 1.8rem;margin-bottom:1.1rem}}
-    .script-section h3{{color:var(--red,#8b0000);margin-top:0;border-bottom:1px solid #e0d4c0;padding-bottom:.4rem;font-size:1rem;letter-spacing:.04em}}
-    .script-section p{{margin:.8rem 0;line-height:2;text-align:justify;text-indent:2em}}
+    .script-chapter > h2{{color:#5f2f18;border-bottom:2px solid #b98b5b;padding-bottom:.5rem;font-size:1.3rem;margin-top:0;margin-bottom:1.2rem;letter-spacing:.06em}}
+    .script-section{{background:#fffaf2;color:#2f261f;border:1px solid #dcc8a8;border-radius:12px;padding:1.5rem 1.8rem;margin-bottom:1.25rem;box-shadow:0 2px 10px rgba(80,50,20,.06)}}
+    .script-section h3{{color:#6f3f1d;margin-top:0;border-bottom:1px solid #dcc8a8;padding-bottom:.4rem;font-size:1rem;letter-spacing:.04em}}
+    .script-section p{{color:#2f261f;margin:.9rem 0;line-height:1.95;text-align:justify;text-indent:2em}}
     .script-section strong{{color:#8a4b16;font-weight:800}}
-    .script-section h4{{color:#6b4a24;font-size:.96rem;margin:1.1rem 0 .45rem;font-weight:700;border-left:4px solid #c8b89a;padding-left:.55rem}}
-    .script-section ol,.script-section ul{{margin:.7rem 0 1rem 0;padding-left:1.5rem;line-height:1.9}}
-    .script-section li{{margin:.35rem 0}}
+    .script-section h4{{color:#5c421f;background:#f5ead8;font-size:.96rem;margin:1.1rem 0 .45rem;font-weight:800;border-left:4px solid #b98b5b;padding:.35rem .6rem;border-radius:6px}}
+    .script-section ol,.script-section ul{{margin:.75rem 0 1rem 0;padding-left:1.2rem;line-height:1.9}}
+    .script-section li{{margin:.45rem 0;color:#2f261f}}
     .script-section .question-list{{list-style:none;padding-left:.2rem}}
     .script-section .question-list li{{margin-bottom:.55rem}}
     .script-section .scene-info{{color:#5a3a1a;font-size:.9em;margin:.2rem 0;padding:.1rem .6rem;border-left:3px solid #c8b89a;background:#faf5ee;text-indent:0}}
@@ -321,31 +323,37 @@ TEMPLATE = '''\
     .script-section .prop-list li::before{{content:'▫ ';color:#8b6040;font-size:.9em}}
     /* ── Mobile ───────────────────────────────── */
     @media(max-width:600px){{
-      .script-section{{padding:1rem 1.1rem}}
-      .script-cover{{padding:1.8rem 1.2rem}}
+      body{{background:#f4eadc}}
+      main{{padding:.6rem}}
+      .script-body{{max-width:100%}}
+      .script-section{{padding:1rem 1rem;border-radius:10px;margin-bottom:1rem}}
+      .script-section p{{line-height:1.9;text-align:left}}
+      .script-section ol,.script-section ul{{margin-left:.6rem;padding-left:1.1rem}}
+      .script-section li{{line-height:1.85;margin-bottom:.5rem}}
+      .script-cover{{padding:1.6rem 1rem}}
       .script-cover h1{{font-size:1.9rem}}
       .tab-btn{{padding:.4rem .85rem;font-size:.85rem}}
-      .script-section ol,.script-section ul{{padding-left:1.2rem}}
-      .script-section li{{line-height:1.85;margin-bottom:.45rem}}
       .script-section h4{{font-size:.98rem}}
     }}
     /* ── Print: show only the active chapter ─── */
+    @page{{size:A4;margin:8mm}}
     @media print{{
+      html,body{{background:#fffaf2!important;color:#1f1a16!important;font-size:12pt;line-height:1.75}}
       .site-header,.top-nav,.chapter-tabs,.pdf-btn-row,
       footer.site-footer,#password-gate,.notice,.chapter-lock{{display:none!important}}
-      body{{background:#fff;color:#000;font-size:11pt}}
-      .script-body{{max-width:100%;margin:0}}
+      main{{padding:0!important;margin:0!important}}
+      .script-body{{max-width:100%!important;width:100%!important;margin:0!important}}
       .chapter-page{{display:none!important}}
       .chapter-page.print-target{{display:block!important}}
-      .chapter-content{{display:block!important}}
-      .script-cover{{background:#f8f0e8!important;color:#000!important;border:1px solid #999!important;
-        -webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:4px;margin-bottom:1.5rem}}
-      .script-cover h1{{color:#1a0000!important;font-size:2rem;text-shadow:none}}
-      .script-cover .char-meta,.script-cover .cover-poem{{color:#333!important}}
-      .script-chapter{{page-break-before:auto}}
-      .script-chapter > h2{{color:#1a0000!important;border-color:#999!important}}
-      .script-section{{page-break-inside:avoid;border:1px solid #ccc!important;padding:1rem 1.2rem}}
-      a[href]:after{{content:none!important}}
+      .chapter-page.print-target .chapter-content{{display:block!important}}
+      .script-cover{{background:#f7ead8!important;color:#1f1a16!important;border:1px solid #c9a978!important;border-radius:8px!important;margin:0 0 8mm 0!important;padding:8mm 6mm!important;box-shadow:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+      .script-cover h1{{color:#3c2112!important;text-shadow:none!important}}
+      .script-cover .char-meta,.script-cover .cover-poem{{color:#444!important}}
+      .script-section{{background:#fffaf2!important;color:#1f1a16!important;border:1px solid #d8c4a3!important;border-radius:8px!important;padding:5mm!important;margin:0 0 5mm 0!important;box-shadow:none!important;break-inside:auto!important;page-break-inside:auto!important}}
+      .script-section p,.script-section li{{color:#1f1a16!important;line-height:1.75!important}}
+      .script-section strong{{color:#7a3f12!important;font-weight:800!important}}
+      .script-section h3,.script-section h4,.script-chapter > h2{{color:#4a2a16!important;break-after:avoid;page-break-after:avoid}}
+      a[href]::after{{content:none!important}}
     }}
   </style>
 </head>
