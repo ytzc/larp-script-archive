@@ -269,6 +269,7 @@
     font-style: italic;
     background: transparent;
     border-radius: 0;
+    white-space: pre-line;
   }
 
   /* ── No results ── */
@@ -313,7 +314,7 @@
     <strong>開本前逐一核對清單，確認所有卡牌齊全。</strong>
     點擊條目可展開卡面文字說明。<br>
     資料來源：<code>materials/kou-xia/source/box-content.md</code>
-    — 物品卡編號 10–30 部分待補充（標示 <span style="color:#b07030;font-size:.85em">待補充</span>）。
+    — 待補充項目（標示 <span style="color:#b07030;font-size:.85em">待補充</span>）：物品卡 #10–30、天賦卡 #6–8、絕學卡 #2–8；傷害免疫卡請核對實體。
   </div>
 
   <!-- ── Sticky toolbar ── -->
@@ -453,20 +454,70 @@ const ITEMS = [
   { id:'w05', cat:'道具卡', sub:'武器卡', name:'玄鐵重劍', qty:5, holder:'', desc:'', note:'' },
   { id:'w06', cat:'道具卡', sub:'武器卡', name:'齊眉棍',   qty:7, holder:'', desc:'', note:'' },
 
-  /* ══ 道具卡 · Buff 卡（共 4 張）════════════════════════════ */
-  { id:'b01', cat:'道具卡', sub:'Buff卡', name:'傷害免疫卡', qty:1, holder:'', desc:'', note:'' },
-  { id:'b02', cat:'道具卡', sub:'Buff卡', name:'攻擊加倍卡', qty:1, holder:'', desc:'', note:'' },
-  { id:'b03', cat:'道具卡', sub:'Buff卡', name:'復活卡',     qty:1, holder:'', desc:'', note:'' },
-  { id:'b04', cat:'道具卡', sub:'Buff卡', name:'破陣令',     qty:1, holder:'', desc:'', note:'' },
+  /* ══ 道具卡 · Buff 卡（共 5 張）════════════════════════════ */
+  { id:'b01', cat:'道具卡', sub:'Buff卡', name:'傷害免疫卡', qty:1, holder:'',
+    desc:'',
+    note:'⚠️ 實際清點後確認盒內無此卡，疑為版本差異，請核對實體。',
+    pending:true },
+  { id:'b02', cat:'道具卡', sub:'Buff卡', name:'攻擊加倍卡', qty:1, holder:'',
+    desc:'使用後，本次的最終攻擊點數將放大兩倍。必須在判定對決結果前使用。（使用後主持人回收）',
+    note:'' },
+  { id:'b03', cat:'道具卡', sub:'Buff卡', name:'復活卡',     qty:1, holder:'',
+    desc:'可復活一名玩家至半血狀態；被復活玩家手中未生效的武器卡全部激活。（使用後主持人回收）',
+    note:'' },
+  { id:'b04', cat:'道具卡', sub:'Buff卡', name:'破陣令',     qty:2, holder:'',
+    desc:'陣營對戰時使用，若對決失敗可免疫一半傷害。（使用後主持人回收）',
+    note:'獲取條件：提交物品卡「玄甲軍布防圖」或「黃色玉牌」後換取。' },
 
-  /* ══ 技能卡 ═════════════════════════════════════════════════ */
-  { id:'s01', cat:'技能卡', sub:'天賦卡', name:'天賦卡',    qty:8, holder:'', desc:'',
-    note:'各角色一張，卡面文字各不相同。敲詐（刁五兒）/ 美色惑人（賈三娘）/ 浩然正氣（金四刀）/ 銷贓（王順）/ 獻藝（王思涵）/ 配制（嚴逸）/ 迷醉（嚴氏）/ 採藥（農叟）' },
-  { id:'s02', cat:'技能卡', sub:'武功卡', name:'武功卡',    qty:8, holder:'', desc:'',
-    note:'各角色一張；傷害值與發動方式各不同，詳見各角色 GM 筆記' },
-  { id:'s03', cat:'技能卡', sub:'武功卡', name:'武功升級卡', qty:4, holder:'', desc:'', note:'詳情待補充' },
-  { id:'s04', cat:'技能卡', sub:'絕學卡', name:'絕學卡',    qty:8, holder:'', desc:'',
-    note:'情景三開始時由 GM 分發，勿讓敵對陣營知悉。誘敵（農叟）/ 卸器（刁五兒）/ 吸星（賈三娘）/ 龍佑（金四刀）/ 替身牽制（王順）/ 養心塊（王思涵）/ 塗毒（嚴逸）/ 化功散（嚴氏）' },
+  /* ══ 技能卡 · 天賦卡（共 8 張，已編號）════════════════════ */
+  { id:'s01a', cat:'技能卡', sub:'天賦卡', no:1, name:'浩然正氣', qty:1, holder:'金四刀',
+    desc:'一身正氣盪人間。天賦卡「獻藝」「美色惑人」「敲詐」對其無效。',
+    note:'' },
+  { id:'s01b', cat:'技能卡', sub:'天賦卡', no:2, name:'美色惑人', qty:1, holder:'賈三娘',
+    desc:'美貌也是武器！在私聊環節使用，可以問所有異性角色一個問題，被問的玩家必須真實回答「是」或「否」。',
+    note:'提問時須 GM 在場。' },
+  { id:'s01c', cat:'技能卡', sub:'天賦卡', no:3, name:'採藥',     qty:1, holder:'農叟',
+    desc:'長期挖藥，經驗頗豐。在挖寶環節使用，每次挖到寶藏後附贈一棵鶴紅草（須主動出示）。若未挖到任何寶藏，可用此卡至 GM 處換取一棵鶴紅草。',
+    note:'' },
+  { id:'s01d', cat:'技能卡', sub:'天賦卡', no:4, name:'迷醉',     qty:1, holder:'嚴氏',
+    desc:'迷藥讓他人出現幻覺。在武器競拍環節使用，能夠以起拍價直接購買任一武器盒子。（使用後回收）',
+    note:'' },
+  { id:'s01e', cat:'技能卡', sub:'天賦卡', no:5, name:'獻藝',     qty:1, holder:'王思涵',
+    desc:'如此曼妙的歌聲，花錢有何不捨？在任意公聊階段使用，使用者須獻歌一首，隨後能從每個人處收取 10 兩銀子。（使用後回收）',
+    note:'' },
+  { id:'s01f', cat:'技能卡', sub:'天賦卡', no:6, name:'敲詐',     qty:1, holder:'刁五兒',
+    desc:'', note:'天賦卡「敲詐」卡面文字待補充。', pending:true },
+  { id:'s01g', cat:'技能卡', sub:'天賦卡', no:7, name:'配制',     qty:1, holder:'嚴逸',
+    desc:'', note:'天賦卡「配制」卡面文字待補充。', pending:true },
+  { id:'s01h', cat:'技能卡', sub:'天賦卡', no:8, name:'銷贓',     qty:1, holder:'王順',
+    desc:'', note:'天賦卡「銷贓」卡面文字待補充。', pending:true },
+
+  /* ══ 技能卡 · 武功卡（共 8 張，已編號）+ 升級卡 4 張 ══════ */
+  { id:'s02a', cat:'技能卡', sub:'武功卡', no:1, name:'武功卡', qty:1, holder:'金四刀',
+    desc:'一次發動可造成 5 點傷害。', note:'' },
+  { id:'s02b', cat:'技能卡', sub:'武功卡', no:2, name:'武功卡', qty:1, holder:'刁五兒',
+    desc:'一次發動可造成 3 點傷害。', note:'' },
+  { id:'s02c', cat:'技能卡', sub:'武功卡', no:3, name:'武功卡', qty:1, holder:'王思涵',
+    desc:'一次發動可造成 5 點傷害。', note:'' },
+  { id:'s02d', cat:'技能卡', sub:'武功卡', no:4, name:'武功卡', qty:1, holder:'賈三娘',
+    desc:'一次發動可造成 5 點傷害。', note:'' },
+  { id:'s02e', cat:'技能卡', sub:'武功卡', no:5, name:'武功卡', qty:1, holder:'農叟',
+    desc:'一次發動可造成 6 點傷害。', note:'' },
+  { id:'s02f', cat:'技能卡', sub:'武功卡', no:6, name:'武功卡', qty:1, holder:'嚴氏',
+    desc:'一次發動可造成 2 點傷害。', note:'' },
+  { id:'s02g', cat:'技能卡', sub:'武功卡', no:7, name:'武功卡', qty:1, holder:'王順',
+    desc:'一次發動可造成 5 點傷害。', note:'' },
+  { id:'s02h', cat:'技能卡', sub:'武功卡', no:8, name:'武功卡', qty:1, holder:'嚴逸',
+    desc:'一次發動可造成 4 點傷害。', note:'' },
+  { id:'s03',  cat:'技能卡', sub:'武功卡', name:'武功升級卡',   qty:4, holder:'',
+    desc:'武功增加 3 點傷害（永久增加）。', note:'' },
+
+  /* ══ 技能卡 · 絕學卡（共 8 張，已編號）════════════════════ */
+  { id:'s04a', cat:'技能卡', sub:'絕學卡', no:1, name:'龍佑', qty:1, holder:'金四刀',
+    desc:'使用該絕學卡需投出 6 面骰。基礎攻擊值 = 武功點數 + 武器攻擊值 + 投出的點數。\n• 投出 1–4 點：可多佩戴一把武器，最終攻擊值 = 基礎攻擊值 + 多佩戴的武器攻擊值（本次對戰多佩戴的武器不消耗）。\n• 投出 5、6 點：最終攻擊值 = （武功點數 + 投出的點數）× 2。',
+    note:'情景三開始時由 GM 分發，勿讓敵對陣營知悉。' },
+  { id:'s04b', cat:'技能卡', sub:'絕學卡', no:'2–8', name:'（待補充）', qty:7, holder:'',
+    desc:'', note:'已知名稱：誘敵（農叟）/ 卸器（刁五兒）/ 吸星（賈三娘）/ 替身牽制（王順）/ 養心塊（王思涵）/ 塗毒（嚴逸）/ 化功散（嚴氏）。個別編號與卡面文字待補充。', pending:true },
 
   /* ══ 銀票（共 100 張）══════════════════════════════════════ */
   { id:'m01', cat:'銀票', sub:'銀票', name:'10兩銀票',  qty:40, holder:'', desc:'', note:'' },
