@@ -9,7 +9,9 @@
 :root{
   --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
   --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
+  --green:#155724;--green-lt:#d4edda;
   --gray-lt:#f5f5f5;--gold:#856404;--gold-lt:#fff8e0;
+  --purple:#5b2c8d;--purple-lt:#f0e6ff;
   --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
   --shadow:0 1px 5px rgba(0,0,0,.1);
 }
@@ -17,6 +19,8 @@ body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-s
 a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
 h2{font-size:1.2em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:1.8em 0 .7em}
 p{margin-bottom:.8em}
+code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
+
 .gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.5em 1em;text-align:center;font-weight:700;font-size:.88em;letter-spacing:.3px;border-bottom:3px solid #ff4444}
 .top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.6em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.85em}
 .top-nav .nav-links{display:flex;gap:1em;align-items:center}
@@ -24,12 +28,12 @@ p{margin-bottom:.8em}
 .wrapper{max-width:1060px;margin:0 auto;padding:1.5em 1em 5em}
 .notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
 .n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-ok{background:var(--green-lt);border-color:#2d7a4a}
 .n-tip{background:var(--gold-lt);border-color:#e0a800}
-.n-urgent{background:#2d0000;color:#ffcccc;border-color:#ff4444;padding:1em 1.4em}
-.n-urgent strong{color:#fff}
+.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
 
 /* character card grid */
-.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1em;margin:1em 0}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1em;margin:1em 0}
 .char-card{border-radius:6px;overflow:hidden;box-shadow:var(--shadow);background:var(--white);display:flex;flex-direction:column}
 .char-card .card-header{padding:.9em 1.1em .7em;border-bottom:3px solid}
 .card-header .ch-name{font-size:1.15em;font-weight:700;margin-bottom:.15em}
@@ -37,13 +41,15 @@ p{margin-bottom:.8em}
 .card-header .ch-public{font-size:.8em;color:#777;margin-top:.2em}
 .char-card .card-body{padding:.7em 1.1em .9em;flex:1;font-size:.85em}
 .card-body .row{display:flex;gap:.4em;margin-bottom:.3em;align-items:flex-start}
-.card-body .lbl{font-size:.77em;color:var(--muted);white-space:nowrap;min-width:50px;padding-top:.1em}
+.card-body .lbl{font-size:.77em;color:var(--muted);white-space:nowrap;min-width:52px;padding-top:.1em}
 .card-body .val{color:var(--ink)}
 .char-card .card-footer{padding:.55em 1.1em;border-top:1px solid #ece4d8;background:var(--gray-lt);display:flex;gap:.5em;flex-wrap:wrap}
 .char-card .card-footer a{font-size:.8em;padding:.22em .6em;border-radius:3px;background:var(--red);color:#fff}
 .char-card .card-footer a:hover{background:#6a0000;text-decoration:none}
 .char-card .card-footer a.md-link{background:#555}
 .char-card .card-footer a.md-link:hover{background:#333}
+.char-card .card-footer a.src-link{background:#2d6a9f}
+.char-card .card-footer a.src-link:hover{background:#1a4a7a}
 
 /* faction themes */
 .ch-xiu .card-header{border-color:var(--blue-b);background:var(--blue-lt)}
@@ -64,13 +70,13 @@ p{margin-bottom:.8em}
 .tag-killer{background:#2d0000;color:#ffaaaa}
 .tag-easter{background:#444;color:#fff}
 .tag-npc{background:#666;color:#fff}
-.tag-todo{background:#fff3cd;color:#856404}
-.tag-ocr{background:#ffe0b2;color:#663300}
+.tag-victory{background:var(--gold-lt);color:var(--gold);border:1px solid #c8a200}
+.tag-fixed{background:#d4edda;color:#155724}
 
 /* status table */
-.status-table{width:100%;border-collapse:collapse;font-size:.84em;margin:.8em 0}
-.status-table th{background:#5a0000;color:#fff;padding:.4em .7em;text-align:left}
-.status-table td{padding:.35em .7em;border-bottom:1px solid #e0d4c8;vertical-align:middle}
+.status-table{width:100%;border-collapse:collapse;font-size:.84em;margin:.8em 0;overflow-x:auto;display:block}
+.status-table th{background:#5a0000;color:#fff;padding:.4em .7em;text-align:left;white-space:nowrap}
+.status-table td{padding:.35em .7em;border-bottom:1px solid #e0d4c8;vertical-align:middle;white-space:nowrap}
 .status-table tr:nth-child(even) td{background:#faf5ee}
 .dot-ok{color:#2d7a2d;font-size:1.1em}
 .dot-no{color:#aaa;font-size:1.1em}
@@ -88,6 +94,11 @@ p{margin-bottom:.8em}
     <a href="../index.html">GM Area</a> ›
     角色 GM 筆記
   </div>
+  <div style="font-size:.85em;color:var(--muted)">
+    <a href="../dm-manual.md">📄 DM手冊 md</a> &nbsp;|&nbsp;
+    <a href="../host-notes.html">主持人流程</a> &nbsp;|&nbsp;
+    <a href="../spoilers.html">劇情真相</a>
+  </div>
 </nav>
 
 <div class="wrapper">
@@ -100,56 +111,71 @@ p{margin-bottom:.8em}
     <small style="color:#888">本站使用 client-side password gate，密碼可見於頁面原始碼，並非強安全機制。</small>
   </div>
 
-  <div class="notice n-tip">
-    <strong>✅ 2026-06-17 全面 input-text 核對完成</strong> — 所有 9 個角色 GM md 均已標記 <code>review_status: input-text-confirmed</code>。以下舊有疑問已解決：<br>
+  <div class="notice n-ok">
+    <strong>✅ 2026-06-22 全面 source md 核對完成</strong> — 所有 9 個角色均已依 <code>materials/kou-xia/source/*.md</code> 完整確認，舊版 input-text 引用已全部更新。以下錯誤已修正：<br>
     <ul style="margin:.4em 0 0 1.2em">
-      <li><strong>賈三娘感情線</strong>：OCR 錯誤，原文無此設定，陣營固定（綉衣使），無法更改。</li>
-      <li><strong>各角色勝利條件</strong>：已依 input-text 確認並記錄於各角色 GM md。</li>
-      <li><strong>嚴氏凶案時間點與凶器</strong>：已確認，詳見 yan-shi.html。</li>
+      <li><strong>嚴逸排名</strong>：繡衣使一號殺手（舊版誤記為三號）</li>
+      <li><strong>王順意圖</strong>：認出農叟後設圈套消滅農叟（非保護），庫房赤霞香針對農叟</li>
+      <li><strong>賈三娘感情線</strong>：陣營固定繡衣使，無法更改；感情線（對鄭木仰慕）不影響陣營</li>
+      <li><strong>農叟陣營</strong>：劇本原文「跟隨大夏血脈」，DM 在情景三確認；非純自由陣營</li>
+      <li><strong>冷降塵↔冷佛林</strong>：義父子（非「舊識」）；刁五兒是冷佛林親生女，兩人是義兄妹</li>
     </ul>
   </div>
 
   <div class="notice n-tip">
-    <strong>📌 張猛 NPC 重要說明：</strong>張猛（真名冷降塵，幼名丁典）是 GM/助理扮演的 NPC，在凶案環節扮演被害者冷降塵的屍體，身上藏有 3 張屍體線索卡 + 1 封書信。
+    <strong>📌 張猛 NPC 重要說明：</strong>張猛（真名冷降塵，幼名丁典）是 GM/助理扮演的 NPC，在凶案環節扮演被害者屍體，身上藏有 3 張屍體線索卡 + 1 封書信 + 所有已積累道具。
+  </div>
+
+  <div class="notice n-info">
+    <strong>📄 DM 手冊參考文件：</strong>
+    <a href="../dm-manual.md"><code>dm-manual.md</code></a> — 整合版 GM 完整參考（角色速查、道具清單、答題 Q&amp;A、凶案真相、搏殺規則）。
+    原始 PDF：<a href="../pdf/DM手册.pdf" target="_blank">DM手册.pdf →</a>
   </div>
 
   <h2>全部角色卡</h2>
-
   <div class="char-grid">
 
     <!-- 金四刀 -->
     <div class="char-card ch-kou">
       <div class="card-header">
-        <div class="ch-name">金四刀 <span class="tag tag-kou">寇俠核心</span></div>
-        <div class="ch-alias">真名 何乃武</div>
-        <div class="ch-public">大夏皇族後裔 · 寇俠聯絡人</div>
+        <div class="ch-name">金四刀 <span class="tag tag-kou">寇俠核心</span> <span class="tag tag-victory">個人勝利</span></div>
+        <div class="ch-alias">真名 何乃武 · 大夏皇族九世孫</div>
+        <div class="ch-public">對外：客商 · 寇俠聯絡人</div>
       </div>
       <div class="card-body">
-        <div class="row"><span class="lbl">GM 要點</span><span class="val">壓軸彩蛋核心：失散妹妹即嚴氏</span></div>
+        <div class="row"><span class="lbl">陣營</span><span class="val"><strong>寇俠（固定）</strong></span></div>
         <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 5–8（技能可升）</span></div>
-        <div class="row"><span class="lbl">OCR</span><span class="val">✓ input-text 已確認</span></div>
+        <div class="row"><span class="lbl">絕學卡</span><span class="val">【龍佑】</span></div>
+        <div class="row"><span class="lbl">起始銀兩</span><span class="val">120兩</span></div>
+        <div class="row"><span class="lbl">個人勝利</span><span class="val">集齊所有【兵符】（寇俠方需整體勝利）</span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">壓軸彩蛋核心：失散妹妹即嚴氏（何乃清）</span></div>
       </div>
       <div class="card-footer">
         <a href="jin-si-dao.html">詳細 HTML →</a>
         <a href="jin-si-dao.md" class="md-link">GM md</a>
+        <a href="../../../../../../../../materials/kou-xia/source/jin-si-dao.md" class="src-link">source md</a>
       </div>
     </div>
 
     <!-- 嚴逸 -->
     <div class="char-card ch-xiu">
       <div class="card-header">
-        <div class="ch-name">嚴逸 <span class="tag tag-xiu">綉衣使</span></div>
-        <div class="ch-alias">代號「殘手」— 綉衣使一號</div>
-        <div class="ch-public">對外：普通旅人</div>
+        <div class="ch-name">嚴逸 <span class="tag tag-xiu">繡衣使</span> <span class="tag tag-fixed">固定陣營</span></div>
+        <div class="ch-alias">代號「殘手」— 繡衣使一號殺手</div>
+        <div class="ch-public">對外：羸弱書生，採買鶴紅草</div>
       </div>
       <div class="card-body">
-        <div class="row"><span class="lbl">GM 要點</span><span class="val">主謀；指使嚴氏殺冷降塵；目標消滅金四刀</span></div>
+        <div class="row"><span class="lbl">陣營</span><span class="val"><strong>繡衣使（固定）</strong></span></div>
         <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 4–7（技能可升）</span></div>
-        <div class="row"><span class="lbl">OCR</span><span class="val">✓ input-text 已確認</span></div>
+        <div class="row"><span class="lbl">絕學卡</span><span class="val">【塗毒】</span></div>
+        <div class="row"><span class="lbl">起始銀兩</span><span class="val">120兩</span></div>
+        <div class="row"><span class="lbl">特殊道具</span><span class="val">【《無相功法》全卷】（含調和部分）</span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">主謀；指使嚴氏殺冷降塵；目標消滅金四刀；右肩有農叟打出的紫黑掌印</span></div>
       </div>
       <div class="card-footer">
         <a href="yan-yi.html">詳細 HTML →</a>
         <a href="yan-yi.md" class="md-link">GM md</a>
+        <a href="../../../../../../../../materials/kou-xia/source/yan-yi.md" class="src-link">source md</a>
       </div>
     </div>
 
@@ -157,53 +183,42 @@ p{margin-bottom:.8em}
     <div class="char-card ch-pivot">
       <div class="card-header">
         <div class="ch-name">嚴氏 <span class="tag tag-killer">凶手</span></div>
-        <div class="ch-alias">代號 栾绛 · 真名 何乃清</div>
-        <div class="ch-public">對外：嚴逸之妻 · 22歲</div>
+        <div class="ch-alias">代號 欒絳 · 真名 何乃清（本人不知）</div>
+        <div class="ch-public">對外：嚴逸之妻 · 22歲 · 紅色疤痕遮面</div>
       </div>
       <div class="card-body">
-        <div class="row"><span class="lbl">GM 要點</span><span class="val">凶手 · 大夏皇族後裔 · 金四刀之失散妹妹（壓軸彩蛋）</span></div>
+        <div class="row"><span class="lbl">陣營</span><span class="val">自由（可選）</span></div>
         <div class="row"><span class="lbl">HP/武力</span><span class="val">20 / 2–5（技能可升）</span></div>
-        <div class="row"><span class="lbl">OCR</span><span class="val">★★★☆☆ 已完成（受限）</span></div>
+        <div class="row"><span class="lbl">絕學卡</span><span class="val">【化功散】</span></div>
+        <div class="row"><span class="lbl">起始銀兩</span><span class="val">70兩</span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">凶手 · 大夏皇族後裔 · 金四刀之失散妹妹（壓軸彩蛋）· 嚴逸殺了她全家又訓練她 · 偷偷在嚴逸茶中下化清散</span></div>
       </div>
       <div class="card-footer">
         <a href="yan-shi.html">詳細 HTML →</a>
         <a href="yan-shi.md" class="md-link">GM md</a>
+        <a href="../../../../../../../../materials/kou-xia/source/yan-shi.md" class="src-link">source md</a>
       </div>
     </div>
 
     <!-- 賈三娘 -->
     <div class="char-card ch-xiu">
       <div class="card-header">
-        <div class="ch-name">賈三娘 <span class="tag tag-xiu">綉衣使</span></div>
-        <div class="ch-alias">代號 歸雪 · 綉衣使二號</div>
+        <div class="ch-name">賈三娘 <span class="tag tag-xiu">繡衣使</span> <span class="tag tag-fixed">固定陣營</span></div>
+        <div class="ch-alias">代號 歸雪 · 繡衣使接頭人</div>
         <div class="ch-public">對外：客棧老板娘 · 34歲</div>
       </div>
       <div class="card-body">
-        <div class="row"><span class="lbl">GM 要點</span><span class="val">綉衣使密探 · 陣營固定無法更改 · 移動冷降塵屍體</span></div>
+        <div class="row"><span class="lbl">陣營</span><span class="val"><strong>繡衣使（固定，不可更改）</strong></span></div>
         <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 5</span></div>
-        <div class="row"><span class="lbl">OCR</span><span class="val">✓ input-text 已確認（感情線為OCR錯誤）</span></div>
+        <div class="row"><span class="lbl">絕學卡</span><span class="val">【吸星】</span></div>
+        <div class="row"><span class="lbl">起始銀兩</span><span class="val">120兩</span></div>
+        <div class="row"><span class="lbl">特殊道具</span><span class="val">【玄甲軍布防圖】【繡衣使傳音令・赤】</span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">接頭人（布告暗號「雀至，福聚」是她設的）· 移動冷降塵屍體至庫房 · 5年前用茶靈毒刺殺冷佛林（刁五兒之父）</span></div>
       </div>
       <div class="card-footer">
         <a href="jia-san-niang.html">詳細 HTML →</a>
         <a href="jia-san-niang.md" class="md-link">GM md</a>
-      </div>
-    </div>
-
-    <!-- 王思涵 -->
-    <div class="char-card ch-free">
-      <div class="card-header">
-        <div class="ch-name">王思涵</div>
-        <div class="ch-alias">真名 旭敏芝</div>
-        <div class="ch-public">對外：歌姬 · 21歲</div>
-      </div>
-      <div class="card-body">
-        <div class="row"><span class="lbl">GM 要點</span><span class="val">玄甲軍統師 · 最大陣營 X 因素 · 雇用了殺兄凶手王順</span></div>
-        <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 5</span></div>
-        <div class="row"><span class="lbl">OCR</span><span class="val">✓ input-text 已確認</span></div>
-      </div>
-      <div class="card-footer">
-        <a href="wang-si-han.html">詳細 HTML →</a>
-        <a href="wang-si-han.md" class="md-link">GM md</a>
+        <a href="../../../../../../../../materials/kou-xia/source/jia-san-niang.md" class="src-link">source md</a>
       </div>
     </div>
 
@@ -211,17 +226,41 @@ p{margin-bottom:.8em}
     <div class="char-card ch-free">
       <div class="card-header">
         <div class="ch-name">農叟</div>
-        <div class="ch-alias">真名 丁崧</div>
-        <div class="ch-public">對外：老農夫</div>
+        <div class="ch-alias">真名 丁崧 · 大夏托孤重將</div>
+        <div class="ch-public">對外：老農夫 · 採藥人</div>
       </div>
       <div class="card-body">
-        <div class="row"><span class="lbl">GM 要點</span><span class="val">大夏武將 · HP 全場最高（40）· 陣營影響搏殺勝負</span></div>
-        <div class="row"><span class="lbl">HP/武力</span><span class="val">40 / 6</span></div>
-        <div class="row"><span class="lbl">OCR</span><span class="val">✓ input-text 已確認</span></div>
+        <div class="row"><span class="lbl">陣營</span><span class="val">跟隨大夏血脈（情景三 DM 確認）</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val"><strong>40</strong> / 6（全場最高 HP）</span></div>
+        <div class="row"><span class="lbl">絕學卡</span><span class="val">【誘敵】</span></div>
+        <div class="row"><span class="lbl">起始銀兩</span><span class="val">60兩</span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">陣營選擇決定搏殺勝負 · 親生兒子是冷降塵（丁典）· 宿敵是王順（出賣他的叛徒）· 在何家慘案當夜打中嚴逸右肩</span></div>
       </div>
       <div class="card-footer">
         <a href="nong-sou.html">詳細 HTML →</a>
         <a href="nong-sou.md" class="md-link">GM md</a>
+        <a href="../../../../../../../../materials/kou-xia/source/nong-sou.md" class="src-link">source md</a>
+      </div>
+    </div>
+
+    <!-- 王思涵 -->
+    <div class="char-card ch-free">
+      <div class="card-header">
+        <div class="ch-name">王思涵</div>
+        <div class="ch-alias">真名 旭敏芝（阳敏芝）</div>
+        <div class="ch-public">對外：賣藝歌姬 · 21歲</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="lbl">陣營</span><span class="val">自由（可選）</span></div>
+        <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 5</span></div>
+        <div class="row"><span class="lbl">絕學卡</span><span class="val">【養心塊】</span></div>
+        <div class="row"><span class="lbl">起始銀兩</span><span class="val">待確認</span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">玄甲軍統師 · 最大陣營 X 因素 · 兄長旭晨被王順（龐萬金）殺害 · 與金四刀有情感關係</span></div>
+      </div>
+      <div class="card-footer">
+        <a href="wang-si-han.html">詳細 HTML →</a>
+        <a href="wang-si-han.md" class="md-link">GM md</a>
+        <a href="../../../../../../../../materials/kou-xia/source/wang-si-han.md" class="src-link">source md</a>
       </div>
     </div>
 
@@ -230,16 +269,19 @@ p{margin-bottom:.8em}
       <div class="card-header">
         <div class="ch-name">王順</div>
         <div class="ch-alias">真名 龐萬金</div>
-        <div class="ch-public">對外：普通旅人</div>
+        <div class="ch-public">對外：賣藝肥胖男子 · 農叟旁邊</div>
       </div>
       <div class="card-body">
-        <div class="row"><span class="lbl">GM 要點</span><span class="val">出賣丁崧的叛徒 · 設庫房赤霞香圈套試圖殺農叟</span></div>
+        <div class="row"><span class="lbl">陣營</span><span class="val">自由（可選）</span></div>
         <div class="row"><span class="lbl">HP/武力</span><span class="val">30 / 5</span></div>
-        <div class="row"><span class="lbl">OCR</span><span class="val">★★★☆☆ 已完成</span></div>
+        <div class="row"><span class="lbl">絕學卡</span><span class="val">【替身牽制】</span></div>
+        <div class="row"><span class="lbl">起始銀兩</span><span class="val">待確認</span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">農叟舊部叛徒 · 認出農叟後設庫房赤霞香試圖消滅農叟（⚠️ 非保護）· 殺害玄甲軍統師旭晨 · 與繡衣使有聯繫</span></div>
       </div>
       <div class="card-footer">
         <a href="wang-shun.html">詳細 HTML →</a>
         <a href="wang-shun.md" class="md-link">GM md</a>
+        <a href="../../../../../../../../materials/kou-xia/source/wang-shun.md" class="src-link">source md</a>
       </div>
     </div>
 
@@ -247,17 +289,20 @@ p{margin-bottom:.8em}
     <div class="char-card ch-free">
       <div class="card-header">
         <div class="ch-name">刁五兒 <span class="tag tag-easter">輕鬆彩蛋</span></div>
-        <div class="ch-alias">真名 冷鈺（實為女性）</div>
-        <div class="ch-public">對外：男性江湖人（女扮男裝）</div>
+        <div class="ch-alias">真名 冷鈺（實為女性，女扮男裝）</div>
+        <div class="ch-public">對外：男性江湖人，黑布蒙面</div>
       </div>
       <div class="card-body">
-        <div class="row"><span class="lbl">GM 要點</span><span class="val">冷佛林之女 · 為父復仇 · 真實性別是輕鬆彩蛋</span></div>
+        <div class="row"><span class="lbl">陣營</span><span class="val">自由（可選）</span></div>
         <div class="row"><span class="lbl">HP/武力</span><span class="val">25 / 3–6（技能可升）</span></div>
-        <div class="row"><span class="lbl">OCR</span><span class="val">★★★☆☆ 已完成</span></div>
+        <div class="row"><span class="lbl">絕學卡</span><span class="val">【卸器】</span></div>
+        <div class="row"><span class="lbl">起始銀兩</span><span class="val">60兩</span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">冷佛林親生女兒 · 義兄是冷降塵（丁典）· 殺父仇人是賈三娘（歸雪）· 嚴逸教過她半部殘缺《無相功法》 · 能感受到嚴逸的無相功法氣息</span></div>
       </div>
       <div class="card-footer">
         <a href="diao-wu-er.html">詳細 HTML →</a>
         <a href="diao-wu-er.md" class="md-link">GM md</a>
+        <a href="../../../../../../../../materials/kou-xia/source/diao-wu-er.md" class="src-link">source md</a>
       </div>
     </div>
 
@@ -265,17 +310,19 @@ p{margin-bottom:.8em}
     <div class="char-card ch-npc">
       <div class="card-header">
         <div class="ch-name">張猛 <span class="tag tag-npc">NPC</span></div>
-        <div class="ch-alias">化名 張猛 · 真名 冷降塵（幼名：丁典）</div>
-        <div class="ch-public">GM/助理扮演 · 扮演屍體 · 7頁</div>
+        <div class="ch-alias">真名 冷降塵（幼名丁典）· 農叟之子 · 鶴須軍大統領</div>
+        <div class="ch-public">GM/助理扮演 · 情景二後扮演屍體</div>
       </div>
       <div class="card-body">
-        <div class="row"><span class="lbl">GM 要點</span><span class="val">凶案環節扮演被害者屍體，身藏 3 張線索卡 + 1 封書信</span></div>
-        <div class="row"><span class="lbl">HP/武力</span><span class="val">N/A（NPC）</span></div>
-        <div class="row"><span class="lbl">OCR</span><span class="val">★★★☆☆ 已完成（部分頁面過曝）</span></div>
+        <div class="row"><span class="lbl">主要任務</span><span class="val">帶節奏、炒場、增強現場活躍度；引導各玩家進入劇情</span></div>
+        <div class="row"><span class="lbl">特殊道具</span><span class="val">凶案環節藏身上：屍體線索卡×3 + 書信×1</span></div>
+        <div class="row"><span class="lbl">第一輪要點</span><span class="val">快結束時：虎賁衛兵符→金四刀；近衛軍兵符→刁五兒</span></div>
+        <div class="row"><span class="lbl">GM 要點</span><span class="val">與農叟在情景二父子相認（以小木劍為憑）· 知道所有人秘密，詳見 GM md 各角色私聊話術</span></div>
       </div>
       <div class="card-footer">
         <a href="zhang-meng.html">詳細 HTML →</a>
         <a href="zhang-meng.md" class="md-link">GM md</a>
+        <a href="../../../../../../../../materials/kou-xia/source/zhang-meng.md" class="src-link">source md</a>
       </div>
     </div>
 
@@ -283,40 +330,92 @@ p{margin-bottom:.8em}
 
   <h2>完整狀態表</h2>
 
+  <div style="overflow-x:auto">
   <table class="status-table">
     <thead>
       <tr>
-        <th>角色</th><th>陣營</th><th>extracted txt</th><th>player md</th><th>GM md</th><th>review md</th><th>GM HTML</th><th>OCR 品質</th>
+        <th>角色</th><th>陣營</th><th>HP</th><th>絕學卡</th><th>source md</th><th>GM md</th><th>GM HTML</th><th>道具確認</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td>金四刀</td><td>寇俠</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>input-text confirmed</td></tr>
-      <tr><td>嚴逸</td><td>綉衣使</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>input-text confirmed</td></tr>
-      <tr><td>嚴氏</td><td>綉衣使</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>input-text confirmed</td></tr>
-      <tr><td>賈三娘</td><td>綉衣使</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>input-text confirmed</td></tr>
-      <tr><td>王思涵</td><td>自由</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>input-text confirmed</td></tr>
-      <tr><td>農叟</td><td>自由→大夏</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>input-text confirmed</td></tr>
-      <tr><td>王順</td><td>自由</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>input-text confirmed</td></tr>
-      <tr><td>刁五兒</td><td>自由</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>input-text confirmed</td></tr>
-      <tr><td>張猛（NPC）</td><td>—</td><td class="dot-ok">✓</td><td class="dot-no">—</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td>input-text confirmed</td></tr>
+      <tr>
+        <td><strong>金四刀</strong></td><td>寇俠（固定）</td><td>30</td><td>龍佑</td>
+        <td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td>
+      </tr>
+      <tr>
+        <td><strong>嚴逸</strong></td><td>繡衣使（固定）</td><td>30</td><td>塗毒</td>
+        <td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td>
+      </tr>
+      <tr>
+        <td><strong>嚴氏</strong></td><td>自由（凶手）</td><td>20</td><td>化功散</td>
+        <td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td>
+      </tr>
+      <tr>
+        <td><strong>賈三娘</strong></td><td>繡衣使（固定）</td><td>30</td><td>吸星</td>
+        <td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td>
+      </tr>
+      <tr>
+        <td><strong>農叟</strong></td><td>跟隨大夏血脈</td><td>40</td><td>誘敵</td>
+        <td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td>
+      </tr>
+      <tr>
+        <td><strong>王思涵</strong></td><td>自由（可選）</td><td>30</td><td>養心塊</td>
+        <td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-warn">部分</td>
+      </tr>
+      <tr>
+        <td><strong>王順</strong></td><td>自由（可選）</td><td>30</td><td>替身牽制</td>
+        <td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-warn">部分</td>
+      </tr>
+      <tr>
+        <td><strong>刁五兒</strong></td><td>自由（可選）</td><td>25</td><td>卸器</td>
+        <td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td>
+      </tr>
+      <tr>
+        <td><strong>張猛（NPC）</strong></td><td>—</td><td>N/A</td><td>—</td>
+        <td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td><td class="dot-ok">✓</td>
+      </tr>
     </tbody>
   </table>
+  </div>
 
-  <p style="font-size:.83em;color:var(--muted)">⏳ = OCR agent 進行中，完成後更新為 ✓ &nbsp;·&nbsp; — = NPC 無玩家版本</p>
+  <p style="font-size:.83em;color:var(--muted)">⚠ 部分 = 道具名稱確認，起始銀兩待查閱原始 DM手册.pdf &nbsp;·&nbsp; — = NPC 無玩家版本</p>
 
   <h2>復盤公告順序（GM 參考）</h2>
   <div style="background:var(--white);padding:1.2em 1.5em;border-radius:4px;box-shadow:var(--shadow);margin:.8em 0">
     <ol style="margin:.4em 0 0 1.2em">
-      <li>宣布凶手：<strong>嚴氏（栾绛 / 何乃清）</strong>，說明動機（嚴逸指使，滅口冷降塵）</li>
+      <li>宣布凶手：<strong>嚴氏（欒絳 / 何乃清）</strong>，說明動機（嚴逸指使，亥時 21:10 茶靈毒匕首插入背心）</li>
+      <li>公布嚴氏真實身份（何乃清、大夏皇族、失憶被訓練、臉上疤痕是嚴逸掌風而非胎記）</li>
       <li>公布各角色真實身份（由簡到複雜）</li>
-      <li><strong>壓軸彩蛋</strong>：嚴氏與金四刀是失散兄妹</li>
+      <li><strong>壓軸彩蛋</strong>：嚴氏與金四刀是失散兄妹（確認兩位玩家狀態後揭露）</li>
       <li><strong>輕鬆彩蛋</strong>：刁五兒真實性別是女性（冷鈺）</li>
       <li>開放提問與分享感受</li>
     </ol>
   </div>
 
+  <h2>GM 核心關係速查</h2>
+  <div style="background:var(--white);padding:1em 1.5em;border-radius:4px;box-shadow:var(--shadow);margin:.8em 0;font-size:.88em">
+    <table style="width:100%;border-collapse:collapse">
+      <thead><tr>
+        <th style="background:#5a0000;color:#fff;padding:.35em .6em;text-align:left">關係</th>
+        <th style="background:#5a0000;color:#fff;padding:.35em .6em;text-align:left">細節（GM 視角）</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #e8ddd0"><td style="padding:.4em .6em;color:#5a0000;font-weight:700">嚴氏 ↔ 金四刀</td><td style="padding:.4em .6em">親妹妹 ↔ 親哥哥（雙方均不知）。金四刀在廚房認出嚴氏脖頸青色胎記。</td></tr>
+        <tr style="border-bottom:1px solid #e8ddd0;background:#faf5ee"><td style="padding:.4em .6em;color:#5a0000;font-weight:700">嚴氏 ↔ 嚴逸</td><td style="padding:.4em .6em">嚴逸殺了她全家，帶走她訓練成殺手，臉上紅疤是嚴逸掌風所致（謊稱胎記）。</td></tr>
+        <tr style="border-bottom:1px solid #e8ddd0"><td style="padding:.4em .6em;color:#5a0000;font-weight:700">農叟 ↔ 嚴逸（右肩）</td><td style="padding:.4em .6em">農叟（丁崧）在何家當夜從後打中嚴逸右肩，留下永久紫黑掌印。</td></tr>
+        <tr style="border-bottom:1px solid #e8ddd0;background:#faf5ee"><td style="padding:.4em .6em;color:#5a0000;font-weight:700">農叟 ↔ 冷降塵</td><td style="padding:.4em .6em">農叟的親生兒子丁典 = 冷佛林義子冷降塵（NPC 張猛）。情景二父子相認。</td></tr>
+        <tr style="border-bottom:1px solid #e8ddd0"><td style="padding:.4em .6em;color:#5a0000;font-weight:700">農叟 ↔ 王順</td><td style="padding:.4em .6em">王順（龐萬金）是農叟舊部叛徒，告發農叟導致流放。認出農叟後設赤霞香庫房圈套試圖滅口。</td></tr>
+        <tr style="border-bottom:1px solid #e8ddd0;background:#faf5ee"><td style="padding:.4em .6em;color:#5a0000;font-weight:700">刁五兒 ↔ 冷降塵</td><td style="padding:.4em .6em">義兄妹（冷佛林義子 + 親生女）。冷降塵知道刁五兒是冷鈺，在私聊中相認。</td></tr>
+        <tr style="border-bottom:1px solid #e8ddd0"><td style="padding:.4em .6em;color:#5a0000;font-weight:700">刁五兒 ↔ 賈三娘</td><td style="padding:.4em .6em">賈三娘（歸雪）5年前用茶靈毒匕首刺殺了刁五兒的父親冷佛林。</td></tr>
+        <tr style="border-bottom:1px solid #e8ddd0;background:#faf5ee"><td style="padding:.4em .6em;color:#5a0000;font-weight:700">刁五兒 ↔ 嚴逸</td><td style="padding:.4em .6em">嚴逸奉命訓練了刁五兒，給了她半部刪去調和內容的《無相功法》，造成嚴重反噬。刁五兒能感受到嚴逸的無相功法氣息。</td></tr>
+        <tr><td style="padding:.4em .6em;color:#5a0000;font-weight:700">王思涵 ↔ 王順</td><td style="padding:.4em .6em">王思涵的兄長旭晨在宛平府大戰中被王順（偽裝成鶴須軍兵丁）用左手短柄手戟殺害割頭。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div style="margin-top:2em;font-size:.85em;color:var(--muted)">
     <a href="../index.html">← GM Area</a> &nbsp;|&nbsp;
+    <a href="../dm-manual.md">DM手冊 md →</a> &nbsp;|&nbsp;
     <a href="../spoilers.html">劇情真相 →</a> &nbsp;|&nbsp;
     <a href="../host-notes.html">主持人流程 →</a> &nbsp;|&nbsp;
     <a href="../todo.html">待辦清單 →</a>

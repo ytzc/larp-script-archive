@@ -3,15 +3,16 @@ character: "農叟"
 slug: "nong-sou"
 visibility: "gm-only"
 spoiler_level: "high"
-review_status: "input-text-confirmed"
-last_updated: "2026-06-17"
+review_status: "source-confirmed"
+last_updated: "2026-06-22"
 source_pdf: "農叟全.pdf"
-source_text: "input-text/# 【農叟】文字劇本.md"
+source_text: "materials/kou-xia/source/nong-sou.md"
 cross_references:
+  - "dm-manual.md"
   - "DM手册.pdf"
   - "relationship-map.html"
   - "spoilers.md"
-  - "timeline.md"
+  - "timeline.html"
   - "host-notes.md"
 ---
 
@@ -196,4 +197,4 @@ cross_references:
 
 ---
 
-*review_status: input-text-confirmed — 2026-06-17 依據 input-text/# 【農叟】文字劇本.md 全面核對更新。舊版關於王順關係、陣營歸屬的重大錯誤已更正。道具清單已更正為原文列表。*
+*review_status: source-confirmed — 2026-06-22 依據 materials/kou-xia/source/nong-sou.md 全面核對確認。所有主要錯誤已更正（陣營、王順關係、道具清單）。絕學卡：【誘敵】（情景三）。*

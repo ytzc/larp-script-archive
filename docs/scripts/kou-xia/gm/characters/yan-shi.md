@@ -3,21 +3,23 @@ character: "嚴氏"
 slug: "yan-shi"
 visibility: "gm-only"
 spoiler_level: "high"
-review_status: "updated from input-text 2026-06-17"
+review_status: "source-confirmed"
+last_updated: "2026-06-22"
 source_pdf: "嚴氏全.pdf"
-source_text_input: "input-text/嚴氏文字劇本.md"
+source_text: "materials/kou-xia/source/yan-shi.md"
 cross_references:
+  - "dm-manual.md"
   - "DM手册.pdf"
   - "relationship-map.html"
   - "spoilers.md"
-  - "timeline.md"
+  - "timeline.html"
   - "host-notes.md"
 ---
 
 # 嚴氏 GM Notes
 
 > **GM Only — 本文件包含嚴氏所有秘密、真實身份、任務內容及GM知道但玩家不知道的全部資訊。**
-> **已依 input-text/嚴氏文字劇本.md 更新，所有 TODO 標記已消除。**
+> **已依 materials/kou-xia/source/yan-shi.md 全面核對確認（2026-06-22）。絕學卡：【化功散】（情景三）。**
 
 ---
 

@@ -3,22 +3,24 @@ character: "金四刀"
 slug: "jin-si-dao"
 visibility: "gm-only"
 spoiler_level: "high"
-review_status: "updated from input-text 2026-06-17"
+review_status: "source-confirmed"
+last_updated: "2026-06-22"
 source_pdf: "金四刀全.pdf"
-source_text_input: "input-text/# 【金四刀】文字劇本.md"
+source_text: "materials/kou-xia/source/jin-si-dao.md"
 cross_references:
+  - "dm-manual.md"
   - "DM手册.pdf"
   - "relationship-map.html"
   - "spoilers.md"
-  - "timeline.md"
+  - "timeline.html"
   - "host-notes.md"
 ---
 
 # 金四刀（GM Notes）
 
-> **⚠️ GM ONLY — 严禁玩家查阅**
-> 本文件包含全场最高级别的剧透内容，其中「嚴氏即为金四刀之妹妹」一事是游戏的压轴彩蛋，须在复盘最后阶段才能揭露。
-> **已依 input-text/# 【金四刀】文字劇本.md 更新，王思涵真名已更正，凶案时间线已确认。**
+> **⚠️ GM ONLY — 絕對禁止讓玩家查閱**
+> 本文件包含最高級劇透：「嚴氏即為金四刀之失散妹妹」是全場壓軸彩蛋，須在復盤最後揭露。
+> **已依 materials/kou-xia/source/jin-si-dao.md 核對確認（2026-06-22）。絕學卡：【龍佑】（情景三）。個人勝利條件：集齊所有兵符（前提寇俠方勝）。王思涵真名：阳敏芝（非旭敏芝，OCR誤讀已更正）。**
 
 ---
 
@@ -104,7 +106,7 @@ cross_references:
 
 ## 关键 OCR 修正（重要）
 
-| 项目 | 旧版OCR误读 | input-text确认正确内容 |
+| 项目 | 旧版OCR误读 | source md 確認正確內容 |
 |------|-----------|----------------------|
 | 王思涵真名 | 旭敏芝 | **阳敏芝**（谷阳府阳氏千金） |
 

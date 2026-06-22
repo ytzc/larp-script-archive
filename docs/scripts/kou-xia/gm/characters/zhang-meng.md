@@ -4,22 +4,23 @@ slug: "zhang-meng"
 visibility: "gm-only"
 spoiler_level: "high"
 character_type: "npc"
-review_status: "input-text-confirmed"
+review_status: "source-confirmed"
 source_pdf: "張猛全.pdf"
-source_text: "input-text/# 【張猛】文字劇本.md"
+source_text: "materials/kou-xia/source/zhang-meng.md"
 cross_references:
+  - "dm-manual.md"
   - "DM手册.pdf"
   - "relationship-map.html"
   - "spoilers.md"
-  - "timeline.md"
+  - "timeline.html"
   - "host-notes.md"
-last_updated: "2026-06-17"
+last_updated: "2026-06-22"
 ---
 
 # 張猛（NPC）— GM 專屬資料
 
 > **重要**：張猛為 NPC，由 GM 或助理扮演，**無玩家版本**。本文件僅供 GM 使用。
-> 本文件已以 `input-text/# 【張猛】文字劇本.md` 全面核對補強（2026-06-17）。
+> **已依 materials/kou-xia/source/zhang-meng.md 全面核對確認（2026-06-22）。**
 
 ---
 

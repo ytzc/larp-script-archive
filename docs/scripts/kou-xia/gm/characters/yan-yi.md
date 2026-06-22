@@ -3,21 +3,23 @@ character: "嚴逸"
 slug: "yan-yi"
 visibility: "gm-only"
 spoiler_level: "high"
-review_status: "updated from input-text 2026-06-17"
+review_status: "source-confirmed"
+last_updated: "2026-06-22"
 source_pdf: "嚴逸全.pdf"
-source_text_input: "input-text/# 【嚴逸】文字劇本.md"
+source_text: "materials/kou-xia/source/yan-yi.md"
 cross_references:
+  - "dm-manual.md"
   - "DM手册.pdf"
   - "relationship-map.html"
   - "spoilers.md"
-  - "timeline.md"
+  - "timeline.html"
   - "host-notes.md"
 ---
 
 # 嚴逸 ─ GM 專用筆記
 
 > **難度評級：核心NPC等級**。需要扮演慾強、能同時維持雙線任務、情感張力豐富的玩家。
-> **已依 input-text/# 【嚴逸】文字劇本.md 更新，排名已更正為第一，凶案細節已補齊。**
+> **已依 materials/kou-xia/source/yan-yi.md 全面核對確認（2026-06-22）。絕學卡：【塗毒】（情景三）。繡衣使一號（非三號）已確認。**
 
 ---
 
@@ -70,7 +72,7 @@ cross_references:
 
 ---
 
-## 凶案中的角色（已從 input-text 確認）
+## 凶案中的角色（已從 source md 確認）
 
 嚴逸是**幕後主謀**，但並非親手殺人。凶案過程：
 

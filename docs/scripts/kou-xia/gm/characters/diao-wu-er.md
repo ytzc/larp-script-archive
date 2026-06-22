@@ -3,22 +3,23 @@ character: "刁五兒"
 slug: "diao-wu-er"
 visibility: "gm-only"
 spoiler_level: "high"
-review_status: "input-text-confirmed"
-last_updated: "2026-06-17"
+review_status: "source-confirmed"
+last_updated: "2026-06-22"
 source_pdf: "刁五兒全.pdf"
-source_text: "input-text/# 【刁五兒】文字劇本.md"
+source_text: "materials/kou-xia/source/diao-wu-er.md"
 cross_references:
+  - "dm-manual.md"
   - "DM手册.pdf"
   - "relationship-map.html"
   - "spoilers.md"
-  - "timeline.md"
+  - "timeline.html"
   - "host-notes.md"
 ---
 
 # 刁五兒 GM 完整資料
 
 > **GM ONLY — 請勿讓玩家看到本文件。**
-> 本文件整合了角色劇本（人工整理版 input-text）與DM手冊真相。所有關鍵事實已由 input-text 核對確認。
+> **已依 materials/kou-xia/source/diao-wu-er.md 全面核對確認（2026-06-22）。絕學卡：【卸器】（情景三）。真實身份：冷鈺（冷佛林之女），性別彩蛋為復盤最後揭曉。**
 
 ---
 
