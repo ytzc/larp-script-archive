@@ -38,11 +38,10 @@ code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
 .n-tip{background:var(--gold-lt);border-color:#e0a800}
 .n-ok{background:var(--green-lt);border-color:#2d7a4a}
 
-/* ── Status overview chips ── */
+/* ── Status chips ── */
 .status-row{display:flex;flex-wrap:wrap;gap:.8em;margin:.8em 0}
 .chip{display:inline-flex;align-items:center;gap:.4em;padding:.4em .9em;border-radius:20px;font-size:.85em;font-weight:700}
 .chip-open{background:#fff0f0;color:#8b0000;border:1px solid var(--red-b)}
-.chip-ocr{background:var(--purple-lt);color:var(--purple);border:1px solid #9c5bd4}
 .chip-medium{background:var(--gold-lt);color:var(--gold);border:1px solid #c8a200}
 .chip-done{background:var(--green-lt);color:var(--green);border:1px solid #2d7a4a}
 
@@ -58,8 +57,6 @@ code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
 .badge{display:inline-block;padding:.15em .5em;border-radius:3px;font-size:.78em;font-weight:700}
 .b-p1{background:#fff0f0;color:#8b0000;border:1px solid var(--red-b)}
 .b-p2{background:var(--gold-lt);color:var(--gold);border:1px solid #c8a200}
-.b-p3{background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-b)}
-.b-ocr{background:var(--purple-lt);color:var(--purple);border:1px solid #9c5bd4}
 .b-done{background:var(--green-lt);color:var(--green)}
 .todo-body{padding:.6em 1em .8em;border-top:1px solid #f0e8e0;background:#fffcf8;font-size:.88em}
 .todo-body .field{margin-bottom:.4em;display:grid;grid-template-columns:90px 1fr;gap:.4em;align-items:baseline}
@@ -67,13 +64,25 @@ code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
 .todo-body .field-val{color:var(--ink)}
 .todo-body .follow{margin-top:.6em;padding:.5em .8em;background:var(--gold-lt);border-left:3px solid #c8a200;border-radius:3px;font-size:.87em;color:var(--gold)}
 
+/* ── Resolved answer blocks ── */
+.resolve-block{background:#f0fff4;border:1px solid #b8dfc8;border-radius:6px;margin-bottom:.8em;overflow:hidden}
+.resolve-header{display:grid;grid-template-columns:36px 1fr auto;align-items:stretch}
+.resolve-num{display:flex;align-items:center;justify-content:center;background:#d4edda;font-weight:700;color:#155724;font-size:.95em;padding:.6em .5em}
+.resolve-title-area{padding:.6em .9em}
+.resolve-title{font-weight:700;color:#155724;font-size:.95em}
+.resolve-title small{font-weight:400;color:#4a9a6a;font-size:.85em;display:block;margin-top:.1em}
+.resolve-badge{display:flex;align-items:center;padding:0 .9em}
+.resolve-body{padding:.6em 1em .8em;border-top:1px solid #c8e8d4;background:#f8fffc;font-size:.88em}
+.resolve-body .field{margin-bottom:.4em;display:grid;grid-template-columns:90px 1fr;gap:.4em;align-items:baseline}
+.resolve-body .field-label{font-weight:700;color:#4a9a6a;font-size:.85em}
+.resolve-body .field-val{color:#1c3c2c}
+
 /* ── Priority groups ── */
 .priority-head{display:flex;align-items:center;gap:.7em;margin:1.5em 0 .7em}
 .priority-head h3{margin:0;font-size:1.05em}
 .priority-bar{flex:1;height:2px;border-radius:1px}
 .p1-bar{background:var(--red-b)}
 .p2-bar{background:#c8a200}
-.p3-bar{background:var(--blue-b)}
 
 /* ── Notes box ── */
 .notes-box{border:2px dashed #c0b090;border-radius:6px;padding:1em;background:#faf3ea;font-size:.88em;color:var(--muted);min-height:80px;font-style:italic}
@@ -89,13 +98,13 @@ code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
 </head>
 <body>
 
-<div class="gm-banner">⚠️ GM ONLY — 寇侠 GM 待整理清單</div>
+<div class="gm-banner">⚠️ GM ONLY — 寇俠 GM 待整理清單</div>
 
 <div class="top-nav">
   <div class="nav-links">
     <a href="../../../index.html">🏠 首頁</a>
     <span>›</span>
-    <a href="../index.html">寇侠</a>
+    <a href="../index.html">寇俠</a>
     <span>›</span>
     <a href="index.html">GM Area</a>
     <span>›</span>
@@ -114,21 +123,19 @@ code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
 <div class="section" id="overview">
   <h2>📊 狀態總覽</h2>
   <div class="status-row">
-    <div class="chip chip-open">⛔ 高優先 × 5</div>
-    <div class="chip chip-ocr">🔍 OCR needed × 5</div>
-    <div class="chip chip-medium">⚠ 中優先 × 3</div>
-    <div class="chip chip-done">✓ 已完成 × 2</div>
+    <div class="chip chip-open">⛔ 仍需確認 × 4</div>
+    <div class="chip chip-done">✓ 已確認 × 10</div>
   </div>
-  <div class="notice n-info">
-    <strong>說明：</strong>本頁整理出所有需要人工確認、OCR 處理或進一步研究的 GM 待辦事項。<br>
-    「高優先」項目應在<strong>開本前</strong>完成確認，以免現場出現無法回答的問題。
+  <div class="notice n-ok">
+    <strong>✅ source md 已全部完成：</strong>所有 9 份角色劇本均已整理為 source md（<code>materials/kou-xia/source/</code>），OCR 相關待辦已清除。<br>
+    以下 4 項仍需物理道具或 GM 手冊原文確認，建議<strong>開本前</strong>逐一核實。
   </div>
 </div>
 
-<!-- HIGH PRIORITY -->
+<!-- STILL PENDING -->
 <div class="section">
   <div class="priority-head">
-    <h3>⛔ 高優先 — 開本前必須確認</h3>
+    <h3>⛔ 仍需確認 — 開本前必須處理</h3>
     <div class="priority-bar p1-bar"></div>
   </div>
 
@@ -138,24 +145,16 @@ code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
       <div class="todo-header">
         <div class="todo-num">1</div>
         <div class="todo-title-area">
-          <div class="todo-title">張猛（NPC）的具體職能與扮演方式</div>
-          <small>✅ 已從 source/zhang-meng.md 整理完成（2026-06-21）</small>
+          <div class="todo-title">3 輪答題系統的具體題目與答案</div>
+          <small>DM 手冊說明系統規則，但題目和答案應在盒裝答題卡中</small>
         </div>
-        <div class="todo-badge"><span class="badge b-done">已完成</span></div>
+        <div class="todo-badge"><span class="badge b-p1">高優先</span></div>
       </div>
       <div class="todo-body">
-        <div class="field"><span class="field-label">真實身份</span><span class="field-val">冷降塵（幼名丁典），鶴須軍大統領；對外化名「張猛」客商</span></div>
-        <div class="field"><span class="field-label">核心職能</span><span class="field-val">帶節奏、炒場、增強現場活躍度；引導玩家進入劇情。由 GM 或助理扮演。</span></div>
-        <div class="field"><span class="field-label">關鍵任務</span><span class="field-val">
-          ① 第一輪私聊中主動找各角色傳遞特定線索（詳見 zhang-meng.html）<br>
-          ② 第一輪私聊快結束時：將<strong>虎賁衛兵符交予金四刀</strong>，將<strong>近衛軍兵符交予刁五兒</strong><br>
-          ③ 告知刁五兒：義父被蒙面刺客刺傷右肋（帶毒），兇手逃走時左肩中了縛陽掌<br>
-          ④ 告知王思涵：並非殺害旭晨的真兇，有人渾水摸魚陷害鶴須軍<br>
-          ⑤ 凶案環節被殺後扮演屍體，隨身攜帶 3 張線索卡 + 1 封書信（玩家搜查屍體時取得）
-        </span></div>
-        <div class="field"><span class="field-label">對外口徑</span><span class="field-val">「我是客商張猛，和另外兩個客商一起到盤興口採買珍貴藥材鶴紅草，因中元節前夕正是鶴紅草大量出產的日子。」</span></div>
-        <div class="field"><span class="field-label">手勢</span><span class="field-val">掌握寇俠手勢、大夏皇族手勢（詳見張猛劇本手勢卡）</span></div>
-        <div class="field"><span class="field-label">來源</span><span class="field-val"><code>materials/kou-xia/source/zhang-meng.md</code>（已整理完成）</span></div>
+        <div class="field"><span class="field-label">問題</span><span class="field-val">每輪共幾題？題目內容是什麼？對應答案？銀票如何計算？</span></div>
+        <div class="field"><span class="field-label">已知規則</span><span class="field-val">3 輪 × 每人 3 題；答對 1 題 ＝ 10 兩銀票；GM 書面批改，公告對題數不公告內容。</span></div>
+        <div class="field"><span class="field-label">來源</span><span class="field-val">盒裝答題卡（請確認是否在遊戲盒內）/ DM 手冊（未數位化）</span></div>
+        <div class="follow">📌 開盒確認是否有答題卡。若無，向 K 的遊戲工作室或百度網盤原始資料查詢。</div>
       </div>
     </li>
 
@@ -163,16 +162,15 @@ code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
       <div class="todo-header">
         <div class="todo-num">2</div>
         <div class="todo-title-area">
-          <div class="todo-title">各自由陣營角色的具體個人勝利條件</div>
-          <small>農叟、王思涵、王順、刁五兒的個人條件在角色劇本中，DM手册僅概述</small>
+          <div class="todo-title">農叟（丁崧）搏殺特殊規則</div>
+          <small>農叟 HP 40 為全場最高，但特殊技能欄不在 source md 中</small>
         </div>
         <div class="todo-badge"><span class="badge b-p1">高優先</span></div>
       </div>
       <div class="todo-body">
-        <div class="field"><span class="field-label">問題</span><span class="field-val">各角色加入不同陣營的條件、個人勝利條件、選邊的觸發機制為何？</span></div>
-        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>農叟.pdf / 王思涵.pdf / 王順.pdf / 刁五兒劇本.pdf</code>（均 OCR needed）</span></div>
-        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">DM手册確認四人為自由陣營，可加入任一方；農叟↔王順有舊主舊部連結。</span></div>
-        <div class="follow">📌 後續步驟：逐一人工閱讀四份角色劇本，整理個人勝利條件表格，補充到 <a href="spoilers.html">劇情真相頁面</a>。</div>
+        <div class="field"><span class="field-label">問題</span><span class="field-val">農叟是否有特殊搏殺技能？HP 40 是否對應特殊防禦／攻擊規則？</span></div>
+        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">農叟 HP 40 / 武力 6（全場最高，來自 DM 手冊）。情景三絕學卡為【誘敵】，其餘特殊數值待確認。Source md 不含戰鬥數值，此部分在物理道具卡。</span></div>
+        <div class="follow">📌 開盒確認農叟道具卡有無特殊說明，補充到 <a href="host-notes.html">主持人流程筆記</a> 戰鬥數值區。</div>
       </div>
     </li>
 
@@ -180,16 +178,21 @@ code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
       <div class="todo-header">
         <div class="todo-num">3</div>
         <div class="todo-title-area">
-          <div class="todo-title">3 輪答題系統的具體題目與答案</div>
-          <small>DM手册說明系統規則，但題目和答案應在盒裝答題卡中</small>
+          <div class="todo-title">凶器確認 — 冷降塵是如何被殺死的？</div>
+          <small>具體凶器在線索卡，source md 只能確認死因為中毒</small>
         </div>
         <div class="todo-badge"><span class="badge b-p1">高優先</span></div>
       </div>
       <div class="todo-body">
-        <div class="field"><span class="field-label">問題</span><span class="field-val">每輪共幾題？題目內容是什麼？對應答案？銀票如何計算？</span></div>
-        <div class="field"><span class="field-label">原始來源</span><span class="field-val">盒裝答題卡（請確認是否在遊戲盒內）/ DM手册（OCR needed）</span></div>
-        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">3輪 × 每人3題，答對1題＝10兩銀票。GM書面批改，公告對題數不公告內容。</span></div>
-        <div class="follow">📌 後續步驟：確認盒裝中是否有答題卡。若無，向 K的遊戲工作室或百度網盤原始資料查詢。</div>
+        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">
+          • <strong>凶手：嚴氏（欒絳）</strong>，奉嚴逸（殘手）之命<br>
+          • <strong>死因：中毒，毒發身亡</strong>（嚴逸在小劇場中確認）<br>
+          • 賈三娘發現時，房內有繡衣使迷香「赤霞」，冷降塵已不省人事<br>
+          • 繡衣使使用毒藥「茶靈」（劇毒，死後屍體變黑；曾用於暗殺冷佛林）<br>
+          • 具體行兇過程、凶器形式：見線索卡
+        </span></div>
+        <div class="field"><span class="field-label">凶案流程</span><span class="field-val">嚴氏在房間殺人 → 王順在庫房布「赤霞」迷香（原針對農叟）→ 賈三娘發現冷降塵，將屍體扛到庫房 → 次晨被發現</span></div>
+        <div class="follow">📌 開盒確認 44 張線索卡中凶器相關卡片，整理到主持人流程進程 07。</div>
       </div>
     </li>
 
@@ -197,197 +200,158 @@ code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
       <div class="todo-header">
         <div class="todo-num">4</div>
         <div class="todo-title-area">
-          <div class="todo-title">金四刀劇本「復盤專用」頁 — 可能有隱藏 GM 內容</div>
-          <small>OCR 時確認頁面標注「復盤專用」，內容因紅色裝飾欄完全遮蓋</small>
+          <div class="todo-title">金四刀劇本「復盤專用」頁內容</div>
+          <small>原 PDF 有此頁但因裝飾圖案完全遮蓋；source md 未包含此頁</small>
         </div>
-        <div class="todo-badge"><span class="badge b-p1">高優先</span></div>
+        <div class="todo-badge"><span class="badge b-p2">低優先</span></div>
       </div>
       <div class="todo-body">
-        <div class="field"><span class="field-label">問題</span><span class="field-val">「復盤專用」頁是否有 GM-only 的壓軸揭露說明？有沒有額外的主持人指引？</span></div>
-        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>金四刀.pdf</code>（39MB，純圖像，OCR needed）</span></div>
-        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">OCR 時視覺確認有一頁標題為「復盤專用」，內容因深紅裝飾圖案遮蓋，無法提取。</span></div>
-        <div class="follow">📌 後續步驟：人工閱讀 <code>local-private/kou-xia/pdf/金四刀.pdf</code>，確認該頁是否包含 GM 揭露指引，並補充到 <a href="characters/jin-si-dao.html">金四刀 GM 頁</a>。</div>
-      </div>
-    </li>
-
-    <li class="todo-item">
-      <div class="todo-header">
-        <div class="todo-num">5</div>
-        <div class="todo-title-area">
-          <div class="todo-title">農叟（丁崧）搏殺特殊規則</div>
-          <small>農叟 HP 40 為全場最高，OCR 時特殊規則說明方框完全遮蓋</small>
-        </div>
-        <div class="todo-badge"><span class="badge b-p1">高優先</span></div>
-      </div>
-      <div class="todo-body">
-        <div class="field"><span class="field-label">問題</span><span class="field-val">農叟是否有特殊搏殺技能？HP 40 是否對應特殊防禦/攻擊規則？</span></div>
-        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>農叟.pdf</code>（46MB，純圖像，OCR needed）</span></div>
-        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">農叟 HP 40 / 武力 6，全場最高。頁7特殊規則方框在 OCR 時因裝訂陰影完全不可讀。</span></div>
-        <div class="follow">📌 後續步驟：人工閱讀 <code>local-private/kou-xia/pdf/農叟.pdf</code>，確認特殊規則後補充到 <a href="characters/nong-sou.html">農叟 GM 頁</a> 及 <a href="host-notes.html">主持人流程筆記</a> 戰鬥數值區。</div>
+        <div class="field"><span class="field-label">現況</span><span class="field-val">jin-si-dao.md 的三情景腳本完整，「復盤專用」頁可能是遊戲結束後的玩家揭示內容，不影響主持流程。</span></div>
+        <div class="field"><span class="field-label">已知金四刀個人勝利條件</span><span class="field-val">固定寇俠陣營，<strong>若能集齊所有【兵符】可開啟個人勝利</strong>（前提寇俠方整體獲勝）。絕學卡：龍佑。</span></div>
+        <div class="follow">📌 如有需要，直接閱讀 <code>local-private/kou-xia/pdf/金四刀.pdf</code> 末頁確認「復盤專用」內容。開本前非必要。</div>
       </div>
     </li>
 
   </ul>
 </div>
 
-<!-- MEDIUM PRIORITY -->
+<!-- RESOLVED -->
 <div class="section">
   <div class="priority-head">
-    <h3>⚠ 中優先 — 建議開本前確認，影響遊戲體驗</h3>
-    <div class="priority-bar p2-bar"></div>
-  </div>
-
-  <ul class="todo-list">
-
-    <li class="todo-item">
-      <div class="todo-header">
-        <div class="todo-num">6</div>
-        <div class="todo-title-area">
-          <div class="todo-title">賈三娘感情線的對象與細節</div>
-          <small>DM手册提及感情線可能影響立場，但對象不明</small>
-        </div>
-        <div class="todo-badge"><span class="badge b-p2">中優先</span></div>
-      </div>
-      <div class="todo-body">
-        <div class="field"><span class="field-label">問題</span><span class="field-val">感情線對象是誰？條件是什麼？她倒戈的具體結局是？</span></div>
-        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>賈三娘.pdf</code>（44MB，OCR needed）</span></div>
-        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">感情線可能使立場動搖（DM手册）。對象不明。</span></div>
-        <div class="follow">📌 後續步驟：人工閱讀賈三娘劇本。確認感情線後在 <a href="relationship-map.html">人物關係圖</a> 補充對應連結。</div>
-      </div>
-    </li>
-
-    <li class="todo-item">
-      <div class="todo-header">
-        <div class="todo-num">7</div>
-        <div class="todo-title-area">
-          <div class="todo-title">農叟（丁崧）↔ 金四刀（何乃武）的直接歷史關係</div>
-          <small>兩人都與大夏舊勢力有關，但DM手册未明說是否相識</small>
-        </div>
-        <div class="todo-badge"><span class="badge b-p2">中優先</span></div>
-      </div>
-      <div class="todo-body">
-        <div class="field"><span class="field-label">問題</span><span class="field-val">丁崧曾護送部分大夏皇族出逃，是否包含何乃武？兩人遊戲中是否相識？</span></div>
-        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>農叟.pdf / 金四刀.pdf</code>（均 OCR needed）</span></div>
-        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">丁崧護送皇族（DM手册）；金四刀為皇族後裔（DM手册）。直接關係未確認。</span></div>
-        <div class="follow">📌 後續步驟：人工確認。若有直接關係，更新 <a href="relationship-map.html">人物關係圖</a> §2 和 §3。</div>
-      </div>
-    </li>
-
-    <li class="todo-item">
-      <div class="todo-header">
-        <div class="todo-num">8</div>
-        <div class="todo-title-area">
-          <div class="todo-title">凶器確認 — 冷降塵是如何被殺死的？</div>
-          <small>DM手册指凶器見線索卡，具體凶器未知</small>
-        </div>
-        <div class="todo-badge"><span class="badge b-p2">中優先</span></div>
-      </div>
-      <div class="todo-body">
-        <div class="field"><span class="field-label">問題</span><span class="field-val">具體凶器是什麼？現場有哪些關鍵線索卡？如何布置凶案現場？</span></div>
-        <div class="field"><span class="field-label">原始來源</span><span class="field-val">盒裝線索卡（44張）/ DM手册（OCR needed）</span></div>
-        <div class="field"><span class="field-label">已知資訊</span><span class="field-val">「凶器見線索卡」（DM手册）。進程07需布置現場。</span></div>
-        <div class="follow">📌 後續步驟：開盒後確認線索卡，找到凶器相關卡片，整理到主持人流程筆記進程07。</div>
-      </div>
-    </li>
-
-  </ul>
-</div>
-
-<!-- OCR / Low Priority -->
-<div class="section">
-  <div class="priority-head">
-    <h3>🔍 低優先 — OCR 或有空再確認</h3>
-    <div class="priority-bar p3-bar"></div>
-  </div>
-
-  <ul class="todo-list">
-
-    <li class="todo-item">
-      <div class="todo-header">
-        <div class="todo-num">9</div>
-        <div class="todo-title-area">
-          <div class="todo-title">冷降塵 ↔ 冷佛林 的關係確認</div>
-          <small>刁五兒=冷佛林之女；冷降塵疑為冷佛林舊識（整理稿推斷，非DM手册原文）</small>
-        </div>
-        <div class="todo-badge"><span class="badge b-ocr">OCR needed</span></div>
-      </div>
-      <div class="todo-body">
-        <div class="field"><span class="field-label">問題</span><span class="field-val">冷降塵與冷佛林是什麼關係？刁五兒追查的真相與冷降塵之死的連結？</span></div>
-        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>刁五兒劇本.pdf</code>（42MB，OCR needed）</span></div>
-        <div class="field"><span class="field-label">當前狀態</span><span class="field-val">「冷降塵是冷佛林舊識」為整理稿推斷。信心度：中。</span></div>
-        <div class="follow">📌 後續步驟：OCR 刁五兒劇本後確認；若為推斷，更新 <a href="relationship-map.html">人物關係圖</a> 的 Medium confidence 標注。</div>
-      </div>
-    </li>
-
-    <li class="todo-item">
-      <div class="todo-header">
-        <div class="todo-num">10</div>
-        <div class="todo-title-area">
-          <div class="todo-title">嚴逸是否知道嚴氏的大夏皇族血統？</div>
-          <small>若嚴逸知情，對嚴氏的態度和遊戲深度更複雜</small>
-        </div>
-        <div class="todo-badge"><span class="badge b-ocr">OCR needed</span></div>
-      </div>
-      <div class="todo-body">
-        <div class="field"><span class="field-label">問題</span><span class="field-val">嚴逸知道嚴氏的真實身份嗎？他是否刻意利用她？</span></div>
-        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>嚴逸.pdf / 嚴氏.pdf</code>（均 OCR needed）</span></div>
-        <div class="follow">📌 後續步驟：OCR 後確認。若嚴逸知情，補充到 <a href="relationship-map.html">人物關係圖 §7 嚴逸注記</a>。</div>
-      </div>
-    </li>
-
-    <li class="todo-item">
-      <div class="todo-header">
-        <div class="todo-num">11</div>
-        <div class="todo-title-area">
-          <div class="todo-title">王思涵 ↔ 農叟 / 王順 的直接關係</div>
-          <small>三人都與大夏舊軍有關（玄甲軍），但直接認識情況不明</small>
-        </div>
-        <div class="todo-badge"><span class="badge b-ocr">OCR needed</span></div>
-      </div>
-      <div class="todo-body">
-        <div class="field"><span class="field-label">問題</span><span class="field-val">三人是否相識？玄甲軍統師與丁崧（農叟）是同袍關係嗎？</span></div>
-        <div class="field"><span class="field-label">原始來源</span><span class="field-val"><code>王思涵.pdf / 農叟.pdf</code>（均 OCR needed）</span></div>
-        <div class="follow">📌 後續步驟：OCR 後確認；若有歷史連結，加入 <a href="relationship-map.html">關係圖</a>。</div>
-      </div>
-    </li>
-
-  </ul>
-</div>
-
-<!-- Already done -->
-<div class="section">
-  <div class="priority-head">
-    <h3>✓ 已完成</h3>
+    <h3>✓ 已確認 — 從 source md 取得答案</h3>
     <div class="priority-bar" style="background:#2d7a4a"></div>
   </div>
-  <div class="notice n-ok">
-    <strong>✓ DM手册 全文讀取（40頁）</strong> — 角色身份、凶案、陣營、流程、數值均已整理完成。<br>
-    <strong>✓ 角色總覽表</strong> — 見 <a href="relationship-map.html#s1">人物關係圖 §1</a>，High confidence 內容已完整記錄。
-  </div>
-</div>
 
-<!-- OCR 說明 -->
-<div class="section">
-  <h2>🔍 OCR 處理說明</h2>
-  <p>以下 9 份角色劇本 PDF 均為純圖像型（無可提取文字），需要 OCR 才能讀取內容：</p>
-  <table>
-    <thead><tr><th>檔案</th><th>大小</th><th>優先度</th></tr></thead>
-    <tbody>
-      <tr><td><code>張猛劇本.pdf</code></td><td>25 MB</td><td><span class="badge b-p1">高</span></td></tr>
-      <tr><td><code>農叟.pdf</code></td><td>46 MB</td><td><span class="badge b-p1">高</span></td></tr>
-      <tr><td><code>王思涵.pdf</code></td><td>43 MB</td><td><span class="badge b-p1">高</span></td></tr>
-      <tr><td><code>王順.pdf</code></td><td>48 MB</td><td><span class="badge b-p1">高</span></td></tr>
-      <tr><td><code>刁五兒劇本.pdf</code></td><td>42 MB</td><td><span class="badge b-p1">高</span></td></tr>
-      <tr><td><code>賈三娘.pdf</code></td><td>44 MB</td><td><span class="badge b-p2">中</span></td></tr>
-      <tr><td><code>金四刀.pdf</code></td><td>39 MB</td><td><span class="badge b-p2">中</span></td></tr>
-      <tr><td><code>嚴氏.pdf</code></td><td>46 MB</td><td><span class="badge b-p2">中</span></td></tr>
-      <tr><td><code>嚴逸.pdf</code></td><td>41 MB</td><td><span class="badge b-p2">中</span></td></tr>
-    </tbody>
-  </table>
-  <div class="notice n-tip" style="margin-top:.8em">
-    <strong>建議 OCR 工具：</strong>Adobe Acrobat「識別文字」功能、iOS 相機掃描、
-    Google Lens、Tesseract（命令列）。<br>
-    OCR 完成後，將提取文字存到 <code>local-private/kou-xia/extracted-text/</code> 並更新各 GM 頁面。
+  <!-- Item 1 → done previously -->
+  <div class="resolve-block">
+    <div class="resolve-header">
+      <div class="resolve-num">✓</div>
+      <div class="resolve-title-area">
+        <div class="resolve-title">張猛（NPC）的具體職能與扮演方式</div>
+        <small>已從 source/zhang-meng.md 整理完成（2026-06-21）</small>
+      </div>
+      <div class="resolve-badge"><span class="badge b-done">已完成</span></div>
+    </div>
+    <div class="resolve-body">
+      <div class="field"><span class="field-label">真實身份</span><span class="field-val">冷降塵（幼名丁典），鶴須軍大統領；對外化名「張猛」客商</span></div>
+      <div class="field"><span class="field-label">核心職能</span><span class="field-val">帶節奏、炒場、增強現場活躍度；引導玩家進入劇情。由 GM 或助理扮演。</span></div>
+      <div class="field"><span class="field-label">關鍵任務</span><span class="field-val">
+        ① 第一輪私聊中主動找各角色傳遞特定線索<br>
+        ② 第一輪私聊快結束時：虎賁衛兵符 → 金四刀，近衛軍兵符 → 刁五兒<br>
+        ③ 凶案環節扮演屍體，隨身攜帶 3 張線索卡 + 1 封書信
+      </span></div>
+    </div>
+  </div>
+
+  <!-- Item 2 → newly resolved -->
+  <div class="resolve-block">
+    <div class="resolve-header">
+      <div class="resolve-num">✓</div>
+      <div class="resolve-title-area">
+        <div class="resolve-title">各自由陣營角色的具體個人勝利條件</div>
+        <small>已從 source mds 全部確認（2026-06-22）</small>
+      </div>
+      <div class="resolve-badge"><span class="badge b-done">已完成</span></div>
+    </div>
+    <div class="resolve-body">
+      <div class="field"><span class="field-label">農叟（丁崧）</span><span class="field-val">可選任一陣營。個人目標：① 找到大夏血脈並保護 ② 找到兒子丁典（即冷降塵，遊戲中已確認） ③ 揭露告發者龐萬金（王順）。絕學卡：【誘敵】</span></div>
+      <div class="field"><span class="field-label">王思涵（旭敏芝）</span><span class="field-val">可選任一陣營。個人目標：① 找到兄長旭晨真兇（龐萬金/王順） ② 取回賈三娘手中的布防圖 ③ 確定玄甲軍前途。絕學卡：【養心塊】</span></div>
+      <div class="field"><span class="field-label">王順（龐萬金）</span><span class="field-val">可選任一陣營。個人目標：活下來並獲得榮華富貴即勝利（無固定陣營忠誠）。絕學卡：【替身牽制】</span></div>
+      <div class="field"><span class="field-label">刁五兒（冷鈺）</span><span class="field-val">可選任一陣營。個人目標：① 找出殺父真兇（賈三娘/歸雪，用茶靈毒刺殺冷佛林） ② 重奪鶴須軍近衛軍控制權 ③ 只要活下來才是最終勝利。絕學卡：【卸器】</span></div>
+      <div class="field"><span class="field-label">⚠ 注意</span><span class="field-val">農叟情景三原文在句子中斷（「跟隨大夏血脈是……」），但從任務描述可推斷：加入寇俠/大夏陣營時需要保護金四刀（大夏血脈）。</span></div>
+    </div>
+  </div>
+
+  <!-- Item 6 → newly resolved -->
+  <div class="resolve-block">
+    <div class="resolve-header">
+      <div class="resolve-num">✓</div>
+      <div class="resolve-title-area">
+        <div class="resolve-title">賈三娘感情線的對象與細節</div>
+        <small>已從 source/jia-san-niang.md 確認（2026-06-22）</small>
+      </div>
+      <div class="resolve-badge"><span class="badge b-done">已完成</span></div>
+    </div>
+    <div class="resolve-body">
+      <div class="field"><span class="field-label">結論</span><span class="field-val"><strong>賈三娘固定繡衣使陣營，不可更改</strong>，感情線不影響陣營選擇</span></div>
+      <div class="field"><span class="field-label">感情內容</span><span class="field-val">賈三娘（歸雪）8 歲時被鄭木帶走，視其為改變自己人生的人，有仰慕情結。她最終目的是爬到鄭木身旁。這是內心動機，非對玩家角色的浪漫感情線。</span></div>
+      <div class="field"><span class="field-label">遊戲中</span><span class="field-val">賈三娘與嚴逸（殘手）配合，但二人關係是上下級，無浪漫感情描述。</span></div>
+    </div>
+  </div>
+
+  <!-- Item 7 → newly resolved -->
+  <div class="resolve-block">
+    <div class="resolve-header">
+      <div class="resolve-num">✓</div>
+      <div class="resolve-title-area">
+        <div class="resolve-title">農叟（丁崧）↔ 金四刀（何乃武）的直接歷史關係</div>
+        <small>已從 source/nong-sou.md 和 source/jin-si-dao.md 確認（2026-06-22）</small>
+      </div>
+      <div class="resolve-badge"><span class="badge b-done">已完成</span></div>
+    </div>
+    <div class="resolve-body">
+      <div class="field"><span class="field-label">關係</span><span class="field-val">丁崧（農叟）與<strong>何彥（金四刀之父）</strong>為世代交好。丁崧曾千里奔赴救援何彥一家，但晚到一步，只看到刺客（嚴逸）抱走何乃清，並重傷刺客右肩（與刁五兒劇本線索吻合）。</span></div>
+      <div class="field"><span class="field-label">與何乃武</span><span class="field-val">丁崧未曾與何乃武（金四刀）本人見面——何乃武當年 8 歲昏厥，後被舅舅帶走。遊戲中二人相遇時都不認識對方。</span></div>
+      <div class="field"><span class="field-label">安民告示暗語</span><span class="field-val">何乃武（金四刀）貼出「人口丁」落款的安民告示，丁崧（農叟）正確解讀出「何」字，知道是大夏血脈召集信號，兩人將在天福客棧中相認。</span></div>
+    </div>
+  </div>
+
+  <!-- Item 9 → newly resolved -->
+  <div class="resolve-block">
+    <div class="resolve-header">
+      <div class="resolve-num">✓</div>
+      <div class="resolve-title-area">
+        <div class="resolve-title">冷降塵 ↔ 冷佛林 的關係確認</div>
+        <small>已從 source/zhang-meng.md 和 source/diao-wu-er.md 確認（2026-06-22）</small>
+      </div>
+      <div class="resolve-badge"><span class="badge b-done">已完成</span></div>
+    </div>
+    <div class="resolve-body">
+      <div class="field"><span class="field-label">正確關係</span><span class="field-val">冷降塵（本名丁典）是<strong>冷佛林的義子</strong>，並非親生子。丁典是丁崧的親生兒子，被父親托付給冷佛林撫養，改名冷降塵。</span></div>
+      <div class="field"><span class="field-label">刁五兒</span><span class="field-val">刁五兒（真名冷鈺）是冷佛林的<strong>親生女兒</strong>。冷降塵與刁五兒為義兄妹關係。</span></div>
+      <div class="field"><span class="field-label">更正</span><span class="field-val">舊整理稿「冷降塵是冷佛林舊識」為誤判，已更正。</span></div>
+    </div>
+  </div>
+
+  <!-- Item 10 → newly resolved -->
+  <div class="resolve-block">
+    <div class="resolve-header">
+      <div class="resolve-num">✓</div>
+      <div class="resolve-title-area">
+        <div class="resolve-title">嚴逸是否知道嚴氏的大夏皇族血統？</div>
+        <small>已從 source/jia-san-niang.md 確認（2026-06-22）</small>
+      </div>
+      <div class="resolve-badge"><span class="badge b-done">已完成</span></div>
+    </div>
+    <div class="resolve-body">
+      <div class="field"><span class="field-label">結論</span><span class="field-val"><strong>嚴逸（殘手）知道嚴氏是何乃清（大夏皇族）。</strong></span></div>
+      <div class="field"><span class="field-label">來源</span><span class="field-val">賈三娘劇本：大夏元始三年，殘手（嚴逸）與賈三娘（歸雪）一同執行暗殺何彥全家的任務。任務完成後，殘手一反常態，<strong>主動選擇放走何乃清（小女童）</strong>，對賈三娘說「放過她吧，算我欠你一個人情」。</span></div>
+      <div class="field"><span class="field-label">深層含義</span><span class="field-val">嚴逸對何乃清有複雜的個人情感，特意保住她性命。後何乃清被繡衣使收容訓練成「嚴氏/欒絳」，嚴逸是否告知她的真實身份則不確定（需看嚴逸劇本）。</span></div>
+    </div>
+  </div>
+
+  <!-- Item 11 → newly resolved -->
+  <div class="resolve-block">
+    <div class="resolve-header">
+      <div class="resolve-num">✓</div>
+      <div class="resolve-title-area">
+        <div class="resolve-title">王思涵 ↔ 農叟 / 王順 的直接歷史關係</div>
+        <small>已從 source mds 確認（2026-06-22）</small>
+      </div>
+      <div class="resolve-badge"><span class="badge b-done">已完成</span></div>
+    </div>
+    <div class="resolve-body">
+      <div class="field"><span class="field-label">王思涵↔農叟</span><span class="field-val">無直接歷史關係。丁崧（農叟）是大夏朝廷將領，旭氏（王思涵家族）是地方鄉紳組成的寇俠玄甲軍，二人不是同袍，過去未曾相識。</span></div>
+      <div class="field"><span class="field-label">王順↔農叟</span><span class="field-val"><strong>王順（龐萬金）是丁崧（農叟）舊部小校，後背叛告發丁崧</strong>。農叟在情景二確認王順就是龐萬金（「他不和自己相認？」）。這是農叟的核心仇恨對象。</span></div>
+      <div class="field"><span class="field-label">王順↔王思涵</span><span class="field-val">王順（龐萬金）是玄甲軍臥底，直接上司是旭敏芝（王思涵）。他殺了她的兄長旭晨（宛平府大戰中扮成鶴須軍兵丁，用左手揮短柄手戟），是她的殺兄仇人。</span></div>
+    </div>
+  </div>
+
+  <!-- Base done items -->
+  <div class="notice n-ok" style="margin-top:.8em">
+    <strong>✓ DM 手冊全文讀取（40 頁）</strong> — 角色身份、凶案、陣營、流程、數值均已整理完成。<br>
+    <strong>✓ 角色總覽表</strong> — 見 <a href="relationship-map.html#s1">人物關係圖 §1</a>，High confidence 內容已完整記錄。<br>
+    <strong>✓ 全部 9 份角色劇本</strong> — source md 均已完成（<code>materials/kou-xia/source/</code>），OCR 完畢。
   </div>
 </div>
 
@@ -406,7 +370,7 @@ code{background:#e8e0d0;padding:.1em .35em;border-radius:3px;font-size:.87em}
 </div>
 <div class="site-footer">
   <a href="../../../index.html">📜 LARP Script Archive</a> ｜
-  <a href="../index.html">寇侠</a> ｜
+  <a href="../index.html">寇俠</a> ｜
   <a href="index.html">GM Area</a>
 </div>
 
