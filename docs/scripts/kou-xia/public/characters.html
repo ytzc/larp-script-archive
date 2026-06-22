@@ -3,16 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>角色簡介 — 寇侠 Public</title>
+  <title>角色簡介 — 寇俠公開資訊</title>
   <link rel="stylesheet" href="../../../assets/css/style.css" />
   <style>
-    .char-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-    .char-item { background: var(--paper, #faf6ef); border: 1px solid #c8b89a; border-radius: 8px; padding: 1.1rem 1.3rem; }
-    .char-item .name { font-size: 1.1rem; font-weight: bold; color: var(--red, #8b0000); margin-bottom: .2rem; }
-    .char-item .role { font-size: .85rem; color: #888; margin-bottom: .5rem; }
-    .char-item .desc { font-size: .9rem; color: #444; }
-    .npc-item { border-color: #aaa; }
-    .npc-item .name { color: #555; }
+    .char-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .char-item {
+      background: var(--paper, #faf6ef);
+      border: 1px solid #c8b89a;
+      border-radius: 8px;
+      padding: 1.1rem 1.3rem 1.2rem;
+    }
+    .char-cover {
+      font-size: .8rem;
+      font-style: italic;
+      color: #aaa;
+      margin-bottom: .65rem;
+      line-height: 1.75;
+      letter-spacing: .02em;
+    }
+    .char-name-row {
+      display: flex;
+      align-items: baseline;
+      gap: .45rem;
+      flex-wrap: wrap;
+      margin-bottom: .25rem;
+    }
+    .char-name-row .name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--red, #8b0000);
+      margin: 0;
+    }
+    .char-player {
+      font-size: .8rem;
+      color: #888;
+    }
+    .char-item .role {
+      font-size: .82rem;
+      color: #999;
+      margin-bottom: .5rem;
+    }
+    .char-item .desc {
+      font-size: .88rem;
+      color: #444;
+      line-height: 1.7;
+      border-top: 1px solid #e0d4c0;
+      margin-top: .55rem;
+      padding-top: .5rem;
+    }
+    .npc-item { border-color: #bbb; }
+    .npc-item .name { color: #666; }
+    .npc-section-note {
+      font-size: .9rem;
+      color: #555;
+      line-height: 1.75;
+      background: var(--paper, #faf6ef);
+      border: 1px solid #c8b89a;
+      border-radius: 8px;
+      padding: 1rem 1.3rem;
+      margin-top: 1rem;
+    }
+    .npc-section-note strong { color: var(--red, #8b0000); }
   </style>
 </head>
 <body>
@@ -21,74 +77,106 @@
   <a class="logo" href="../../../index.html">📜 LARP Script Archive</a>
   <nav>
     <a href="../../../index.html">首頁</a>
-    <a href="../index.html">寇侠</a>
-    <a href="index.html">Public</a>
+    <a href="../index.html">寇俠</a>
+    <a href="index.html">公開資訊</a>
   </nav>
 </header>
 
 <main>
   <nav class="top-nav">
-    <a href="index.html">← Public Information</a> › 角色簡介
+    <a href="index.html">← 公開資訊</a> › 角色簡介
   </nav>
 
   <div class="hero">
     <h1>👥 角色簡介（公開版）</h1>
-    <p>寇侠 — 所有角色的公開身份（不含秘密）</p>
+    <p>寇俠 — 所有角色的公開身份（不含秘密）</p>
   </div>
 
   <div class="notice notice-info">
-    ✅ 本頁只列出角色的公開身份與表面背景，不含任何秘密、隱藏任務或劇透。
+    ✅ 本頁只列出角色的公開身份與表面外觀，不含任何秘密、隱藏任務或劇透。
   </div>
 
   <h2>玩家角色</h2>
   <div class="char-list">
 
     <div class="char-item">
-      <div class="name">刁五兒</div>
-      <div class="role">江湖遊俠（女扮男裝）· 22歲</div>
-      <div class="desc">一個以男裝行走江湖的年輕俠客，性格直率，武功不俗。此行有她自己的目的。</div>
+      <div class="char-cover">桃李春風一杯酒，江湖夜雨十年燈。</div>
+      <div class="char-name-row">
+        <span class="name">王思涵</span>
+        <span class="char-player">飾演：Luna · 21 歲</span>
+      </div>
+      <div class="role">賣唱女</div>
+      <div class="desc">才貌俱佳的賣唱女，著一件絳紫色的細麻長裙，眉眼間似有傲氣。</div>
     </div>
 
     <div class="char-item">
-      <div class="name">賈三娘</div>
-      <div class="role">客棧老板娘 · 34歲</div>
-      <div class="desc">風韻猶存的客棧老板娘，在此地經營多年，消息靈通，待人接物圓滑。</div>
+      <div class="char-cover">踏遍去來枝，孤鴻獨自飛。</div>
+      <div class="char-name-row">
+        <span class="name">賈三娘</span>
+        <span class="char-player">飾演：peggy · 34 歲</span>
+      </div>
+      <div class="role">客棧老闆娘</div>
+      <div class="desc">風韻猶存的客棧老闆娘，在此地經營多年，消息靈通，身著一襲紅衣。</div>
     </div>
 
     <div class="char-item">
-      <div class="name">金四刀</div>
-      <div class="role">江湖人士 · 26歲</div>
-      <div class="desc">俊朗卓絕，氣勢不凡，言行間有幾分鋒芒。來此自稱有要事待辦。</div>
+      <div class="char-cover">已慣江湖作浪游，愛恨情仇總難休。</div>
+      <div class="char-name-row">
+        <span class="name">刁五兒</span>
+        <span class="char-player">飾演：佩璇 · 22 歲</span>
+      </div>
+      <div class="role">江湖俠客（女扮男裝）</div>
+      <div class="desc">瘦小乾枯，黑布蒙面的漢子，做客商打扮。以男裝行走江湖，性格直率，武功不俗。</div>
     </div>
 
     <div class="char-item">
-      <div class="name">農叟</div>
-      <div class="role">農夫 · 50歲左右</div>
-      <div class="desc">頭髮花白、皮膚黝黑的老農，雙手布滿老繭，話不多，眼神卻銳利。</div>
+      <div class="char-cover">青燈古卷拭劍，落日餘生紅顏。</div>
+      <div class="char-name-row">
+        <span class="name">嚴逸</span>
+        <span class="char-player">飾演：健元 · 36 歲</span>
+      </div>
+      <div class="role">書生</div>
+      <div class="desc">清瘦但有魅力的男子，書生打扮，與妻子嚴氏同行，眉宇間有淡淡的黑印。</div>
     </div>
 
     <div class="char-item">
-      <div class="name">王順</div>
-      <div class="role">江湖人士 · 43歲</div>
-      <div class="desc">身形魁梧，帶著一個女兒同行，自稱只是路過，神態間卻有些緊張。</div>
+      <div class="char-cover">朝暮不棄，白首不離。</div>
+      <div class="char-name-row">
+        <span class="name">嚴氏</span>
+        <span class="char-player">飾演：媛媛 · 22 歲</span>
+      </div>
+      <div class="role">書生之妻</div>
+      <div class="desc">身材曼妙的女子，著一身青色裙裝，面部被赤紗遮掩，嚴逸之妻。</div>
     </div>
 
     <div class="char-item">
-      <div class="name">王思涵</div>
-      <div class="role">少女 · 21歲</div>
-      <div class="desc">外表柔弱的年輕女子，據說是王順之女，沉默寡言，似乎另有心事。</div>
+      <div class="char-cover">平生不修善果，只愛殺人放火。</div>
+      <div class="char-name-row">
+        <span class="name">王順</span>
+        <span class="char-player">飾演：宣毅 · 43 歲</span>
+      </div>
+      <div class="role">江湖人士</div>
+      <div class="desc">賣唱女王思涵的父親，身形臃腫，帶著女兒同行，神態間有些緊張。</div>
     </div>
 
     <div class="char-item">
-      <div class="name">嚴氏</div>
-      <div class="role">書生之妻 · 22歲</div>
-      <div class="desc">嚴逸的妻子，臉上有一道淡淡的疤痕，舉止間偶爾流露出與外表不符的鋒芒。</div>
+      <div class="char-cover">自古名士如美人，不許人間見白頭。</div>
+      <div class="char-name-row">
+        <span class="name">農叟</span>
+        <span class="char-player">飾演：佩妏 · 50 歲左右</span>
+      </div>
+      <div class="role">農夫</div>
+      <div class="desc">雙手布滿老繭的農漢，頭髮花白，皮膚黝黑。話不多，眼神卻銳利。</div>
     </div>
 
     <div class="char-item">
-      <div class="name">嚴逸</div>
-      <div class="role">書生 · 36歲</div>
-      <div class="desc">清癯儒雅的男子，書生打扮，與妻子嚴氏同行，言談有度，眉宇間卻有淡淡的陰翳。</div>
+      <div class="char-cover">胸中藏戰將，腹內隱雄兵。</div>
+      <div class="char-name-row">
+        <span class="name">金四刀</span>
+        <span class="char-player">飾演：建翔 · 26 歲</span>
+      </div>
+      <div class="role">江湖人士</div>
+      <div class="desc">俊朗倨傲，氣勢卓絕的男子，言行間有幾分鋒芒。來此自稱有要事待辦。</div>
     </div>
 
   </div>
@@ -96,19 +184,25 @@
   <h2>NPC</h2>
   <div class="char-list">
     <div class="char-item npc-item">
-      <div class="name">張猛（NPC）</div>
-      <div class="role">鏢客 · 27歲</div>
-      <div class="desc">魁梧黑鬚的大漢，鏢客商人打扮，豪爽不羈。在故事中扮演特殊角色。</div>
+      <div class="char-cover">只因衣冠無義俠，遂令草澤有奇雄。</div>
+      <div class="char-name-row">
+        <span class="name">張猛（NPC）</span>
+        <span class="char-player">飾演：子擎 · 27 歲</span>
+      </div>
+      <div class="role">鏢客</div>
+      <div class="desc">虯髯黑鬚，豪爽無比的大漢，做客商打扮，在故事中扮演特殊角色。</div>
     </div>
   </div>
 
   <h2>冷降塵（已故）</h2>
-  <p>大順起義軍鶴翼軍大統領，本次事件的核心人物。遊戲開始時已遭人謀殺，其死亡是本場遊戲的核心案件。</p>
+  <div class="npc-section-note">
+    <strong>冷降塵</strong>，寇俠鶴須軍大統領，本次事件的核心人物。遊戲開始時已遭人謀殺，其死亡是本場遊戲的核心案件。
+  </div>
 
 </main>
 
 <footer class="site-footer">
-  <a href="index.html">← Public Information</a> &nbsp;|&nbsp; LARP Script Archive &nbsp;|&nbsp; <span class="site-version"></span>
+  <a href="index.html">← 公開資訊</a> &nbsp;|&nbsp; LARP Script Archive &nbsp;|&nbsp; <span class="site-version"></span>
 </footer>
 
 <script src="../../../assets/js/version.js"></script>

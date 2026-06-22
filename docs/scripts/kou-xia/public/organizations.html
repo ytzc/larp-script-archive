@@ -3,13 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>組織手冊 — 寇侠 Public</title>
+  <title>組織手冊 — 寇俠公開資訊</title>
   <link rel="stylesheet" href="../../../assets/css/style.css" />
   <style>
-    .org-card { background: var(--paper, #faf6ef); border: 1px solid #c8b89a; border-radius: 8px; padding: 1.2rem 1.5rem; margin-bottom: 1.2rem; }
-    .org-card h3 { color: var(--red, #8b0000); margin-top: 0; border-bottom: 1px solid #e0d4c0; padding-bottom: .4rem; }
-    .org-meta { font-size: .85rem; color: #777; margin-bottom: .7rem; }
-    .org-meta span { margin-right: 1rem; }
+    /* ── 總覽表格 ── */
+    .org-overview {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 2rem;
+      font-size: .9rem;
+    }
+    .org-overview th {
+      background: #f0e8da;
+      color: #5a3a1a;
+      font-weight: 600;
+      padding: .6rem .9rem;
+      text-align: left;
+      border-bottom: 2px solid #c8b89a;
+    }
+    .org-overview td {
+      padding: .6rem .9rem;
+      border-bottom: 1px solid #e8ddc8;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .org-overview tr:last-child td { border-bottom: none; }
+
+    /* 立場 badge */
+    .badge {
+      display: inline-block;
+      font-size: .75rem;
+      padding: .15em .55em;
+      border-radius: 10px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-gov   { background: #e3eeff; color: #1a3a7a; }
+    .badge-rebel { background: #fff0e8; color: #8b3010; }
+    .badge-secret { background: #f3e8ff; color: #5a1a7a; }
+
+    /* ── 詳細說明卡 ── */
+    .org-cards { display: flex; flex-direction: column; gap: 1.2rem; margin: 1rem 0 2rem; }
+    .org-card {
+      background: var(--paper, #faf6ef);
+      border: 1px solid #c8b89a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .org-card-header {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      padding: .9rem 1.3rem;
+      background: #f5ede0;
+      border-bottom: 1px solid #e0d0b8;
+    }
+    .org-card-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--red, #8b0000);
+      flex: 1;
+    }
+    .org-card-meta {
+      font-size: .8rem;
+      color: #888;
+    }
+    .org-card-body { padding: 1rem 1.3rem 1.2rem; }
+    .org-card-body p { margin: .5rem 0; font-size: .9rem; line-height: 1.75; color: #3a3028; }
+    .org-card-body p:first-child { margin-top: 0; }
+    .org-card-body p:last-child { margin-bottom: 0; }
+    .org-label {
+      display: inline-block;
+      font-weight: 600;
+      color: #6a4a2a;
+      min-width: 4em;
+    }
   </style>
 </head>
 <body>
@@ -18,19 +86,19 @@
   <a class="logo" href="../../../index.html">📜 LARP Script Archive</a>
   <nav>
     <a href="../../../index.html">首頁</a>
-    <a href="../index.html">寇侠</a>
-    <a href="index.html">Public</a>
+    <a href="../index.html">寇俠</a>
+    <a href="index.html">公開資訊</a>
   </nav>
 </header>
 
 <main>
   <nav class="top-nav">
-    <a href="index.html">← Public Information</a> › 組織手冊
+    <a href="index.html">← 公開資訊</a> › 組織手冊
   </nav>
 
   <div class="hero">
     <h1>🏛️ 組織手冊（公開版）</h1>
-    <p>寇侠 — 主要組織與派系的公開介紹</p>
+    <p>寇俠 — 主要組織與派系的公開介紹</p>
   </div>
 
   <div class="notice notice-info">
@@ -38,63 +106,119 @@
   </div>
 
   <h2>組織總覽</h2>
-  <table>
-    <tr><th>組織名稱</th><th>類型</th><th>立場</th><th>簡述</th></tr>
-    <tr><td>大順朝廷</td><td>官方政權</td><td>執政</td><td>取代大夏的新朝廷，建立起朝（大順），統治天下。</td></tr>
-    <tr><td>綉衣使</td><td>秘密特務機構</td><td>官方</td><td>大順朝廷的秘密特務組織，負責監控與清剿反抗勢力。</td></tr>
-    <tr><td>寇俠</td><td>民間義士（鬆散組織）</td><td>反抗</td><td>不滿新朝統治的江湖人士的統稱，組織鬆散，各有動機。</td></tr>
-    <tr><td>鶴翼軍</td><td>武裝力量</td><td>反抗</td><td>寇俠旗下的正式武裝力量，由冷降塵統領。</td></tr>
+  <div style="overflow-x:auto;">
+  <table class="org-overview">
+    <tr>
+      <th>組織名稱</th>
+      <th>類型</th>
+      <th>立場</th>
+      <th>簡述</th>
+    </tr>
+    <tr>
+      <td><strong>起朝朝廷</strong></td>
+      <td>官方政權</td>
+      <td><span class="badge badge-gov">執政</span></td>
+      <td>推翻大夏的新朝廷，由鄭木建立，統治天下。</td>
+    </tr>
+    <tr>
+      <td><strong>繡衣使</strong></td>
+      <td>秘密特務機構</td>
+      <td><span class="badge badge-secret">官方直屬</span></td>
+      <td>起朝朝廷的秘密特務組織，負責監控與清剿反抗勢力。</td>
+    </tr>
+    <tr>
+      <td><strong>寇俠</strong></td>
+      <td>民間義士（統稱）</td>
+      <td><span class="badge badge-rebel">反抗</span></td>
+      <td>不滿起朝統治的江湖人士統稱，組織鬆散，各有動機。</td>
+    </tr>
+    <tr>
+      <td><strong>寇俠鶴須軍</strong></td>
+      <td>武裝力量</td>
+      <td><span class="badge badge-rebel">反抗</span></td>
+      <td>寇俠旗下最有組織的武裝力量，由冷降塵統領。</td>
+    </tr>
+    <tr>
+      <td><strong>寇俠玄甲軍</strong></td>
+      <td>武裝力量</td>
+      <td><span class="badge badge-rebel">反抗</span></td>
+      <td>寇俠旗下另一支武裝力量，多由富農鄉紳組成。</td>
+    </tr>
   </table>
+  </div>
 
   <h2>各組織詳細說明</h2>
+  <div class="org-cards">
 
-  <div class="org-card">
-    <h3>大順朝廷</h3>
-    <div class="org-meta">
-      <span>類型：官方政權</span>
-      <span>立場：執政</span>
+    <div class="org-card">
+      <div class="org-card-header">
+        <div class="org-card-title">起朝朝廷</div>
+        <span class="badge badge-gov">執政</span>
+        <div class="org-card-meta">官方政權</div>
+      </div>
+      <div class="org-card-body">
+        <p><span class="org-label">歷史</span>由大夏重臣鄭木所建立。大夏末年，鄭木掌握軍政大權，最終篡朝，建立起朝。如今已統治十餘年，天下名義上歸順，但民間仍有不少異動。</p>
+        <p><span class="org-label">目標</span>穩固統治，清剿一切反抗勢力，尤其是仍效忠大夏遺族的寇俠組織。</p>
+      </div>
     </div>
-    <p><strong>歷史</strong>：由原大夏重臣邓木所建立。大夏末年，邓木掌握軍政大權，最終取而代之，建立大順朝（起朝）。如今已統治十餘年，天下名義上歸順，但民間仍有不少異動。</p>
-    <p><strong>目標</strong>：穩固統治，清剿一切反抗勢力，尤其是仍效忠大夏遺族的寇俠組織。</p>
-  </div>
 
-  <div class="org-card">
-    <h3>綉衣使</h3>
-    <div class="org-meta">
-      <span>類型：秘密特務機構</span>
-      <span>立場：官方（大順朝廷直屬）</span>
+    <div class="org-card">
+      <div class="org-card-header">
+        <div class="org-card-title">繡衣使</div>
+        <span class="badge badge-secret">官方直屬</span>
+        <div class="org-card-meta">秘密特務機構</div>
+      </div>
+      <div class="org-card-body">
+        <p><span class="org-label">歷史</span>起朝開國皇帝鄭木在篡朝之前便私自成立的秘密組織，其創立後成為獨立的特務機構。</p>
+        <p><span class="org-label">目標</span>監視江湖動向，蒐集反抗勢力的情報，必要時予以清除。</p>
+        <p><span class="org-label">特徵</span>核心成員從幼童培訓，精通暗殺、製毒、間諜等術。成員以化名行事，互相不一定認識，彼此以暗號識別。在全國範圍內布下天羅地網。</p>
+      </div>
     </div>
-    <p><strong>歷史</strong>：大順建朝後設立的秘密特務機構，直接向皇帝負責。成員身份保密，行事隱密，擁有特殊的執行權力。</p>
-    <p><strong>目標</strong>：監視江湖動向，蒐集反抗勢力的情報，必要時予以清除。</p>
-    <p><strong>特徵</strong>：成員以化名行事，互相不一定認識，彼此以暗號識別。</p>
-  </div>
 
-  <div class="org-card">
-    <h3>寇俠</h3>
-    <div class="org-meta">
-      <span>類型：民間義士（統稱）</span>
-      <span>立場：反抗大順朝廷</span>
+    <div class="org-card">
+      <div class="org-card-header">
+        <div class="org-card-title">寇俠</div>
+        <span class="badge badge-rebel">反抗</span>
+        <div class="org-card-meta">民間義士（廣義統稱）</div>
+      </div>
+      <div class="org-card-body">
+        <p><span class="org-label">歷史</span>大夏末年起便存在，原指反抗鄭木的武裝人士。大夏覆滅後，部分人士繼續以「寇俠」之名，抵抗起朝新朝的統治，並秘密尋找大夏皇族後裔。</p>
+        <p><span class="org-label">目標</span>各有不同，但多以推翻起朝、恢復大夏正統為名號。內部鬆散，缺乏統一指揮。</p>
+        <p><span class="org-label">注意</span>「寇俠」是廣義的統稱，並非統一組織，各地義士均可自稱。</p>
+      </div>
     </div>
-    <p><strong>歷史</strong>：大夏末年起便存在，原指反抗邓木的武裝人士。大夏覆滅後，部分人士繼續以「寇俠」之名，抵抗大順新朝的統治，並秘密尋找大夏皇族後裔。</p>
-    <p><strong>目標</strong>：各有不同，但多以推翻大順、恢復大夏正統為名號。內部鬆散，缺乏統一指揮。</p>
-    <p><strong>注意</strong>：「寇俠」是一個廣義的統稱，並非統一組織，各地義士均可自稱。</p>
-  </div>
 
-  <div class="org-card">
-    <h3>鶴翼軍</h3>
-    <div class="org-meta">
-      <span>類型：武裝力量</span>
-      <span>立場：反抗（寇俠旗下）</span>
+    <div class="org-card">
+      <div class="org-card-header">
+        <div class="org-card-title">寇俠鶴須軍</div>
+        <span class="badge badge-rebel">反抗</span>
+        <div class="org-card-meta">武裝力量（寇俠旗下）</div>
+      </div>
+      <div class="org-card-body">
+        <p><span class="org-label">歷史</span>寇俠旗下組織最為嚴密的武裝力量之一，多由普通貧民組成。最初由大統領冷佛林建立，冷佛林早逝後由其子嗣冷降塵繼承。</p>
+        <p><span class="org-label">目標</span>以武力對抗起朝，是目前寇俠陣營最有組織的軍事力量。</p>
+        <p><span class="org-label">現況</span>大統領冷降塵遭人謀殺，鶴須軍群龍無首，局勢混亂。</p>
+      </div>
     </div>
-    <p><strong>歷史</strong>：寇俠旗下組織最為嚴密的武裝力量之一，由大統領冷降塵一手組建並統率。</p>
-    <p><strong>目標</strong>：以武力對抗大順朝廷，是目前寇俠陣營最有組織的軍事力量。</p>
-    <p><strong>現況</strong>：大統領冷降塵遭人謀殺，鶴翼軍群龍無首，局勢混亂。</p>
+
+    <div class="org-card">
+      <div class="org-card-header">
+        <div class="org-card-title">寇俠玄甲軍</div>
+        <span class="badge badge-rebel">反抗</span>
+        <div class="org-card-meta">武裝力量（寇俠旗下）</div>
+      </div>
+      <div class="org-card-body">
+        <p><span class="org-label">歷史</span>寇俠旗下另一支武裝力量，多由富農鄉紳組成。大統領姓「旭」，寓意初升驕陽，並以「玄甲」為軍名。</p>
+        <p><span class="org-label">目標</span>同為反抗起朝的武裝力量，與鶴須軍並列為寇俠陣營的主要軍事組織。</p>
+      </div>
+    </div>
+
   </div>
 
 </main>
 
 <footer class="site-footer">
-  <a href="index.html">← Public Information</a> &nbsp;|&nbsp; LARP Script Archive &nbsp;|&nbsp; <span class="site-version"></span>
+  <a href="index.html">← 公開資訊</a> &nbsp;|&nbsp; LARP Script Archive &nbsp;|&nbsp; <span class="site-version"></span>
 </footer>
 
 <script src="../../../assets/js/version.js"></script>
