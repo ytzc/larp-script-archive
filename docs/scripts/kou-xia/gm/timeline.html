@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>完整劇情時間軸 — 寇俠 GM</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#8b0000;--red-lt:#fff0f0;--red-b:#c44;
+  --blue:#003399;--blue-lt:#eef0ff;--blue-b:#44c;
+  --green:#1a5c1a;--green-lt:#f0fff0;--green-b:#2a8a2a;
+  --gold:#856404;--gold-lt:#fff8e0;
+  --paper:#faf6ef;--white:#fff;--ink:#1c1c1c;--muted:#666;
+  --shadow:0 1px 5px rgba(0,0,0,.12);
+}
+body{font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;font-size:15px;line-height:1.8;color:var(--ink);background:var(--paper)}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h2{font-size:1.25em;color:#5a0000;border-bottom:2px solid var(--red-b);padding-bottom:.3em;margin:2em 0 .8em}
+h3{font-size:1.05em;color:#333;margin:1.3em 0 .5em;font-weight:700}
+ul,ol{margin:.4em 0 .8em 1.5em}li{margin-bottom:.35em}
+p{margin-bottom:.8em}
+strong{font-weight:700}
+
+/* ── Top chrome ── */
+.gm-banner{position:sticky;top:0;z-index:999;background:var(--red);color:#fff;padding:.45em 1em;text-align:center;font-weight:700;font-size:.86em;letter-spacing:.3px;border-bottom:3px solid #ff5555}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5em;padding:.55em 1.2em;background:#fff3e8;border-bottom:1px solid #e0d0c0;font-size:.84em}
+.top-nav a{color:var(--red)}
+.top-nav .links{display:flex;gap:1.2em}
+
+/* ── Layout ── */
+.wrapper{max-width:1000px;margin:0 auto;padding:1.6em 1em 5em}
+.section{background:var(--white);padding:1.3em 1.7em;margin-bottom:1.4em;border-radius:5px;box-shadow:var(--shadow)}
+.section-title{display:flex;align-items:center;gap:.5em;margin-bottom:.9em}
+.section-title .icon{font-size:1.2em}
+
+/* ── Notices ── */
+.notice{padding:.75em 1em;margin:.7em 0;border-radius:4px;border-left:4px solid}
+.n-warn{background:#fff8e0;border-color:#e0a800}
+.n-danger{background:var(--red-lt);border-color:var(--red-b)}
+.n-info{background:var(--blue-lt);border-color:var(--blue-b)}
+
+/* ── Relationship box ── */
+.rel-box{background:#1c1c2e;color:#c8d8f8;padding:1.1em 1.5em;border-radius:6px;font-family:'Consolas','Courier New',monospace;font-size:.92em;line-height:1.9;margin:.6em 0;overflow-x:auto;white-space:pre}
+
+/* ── Timeline tables ── */
+.tl-era{margin-bottom:1.6em}
+.tl-era-label{display:inline-block;padding:.25em .9em;border-radius:3px;font-size:.82em;font-weight:700;letter-spacing:.05em;margin-bottom:.5em;text-transform:uppercase}
+.era-past  .tl-era-label{background:#e0d8c8;color:#5a4a30}
+.era-recent .tl-era-label{background:#d8e8ff;color:#003070}
+.era-today .tl-era-label{background:#ffe0e0;color:#7a0000}
+.era-murder .tl-era-label{background:#2d0000;color:#ffaaaa}
+
+table{width:100%;border-collapse:collapse;font-size:.9em;margin:.2em 0 .5em}
+th{padding:.45em .85em;text-align:left;font-weight:700;white-space:nowrap;font-size:.86em}
+td{padding:.45em .85em;border-bottom:1px solid #ece5d8;vertical-align:top;line-height:1.6}
+tr:last-child td{border-bottom:none}
+
+.era-past  th{background:#c8b898;color:#3a2a10}
+.era-past  tr:nth-child(even) td{background:#f8f4ec}
+.era-recent th{background:#4060c0;color:#fff}
+.era-recent tr:nth-child(even) td{background:#f0f4ff}
+.era-today  th{background:#8b0000;color:#fff}
+.era-today  tr:nth-child(even) td{background:#fff4f4}
+.era-murder th{background:#5a0000;color:#ffdddd}
+.era-murder td{background:#fff8f8}
+.era-murder tr:nth-child(even) td{background:#fff0f0}
+
+/* ── Verdict box ── */
+.verdict{background:#2d0000;color:#ffcccc;border-radius:6px;padding:1.2em 1.8em;margin:1em 0;text-align:center}
+.verdict .v-label{font-size:.8em;color:#ff8888;text-transform:uppercase;letter-spacing:1px;margin-bottom:.4em}
+.verdict .v-name{font-size:1.4em;font-weight:700;color:#fff;margin-bottom:.3em}
+.verdict .v-sub{font-size:.88em;color:#ffaaaa}
+
+/* ── Faction cards ── */
+.faction-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1em;margin:.6em 0}
+.faction-card{border-radius:5px;padding:1em 1.2em;border-top:4px solid}
+.f-kou{background:#fff0f4;border-color:#c0006a}
+.f-xiu{background:#f0f0ff;border-color:#3030aa}
+.f-free{background:#f4fff0;border-color:#2a8a2a}
+.faction-card h3{margin:0 0 .4em;font-size:.95em}
+.faction-card .win-cond{font-size:.83em;background:rgba(0,0,0,.06);padding:.35em .6em;border-radius:3px;margin-top:.6em;line-height:1.5}
+
+/* ── Key info list ── */
+.key-list{list-style:none;margin:0;padding:0}
+.key-list li{display:flex;gap:.8em;align-items:flex-start;padding:.6em .8em;border-radius:4px;margin-bottom:.4em;background:#fff8f0;border-left:4px solid #e0a800}
+.key-list li .num{font-weight:700;color:#856404;min-width:1.4em;flex-shrink:0;font-size:1.05em}
+</style>
+</head>
+<body>
+
+<div class="gm-banner">🔒 GM Only — 完整劇情時間軸（包含所有真相與 Spoiler）</div>
+
+<div class="top-nav">
+  <div class="links">
+    <a href="../../../index.html">← 首頁</a>
+    <a href="../index.html">寇俠</a>
+    <a href="index.html">GM Area</a>
+  </div>
+  <div class="links">
+    <a href="relationship-map.html">關係圖</a>
+    <a href="spoilers.html">劇情真相</a>
+    <a href="host-notes.html">主持流程</a>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- 警告 -->
+  <div class="notice n-danger" style="margin-bottom:1.2em">
+    <strong>⚠️ GM Only</strong> — 本頁包含完整故事真相、角色秘密與幕後事件。整理自 DM 手冊（K 的遊戲工作室），僅供主持人使用。
+  </div>
+
+  <!-- 世界觀 -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🌏</span><h2 style="margin:0;border:none;padding:0">背景世界觀</h2></div>
+    <ul>
+      <li><strong>大夏</strong>：前朝，已被大順所滅。大夏皇族後裔仍有人潛伏民間，伺機復國。</li>
+      <li><strong>大順</strong>：現在的朝廷，設有「繡衣使」作為秘密特務組織，負責追查大夏殘黨與江湖異人。</li>
+      <li><strong>寇俠組織</strong>：以「寇俠」為名，實為大夏皇族後裔及其盟友組成的復國地下組織。</li>
+    </ul>
+  </div>
+
+  <!-- 核心人物關係 -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔗</span><h2 style="margin:0;border:none;padding:0">核心人物關係（GM 視角）</h2></div>
+    <div class="rel-box">金四刀（何乃武）─── 哥哥 ───→ 嚴氏（何乃清）
+                                   ↑
+                              何乃清已失憶，
+                            不記得自身為大夏皇族</div>
+    <ul style="margin-top:.8em">
+      <li><strong>嚴逸</strong>（繡衣使三號「殘手」）負責追殺大夏殘黨，派遣<strong>嚴氏</strong>（何乃清 / 欒絳）執行殺人任務。</li>
+      <li>嚴氏原為大夏皇族，後因意外失憶，被繡衣使洗腦訓練為殺手「欒絳」，並以「嚴氏」身份臥底。</li>
+      <li>金四刀（何乃武）是嚴氏失憶前的親哥哥，二人身份互相不知。</li>
+    </ul>
+  </div>
+
+  <!-- 重大事件時間軸 -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📜</span><h2 style="margin:0;border:none;padding:0">重大事件時間軸</h2></div>
+
+    <!-- 遠古背景 -->
+    <div class="tl-era era-past">
+      <div class="tl-era-label">遠古背景（大夏滅亡前）</div>
+      <table>
+        <thead><tr><th style="width:28%">時間</th><th>事件</th></tr></thead>
+        <tbody>
+          <tr><td>大夏末年</td><td>大夏皇族覆滅，餘黨流散江湖</td></tr>
+          <tr><td>大夏末年</td><td>何乃武（幼年）帶妹妹何乃清流亡，途中失散</td></tr>
+          <tr><td>大夏末年</td><td>丁崧（農叟）率玄甲軍殘部護送部分皇族出逃</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 近年事件 -->
+    <div class="tl-era era-recent">
+      <div class="tl-era-label">近年事件（遊戲開始前）</div>
+      <table>
+        <thead><tr><th style="width:28%">時間</th><th>事件</th></tr></thead>
+        <tbody>
+          <tr><td>數年前</td><td>何乃清被繡衣使收容，訓練成殺手「欒絳」，以「嚴氏」身份臥底</td></tr>
+          <tr><td>數年前</td><td>旭敏芝（王思涵）以「玄甲軍統師」身份加入寇俠</td></tr>
+          <tr><td>近年</td><td>嚴逸（殘手）派遣嚴氏監視、接觸寇俠核心人物</td></tr>
+          <tr><td>近年</td><td>金四刀（何乃武）以「金四刀」江湖身份活動，尋找妹妹下落</td></tr>
+          <tr><td>冷降塵之死前</td><td>嚴氏（何乃清）奉嚴逸之命，殺死冷降塵</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 遊戲當日 -->
+    <div class="tl-era era-today">
+      <div class="tl-era-label">遊戲當日（情景一開始時）</div>
+      <table>
+        <thead><tr><th style="width:20%">時序</th><th>事件</th><th style="width:28%">備注</th></tr></thead>
+        <tbody>
+          <tr><td>遊戲開始</td><td>眾人聚集，各有目的</td><td>玩家開始扮演</td></tr>
+          <tr><td>情景一</td><td>眾人公開身份（表面身份）互相認識</td><td>—</td></tr>
+          <tr><td>挖寶階段</td><td>玩家找到隱藏線索，逐漸接近真相</td><td>—</td></tr>
+          <tr><td>情景二</td><td>冷降塵屍體被發現</td><td>GM 布置現場</td></tr>
+          <tr><td>盤凶</td><td>玩家公開討論，分析凶案</td><td>—</td></tr>
+          <tr><td>情景三</td><td>武器拍賣，各陣營備戰</td><td>—</td></tr>
+          <tr><td>陣營搏殺</td><td>公開陣營，戰鬥決勝</td><td>—</td></tr>
+          <tr><td>結局</td><td>依陣營勝負宣布結局</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 凶案時間軸 -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🔍</span><h2 style="margin:0;border:none;padding:0">凶案時間軸（GM 必知）</h2></div>
+
+    <div class="tl-era era-murder">
+      <table>
+        <thead><tr><th style="width:30%">時序</th><th>細節</th></tr></thead>
+        <tbody>
+          <tr><td>遊戲當日情景一前</td><td><strong>嚴氏奉命殺死冷降塵</strong>，使用…（見線索卡）</td></tr>
+          <tr><td>情景一</td><td>眾人尚不知冷降塵已死</td></tr>
+          <tr><td>情景二開始</td><td>冷降塵遺體被「發現」（GM 布置現場）</td></tr>
+          <tr><td>盤凶</td><td>玩家調查，線索指向凶手</td></tr>
+          <tr><td>若正確指認</td><td>嚴氏（凶手）被確認，繡衣使方失分</td></tr>
+          <tr><td>若未正確指認</td><td>凶手逃脫，影響結局</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="verdict">
+      <div class="v-label">凶手</div>
+      <div class="v-name">嚴氏（欒絳 / 何乃清）</div>
+      <div class="v-sub">動機：奉繡衣使嚴逸（殘手）之命消除知情者</div>
+    </div>
+  </div>
+
+  <!-- 各陣營目標 -->
+  <div class="section">
+    <div class="section-title"><span class="icon">⚔️</span><h2 style="margin:0;border:none;padding:0">各陣營目標（GM 視角）</h2></div>
+    <div class="faction-grid">
+      <div class="faction-card f-kou">
+        <h3>🦅 寇俠陣營</h3>
+        <p style="font-size:.88em;color:#555;margin-bottom:.3em">領袖：<strong>金四刀（何乃武）</strong><br>核心成員：視劇本選邊</p>
+        <div class="win-cond">✅ 勝利條件：陣營搏殺後寇俠方存活人數多於繡衣使方，且金四刀存活</div>
+      </div>
+      <div class="faction-card f-xiu">
+        <h3>🕵️ 繡衣使陣營</h3>
+        <p style="font-size:.88em;color:#555;margin-bottom:.3em">領袖：<strong>嚴逸（殘手，三號）</strong><br>核心成員：嚴氏（欒絳）、賈三娘（歸雪）</p>
+        <div class="win-cond">✅ 勝利條件：陣營搏殺後繡衣使方存活人數多於寇俠方，且嚴逸存活</div>
+      </div>
+      <div class="faction-card f-free">
+        <h3>⚖️ 自由陣營（可加入任一方）</h3>
+        <p style="font-size:.88em;color:#555;margin-bottom:.3em">農叟（丁崧）、王思涵（旭敏芝）<br>王順（龐萬金）、刁五兒（冷鈺）</p>
+        <div class="win-cond">📌 各有個人條件，見各角色劇本與 spoilers.html</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GM 關鍵信息摘要 -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📌</span><h2 style="margin:0;border:none;padding:0">GM 掌握的關鍵信息摘要</h2></div>
+    <ul class="key-list">
+      <li><span class="num">1</span><span><strong>真正的凶手是嚴氏</strong>，但她是奉命行事（嚴逸指使）</span></li>
+      <li><span class="num">2</span><span><strong>嚴氏與金四刀是失散兄妹</strong>，雙方均不知情（最大隱藏彩蛋）</span></li>
+      <li><span class="num">3</span><span><strong>刁五兒</strong>實際上是女性（表面是男性打扮的冷鈺）</span></li>
+      <li><span class="num">4</span><span><strong>農叟（丁崧）</strong> 與 <strong>王順（龐萬金）</strong> 是舊主舊部關係，有歷史情感連結</span></li>
+      <li><span class="num">5</span><span><strong>賈三娘（歸雪）</strong> 的真實任務是輔助嚴逸，但感情線可能影響立場</span></li>
+    </ul>
+  </div>
+
+</div><!-- .wrapper -->
+
+</body>
+</html>
