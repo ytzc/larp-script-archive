@@ -613,6 +613,19 @@ function esc(s) {
 
 function qtyTotal(items) { return items.reduce((s,i) => s + i.qty, 0); }
 
+function toggleExpandAll() {
+  const btn = document.getElementById('bc-expand-all');
+  const isExpanding = btn.textContent === '全部展開';
+  document.querySelectorAll('.bc-row.clickable').forEach(row => {
+    const det = document.getElementById('det-' + row.dataset.id);
+    if (!det) return;
+    row.classList.toggle('open', isExpanding);
+    det.classList.toggle('open', isExpanding);
+  });
+  btn.textContent = isExpanding ? '全部收合' : '全部展開';
+  btn.classList.toggle('active', isExpanding);
+}
+
 function buildFilters() {
   const row = document.getElementById('bc-filters');
   const cats = ['全部', '劇本', '道具卡', '技能卡', '銀票', '其他'];
@@ -744,6 +757,9 @@ function buildList() {
   });
 
   listEl.innerHTML = html;
+  /* Reset expand-all button whenever list is rebuilt */
+  const expandBtn = document.getElementById('bc-expand-all');
+  if (expandBtn) { expandBtn.textContent = '全部展開'; expandBtn.classList.remove('active'); }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -778,6 +794,7 @@ document.getElementById('bc-search').addEventListener('input', e => {
 buildFilters();
 buildStats();
 buildList();
+document.getElementById('bc-expand-all').addEventListener('click', toggleExpandAll);
 </script>
 
 </body>
