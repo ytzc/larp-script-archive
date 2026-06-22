@@ -74,7 +74,27 @@
     margin-left: .25rem;
     font-style: normal;
   }
-  /* 文件列表統一使用 section-nav（來自 style.css）*/
+  /* ── 情境分區標題 ── */
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin: 1.8rem 0 .6rem;
+  }
+  .phase-badge {
+    display: inline-block;
+    font-size: .75rem;
+    font-weight: bold;
+    padding: .2em .7em;
+    border-radius: 10px;
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+  .phase-open   { background: #e8f0fe; color: #1a4a9a; }
+  .phase-one    { background: #e8f5e9; color: #2a6a3a; }
+  .phase-two    { background: #fff3e0; color: #8a4a00; }
+  .phase-title  { font-size: 1rem; font-weight: bold; color: #3a2810; }
+  .phase-note   { font-size: .82rem; color: #888; margin-left: auto; }
   </style>
 </head>
 <body>
@@ -201,8 +221,45 @@
 
   </div>
 
-  <!-- ══ 資訊文件 ══ -->
-  <h2>資訊文件</h2>
+  <!-- ══ 公開資訊 ══ -->
+  <div class="phase-header">
+    <span class="phase-badge phase-open">公開資訊</span>
+    <span class="phase-title">世界觀背景</span>
+    <span class="phase-note">所有人均可查閱</span>
+  </div>
+  <div class="section-nav">
+
+    <a class="section-item" href="../public/introduction.html">
+      <span class="icon">📖</span>
+      <span class="label">劇本介紹</span>
+      <span class="desc">《寇俠》的故事背景、世界設定與劇本說明。</span>
+    </a>
+
+    <a class="section-item" href="../public/world.html">
+      <span class="icon">🌐</span>
+      <span class="label">世界觀</span>
+      <span class="desc">起朝的歷史背景、朝代更替與江湖環境介紹。</span>
+    </a>
+
+    <a class="section-item" href="../public/organizations.html">
+      <span class="icon">🏛️</span>
+      <span class="label">江湖組織</span>
+      <span class="desc">各主要派系（繡衣使、寇俠、鶴須軍、玄甲軍）的公開介紹。</span>
+    </a>
+
+    <a class="section-item" href="../public/characters.html">
+      <span class="icon">👥</span>
+      <span class="label">角色名冊（公開版）</span>
+      <span class="desc">各角色的公開身份、外觀與飾演玩家。</span>
+    </a>
+
+  </div>
+
+  <!-- ══ 情境一 ══ -->
+  <div class="phase-header">
+    <span class="phase-badge phase-one">情境一</span>
+    <span class="phase-title">遊戲開始後可查閱</span>
+  </div>
   <div class="section-nav">
 
     <a class="section-item" href="guide.html">
@@ -214,25 +271,35 @@
     <a class="section-item" href="characters.html">
       <span class="icon">🎭</span>
       <span class="label">角色資訊（玩家版）</span>
-      <span class="desc">各角色的公開身份、外貌、戰鬥數值及陣營說明。不含 GM 真相。</span>
-    </a>
-
-    <a class="section-item" href="rumours.html">
-      <span class="icon">📰</span>
-      <span class="label">江湖軼聞公開線索</span>
-      <span class="desc">關於大夏、起朝、寇俠、繡衣使的江湖背景資訊。可在遊戲中作為推理參考。</span>
-    </a>
-
-    <a class="section-item" href="clues.html">
-      <span class="icon">🔍</span>
-      <span class="label">線索整理</span>
-      <span class="desc">凶案基本事實、初始線索、調查方式、推理提示。不含完整解答。</span>
+      <span class="desc">各角色的公開身份、戰鬥數值及陣營說明。不含 GM 真相。</span>
     </a>
 
     <a class="section-item" href="scripts/index.html">
       <span class="icon">📜</span>
       <span class="label">角色劇本</span>
       <span class="desc">各角色劇本整理稿。請只閱讀自己所扮演的角色，勿閱讀他人劇本。</span>
+    </a>
+
+    <a class="section-item" href="rumours.html">
+      <span class="icon">📰</span>
+      <span class="label">江湖軼聞公開線索</span>
+      <span class="desc">關於大夏、起朝、寇俠、繡衣使的背景線索（共 9 張）。可在推理過程中參考。</span>
+    </a>
+
+  </div>
+
+  <!-- ══ 情境二 ══ -->
+  <div class="phase-header">
+    <span class="phase-badge phase-two">情境二</span>
+    <span class="phase-title">GM 宣告後開放</span>
+    <span class="phase-note">等待 GM 說明後再開啟</span>
+  </div>
+  <div class="section-nav">
+
+    <a class="section-item" href="clues.html">
+      <span class="icon">🔍</span>
+      <span class="label">線索整理</span>
+      <span class="desc">凶案基本事實、初始線索、調查方式、推理提示。不含完整解答。</span>
     </a>
 
   </div>
