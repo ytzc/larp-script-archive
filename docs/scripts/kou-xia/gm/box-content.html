@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>盒裝內容確認 · 卡牌速查 — 寇俠 GM</title>
+  <link rel="stylesheet" href="../../../assets/css/style.css">
+  <style>
+  /* ══════════════════════════════════════════════════
+     盒裝內容確認 — Page-specific styles
+     Extends base style.css; do not edit base tokens here.
+     ══════════════════════════════════════════════════ */
+
+  /* ── Toolbar ── */
+  .bc-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--color-bg);
+    padding: .9rem 0 .8rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 1.4rem;
+  }
+  .bc-search-wrap {
+    position: relative;
+    margin-bottom: .65rem;
+  }
+  .bc-search-icon {
+    position: absolute;
+    left: .85em;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: .88rem;
+    opacity: .45;
+  }
+  #bc-search {
+    width: 100%;
+    background: #0c1830;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-text);
+    padding: .6em 1em .6em 2.4em;
+    font-family: var(--font-body);
+    font-size: .94rem;
+    outline: none;
+    transition: border-color .18s;
+  }
+  #bc-search:focus { border-color: var(--color-accent-light); }
+  #bc-search::placeholder { color: #3d4f6e; }
+
+  .bc-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .38rem;
+  }
+  .bc-filter {
+    padding: .28em .9em;
+    border-radius: 20px;
+    border: 1px solid #2a3050;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: .84rem;
+    transition: all .15s;
+    white-space: nowrap;
+    line-height: 1.6;
+  }
+  .bc-filter:hover { border-color: #4a5a80; color: var(--color-text); }
+  /* active state per category — colour derived from CAT_META in JS */
+  .bc-filter.active { font-weight: bold; }
+
+  /* ── Stats bar ── */
+  .bc-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin: 0 0 1.4rem;
+    font-size: .81rem;
+  }
+  .bc-stat {
+    display: flex;
+    align-items: center;
+    gap: .38rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: .28em .7em;
+  }
+  .bc-stat-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .bc-stat-label { color: var(--color-text-muted); }
+  .bc-stat-count { font-weight: 700; color: var(--color-accent-light); margin-left: .15em; }
+
+  /* ── Chapter divider (category section) ── */
+  .bc-chapter {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin: 1.8rem 0 .6rem;
+    font-size: .78rem;
+    font-family: var(--font-mono);
+    letter-spacing: .08em;
+    color: #3a4a6a;
+  }
+  .bc-chapter::before,
+  .bc-chapter::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+  .bc-chapter-label {
+    padding: .18em .8em;
+    border-radius: 3px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .bc-chapter-total {
+    white-space: nowrap;
+    font-size: .78rem;
+    color: #3a4a6a;
+    flex-shrink: 0;
+  }
+
+  /* ── Group (subcategory) ── */
+  .bc-group { margin-bottom: .2rem; }
+  .bc-group-header {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .42em .9em;
+    background: #0c1626;
+    border: 1px solid var(--color-border);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    margin-top: .9rem;
+  }
+  .bc-group-label {
+    font-size: .75rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    padding: .12em .52em;
+    border-radius: 3px;
+    letter-spacing: .03em;
+  }
+  .bc-group-title {
+    font-size: .92rem;
+    font-weight: bold;
+    color: var(--color-text);
+  }
+  .bc-group-total {
+    margin-left: auto;
+    font-size: .78rem;
+    color: #4a5a7a;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* ── Item rows ── */
+  .bc-wrap {
+    border: 1px solid var(--color-border);
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+  }
+  .bc-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: .5rem;
+    padding: .52em .9em;
+    border-bottom: 1px solid #111d30;
+    border-left: 3px solid transparent;
+    background: var(--color-bg);
+    transition: background .13s;
+  }
+  .bc-row:last-child { border-bottom: none; }
+  .bc-row:nth-child(even) { background: rgba(255,255,255,.02); }
+  .bc-row.clickable { cursor: pointer; }
+  .bc-row.clickable:hover { background: #0d1d35; }
+  .bc-row.pending { opacity: .62; }
+
+  .bc-name {
+    font-size: .9rem;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+  .bc-no {
+    font-size: .7rem;
+    color: #404f68;
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .bc-pending-tag {
+    font-size: .7rem;
+    background: #241500;
+    color: #b07030;
+    border: 1px solid #4a2a00;
+    border-radius: 3px;
+    padding: .08em .42em;
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+  }
+  .bc-holder {
+    font-size: .74rem;
+    color: #5a6a8a;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .bc-qty {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.1em;
+    height: 2.1em;
+    background: #081d10;
+    color: var(--color-accent-light);
+    border-radius: 50%;
+    font-size: .8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    border: 1px solid #163020;
+    flex-shrink: 0;
+  }
+  .bc-arrow {
+    color: #2a3a5a;
+    font-size: .72rem;
+    flex-shrink: 0;
+    transition: transform .18s;
+    user-select: none;
+    width: 1em;
+    text-align: center;
+  }
+  .bc-row.open .bc-arrow { transform: rotate(90deg); color: var(--color-accent-light); }
+
+  /* ── Detail panel ── */
+  .bc-detail {
+    display: none;
+    padding: .7em 1em .8em 1.5em;
+    background: #070d1a;
+    border-bottom: 1px solid #111d30;
+    border-left: 3px solid transparent;
+    font-size: .85rem;
+    color: #7a8aaa;
+    line-height: 1.8;
+  }
+  .bc-detail.open { display: block; }
+  .bc-detail-label {
+    font-size: .72rem;
+    font-family: var(--font-mono);
+    color: var(--color-accent-light);
+    letter-spacing: .05em;
+    margin-bottom: .25em;
+    opacity: .75;
+  }
+  .bc-detail blockquote {
+    border-left: 2px solid #1e2e46;
+    margin: .4em 0 0;
+    padding: .25em .75em;
+    color: #556070;
+    font-style: italic;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  /* ── No results ── */
+  .bc-empty {
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: 3rem 1rem;
+    font-size: .92rem;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 560px) {
+    .bc-row { grid-template-columns: 1fr auto auto; }
+    .bc-holder { display: none; }
+  }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="../../../index.html">📜 LARP Script Archive</a>
+  <nav>
+    <a href="../../../index.html">首頁</a>
+    <a href="../index.html">寇俠</a>
+    <a href="index.html">GM</a>
+  </nav>
+</header>
+
+<!-- Password gate (rendered by JS) -->
+<div id="password-gate" style="display:none;"></div>
+
+<!-- Protected content — hidden until gate passed -->
+<div id="protected-content" style="display:none;">
+
+<main>
+  <div class="hero">
+    <h1>📦 盒裝內容確認</h1>
+    <p>卡牌道具速查 &nbsp;·&nbsp; 寇俠 &nbsp;·&nbsp; <span class="badge badge-gm">GM Only</span></p>
+  </div>
+
+  <div class="notice notice-warning" style="font-size:.87rem">
+    <strong>開本前逐一核對清單，確認所有卡牌齊全。</strong>
+    點擊條目可展開卡面文字說明。<br>
+    資料來源：<code>materials/kou-xia/source/box-content.md</code>
+    — 物品卡編號 10–30 部分待補充（標示 <span style="color:#b07030;font-size:.85em">待補充</span>）。
+  </div>
+
+  <!-- ── Sticky toolbar ── -->
+  <div class="bc-toolbar">
+    <div class="bc-search-wrap">
+      <span class="bc-search-icon">🔍</span>
+      <input id="bc-search" type="search" placeholder="搜尋卡牌名稱、類型、持有角色…" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="bc-filter-row" id="bc-filters">
+      <!-- Buttons injected by JS using CAT_META -->
+    </div>
+  </div>
+
+  <!-- ── Stats bar ── -->
+  <div class="bc-stats" id="bc-stats"></div>
+
+  <!-- ── Item list (JS-rendered) ── -->
+  <div id="bc-list"></div>
+  <div class="bc-empty" id="bc-empty" style="display:none">沒有符合條件的項目。</div>
+
+</main>
+
+<footer class="site-footer">
+  <a href="index.html">← GM Area</a> &nbsp;|&nbsp;
+  LARP Script Archive &nbsp;|&nbsp;
+  <span class="site-version"></span>
+</footer>
+
+</div><!-- #protected-content -->
+
+<script src="../../../assets/js/version.js"></script>
+<script src="../../../assets/js/password-gate.js"></script>
+<script>
+/* ── Password gate ── */
+initPasswordGate({
+  role:     'kou-xia-gm',
+  password: 'gm',
+  icon:     '📦',
+  title:    '盒裝內容確認 — GM 專用',
+  desc:     '請輸入 GM 密碼以進入。本頁包含完整盒裝清單與卡牌詳情。',
+  back:     'index.html'
+});
+
+/* ══════════════════════════════════════════════════════════════
+   DATA — 寇俠 盒裝內容
+   維護說明：
+     - 本資料以 materials/kou-xia/source/box-content.md 為準
+     - 修改時請同步更新 MD 文件，保持兩者一致
+     - 補充物品卡 10–30 詳情：在下方對應的 pending:true 條目填入
+       no（編號）、name、holder、desc、note，並將 pending 改為 false
+
+   欄位說明：
+     id      — 唯一識別碼（不對外顯示）
+     cat     — 主分類（劇本 / 道具卡 / 技能卡 / 銀票 / 其他）
+     sub     — 子分類（手冊 / 線索卡 / 物品卡 / 武器卡 / Buff卡 /
+                       天賦卡 / 武功卡 / 絕學卡 / 銀票 / 其他）
+     name    — 卡牌名稱
+     qty     — 數量
+     no      — 物品卡編號（字串或數字；僅物品卡使用）
+     holder  — 初始持有角色
+     desc    — 卡面主文字
+     note    — 卡面隱藏小字 / GM 備註
+     pending — true = 詳情待補充（顯示警示標記）
+   ══════════════════════════════════════════════════════════════ */
+const ITEMS = [
+
+  /* ══ 劇本 ══════════════════════════════════════════════════ */
+  { id:'j01', cat:'劇本', sub:'手冊',     name:'組織者手冊',      qty:1, holder:'', desc:'', note:'' },
+  { id:'j02', cat:'劇本', sub:'角色劇本', name:'玩家角色劇本',     qty:8, holder:'',
+    desc:'', note:'農叟、刁五兒、賈三娘、金四刀、王順、王思涵、嚴逸、嚴氏各一本' },
+  { id:'j03', cat:'劇本', sub:'NPC劇本',  name:'NPC 劇本（張猛）', qty:1, holder:'',
+    desc:'', note:'張猛 = 冷降塵（鶴須軍大統領），由 GM 或助理扮演' },
+
+  /* ══ 道具卡 · 線索卡（共 44 張）════════════════════════════ */
+  { id:'c01', cat:'道具卡', sub:'線索卡', name:'江湖逸聞線索', qty:9,  holder:'', desc:'', note:'' },
+  { id:'c02', cat:'道具卡', sub:'線索卡', name:'個人線索',     qty:9,  holder:'', desc:'', note:'' },
+  { id:'c03', cat:'道具卡', sub:'線索卡', name:'凶案線索',     qty:15, holder:'', desc:'', note:'' },
+  { id:'c04', cat:'道具卡', sub:'線索卡', name:'屍體線索',     qty:3,  holder:'',
+    desc:'', note:'由張猛（NPC）隨身攜帶，凶案搜查環節由玩家從屍體上搜出' },
+  { id:'c05', cat:'道具卡', sub:'線索卡', name:'小二證詞',     qty:8,  holder:'', desc:'', note:'' },
+
+  /* ══ 道具卡 · 物品卡（共 30 張，已編號）══════════════════ */
+
+  /* ▼ 編號 1–9：詳情已確認 ▼ */
+  { id:'p01', cat:'道具卡', sub:'物品卡', no:1,  name:'鶴須軍虎賁衛兵符', qty:1,
+    holder:'金四刀',
+    desc:'價值 50 兩，可在競買武器時賣給武器店老闆。',
+    note:'只有正確的人才能讓它發揮出最大威力。' },
+  { id:'p02', cat:'道具卡', sub:'物品卡', no:2,  name:'鶴須軍近衛兵符',   qty:1,
+    holder:'刁五兒',
+    desc:'價值 50 兩，可在競買武器時賣給武器店老闆。',
+    note:'只有正確的人才能讓它發揮出最大威力。' },
+  { id:'p03', cat:'道具卡', sub:'物品卡', no:3,  name:'玄甲軍兵符',       qty:1,
+    holder:'王思涵',
+    desc:'價值 50 兩，可在競買武器時賣給武器店老闆。',
+    note:'只有正確的人才能讓它發揮出最大威力。' },
+  { id:'p04', cat:'道具卡', sub:'物品卡', no:4,  name:'繡衣使傳音令・玄', qty:1,
+    holder:'嚴氏',
+    desc:'價值 50 兩，可在競買武器時賣給武器店老闆。',
+    note:'只有正確的人才能讓它發揮出最大威力。' },
+  { id:'p05', cat:'道具卡', sub:'物品卡', no:5,  name:'繡衣使傳音令・紫', qty:1,
+    holder:'嚴逸',
+    desc:'價值 50 兩，可在競買武器時賣給武器店老闆。',
+    note:'只有正確的人才能讓它發揮出最大威力。' },
+  { id:'p06', cat:'道具卡', sub:'物品卡', no:6,  name:'繡衣使傳音令・赤', qty:1,
+    holder:'賈三娘',
+    desc:'價值 50 兩，可在競買武器時賣給武器店老闆。',
+    note:'只有正確的人才能讓它發揮出最大威力。' },
+  { id:'p07', cat:'道具卡', sub:'物品卡', no:7,  name:'玄甲軍布防圖',     qty:1,
+    holder:'賈三娘',
+    desc:'玄甲軍機密。',
+    note:'在特定人手中有意想不到的作用。' },
+  { id:'p08', cat:'道具卡', sub:'物品卡', no:8,  name:'武林秘笈',         qty:1,
+    holder:'金四刀',
+    desc:'封面破舊的一本秘笈，很有些年頭。',
+    note:'在特定人手中，有意想不到的作用。' },
+  { id:'p09', cat:'道具卡', sub:'物品卡', no:9,  name:'無相功法',         qty:1,
+    holder:'嚴逸',
+    desc:'獨門秘笈《無相功法》全卷。修練過快或修練不全，會對人造成反噬。',
+    note:'在特定人手中，有意想不到的作用。' },
+
+  /* ▼ 編號 10–30：待補充 — 請對照實體卡牌填入詳情後將 pending 改為 false ▼ */
+  { id:'p10', cat:'道具卡', sub:'物品卡', no:'10–20', name:'鶴紅草',           qty:11,
+    holder:'', desc:'', note:'珍貴草藥（農叟初始持有 ×2）。個別編號待補充。', pending:true },
+  { id:'p11', cat:'道具卡', sub:'物品卡', no:'21–23', name:'大還丹',            qty:3,
+    holder:'', desc:'', note:'個別編號待補充。', pending:true },
+  { id:'p12', cat:'道具卡', sub:'物品卡', no:'24–28', name:'50兩銀票兌換卡',   qty:5,
+    holder:'', desc:'', note:'個別編號待補充。', pending:true },
+  { id:'p13', cat:'道具卡', sub:'物品卡', no:'29–30', name:'（品項待確認）',    qty:2,
+    holder:'', desc:'', note:'請對照實體卡牌補充名稱與說明。', pending:true },
+
+  /* ══ 道具卡 · 武器卡（共 27 張）════════════════════════════ */
+  { id:'w01', cat:'道具卡', sub:'武器卡', name:'子母劍',   qty:4, holder:'', desc:'', note:'' },
+  { id:'w02', cat:'道具卡', sub:'武器卡', name:'狼牙',     qty:4, holder:'', desc:'', note:'' },
+  { id:'w03', cat:'道具卡', sub:'武器卡', name:'鑌鐵菜刀', qty:3, holder:'', desc:'', note:'' },
+  { id:'w04', cat:'道具卡', sub:'武器卡', name:'大環刀',   qty:4, holder:'', desc:'', note:'' },
+  { id:'w05', cat:'道具卡', sub:'武器卡', name:'玄鐵重劍', qty:5, holder:'', desc:'', note:'' },
+  { id:'w06', cat:'道具卡', sub:'武器卡', name:'齊眉棍',   qty:7, holder:'', desc:'', note:'' },
+
+  /* ══ 道具卡 · Buff 卡（共 4 張）════════════════════════════ */
+  { id:'b01', cat:'道具卡', sub:'Buff卡', name:'傷害免疫卡', qty:1, holder:'', desc:'', note:'' },
+  { id:'b02', cat:'道具卡', sub:'Buff卡', name:'攻擊加倍卡', qty:1, holder:'', desc:'', note:'' },
+  { id:'b03', cat:'道具卡', sub:'Buff卡', name:'復活卡',     qty:1, holder:'', desc:'', note:'' },
+  { id:'b04', cat:'道具卡', sub:'Buff卡', name:'破陣令',     qty:1, holder:'', desc:'', note:'' },
+
+  /* ══ 技能卡 ═════════════════════════════════════════════════ */
+  { id:'s01', cat:'技能卡', sub:'天賦卡', name:'天賦卡',    qty:8, holder:'', desc:'',
+    note:'各角色一張，卡面文字各不相同。敲詐（刁五兒）/ 美色惑人（賈三娘）/ 浩然正氣（金四刀）/ 銷贓（王順）/ 獻藝（王思涵）/ 配制（嚴逸）/ 迷醉（嚴氏）/ 採藥（農叟）' },
+  { id:'s02', cat:'技能卡', sub:'武功卡', name:'武功卡',    qty:8, holder:'', desc:'',
+    note:'各角色一張；傷害值與發動方式各不同，詳見各角色 GM 筆記' },
+  { id:'s03', cat:'技能卡', sub:'武功卡', name:'武功升級卡', qty:4, holder:'', desc:'', note:'詳情待補充' },
+  { id:'s04', cat:'技能卡', sub:'絕學卡', name:'絕學卡',    qty:8, holder:'', desc:'',
+    note:'情景三開始時由 GM 分發，勿讓敵對陣營知悉。誘敵（農叟）/ 卸器（刁五兒）/ 吸星（賈三娘）/ 龍佑（金四刀）/ 替身牽制（王順）/ 養心塊（王思涵）/ 塗毒（嚴逸）/ 化功散（嚴氏）' },
+
+  /* ══ 銀票（共 100 張）══════════════════════════════════════ */
+  { id:'m01', cat:'銀票', sub:'銀票', name:'10兩銀票',  qty:40, holder:'', desc:'', note:'' },
+  { id:'m02', cat:'銀票', sub:'銀票', name:'20兩銀票',  qty:30, holder:'', desc:'', note:'' },
+  { id:'m03', cat:'銀票', sub:'銀票', name:'50兩銀票',  qty:20, holder:'', desc:'', note:'' },
+  { id:'m04', cat:'銀票', sub:'銀票', name:'100兩銀票', qty:10, holder:'', desc:'', note:'' },
+
+  /* ══ 其他 ═══════════════════════════════════════════════════ */
+  { id:'o01', cat:'其他', sub:'其他', name:'陣營卡',  qty:13, holder:'', desc:'',
+    note:'情景三確認陣營後發放（寇俠 ×9 + 綉衣使 ×4）' },
+  { id:'o02', cat:'其他', sub:'其他', name:'拍賣單',  qty:8,  holder:'', desc:'', note:'武器競買環節使用' },
+  { id:'o03', cat:'其他', sub:'其他', name:'人物名牌', qty:9,  holder:'', desc:'', note:'各角色桌前放置，含 NPC 張猛' },
+  { id:'o04', cat:'其他', sub:'其他', name:'地圖',    qty:2,  holder:'', desc:'', note:'盤興口天福客棧平面圖，可公開展示' },
+  { id:'o05', cat:'其他', sub:'其他', name:'背景故事', qty:1,  holder:'', desc:'', note:'世界觀說明，開本前分發或公開朗讀' },
+  { id:'o06', cat:'其他', sub:'其他', name:'號碼牌',  qty:8,  holder:'', desc:'', note:'私聊排序用' },
+  { id:'o07', cat:'其他', sub:'其他', name:'書信',    qty:1,  holder:'',
+    desc:'降塵兄，中元節將至，可否請君至玄甲軍中，共祭宛平大戰數萬兄弟，且當前朝廷昏庸，當盡快定下再舉之策。此乃密謀，我等將化身前往盤興口天福客棧等待降塵兄。',
+    note:'張猛（冷降塵）隨身攜帶，凶案搜查環節由玩家從屍體上發現。落款為玄甲軍大統領（旭敏芝 = 王思涵）。' },
+];
+
+/* ══════════════════════════════════════════════════════════════
+   Category metadata — colour and display label per cat/sub
+   ══════════════════════════════════════════════════════════════ */
+const CAT_META = {
+  '全部':   { color: '#e94560', bg: '#2a0a10' },
+  '劇本':   { color: '#f5a623', bg: '#2a1800' },
+  '道具卡': { color: '#5a8dee', bg: '#0a1535' },
+  '技能卡': { color: '#27c7b5', bg: '#041815' },
+  '銀票':   { color: '#d4af37', bg: '#1a1400' },
+  '其他':   { color: '#27ae60', bg: '#041508' },
+};
+const SUB_COLOR = {
+  '手冊':    '#f5a623',
+  '角色劇本':'#f5a623',
+  'NPC劇本': '#d49030',
+  '線索卡':  '#5a8dee',
+  '物品卡':  '#e94560',
+  '武器卡':  '#e07040',
+  'Buff卡':  '#9b59b6',
+  '天賦卡':  '#27c7b5',
+  '武功卡':  '#22b0a0',
+  '絕學卡':  '#1aa095',
+  '銀票':    '#d4af37',
+  '其他':    '#27ae60',
+};
+
+/* ══════════════════════════════════════════════════════════════
+   State
+   ══════════════════════════════════════════════════════════════ */
+let activeCat = '全部';
+let searchQ   = '';
+
+/* ══════════════════════════════════════════════════════════════
+   Render helpers
+   ══════════════════════════════════════════════════════════════ */
+function esc(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function qtyTotal(items) { return items.reduce((s,i) => s + i.qty, 0); }
+
+function buildFilters() {
+  const row = document.getElementById('bc-filters');
+  const cats = ['全部', '劇本', '道具卡', '技能卡', '銀票', '其他'];
+  row.innerHTML = cats.map(c => {
+    const m = CAT_META[c];
+    const active = c === activeCat;
+    const style = active
+      ? `background:${m.color};border-color:${m.color};color:${c==='劇本'||c==='技能卡'||c==='銀票'?'#1a1a2e':'#fff'};`
+      : '';
+    return `<button class="bc-filter${active?' active':''}" data-cat="${esc(c)}" style="${style}">${esc(c)}</button>`;
+  }).join('');
+}
+
+function buildStats() {
+  const cats = ['劇本', '道具卡', '技能卡', '銀票', '其他'];
+  const total = qtyTotal(ITEMS);
+  const el = document.getElementById('bc-stats');
+  el.innerHTML = `
+    <div class="bc-stat">
+      <div class="bc-stat-dot" style="background:#e94560"></div>
+      <span class="bc-stat-label">合計</span>
+      <span class="bc-stat-count">${total}</span>
+    </div>
+    ${cats.map(c => {
+      const qty = qtyTotal(ITEMS.filter(i => i.cat === c));
+      const color = CAT_META[c].color;
+      return `<div class="bc-stat">
+        <div class="bc-stat-dot" style="background:${color}"></div>
+        <span class="bc-stat-label">${c}</span>
+        <span class="bc-stat-count">${qty}</span>
+      </div>`;
+    }).join('')}
+  `;
+}
+
+function buildList() {
+  const listEl  = document.getElementById('bc-list');
+  const emptyEl = document.getElementById('bc-empty');
+  const q = searchQ.toLowerCase();
+
+  const filtered = ITEMS.filter(item => {
+    const catOk = activeCat === '全部' || item.cat === activeCat;
+    const searchOk = !q
+      || item.name.toLowerCase().includes(q)
+      || item.sub.toLowerCase().includes(q)
+      || item.cat.toLowerCase().includes(q)
+      || (item.holder && item.holder.toLowerCase().includes(q))
+      || (item.note && item.note.toLowerCase().includes(q))
+      || (item.no !== undefined && String(item.no).includes(q));
+    return catOk && searchOk;
+  });
+
+  if (!filtered.length) {
+    listEl.innerHTML = '';
+    emptyEl.style.display = 'block';
+    return;
+  }
+  emptyEl.style.display = 'none';
+
+  /* Group by cat then sub, preserving original order */
+  const catOrder = ['劇本','道具卡','技能卡','銀票','其他'];
+  const subOrder  = ['手冊','角色劇本','NPC劇本',
+                     '線索卡','物品卡','武器卡','Buff卡',
+                     '天賦卡','武功卡','絕學卡',
+                     '銀票','其他'];
+
+  /* Build (cat → sub → items) map */
+  const grouped = {};
+  filtered.forEach(item => {
+    if (!grouped[item.cat]) grouped[item.cat] = {};
+    if (!grouped[item.cat][item.sub]) grouped[item.cat][item.sub] = [];
+    grouped[item.cat][item.sub].push(item);
+  });
+
+  const cats = catOrder.filter(c => grouped[c]);
+  let html = '';
+
+  cats.forEach(cat => {
+    const catColor = CAT_META[cat].color;
+    const catTotal = qtyTotal(Object.values(grouped[cat]).flat());
+    html += `<div class="bc-chapter">
+      <span class="bc-chapter-label" style="background:${CAT_META[cat].bg};color:${catColor};border:1px solid ${catColor}33">${cat}</span>
+      <span class="bc-chapter-total">${catTotal} 張</span>
+    </div>`;
+
+    const subs = subOrder.filter(s => grouped[cat][s]);
+    subs.forEach(sub => {
+      const items = grouped[cat][sub];
+      const subColor = SUB_COLOR[sub] || catColor;
+      const subTotal = qtyTotal(items);
+
+      html += `<div class="bc-group">
+        <div class="bc-group-header">
+          <span class="bc-group-label" style="background:${subColor}1a;color:${subColor};border:1px solid ${subColor}33">${sub}</span>
+          <span class="bc-group-title">${sub === '其他' ? cat : sub}</span>
+          <span class="bc-group-total">共 ${subTotal} 張</span>
+        </div>
+        <div class="bc-wrap">`;
+
+      items.forEach(item => {
+        const hasDetail = !!(item.desc || item.note);
+        const noTag = item.no !== undefined
+          ? `<span class="bc-no">#${esc(item.no)}</span>` : '';
+        const pendingTag = item.pending
+          ? `<span class="bc-pending-tag">待補充</span>` : '';
+        const holderHtml = item.holder
+          ? `<span class="bc-holder">${esc(item.holder)}</span>` : `<span></span>`;
+        const arrow = hasDetail ? `<span class="bc-arrow">▶</span>` : `<span class="bc-arrow" style="opacity:0">▶</span>`;
+
+        html += `<div class="bc-row${hasDetail?' clickable':''}${item.pending?' pending':''}"
+            style="border-left-color:${subColor}"
+            data-id="${item.id}">
+          <div class="bc-name">${noTag}<span>${esc(item.name)}</span>${pendingTag}</div>
+          ${holderHtml}
+          <div class="bc-qty">×${item.qty}</div>
+          ${arrow}
+        </div>`;
+
+        if (hasDetail) {
+          html += `<div class="bc-detail" id="det-${item.id}" style="border-left-color:${subColor}">
+            ${item.desc ? `<div class="bc-detail-label">卡面文字</div><div>${esc(item.desc)}</div>` : ''}
+            ${item.note ? `<blockquote>${esc(item.note)}</blockquote>` : ''}
+          </div>`;
+        }
+      });
+
+      html += `</div></div>`;
+    });
+  });
+
+  listEl.innerHTML = html;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Event delegation — expand/collapse
+   ══════════════════════════════════════════════════════════════ */
+document.getElementById('bc-list').addEventListener('click', e => {
+  const row = e.target.closest('.bc-row.clickable');
+  if (!row) return;
+  const id  = row.dataset.id;
+  const det = document.getElementById('det-' + id);
+  if (!det) return;
+  const open = row.classList.toggle('open');
+  det.classList.toggle('open', open);
+});
+
+/* ── Filters ── */
+document.getElementById('bc-filters').addEventListener('click', e => {
+  const btn = e.target.closest('.bc-filter');
+  if (!btn) return;
+  activeCat = btn.dataset.cat;
+  buildFilters();
+  buildList();
+});
+
+/* ── Search ── */
+document.getElementById('bc-search').addEventListener('input', e => {
+  searchQ = e.target.value.trim();
+  buildList();
+});
+
+/* ── Init ── */
+buildFilters();
+buildStats();
+buildList();
+</script>
+
+</body>
+</html>
