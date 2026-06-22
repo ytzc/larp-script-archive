@@ -235,9 +235,12 @@
   }
   .bc-holder {
     font-size: .74rem;
-    color: #5a6a8a;
+    color: #8a9abb;
     white-space: nowrap;
     text-align: right;
+  }
+  .bc-holder-mobile {
+    display: none;
   }
   .bc-qty {
     display: inline-flex;
@@ -309,6 +312,15 @@
   @media (max-width: 560px) {
     .bc-row { grid-template-columns: 1fr auto auto; }
     .bc-holder { display: none; }
+    .bc-holder-mobile {
+      display: block;
+      width: 100%;
+      font-size: .71rem;
+      color: #8a9abb;
+      margin-top: .15em;
+      font-family: var(--font-mono);
+      letter-spacing: .01em;
+    }
   }
   </style>
 </head>
@@ -856,12 +868,14 @@ function buildList() {
           ? `<span class="bc-pending-tag">待補充</span>` : '';
         const holderHtml = item.holder
           ? `<span class="bc-holder">${esc(item.holder)}</span>` : `<span></span>`;
+        const holderMobile = item.holder
+          ? `<span class="bc-holder-mobile">${esc(item.holder)}</span>` : '';
         const arrow = hasDetail ? `<span class="bc-arrow">▶</span>` : `<span class="bc-arrow" style="opacity:0">▶</span>`;
 
         html += `<div class="bc-row${hasDetail?' clickable':''}${item.pending?' pending':''}"
             style="border-left-color:${subColor}"
             data-id="${item.id}">
-          <div class="bc-name">${noTag}<span>${esc(item.name)}</span>${pendingTag}</div>
+          <div class="bc-name">${noTag}<span>${esc(item.name)}</span>${pendingTag}${holderMobile}</div>
           ${holderHtml}
           <div class="bc-qty">×${item.qty}</div>
           ${arrow}
