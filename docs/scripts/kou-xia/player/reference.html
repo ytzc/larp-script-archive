@@ -57,16 +57,8 @@
     /* character cards */
     .cgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:1px; background:var(--b); border:1px solid var(--b); border-radius:5px; overflow:hidden; margin-bottom:2rem; }
 
-    /* AESTHETIC RISK: ghost motto via ::before */
-    .cc { position:relative; background:var(--s); overflow:hidden; padding:.95rem 1rem .9rem; }
+    .cc { background:var(--s); padding:.95rem 1rem .9rem; }
     .cc.npc { background:#1e1812; }
-    .cc::before {
-      content:attr(data-motto); position:absolute; bottom:-1.2rem; right:-1rem;
-      font-size:2.6rem; line-height:1.3; color:var(--t); opacity:.042;
-      pointer-events:none; z-index:0; max-width:85%; text-align:right;
-      word-break:break-all; font-family:var(--f);
-    }
-    .cc > * { position:relative; z-index:1; }
 
     .cc-h { display:flex; align-items:flex-start; gap:.55rem; margin-bottom:.55rem; }
     .cc-ico { font-size:1.2rem; line-height:1; flex-shrink:0; margin-top:.2rem; }
@@ -114,9 +106,6 @@
 
     .fn-nm { font-weight:700; font-size:.88rem; color:var(--t); }
     .fn-rl { font-size:.68rem; color:var(--d); margin-left:.35rem; }
-    .fn-pw { display:flex; align-items:center; gap:.4rem; margin:.38rem 0; }
-    .fn-pw-lbl { font-size:.65rem; color:var(--d); white-space:nowrap; }
-    .fn-pw-dia { letter-spacing:.1em; font-size:.77rem; line-height:1; }
     .fn-desc { font-size:.79rem; color:var(--t); opacity:.76; line-height:1.6; margin-top:.28rem; }
     .fn-dtl { margin-top:.5rem; padding-top:.45rem; border-top:1px solid rgba(255,255,255,.06); }
     .fn-dr { display:flex; gap:.38rem; font-size:.74rem; margin-top:.2rem; }
@@ -324,7 +313,6 @@
       <div class="f-col-lbl fl-gov">🏛 官方陣營</div>
       <div class="fn fn-dyn">
         <div class="fn-nm">起朝朝廷 <span class="fn-rl">執政政權</span></div>
-        <div class="fn-pw"><span class="fn-pw-lbl">統治力</span><span class="fn-pw-dia" style="color:var(--au);">◆◆◆◆◇</span></div>
         <div class="fn-desc">由前大夏重臣鄭木所建立。統治十餘年，天下名義歸順，但民間異動不斷。</div>
         <div class="fn-dtl">
           <div class="fn-dr"><span class="fn-dk">目標</span><span class="fn-dv">穩固統治，清剿一切反抗勢力，尤其是效忠大夏遺族的寇俠。</span></div>
@@ -333,7 +321,6 @@
       <div class="fn-conn"><div class="fn-conn-ln"></div><div class="fn-conn-lb">直屬</div></div>
       <div class="fn fn-sec">
         <div class="fn-nm">繡衣使 <span class="fn-rl">秘密特務</span></div>
-        <div class="fn-pw"><span class="fn-pw-lbl">滲透力</span><span class="fn-pw-dia" style="color:#6080d0;">◆◆◆◆◆</span></div>
         <div class="fn-desc">起朝建立前便私自成立的秘密機構，天羅地網布於全國。</div>
         <div class="fn-dtl">
           <div class="fn-dr"><span class="fn-dk">目標</span><span class="fn-dv">監視江湖動向，蒐集情報，必要時予以清除。</span></div>
@@ -352,7 +339,6 @@
       <div class="f-col-lbl fl-reb">⚔ 反抗陣營</div>
       <div class="fn fn-reb">
         <div class="fn-nm">寇俠 <span class="fn-rl">廣義統稱</span></div>
-        <div class="fn-pw"><span class="fn-pw-lbl">凝聚力</span><span class="fn-pw-dia" style="color:#d06060;">◆◆◇◇◇</span></div>
         <div class="fn-desc">大夏末年起便存在，以「寇俠」之名抵抗起朝，秘密尋找大夏皇族後裔。</div>
         <div class="fn-dtl">
           <div class="fn-dr"><span class="fn-dk">目標</span><span class="fn-dv">推翻起朝、恢復大夏正統（各人動機不一）。</span></div>
@@ -362,7 +348,6 @@
       <div class="fn-conn"><div class="fn-conn-ln"></div><div class="fn-conn-lb">旗下</div></div>
       <div class="fn fn-a1" style="margin-bottom:1px;">
         <div class="fn-nm">鶴須軍 <span class="fn-rl">武裝力量</span></div>
-        <div class="fn-pw"><span class="fn-pw-lbl">組織性</span><span class="fn-pw-dia" style="color:#c05050;">◆◆◆◆◇</span></div>
         <div class="fn-desc">寇俠旗下最嚴密的武裝力量，多由普通貧民組成。</div>
         <div class="fn-dtl">
           <div class="fn-dr"><span class="fn-dk">沿革</span><span class="fn-dv">冷佛林所建，其子<strong>冷降塵</strong>繼承大統領之位。</span></div>
@@ -371,7 +356,6 @@
       </div>
       <div class="fn fn-a2">
         <div class="fn-nm">玄甲軍 <span class="fn-rl">武裝力量</span></div>
-        <div class="fn-pw"><span class="fn-pw-lbl">組織性</span><span class="fn-pw-dia" style="color:#60a050;">◆◆◆◇◇</span></div>
         <div class="fn-desc">寇俠旗下另一武裝力量，多由富農鄉紳組成。</div>
         <div class="fn-dtl">
           <div class="fn-dr"><span class="fn-dk">大統領</span><span class="fn-dv">姓「旭」，寓意初升驕陽。與鶴須軍並列為寇俠陣營的主要軍事組織。</span></div>
