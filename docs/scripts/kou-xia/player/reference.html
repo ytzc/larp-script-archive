@@ -6,127 +6,159 @@
   <title>玩家速查手冊 — 寇俠</title>
   <link rel="stylesheet" href="../../../assets/css/style.css" />
   <style>
-    /* ── base override (warm paper) ── */
-    body { background: #fdf6ec; color: #1c1208; font-family: 'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif; font-size: 15px; line-height: 1.8; }
-    a { color: #8b0000; } a:hover { text-decoration: underline; }
-
-    .ref-wrap { max-width: 920px; margin: 0 auto; padding: 1.2rem 1rem 5rem; }
-
-    /* ── section header ── */
-    .ref-h { font-size: 1.15rem; font-weight: 700; color: #5a1a00; border-left: 4px solid #c8a060; padding-left: .7rem; margin: 2rem 0 .9rem; display: flex; align-items: center; gap: .5rem; }
-    .ref-h .h-icon { font-size: 1.2rem; }
-
-    /* ── appearance table ── */
-    .appear-tbl { width: 100%; border-collapse: collapse; margin: .5rem 0 1.4rem; font-size: .88rem; }
-    .appear-tbl th { background: #5a1a00; color: #fff; padding: .5rem .8rem; text-align: left; }
-    .appear-tbl td { padding: .45rem .8rem; border-bottom: 1px solid #e8d8c0; vertical-align: top; line-height: 1.55; }
-    .appear-tbl tr:nth-child(even) td { background: #faf0e0; }
-    .npc-tag { font-size: .7rem; background: #ede0c0; color: #7a4010; border-radius: 3px; padding: .05em .4em; font-weight: 600; margin-left: .3rem; vertical-align: middle; }
-    .feat-chips span { display: inline-block; background: #f5ead0; color: #7a3a10; border-radius: 4px; padding: .08em .5em; margin: .1em .15em .1em 0; font-size: .8rem; }
-
-    /* ── character cards ── */
-    .char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1rem; margin: .8rem 0 1.5rem; }
-    .char-card { background: #fff; border: 1px solid #ddd0b8; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.07); }
-    .char-card.is-npc { border-style: dashed; opacity: .9; }
-
-    .cc-head { padding: .65rem .95rem; background: #faf5ea; border-bottom: 1px solid #ede5d0; display: flex; align-items: flex-start; gap: .65rem; }
-    .cc-icon { font-size: 1.55rem; line-height: 1; flex-shrink: 0; margin-top: .15rem; }
-    .cc-name { font-size: 1.05rem; font-weight: 700; color: #3a1200; }
-    .cc-player { font-size: .78rem; color: #999; margin-top: .05rem; }
-
-    .cc-motto { padding: .55rem .95rem .4rem; font-style: italic; font-size: .83rem; color: #6a4020; border-bottom: 1px solid #f0e8d8; line-height: 1.65; }
-    .cc-body { padding: .55rem .95rem .85rem; font-size: .86rem; color: #3a2808; line-height: 1.65; }
-    .cc-feat { margin-top: .45rem; display: flex; flex-wrap: wrap; gap: .2rem; }
-    .cc-feat-chip { background: #f5ead0; color: #7a3a10; border-radius: 4px; padding: .1em .5em; font-size: .76rem; }
-
-    /* ── timeline ── */
-    .tl { position: relative; padding-left: 2.2rem; margin: .8rem 0 1.5rem; }
-    .tl::before { content: ''; position: absolute; left: .75rem; top: .4rem; bottom: .4rem; width: 2px; background: linear-gradient(to bottom, #c8a060 0%, #8b1000 100%); border-radius: 2px; }
-    .tl-item { position: relative; margin-bottom: 1.1rem; }
-    .tl-dot { position: absolute; left: -1.65rem; top: .4rem; width: 12px; height: 12px; border-radius: 50%; background: #c8a060; border: 2px solid #fdf6ec; box-shadow: 0 0 0 2px #c8a060; }
-    .tl-time { font-size: .76rem; font-weight: 700; color: #b07020; letter-spacing: .04em; }
-    .tl-text { font-size: .88rem; color: #2a1000; margin-top: .1rem; line-height: 1.6; }
-
-    /* ── location cards ── */
-    .loc-row { display: flex; flex-wrap: wrap; gap: .8rem; margin: .7rem 0 1.3rem; }
-    .loc-card { background: #fff; border: 1px solid #ddd0b8; border-radius: 7px; padding: .65rem 1rem; flex: 1; min-width: 200px; }
-    .loc-name { font-weight: 700; font-size: .92rem; color: #5a1a00; }
-    .loc-desc { font-size: .83rem; color: #666; margin-top: .2rem; line-height: 1.5; }
-
-    /* ── faction diagram ── */
-    .faction-arena { display: grid; grid-template-columns: 1fr 48px 1fr; gap: 0; margin: 1rem 0 1.5rem; align-items: start; }
-    .faction-divider { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 2.5rem; gap: 0; }
-    .faction-vs { font-size: .8rem; color: #b09070; font-weight: 700; writing-mode: vertical-lr; letter-spacing: .2em; margin: 0; padding: .8rem 0; border-top: 1px solid #e0d0b8; border-bottom: 1px solid #e0d0b8; width: 1px; border-left: 1px solid #e0d0b8; }
-
-    .f-col { display: flex; flex-direction: column; gap: 0; }
-    .f-col-title { text-align: center; font-size: .78rem; font-weight: 700; letter-spacing: .1em; padding: .3rem .5rem; border-radius: 5px 5px 0 0; margin-bottom: 0; }
-    .f-col-title.gov  { background: #1a3070; color: #b0c8ff; }
-    .f-col-title.rebel { background: #5a0010; color: #ffd0c0; }
-
-    .f-node { border-radius: 0; padding: .75rem 1rem; }
-    .f-node:first-of-type { border-radius: 0 0 0 0; }
-    .f-node:last-of-type { border-radius: 0 0 7px 7px; }
-    .fn-top { border-radius: 0 !important; }
-    .fn-bot { border-radius: 0 0 7px 7px !important; }
-
-    .f-node-name { font-size: .98rem; font-weight: 700; }
-    .f-node-tag { font-size: .72rem; opacity: .8; margin-left: .35rem; font-weight: 400; }
-    .f-node-desc { font-size: .82rem; margin-top: .3rem; line-height: 1.55; opacity: .9; }
-    .f-node-bars { display: flex; align-items: center; gap: .35rem; margin-top: .5rem; }
-    .f-bars-label { font-size: .72rem; opacity: .7; white-space: nowrap; }
-    .f-bars { display: flex; gap: 2px; }
-    .f-bar { width: 9px; height: 7px; border-radius: 2px; background: rgba(255,255,255,.18); }
-    .f-bar.on { background: rgba(255,255,255,.75); }
-    .f-node-detail { border-top: 1px solid rgba(255,255,255,.13); margin-top: .55rem; padding-top: .5rem; }
-    .f-dr { display: flex; gap: .4rem; font-size: .78rem; margin-top: .2rem; }
-    .f-dk { font-weight: 600; opacity: .72; white-space: nowrap; min-width: 2.3rem; }
-    .f-dv { opacity: .88; line-height: 1.5; }
-
-    .f-connector { display: flex; justify-content: center; padding: .1rem 0; background: transparent; }
-    .f-connector-inner { display: flex; flex-direction: column; align-items: center; gap: 0; }
-    .f-conn-line { width: 2px; height: 18px; background: rgba(255,255,255,.2); }
-    .f-conn-arrow { font-size: .8rem; opacity: .5; line-height: 1; }
-
-    /* node color themes */
-    .fn-dynasty { background: linear-gradient(160deg,#2c4a8a,#1a2e68); color: #d8e8ff; }
-    .fn-secret   { background: linear-gradient(160deg,#1a2060,#0d1450); color: #b8c8ff; }
-    .fn-rebel    { background: linear-gradient(160deg,#7a1010,#5a0000); color: #ffe0d0; }
-    .fn-army1    { background: linear-gradient(160deg,#621818,#420000); color: #ffd0c0; }
-    .fn-army2    { background: linear-gradient(160deg,#2a4a1a,#1a3010); color: #d0ffbc; }
-
-    .f-alert { font-size: .78rem; background: rgba(255,200,100,.15); border: 1px solid rgba(255,200,100,.3); border-radius: 5px; padding: .4rem .65rem; margin-top: .55rem; line-height: 1.5; opacity: .9; }
-
-    /* fallen banner */
-    .fallen-wrap { text-align: center; margin-bottom: 1rem; }
-    .fallen-node { display: inline-flex; align-items: center; gap: .6rem; background: linear-gradient(135deg,#5a4a20,#3a2a10); color: #e8d8a0; border-radius: 7px; padding: .6rem 1.2rem; font-size: .9rem; opacity: .75; }
-    .fallen-node .f-node-name { font-size: .96rem; }
-    .fallen-arrow { text-align: center; font-size: .9rem; color: #b09060; margin-bottom: .6rem; }
-
-    /* ── notice ── */
-    .notice { padding: .6rem .9rem; border-radius: 5px; font-size: .83rem; line-height: 1.65; margin: .7rem 0; border-left: 3px solid; }
-    .n-info { background: #eef4ff; border-color: #4478cc; color: #1a3a70; }
-    .n-tip  { background: #fffbe8; border-color: #c8a020; color: #5a4000; }
-    .n-ok   { background: #f0fff4; border-color: #38a060; color: #145030; }
-
-    hr { border: none; border-top: 1px solid #e0d0b8; margin: 1.8rem 0; }
-
-    /* ── top nav ── */
-    .top-nav { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .4rem; padding: .55rem 1.1rem; background: #fff8ed; border-bottom: 1px solid #e8d8c0; font-size: .83rem; }
-    .top-nav a { color: #8b0000; }
-    .top-nav .sep { color: #ccc; }
-    .ref-hero { text-align: center; padding: 1.4rem 1rem .8rem; border-bottom: 2px solid #c8a060; margin-bottom: 1.5rem; }
-    .ref-hero h1 { font-size: 1.7rem; color: #5a1a00; letter-spacing: .06em; }
-    .ref-hero p { color: #7a5030; font-size: .88rem; margin-top: .25rem; }
-
-    .site-footer { text-align: center; padding: 1.3rem; font-size: .82rem; color: #999; border-top: 1px solid #e0d0b8; margin-top: 2rem; }
-    .site-footer a { color: #8b0000; }
-
-    @media (max-width: 620px) {
-      .char-grid { grid-template-columns: 1fr; }
-      .faction-arena { grid-template-columns: 1fr; }
-      .faction-divider { display: none; }
-      .appear-tbl { font-size: .82rem; }
+    /* ground:#1a1510 text:#e4d9c4 gold:#c49a38 rebel:#943030 official:#2a4a8a */
+    :root {
+      --g:  #1a1510; --s:  #231d16; --s2: #2d2519;
+      --t:  #e4d9c4; --d:  #7a6a52; --b:  #3a2e22;
+      --au: #c49a38; --re: #943030; --of: #2a4a8a; --a2: #2a5a1e;
+      --f: "Noto Serif SC","Source Han Serif SC","思源宋體","Noto Serif","SimSun","MingLiU",Georgia,serif;
     }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--g); color:var(--t); font-family:var(--f); font-size:15px; line-height:1.85; }
+    strong { color:var(--t); }
+    a { color:var(--au); } a:hover { opacity:.8; }
+    hr { border:none; border-top:1px solid var(--b); margin:1.8rem 0; }
+
+    /* nav */
+    .rnav { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.4rem; padding:.55rem 1.1rem; background:var(--s); border-bottom:1px solid var(--b); font-size:.79rem; color:var(--d); }
+    .rnav a { color:var(--d); } .rnav a:hover { color:var(--au); }
+    .rnav .sep { margin:0 .25rem; opacity:.35; } .rnav .cur { color:var(--t); }
+
+    /* wrapper */
+    .rw { max-width:860px; margin:0 auto; padding:0 1rem 5rem; }
+
+    /* hero */
+    .hero { padding:2.8rem 1rem 2.2rem; text-align:center; border-bottom:1px solid var(--b); margin-bottom:2.5rem; }
+    .hero-eye { font-size:.7rem; letter-spacing:.3em; color:var(--d); text-transform:uppercase; margin-bottom:.7rem; }
+    .hero h1 { font-size:2.1rem; font-weight:700; letter-spacing:.1em; color:var(--au); line-height:1.15; }
+    .hero-tag { margin-top:.65rem; font-size:.86rem; font-style:italic; color:var(--d); letter-spacing:.05em; }
+    .hero-rule { width:48px; height:1px; background:var(--au); opacity:.3; margin:1.1rem auto 0; }
+
+    /* section heading */
+    .sh { display:flex; align-items:center; gap:.85rem; margin:2.8rem 0 1.2rem; }
+    .sh-n { font-size:2.4rem; font-weight:700; color:var(--au); opacity:.15; line-height:1; letter-spacing:-.03em; flex-shrink:0; }
+    .sh-t { font-size:.9rem; font-weight:700; letter-spacing:.22em; color:var(--t); }
+    .sh-line { flex:1; height:1px; background:linear-gradient(90deg,var(--b),transparent); }
+
+    /* appearance table */
+    .at { width:100%; border-collapse:collapse; margin-bottom:2rem; font-size:.86rem; }
+    .at th { text-align:left; font-size:.7rem; letter-spacing:.18em; color:var(--d); padding:.5rem .85rem; border-bottom:1px solid var(--b); font-weight:600; }
+    .at td { padding:.55rem .85rem; border-bottom:1px solid var(--b); vertical-align:middle; }
+    .at tr:hover td { background:var(--s2); }
+    .aname { font-weight:700; white-space:nowrap; }
+    .nrow td { opacity:.65; }
+    .nlabel { display:inline-block; font-size:.62rem; background:var(--s); color:var(--d); border:1px solid var(--b); border-radius:2px; padding:.05em .38em; margin-left:.3rem; letter-spacing:.05em; vertical-align:middle; }
+
+    /* chips */
+    .chips { display:flex; flex-wrap:wrap; gap:.28rem; }
+    .chip { display:inline-block; font-size:.76rem; padding:.1em .5em; border-radius:2px; border:1px solid var(--b); color:var(--d); background:var(--s); line-height:1.6; }
+    .chip.hi { border-color:rgba(196,154,56,.4); color:var(--au); background:rgba(196,154,56,.08); }
+
+    /* character cards */
+    .cgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:1px; background:var(--b); border:1px solid var(--b); border-radius:5px; overflow:hidden; margin-bottom:2rem; }
+
+    /* AESTHETIC RISK: ghost motto via ::before */
+    .cc { position:relative; background:var(--s); overflow:hidden; padding:.95rem 1rem .9rem; }
+    .cc.npc { background:#1e1812; }
+    .cc::before {
+      content:attr(data-motto); position:absolute; bottom:-1.2rem; right:-1rem;
+      font-size:2.6rem; line-height:1.3; color:var(--t); opacity:.042;
+      pointer-events:none; z-index:0; max-width:85%; text-align:right;
+      word-break:break-all; font-family:var(--f);
+    }
+    .cc > * { position:relative; z-index:1; }
+
+    .cc-h { display:flex; align-items:flex-start; gap:.55rem; margin-bottom:.55rem; }
+    .cc-ico { font-size:1.2rem; line-height:1; flex-shrink:0; margin-top:.2rem; }
+    .cc-name { font-size:.98rem; font-weight:700; color:var(--t); }
+    .cc-who { font-size:.73rem; color:var(--d); margin-top:.05rem; }
+    .cc-motto { font-style:italic; font-size:.81rem; color:var(--au); opacity:.85; margin-bottom:.5rem; padding-bottom:.5rem; border-bottom:1px solid var(--b); line-height:1.7; }
+    .cc-desc { font-size:.83rem; color:var(--t); opacity:.78; line-height:1.65; margin-bottom:.5rem; }
+
+    /* story bg */
+    .bg-q { font-size:.9rem; line-height:1.9; color:var(--t); opacity:.85; padding-left:.9rem; border-left:2px solid var(--au); margin-bottom:1.5rem; }
+
+    .tl { position:relative; padding-left:2rem; margin:.5rem 0 1.8rem; }
+    .tl::before { content:''; position:absolute; left:.6rem; top:.5rem; bottom:.5rem; width:1px; background:linear-gradient(to bottom,var(--au),var(--re)); }
+    .tl-item { position:relative; margin-bottom:1.1rem; }
+    .tl-dot { position:absolute; left:-1.52rem; top:.5rem; width:9px; height:9px; border-radius:50%; background:var(--au); border:2px solid var(--g); }
+    .tl-dot.now { background:var(--re); }
+    .tl-t { font-size:.7rem; letter-spacing:.12em; color:var(--au); font-weight:700; }
+    .tl-x { font-size:.86rem; color:var(--t); opacity:.83; margin-top:.1rem; line-height:1.65; }
+
+    .locs { display:flex; flex-wrap:wrap; gap:.75rem; margin:.5rem 0 1.6rem; }
+    .loc { flex:1; min-width:190px; background:var(--s); border:1px solid var(--b); border-radius:3px; padding:.65rem .9rem; }
+    .loc-n { font-weight:700; font-size:.88rem; color:var(--au); }
+    .loc-d { font-size:.8rem; color:var(--d); margin-top:.15rem; line-height:1.5; }
+
+    /* faction diagram */
+    .f-fallen { text-align:center; margin-bottom:1.2rem; }
+    .f-fallen-chip { display:inline-flex; align-items:center; gap:.55rem; background:var(--s); border:1px solid var(--b); border-radius:3px; padding:.5rem 1rem; font-size:.85rem; color:var(--d); opacity:.6; }
+    .f-fallen-chip strong { color:var(--t); }
+    .f-fallen-arr { font-size:.75rem; color:var(--d); margin-top:.45rem; letter-spacing:.05em; }
+
+    .f-split { display:grid; grid-template-columns:1fr 36px 1fr; gap:.5rem; align-items:start; }
+    .f-mid { display:flex; flex-direction:column; align-items:center; padding-top:2.8rem; gap:.2rem; }
+    .f-mid-line { width:1px; height:22px; background:var(--b); }
+    .f-mid-v { font-size:.65rem; color:var(--d); letter-spacing:.15em; writing-mode:vertical-lr; padding:.6rem 0; border-top:1px solid var(--b); border-bottom:1px solid var(--b); }
+
+    .f-col { display:flex; flex-direction:column; }
+    .f-col-lbl { font-size:.68rem; letter-spacing:.18em; font-weight:700; text-align:center; padding:.32rem .5rem; border-radius:2px 2px 0 0; }
+    .fl-gov { background:var(--of); color:#90b0f8; }
+    .fl-reb { background:var(--re); color:#f0a0a0; }
+
+    .fn { padding:.8rem .9rem; font-size:.83rem; border-top:1px solid rgba(255,255,255,.05); }
+    .fn:last-child { border-radius:0 0 2px 2px; }
+    .fn-dyn { background:#18285a; } .fn-sec { background:#101a48; }
+    .fn-reb { background:#381010; } .fn-a1 { background:#2c0c0c; } .fn-a2 { background:#18300e; }
+
+    .fn-nm { font-weight:700; font-size:.88rem; color:var(--t); }
+    .fn-rl { font-size:.68rem; color:var(--d); margin-left:.35rem; }
+    .fn-pw { display:flex; align-items:center; gap:.4rem; margin:.38rem 0; }
+    .fn-pw-lbl { font-size:.65rem; color:var(--d); white-space:nowrap; }
+    .fn-pw-dia { letter-spacing:.1em; font-size:.77rem; line-height:1; }
+    .fn-desc { font-size:.79rem; color:var(--t); opacity:.76; line-height:1.6; margin-top:.28rem; }
+    .fn-dtl { margin-top:.5rem; padding-top:.45rem; border-top:1px solid rgba(255,255,255,.06); }
+    .fn-dr { display:flex; gap:.38rem; font-size:.74rem; margin-top:.2rem; }
+    .fn-dk { color:var(--d); white-space:nowrap; min-width:2.1rem; }
+    .fn-dv { color:var(--t); opacity:.78; line-height:1.5; }
+    .fn-alert { margin-top:.5rem; padding:.32rem .55rem; background:rgba(200,160,50,.07); border:1px solid rgba(200,160,50,.15); border-radius:2px; font-size:.73rem; color:#c8a040; line-height:1.5; }
+
+    .fn-conn { text-align:center; padding:.12rem 0; }
+    .fn-conn-ln { width:1px; height:11px; background:rgba(255,255,255,.09); display:inline-block; }
+    .fn-conn-lb { display:block; font-size:.6rem; color:rgba(255,255,255,.18); letter-spacing:.1em; }
+
+    /* stance badges */
+    .sb { display:inline-block; font-size:.68rem; padding:.1em .48em; border-radius:2px; font-weight:700; white-space:nowrap; letter-spacing:.03em; }
+    .sb-g  { background:rgba(42,74,138,.28);  color:#6888e4; border:1px solid rgba(42,74,138,.45); }
+    .sb-s  { background:rgba(20,30,90,.35);   color:#5068c0; border:1px solid rgba(30,40,100,.45); }
+    .sb-r  { background:rgba(148,48,48,.22);  color:#d86060; border:1px solid rgba(148,48,48,.38); }
+    .sb-a1 { background:rgba(100,30,30,.28);  color:#c04040; border:1px solid rgba(100,30,30,.38); }
+    .sb-a2 { background:rgba(42,90,30,.22);   color:#68b858; border:1px solid rgba(42,90,30,.38); }
+
+    /* faction table */
+    .fact-tbl { width:100%; border-collapse:collapse; margin-top:1.5rem; font-size:.83rem; }
+    .fact-tbl th { text-align:left; font-size:.68rem; letter-spacing:.18em; color:var(--d); padding:.45rem .8rem; border-bottom:1px solid var(--b); font-weight:600; }
+    .fact-tbl td { padding:.5rem .8rem; border-bottom:1px solid var(--b); vertical-align:middle; line-height:1.55; }
+    .fact-tbl tr:hover td { background:var(--s2); }
+
+    /* notice */
+    .n { padding:.6rem .85rem; border-radius:2px; font-size:.81rem; line-height:1.65; margin:.8rem 0; border-left:2px solid; }
+    .n-ok  { background:rgba(50,160,80,.07); border-color:rgba(50,160,80,.35); color:#68b880; }
+    .n-tip { background:rgba(196,154,56,.07); border-color:rgba(196,154,56,.45); color:var(--au); }
+
+    /* footer */
+    .rfoot { text-align:center; padding:1.4rem; font-size:.77rem; color:var(--d); border-top:1px solid var(--b); margin-top:2rem; }
+    .rfoot a { color:var(--d); } .rfoot a:hover { color:var(--au); }
+
+    @media (max-width:560px) {
+      .cgrid { grid-template-columns:1fr; }
+      .f-split { grid-template-columns:1fr; }
+      .f-mid { display:none; }
+      .hero h1 { font-size:1.55rem; }
+      .at { font-size:.79rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; } }
   </style>
 </head>
 <body>
@@ -134,462 +166,246 @@
 <div id="password-gate" style="display:none;"></div>
 <div id="protected-content" style="display:none;">
 
-<div class="top-nav">
+<div class="rnav">
   <div>
-    <a href="../../../index.html">🏠 首頁</a>
-    <span class="sep"> › </span>
-    <a href="../index.html">寇俠</a>
-    <span class="sep"> › </span>
-    <a href="index.html">Player Area</a>
-    <span class="sep"> › </span>
-    <strong>玩家速查手冊</strong>
+    <a href="../../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">寇俠</a><span class="sep">›</span>
+    <a href="index.html">玩家入口</a><span class="sep">›</span>
+    <span class="cur">速查手冊</span>
   </div>
-  <div><a href="index.html">← 返回玩家入口</a></div>
+  <a href="index.html">← 返回入口</a>
 </div>
 
-<div class="ref-wrap">
+<div class="rw">
 
-  <div class="ref-hero">
-    <h1>📖 玩家速查手冊</h1>
-    <p>角色 · 故事背景 · 勢力圖 — 無劇透公開資訊</p>
+  <div class="hero">
+    <div class="hero-eye">寇俠 · 玩家資料</div>
+    <h1>速查手冊</h1>
+    <div class="hero-tag">「江湖不問出身，只問立場。」</div>
+    <div class="hero-rule"></div>
   </div>
 
-  <div class="notice n-ok">✅ 本頁所有內容均為<strong>公開、無劇透</strong>資訊，適合分享給任何人。</div>
+  <div class="n n-ok">✅ 本頁所有內容均為公開、無劇透資訊，適合分享給任何人。</div>
 
-  <!-- ════════════════════════════
-       SECTION 1 — 角色速查
-       ════════════════════════════ -->
-  <div class="ref-h"><span class="h-icon">🎭</span> 角色速查</div>
+  <!-- ═══ 一 · 角色速查 ═══ -->
+  <div class="sh"><span class="sh-n">一</span><span class="sh-t">角色速查</span><div class="sh-line"></div></div>
 
-  <!-- 外貌速查表 -->
-  <p style="font-size:.87rem;color:#666;margin-bottom:.5rem;">快速辨識各角色最顯眼的外觀特徵。</p>
-  <table class="appear-tbl">
-    <thead>
-      <tr><th style="width:90px">角色</th><th>最顯眼特徵</th></tr>
-    </thead>
+  <p style="font-size:.83rem;color:var(--d);margin-bottom:.8rem;">快速辨識各角色最顯眼的外觀特徵。</p>
+
+  <table class="at">
+    <thead><tr><th style="width:88px">角色</th><th>最顯眼特徵</th></tr></thead>
     <tbody>
-      <tr>
-        <td><strong>王思涵</strong></td>
-        <td><div class="feat-chips"><span>碧玉佩（綠色玉墜）</span><span>金髮簪</span></div></td>
-      </tr>
-      <tr>
-        <td><strong>賈三娘</strong></td>
-        <td><div class="feat-chips"><span>超高領遮頸（暗紅色）</span></div></td>
-      </tr>
-      <tr>
-        <td><strong>刁五兒</strong></td>
-        <td><div class="feat-chips"><span>全臉黑布蒙面</span><span>只露雙眼</span></div></td>
-      </tr>
-      <tr>
-        <td><strong>嚴逸</strong></td>
-        <td><div class="feat-chips"><span>眉心黑印</span><span>右手書卷</span><span>縛陽掌痕</span></div></td>
-      </tr>
-      <tr>
-        <td><strong>嚴氏</strong></td>
-        <td><div class="feat-chips"><span>赤紗蒙面</span><span>只見上眼</span></div></td>
-      </tr>
-      <tr>
-        <td><strong>王順</strong></td>
-        <td><div class="feat-chips"><span>明顯臃腫體型</span><span>圓腹</span></div></td>
-      </tr>
-      <tr>
-        <td><strong>農叟</strong></td>
-        <td><div class="feat-chips"><span>花白頭髮配黝黑膚色</span><span>眼神銳利</span></div></td>
-      </tr>
-      <tr>
-        <td><strong>金四刀</strong></td>
-        <td><div class="feat-chips"><span>金邊領</span><span>腰間刀柄</span><span>倨傲笑意</span></div></td>
-      </tr>
-      <tr>
-        <td><strong>張猛</strong> <span class="npc-tag">NPC</span></td>
-        <td><div class="feat-chips"><span>虯髯黑鬚佔滿下臉</span><span>寬肩</span></div></td>
-      </tr>
+      <tr><td><span class="aname">王思涵</span></td><td><div class="chips"><span class="chip hi">碧玉佩（綠色玉墜）</span><span class="chip hi">金髮簪</span></div></td></tr>
+      <tr><td><span class="aname">賈三娘</span></td><td><div class="chips"><span class="chip hi">超高領遮頸（暗紅色）</span></div></td></tr>
+      <tr><td><span class="aname">刁五兒</span></td><td><div class="chips"><span class="chip hi">全臉黑布蒙面</span><span class="chip hi">只露雙眼</span></div></td></tr>
+      <tr><td><span class="aname">嚴逸</span></td><td><div class="chips"><span class="chip hi">眉心黑印</span><span class="chip hi">右手書卷</span><span class="chip hi">縛陽掌痕</span></div></td></tr>
+      <tr><td><span class="aname">嚴氏</span></td><td><div class="chips"><span class="chip hi">赤紗蒙面</span><span class="chip hi">只見上眼</span></div></td></tr>
+      <tr><td><span class="aname">王順</span></td><td><div class="chips"><span class="chip hi">明顯臃腫體型</span><span class="chip hi">圓腹</span></div></td></tr>
+      <tr><td><span class="aname">農叟</span></td><td><div class="chips"><span class="chip hi">花白頭髮配黝黑膚色</span><span class="chip hi">眼神銳利</span></div></td></tr>
+      <tr><td><span class="aname">金四刀</span></td><td><div class="chips"><span class="chip hi">金邊領</span><span class="chip hi">腰間刀柄</span><span class="chip hi">倨傲笑意</span></div></td></tr>
+      <tr class="nrow"><td><span class="aname">張猛</span><span class="nlabel">NPC</span></td><td><div class="chips"><span class="chip">虯髯黑鬚佔滿下臉</span><span class="chip">寬肩</span></div></td></tr>
     </tbody>
   </table>
 
-  <!-- 角色名片 -->
-  <div class="ref-h" style="margin-top:1.5rem"><span class="h-icon">🪪</span> 角色名片</div>
-  <div class="char-grid">
+  <p style="font-size:.83rem;color:var(--d);margin-bottom:.7rem;">各角色名片。</p>
+  <div class="cgrid">
 
-    <div class="char-card">
-      <div class="cc-head">
-        <div class="cc-icon">🎵</div>
-        <div>
-          <div class="cc-name">王思涵</div>
-          <div class="cc-player">Luna · 21 歲 · 賣唱女</div>
-        </div>
-      </div>
+    <div class="cc" data-motto="桃李春風一杯酒，江湖夜雨十年燈。">
+      <div class="cc-h"><span class="cc-ico">🎵</span><div><div class="cc-name">王思涵</div><div class="cc-who">Luna · 21 歲 · 賣唱女</div></div></div>
       <div class="cc-motto">「桃李春風一杯酒，江湖夜雨十年燈。」</div>
-      <div class="cc-body">
-        才貌俱佳的賣唱女，著一件絳紫色的細麻長裙，眉眼間似有傲氣。
-        <div class="cc-feat"><span class="cc-feat-chip">碧玉佩</span><span class="cc-feat-chip">金髮簪</span></div>
-      </div>
+      <div class="cc-desc">才貌俱佳的賣唱女，著一件絳紫色的細麻長裙，眉眼間似有傲氣。</div>
+      <div class="chips"><span class="chip hi">碧玉佩</span><span class="chip hi">金髮簪</span></div>
     </div>
 
-    <div class="char-card">
-      <div class="cc-head">
-        <div class="cc-icon">🏮</div>
-        <div>
-          <div class="cc-name">賈三娘</div>
-          <div class="cc-player">Peggy · 34 歲 · 客棧老闆娘</div>
-        </div>
-      </div>
+    <div class="cc" data-motto="踏遍去來枝，孤鴻獨自飛。">
+      <div class="cc-h"><span class="cc-ico">🏮</span><div><div class="cc-name">賈三娘</div><div class="cc-who">Peggy · 34 歲 · 客棧老闆娘</div></div></div>
       <div class="cc-motto">「踏遍去來枝，孤鴻獨自飛。」</div>
-      <div class="cc-body">
-        風韻猶存的客棧老闆娘，身著一襲紅衣。
-        <div class="cc-feat"><span class="cc-feat-chip">超高領（暗紅色）</span></div>
-      </div>
+      <div class="cc-desc">風韻猶存的客棧老闆娘，身著一襲紅衣。</div>
+      <div class="chips"><span class="chip hi">超高領（暗紅色）</span></div>
     </div>
 
-    <div class="char-card">
-      <div class="cc-head">
-        <div class="cc-icon">🗡️</div>
-        <div>
-          <div class="cc-name">刁五兒</div>
-          <div class="cc-player">佩璇 · 22 歲 · 客商護衛</div>
-        </div>
-      </div>
+    <div class="cc" data-motto="已慣江湖作浪游，愛恨情仇總難休。">
+      <div class="cc-h"><span class="cc-ico">🗡️</span><div><div class="cc-name">刁五兒</div><div class="cc-who">佩璇 · 22 歲 · 客商護衛</div></div></div>
       <div class="cc-motto">「已慣江湖作浪游，愛恨情仇總難休。」</div>
-      <div class="cc-body">
-        瘦小乾枯，黑布蒙面的漢子，做客商打扮。
-        <div class="cc-feat"><span class="cc-feat-chip">全臉黑布</span><span class="cc-feat-chip">只露雙眼</span></div>
-      </div>
+      <div class="cc-desc">瘦小乾枯，黑布蒙面的漢子，做客商打扮。</div>
+      <div class="chips"><span class="chip hi">全臉黑布</span><span class="chip hi">只露雙眼</span></div>
     </div>
 
-    <div class="char-card">
-      <div class="cc-head">
-        <div class="cc-icon">📜</div>
-        <div>
-          <div class="cc-name">嚴逸</div>
-          <div class="cc-player">健元 · 36 歲 · 書生</div>
-        </div>
-      </div>
+    <div class="cc" data-motto="青燈古卷拭劍，落日餘生紅顏。">
+      <div class="cc-h"><span class="cc-ico">📜</span><div><div class="cc-name">嚴逸</div><div class="cc-who">健元 · 36 歲 · 書生</div></div></div>
       <div class="cc-motto">「青燈古卷拭劍，落日餘生紅顏。」</div>
-      <div class="cc-body">
-        清瘦但有魅力的男子，書生打扮，眉宇間有淡淡的黑印。
-        <div class="cc-feat"><span class="cc-feat-chip">眉心黑印</span><span class="cc-feat-chip">右手書卷</span><span class="cc-feat-chip">縛陽掌痕</span></div>
-      </div>
+      <div class="cc-desc">清瘦但有魅力的男子，書生打扮，眉宇間有淡淡的黑印。</div>
+      <div class="chips"><span class="chip hi">眉心黑印</span><span class="chip hi">右手書卷</span><span class="chip hi">縛陽掌痕</span></div>
     </div>
 
-    <div class="char-card">
-      <div class="cc-head">
-        <div class="cc-icon">🌙</div>
-        <div>
-          <div class="cc-name">嚴氏</div>
-          <div class="cc-player">媛媛 · 22 歲 · 嚴逸之妻</div>
-        </div>
-      </div>
+    <div class="cc" data-motto="朝暮不棄，白首不離。">
+      <div class="cc-h"><span class="cc-ico">🌙</span><div><div class="cc-name">嚴氏</div><div class="cc-who">媛媛 · 22 歲 · 嚴逸之妻</div></div></div>
       <div class="cc-motto">「朝暮不棄，白首不離。」</div>
-      <div class="cc-body">
-        身材曼妙的女子，著一身青色裙裝，面部被赤紗遮掩。
-        <div class="cc-feat"><span class="cc-feat-chip">赤紗蒙面</span><span class="cc-feat-chip">只見上眼</span></div>
-      </div>
+      <div class="cc-desc">身材曼妙的女子，著一身青色裙裝，面部被赤紗遮掩。</div>
+      <div class="chips"><span class="chip hi">赤紗蒙面</span><span class="chip hi">只見上眼</span></div>
     </div>
 
-    <div class="char-card">
-      <div class="cc-head">
-        <div class="cc-icon">🧳</div>
-        <div>
-          <div class="cc-name">王順</div>
-          <div class="cc-player">宣毅 · 43 歲 · 王思涵之父</div>
-        </div>
-      </div>
+    <div class="cc" data-motto="平生不修善果，只愛殺人放火。">
+      <div class="cc-h"><span class="cc-ico">🧳</span><div><div class="cc-name">王順</div><div class="cc-who">宣毅 · 43 歲 · 王思涵之父</div></div></div>
       <div class="cc-motto">「平生不修善果，只愛殺人放火。」</div>
-      <div class="cc-body">
-        賣唱女的父親，身形臃腫。
-        <div class="cc-feat"><span class="cc-feat-chip">臃腫體型</span><span class="cc-feat-chip">圓腹</span></div>
-      </div>
+      <div class="cc-desc">賣唱女的父親，身形臃腫。</div>
+      <div class="chips"><span class="chip hi">臃腫體型</span><span class="chip hi">圓腹</span></div>
     </div>
 
-    <div class="char-card">
-      <div class="cc-head">
-        <div class="cc-icon">🌾</div>
-        <div>
-          <div class="cc-name">農叟</div>
-          <div class="cc-player">佩妏 · 50 歲左右 · 隱居老農</div>
-        </div>
-      </div>
+    <div class="cc" data-motto="自古名士如美人，不許人間見白頭。">
+      <div class="cc-h"><span class="cc-ico">🌾</span><div><div class="cc-name">農叟</div><div class="cc-who">佩妏 · 50 歲左右 · 隱居老農</div></div></div>
       <div class="cc-motto">「自古名士如美人，不許人間見白頭。」</div>
-      <div class="cc-body">
-        雙手布滿老繭的農漢，頭髮花白，皮膚黝黑。
-        <div class="cc-feat"><span class="cc-feat-chip">花白頭髮</span><span class="cc-feat-chip">黝黑膚色</span><span class="cc-feat-chip">眼神銳利</span></div>
-      </div>
+      <div class="cc-desc">雙手布滿老繭的農漢，頭髮花白，皮膚黝黑。</div>
+      <div class="chips"><span class="chip hi">花白頭髮</span><span class="chip hi">黝黑膚色</span><span class="chip hi">眼神銳利</span></div>
     </div>
 
-    <div class="char-card">
-      <div class="cc-head">
-        <div class="cc-icon">⚔️</div>
-        <div>
-          <div class="cc-name">金四刀</div>
-          <div class="cc-player">建翔 · 26 歲 · 客商</div>
-        </div>
-      </div>
+    <div class="cc" data-motto="胸中藏戰將，腹內隱雄兵。">
+      <div class="cc-h"><span class="cc-ico">⚔️</span><div><div class="cc-name">金四刀</div><div class="cc-who">建翔 · 26 歲 · 客商</div></div></div>
       <div class="cc-motto">「胸中藏戰將，腹內隱雄兵。」</div>
-      <div class="cc-body">
-        俊朗倨傲，氣勢卓絕的男子。
-        <div class="cc-feat"><span class="cc-feat-chip">金邊領</span><span class="cc-feat-chip">腰間刀柄</span><span class="cc-feat-chip">倨傲笑意</span></div>
-      </div>
+      <div class="cc-desc">俊朗倨傲，氣勢卓絕的男子。</div>
+      <div class="chips"><span class="chip hi">金邊領</span><span class="chip hi">腰間刀柄</span><span class="chip hi">倨傲笑意</span></div>
     </div>
 
-    <div class="char-card is-npc">
-      <div class="cc-head">
-        <div class="cc-icon">🏹</div>
-        <div>
-          <div class="cc-name">張猛 <span class="npc-tag">NPC</span></div>
-          <div class="cc-player">子擎 · 27 歲 · 客商</div>
-        </div>
-      </div>
+    <div class="cc npc" data-motto="只因衣冠無義俠，遂令草澤有奇雄。">
+      <div class="cc-h"><span class="cc-ico">🏹</span><div><div class="cc-name">張猛 <span class="nlabel">NPC</span></div><div class="cc-who">子擎 · 27 歲 · 客商</div></div></div>
       <div class="cc-motto">「只因衣冠無義俠，遂令草澤有奇雄。」</div>
-      <div class="cc-body">
-        虯髯黑鬚，豪爽無比的大漢，做客商打扮。
-        <div class="cc-feat"><span class="cc-feat-chip">虯髯黑鬚滿下臉</span><span class="cc-feat-chip">寬肩</span></div>
-      </div>
+      <div class="cc-desc">虯髯黑鬚，豪爽無比的大漢，做客商打扮。</div>
+      <div class="chips"><span class="chip">虯髯黑鬚滿下臉</span><span class="chip">寬肩</span></div>
     </div>
 
-  </div><!-- .char-grid -->
+  </div>
 
   <hr />
 
-  <!-- ════════════════════════════
-       SECTION 2 — 故事背景
-       ════════════════════════════ -->
-  <div class="ref-h"><span class="h-icon">🌍</span> 故事背景</div>
+  <!-- ═══ 二 · 故事背景 ═══ -->
+  <div class="sh"><span class="sh-n">二</span><span class="sh-t">故事背景</span><div class="sh-line"></div></div>
 
-  <p style="font-size:.9rem;color:#3a1a00;margin-bottom:1rem;">
-    故事發生在架空的「起朝」時代，前朝大夏滅亡不久，天下初定卻暗流涌動。新朝廷設立了秘密特務機構<strong>繡衣使</strong>，監控四方，清剿一切反抗勢力。江湖上流傳著一個名號——<strong>寇俠</strong>，指那些不滿新朝統治、仍心懷舊朝的義士們。
-  </p>
+  <p class="bg-q">故事發生在架空的「起朝」時代——前朝<strong>大夏</strong>滅亡不久，天下初定卻暗流涌動。新朝廷設立了秘密特務機構<strong>繡衣使</strong>，監控四方，清剿一切反抗勢力。江湖上流傳著一個名號——<strong>寇俠</strong>，指那些不滿新朝統治、仍心懷舊朝的義士們。</p>
 
-  <!-- 主要地點 -->
-  <div style="font-size:.88rem;font-weight:700;color:#7a4010;margin-bottom:.5rem;">📍 主要地點</div>
-  <div class="loc-row">
-    <div class="loc-card">
-      <div class="loc-name">濟州縣</div>
-      <div class="loc-desc">故事發生地。偏遠但為兵家要道，江湖人士往來頻繁。</div>
-    </div>
-    <div class="loc-card">
-      <div class="loc-name">天福客棧（賈三娘客棧）</div>
-      <div class="loc-desc">故事的核心舞台，本場遊戲的主要場景。</div>
-    </div>
+  <div style="font-size:.8rem;font-weight:700;letter-spacing:.15em;color:var(--d);margin-bottom:.55rem;">主要地點</div>
+  <div class="locs">
+    <div class="loc"><div class="loc-n">濟州縣</div><div class="loc-d">故事發生地。偏遠但為兵家要道，江湖人士往來頻繁。</div></div>
+    <div class="loc"><div class="loc-n">天福客棧</div><div class="loc-d">賈三娘的客棧，本場遊戲的核心舞台。</div></div>
   </div>
 
-  <!-- 歷史時間線 -->
-  <div style="font-size:.88rem;font-weight:700;color:#7a4010;margin:.8rem 0 .5rem;">⏳ 歷史時間線</div>
+  <div style="font-size:.8rem;font-weight:700;letter-spacing:.15em;color:var(--d);margin-bottom:.55rem;">歷史時間線</div>
   <div class="tl">
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-time">二十年前</div>
-      <div class="tl-text">大夏王朝末年，權臣<strong>鄭木</strong>把持朝政，民不聊生，各地武裝反抗風起雲湧。</div>
+      <div class="tl-t">二十年前</div>
+      <div class="tl-x">大夏王朝末年。權臣<strong>鄭木</strong>把持朝政，民不聊生，各地武裝反抗風起雲湧。</div>
     </div>
     <div class="tl-item">
-      <div class="tl-dot" style="background:#8b1000;box-shadow:0 0 0 2px #8b1000;"></div>
-      <div class="tl-time">十餘年前</div>
-      <div class="tl-text">鄭木（即起朝太祖）建立<strong>起朝</strong>，大夏滅亡。前朝遺民與義士紛紛轉入地下，以「<strong>寇俠</strong>」之名延續反抗。</div>
+      <div class="tl-dot"></div>
+      <div class="tl-t">十餘年前</div>
+      <div class="tl-x">鄭木（即起朝太祖）建立<strong>起朝</strong>，大夏覆滅。前朝遺民與義士紛紛轉入地下，以「寇俠」之名延續反抗。</div>
     </div>
     <div class="tl-item">
-      <div class="tl-dot" style="background:#c83020;box-shadow:0 0 0 2px #c83020;"></div>
-      <div class="tl-time">現今</div>
-      <div class="tl-text">各有目的的江湖人士，齊聚濟州縣天福客棧——一場風波即將展開。</div>
+      <div class="tl-dot now"></div>
+      <div class="tl-t">現今</div>
+      <div class="tl-x">各有目的的江湖人士，齊聚濟州縣天福客棧——一場風波即將展開。</div>
     </div>
   </div>
 
   <hr />
 
-  <!-- ════════════════════════════
-       SECTION 3 — 勢力圖
-       ════════════════════════════ -->
-  <div class="ref-h"><span class="h-icon">⚖️</span> 勢力圖</div>
+  <!-- ═══ 三 · 勢力圖 ═══ -->
+  <div class="sh"><span class="sh-n">三</span><span class="sh-t">勢力圖</span><div class="sh-line"></div></div>
 
-  <!-- 滅亡的大夏 -->
-  <div class="fallen-wrap">
-    <div style="font-size:.78rem;color:#a08060;letter-spacing:.08em;margin-bottom:.4rem;">◆ 已滅亡政權 ◆</div>
-    <div class="fallen-node">
-      <span style="font-size:1.2rem">🏯</span>
-      <div>
-        <div class="f-node-name">大夏王朝</div>
-        <div style="font-size:.78rem;opacity:.75;margin-top:.1rem;">前朝 · 已覆滅十餘年</div>
-      </div>
-    </div>
-    <div class="fallen-arrow">↓ 鄭木篡朝，建立起朝</div>
+  <div class="f-fallen">
+    <div style="font-size:.67rem;color:var(--d);letter-spacing:.15em;margin-bottom:.4rem;">◆ 已滅亡政權 ◆</div>
+    <div class="f-fallen-chip"><span>🏯</span><span><strong>大夏王朝</strong> — 前朝，覆滅十餘年</span></div>
+    <div class="f-fallen-arr">↓ 鄭木篡朝，建立起朝</div>
   </div>
 
-  <!-- 兩大陣營 -->
-  <div class="faction-arena">
+  <div class="f-split">
 
-    <!-- 官方陣營 -->
     <div class="f-col">
-      <div class="f-col-title gov">🏛 官方陣營</div>
-
-      <!-- 起朝朝廷 -->
-      <div class="f-node fn-dynasty fn-top">
-        <div class="f-node-name">起朝朝廷 <span class="f-node-tag">執政政權</span></div>
-        <div class="f-node-bars">
-          <span class="f-bars-label">統治力</span>
-          <div class="f-bars">
-            <div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar"></div>
-          </div>
-        </div>
-        <div class="f-node-desc">由前大夏重臣鄭木所建立。如今統治十餘年，天下名義歸順，但民間異動不斷。</div>
-        <div class="f-node-detail">
-          <div class="f-dr"><span class="f-dk">目標</span><span class="f-dv">穩固統治，清剿一切反抗勢力，尤其是仍效忠大夏遺族的寇俠組織。</span></div>
+      <div class="f-col-lbl fl-gov">🏛 官方陣營</div>
+      <div class="fn fn-dyn">
+        <div class="fn-nm">起朝朝廷 <span class="fn-rl">執政政權</span></div>
+        <div class="fn-pw"><span class="fn-pw-lbl">統治力</span><span class="fn-pw-dia" style="color:var(--au);">◆◆◆◆◇</span></div>
+        <div class="fn-desc">由前大夏重臣鄭木所建立。統治十餘年，天下名義歸順，但民間異動不斷。</div>
+        <div class="fn-dtl">
+          <div class="fn-dr"><span class="fn-dk">目標</span><span class="fn-dv">穩固統治，清剿一切反抗勢力，尤其是效忠大夏遺族的寇俠。</span></div>
         </div>
       </div>
-
-      <!-- 連接線 -->
-      <div style="background:linear-gradient(160deg,#1a2060,#0d1450);padding:.1rem 0;">
-        <div style="width:2px;height:14px;background:rgba(255,255,255,.2);margin:0 auto;"></div>
-        <div style="text-align:center;font-size:.7rem;color:rgba(255,255,255,.35);padding-bottom:.1rem;">直屬</div>
-      </div>
-
-      <!-- 繡衣使 -->
-      <div class="f-node fn-secret fn-bot">
-        <div class="f-node-name">繡衣使 <span class="f-node-tag">官方直屬</span></div>
-        <div class="f-node-bars">
-          <span class="f-bars-label">滲透力</span>
-          <div class="f-bars">
-            <div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar on"></div>
-          </div>
-        </div>
-        <div class="f-node-desc">起朝開國之前便私自成立的秘密特務機構。</div>
-        <div class="f-node-detail">
-          <div class="f-dr"><span class="f-dk">目標</span><span class="f-dv">監視江湖動向，蒐集反抗情報，必要時予以清除。</span></div>
-          <div class="f-dr"><span class="f-dk">特徵</span><span class="f-dv">核心成員自幼童培訓，精通暗殺、製毒、間諜。以化名行事，彼此以暗號識別，天羅地網布於全國。</span></div>
+      <div class="fn-conn"><div class="fn-conn-ln"></div><div class="fn-conn-lb">直屬</div></div>
+      <div class="fn fn-sec">
+        <div class="fn-nm">繡衣使 <span class="fn-rl">秘密特務</span></div>
+        <div class="fn-pw"><span class="fn-pw-lbl">滲透力</span><span class="fn-pw-dia" style="color:#6080d0;">◆◆◆◆◆</span></div>
+        <div class="fn-desc">起朝建立前便私自成立的秘密機構，天羅地網布於全國。</div>
+        <div class="fn-dtl">
+          <div class="fn-dr"><span class="fn-dk">目標</span><span class="fn-dv">監視江湖動向，蒐集情報，必要時予以清除。</span></div>
+          <div class="fn-dr"><span class="fn-dk">特徵</span><span class="fn-dv">成員自幼培訓，以化名行事，暗號識別，彼此不一定相識。</span></div>
         </div>
       </div>
     </div>
 
-    <!-- 分隔 -->
-    <div class="faction-divider">
-      <div style="font-size:.75rem;color:#a08060;writing-mode:vertical-lr;letter-spacing:.15em;padding:1rem .3rem;border-left:1px solid #e0d0b8;height:100%;display:flex;align-items:center;">對抗</div>
+    <div class="f-mid">
+      <div class="f-mid-line"></div>
+      <div class="f-mid-v">對抗</div>
+      <div class="f-mid-line"></div>
     </div>
 
-    <!-- 反抗陣營 -->
     <div class="f-col">
-      <div class="f-col-title rebel">⚔ 反抗陣營</div>
-
-      <!-- 寇俠（廣義） -->
-      <div class="f-node fn-rebel fn-top">
-        <div class="f-node-name">寇俠 <span class="f-node-tag">廣義統稱</span></div>
-        <div class="f-node-bars">
-          <span class="f-bars-label">凝聚力</span>
-          <div class="f-bars">
-            <div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar"></div><div class="f-bar"></div><div class="f-bar"></div>
-          </div>
+      <div class="f-col-lbl fl-reb">⚔ 反抗陣營</div>
+      <div class="fn fn-reb">
+        <div class="fn-nm">寇俠 <span class="fn-rl">廣義統稱</span></div>
+        <div class="fn-pw"><span class="fn-pw-lbl">凝聚力</span><span class="fn-pw-dia" style="color:#d06060;">◆◆◇◇◇</span></div>
+        <div class="fn-desc">大夏末年起便存在，以「寇俠」之名抵抗起朝，秘密尋找大夏皇族後裔。</div>
+        <div class="fn-dtl">
+          <div class="fn-dr"><span class="fn-dk">目標</span><span class="fn-dv">推翻起朝、恢復大夏正統（各人動機不一）。</span></div>
         </div>
-        <div class="f-node-desc">大夏末年起便存在，原指反抗鄭木的武裝人士。大夏覆滅後，以「寇俠」之名繼續抵抗起朝，並秘密尋找大夏皇族後裔。</div>
-        <div class="f-node-detail">
-          <div class="f-dr"><span class="f-dk">目標</span><span class="f-dv">推翻起朝、恢復大夏正統（各人動機不一）。內部鬆散，缺乏統一指揮。</span></div>
-        </div>
-        <div class="f-alert">⚠ 「寇俠」為廣義統稱，並非統一組織，各地義士均可自稱。</div>
+        <div class="fn-alert">⚠ 廣義統稱，非統一組織，各地義士均可自稱。</div>
       </div>
-
-      <!-- 連接線到旗下組織 -->
-      <div style="background:linear-gradient(160deg,#621818,#420000);padding:.1rem 0;">
-        <div style="width:2px;height:12px;background:rgba(255,255,255,.2);margin:0 auto;"></div>
-        <div style="text-align:center;font-size:.7rem;color:rgba(255,255,255,.35);padding-bottom:.1rem;">旗下武裝</div>
+      <div class="fn-conn"><div class="fn-conn-ln"></div><div class="fn-conn-lb">旗下</div></div>
+      <div class="fn fn-a1" style="margin-bottom:1px;">
+        <div class="fn-nm">鶴須軍 <span class="fn-rl">武裝力量</span></div>
+        <div class="fn-pw"><span class="fn-pw-lbl">組織性</span><span class="fn-pw-dia" style="color:#c05050;">◆◆◆◆◇</span></div>
+        <div class="fn-desc">寇俠旗下最嚴密的武裝力量，多由普通貧民組成。</div>
+        <div class="fn-dtl">
+          <div class="fn-dr"><span class="fn-dk">沿革</span><span class="fn-dv">冷佛林所建，其子<strong>冷降塵</strong>繼承大統領之位。</span></div>
+        </div>
+        <div class="fn-alert">❗ 大統領冷降塵近日行蹤不明，內部局勢動盪。</div>
       </div>
-
-      <!-- 鶴須軍 -->
-      <div class="f-node fn-army1" style="margin-bottom:2px;">
-        <div class="f-node-name">鶴須軍 <span class="f-node-tag">武裝力量</span></div>
-        <div class="f-node-bars">
-          <span class="f-bars-label">組織性</span>
-          <div class="f-bars">
-            <div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar"></div>
-          </div>
-        </div>
-        <div class="f-node-desc">寇俠旗下組織最嚴密的武裝力量，多由普通貧民組成。</div>
-        <div class="f-node-detail">
-          <div class="f-dr"><span class="f-dk">沿革</span><span class="f-dv">由大統領冷佛林建立，冷佛林早逝後由其子嗣<strong>冷降塵</strong>繼承。</span></div>
-          <div class="f-dr"><span class="f-dk">現況</span><span class="f-dv">大統領冷降塵近日行蹤不明，鶴須軍內部局勢動盪。</span></div>
-        </div>
-        <div class="f-alert">❗ 領袖失蹤，內部不穩。</div>
-      </div>
-
-      <!-- 玄甲軍 -->
-      <div class="f-node fn-army2 fn-bot">
-        <div class="f-node-name">玄甲軍 <span class="f-node-tag">武裝力量</span></div>
-        <div class="f-node-bars">
-          <span class="f-bars-label">組織性</span>
-          <div class="f-bars">
-            <div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar on"></div><div class="f-bar"></div><div class="f-bar"></div>
-          </div>
-        </div>
-        <div class="f-node-desc">寇俠旗下另一支武裝力量，多由富農鄉紳組成。</div>
-        <div class="f-node-detail">
-          <div class="f-dr"><span class="f-dk">沿革</span><span class="f-dv">大統領姓「旭」，寓意初升驕陽，以「玄甲」為軍名。</span></div>
-          <div class="f-dr"><span class="f-dk">定位</span><span class="f-dv">與鶴須軍並列為寇俠陣營的主要軍事組織。</span></div>
+      <div class="fn fn-a2">
+        <div class="fn-nm">玄甲軍 <span class="fn-rl">武裝力量</span></div>
+        <div class="fn-pw"><span class="fn-pw-lbl">組織性</span><span class="fn-pw-dia" style="color:#60a050;">◆◆◆◇◇</span></div>
+        <div class="fn-desc">寇俠旗下另一武裝力量，多由富農鄉紳組成。</div>
+        <div class="fn-dtl">
+          <div class="fn-dr"><span class="fn-dk">大統領</span><span class="fn-dv">姓「旭」，寓意初升驕陽。與鶴須軍並列為寇俠陣營的主要軍事組織。</span></div>
         </div>
       </div>
+    </div>
 
-    </div><!-- .f-col (rebel) -->
+  </div>
 
-  </div><!-- .faction-arena -->
-
-  <!-- 勢力總覽表 -->
-  <div style="font-size:.88rem;font-weight:700;color:#7a4010;margin:1.2rem 0 .5rem;">📋 勢力總覽</div>
-  <table class="appear-tbl" style="margin-bottom:0;">
-    <thead>
-      <tr>
-        <th>勢力</th>
-        <th>立場</th>
-        <th style="display:none">——</th>
-        <th>簡述</th>
-      </tr>
-    </thead>
+  <table class="fact-tbl">
+    <thead><tr><th>勢力</th><th>立場</th><th>簡述</th></tr></thead>
     <tbody>
-      <tr>
-        <td><strong>起朝朝廷</strong></td>
-        <td><span style="background:#1a3070;color:#b0c8ff;font-size:.76rem;border-radius:3px;padding:.08em .45em;font-weight:600;">官方</span></td>
-        <td>新朝廷。統治十餘年，天下名義歸順。</td>
-      </tr>
-      <tr>
-        <td><strong>繡衣使</strong></td>
-        <td><span style="background:#0d1450;color:#9ab0ff;font-size:.76rem;border-radius:3px;padding:.08em .45em;font-weight:600;">官方直屬</span></td>
-        <td>秘密特務機構，天羅地網布於全國，以暗號辨識。</td>
-      </tr>
-      <tr>
-        <td><strong>寇俠</strong></td>
-        <td><span style="background:#5a0010;color:#ffd0c0;font-size:.76rem;border-radius:3px;padding:.08em .45em;font-weight:600;">反抗</span></td>
-        <td>廣義統稱，不滿新朝的江湖義士。組織鬆散，各有動機。</td>
-      </tr>
-      <tr>
-        <td><strong>鶴須軍</strong></td>
-        <td><span style="background:#420000;color:#ffc0b8;font-size:.76rem;border-radius:3px;padding:.08em .45em;font-weight:600;">反抗 / 旗下</span></td>
-        <td>寇俠武裝力量，組織最嚴密。大統領冷降塵行蹤不明。</td>
-      </tr>
-      <tr>
-        <td><strong>玄甲軍</strong></td>
-        <td><span style="background:#1a3010;color:#c0ffa8;font-size:.76rem;border-radius:3px;padding:.08em .45em;font-weight:600;">反抗 / 旗下</span></td>
-        <td>寇俠武裝力量，多由富農鄉紳組成。大統領姓旭。</td>
-      </tr>
+      <tr><td><strong>起朝朝廷</strong></td><td><span class="sb sb-g">官方</span></td><td>新朝廷，統治十餘年，以鐵腕清剿異動。</td></tr>
+      <tr><td><strong>繡衣使</strong></td><td><span class="sb sb-s">官方直屬</span></td><td>秘密特務，全國滲透，暗號識別，身份隱秘。</td></tr>
+      <tr><td><strong>寇俠</strong></td><td><span class="sb sb-r">反抗</span></td><td>廣義統稱，不滿新朝的江湖義士，組織鬆散。</td></tr>
+      <tr><td><strong>鶴須軍</strong></td><td><span class="sb sb-a1">反抗 · 旗下</span></td><td>寇俠武裝力量，組織最嚴密。大統領行蹤不明。</td></tr>
+      <tr><td><strong>玄甲軍</strong></td><td><span class="sb sb-a2">反抗 · 旗下</span></td><td>寇俠武裝力量，多由富農鄉紳組成。</td></tr>
     </tbody>
   </table>
 
-  <div class="notice n-tip" style="margin-top:1rem;">
-    💡 各角色在開本時的陣營為「不明」。真實立場需在遊戲過程中透過觀察行為與私下交流自行判斷。
-  </div>
+  <div class="n n-tip" style="margin-top:1rem;">💡 各角色在開本時陣營不明。真實立場需透過觀察行為與私下交流自行判斷。</div>
 
-</div><!-- .ref-wrap -->
+</div>
 
-<footer class="site-footer">
-  <a href="../../../index.html">📜 LARP Script Archive</a> ｜
-  <a href="../index.html">寇俠</a> ｜
-  <a href="index.html">Player Area</a>
-</footer>
+<div class="rfoot">
+  <a href="../../../index.html">LARP Script Archive</a> ｜ <a href="../index.html">寇俠</a> ｜ <a href="index.html">玩家入口</a>
+</div>
 
 </div><!-- #protected-content -->
 
 <script src="../../../assets/js/version.js"></script>
 <script src="../../../assets/js/password-gate.js"></script>
 <script>
-  initPasswordGate({
-    role:     'kou-xia-player',
-    password: 'player',
-    icon:     '📖',
-    title:    '玩家速查手冊 — 寇俠',
-    desc:     '請輸入玩家密碼以進入。',
-    back:     'index.html'
-  });
+  initPasswordGate({ role:'kou-xia-player', password:'player', icon:'📖', title:'玩家速查手冊 — 寇俠', desc:'請輸入玩家密碼以進入。', back:'index.html' });
 </script>
 <script src="../../../assets/js/topbar.js"></script>
 </body>
