@@ -386,5 +386,50 @@ tr:nth-child(even)td{background:#faf5ee}
     back:     'index.html'
   });
 </script>
+<script>
+  /* ── 兇案現場圖 Lightbox ───────────────────────────────────────────────── */
+  document.addEventListener('click', function (e) {
+    var img = e.target.closest('.crime-scene-img');
+    if (!img) return;
+
+    var overlay = document.createElement('div');
+    overlay.style.cssText = [
+      'position:fixed;inset:0;background:rgba(0,0,0,.93);',
+      'z-index:99999;display:flex;align-items:center;justify-content:center;',
+      'cursor:zoom-out;padding:1rem;'
+    ].join('');
+
+    var big = document.createElement('img');
+    big.src = img.src;
+    big.alt = img.alt;
+    big.style.cssText = [
+      'max-width:100%;max-height:90vh;object-fit:contain;',
+      'border-radius:4px;box-shadow:0 4px 40px rgba(0,0,0,.8);'
+    ].join('');
+
+    var hint = document.createElement('div');
+    hint.textContent = '點任意處關閉';
+    hint.style.cssText = [
+      'position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);',
+      'color:#888;font-size:.78rem;pointer-events:none;',
+      'font-family:"Segoe UI","Microsoft JhengHei",sans-serif;'
+    ].join('');
+
+    overlay.appendChild(big);
+    overlay.appendChild(hint);
+    overlay.addEventListener('click', function () { document.body.removeChild(overlay); });
+    document.addEventListener('keydown', function esc(ev) {
+      if (ev.key === 'Escape') { document.body.removeChild(overlay); document.removeEventListener('keydown', esc); }
+    });
+    document.body.appendChild(overlay);
+  });
+
+  /* 游標提示 */
+  document.querySelectorAll('.crime-scene-img').forEach(function (img) {
+    img.style.cursor = 'zoom-in';
+    img.title = '點擊放大';
+  });
+</script>
+  <script src="../../../assets/js/topbar.js"></script>
 </body>
 </html>
