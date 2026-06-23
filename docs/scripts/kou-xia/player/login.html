@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>角色登入 — 寇俠</title>
+  <style>
+    /* ground:#1a1510 text:#e4d9c4 gold:#c49a38 */
+    :root {
+      --g: #1a1510; --s: #231d16; --s2: #2d2519;
+      --t: #e4d9c4; --d: #7a6a52; --b: #3a2e22;
+      --au: #c49a38; --err: #c04040;
+      --f: "Noto Serif SC","Source Han Serif SC","思源宋體","Noto Serif","SimSun","MingLiU",Georgia,serif;
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      background: var(--g); color: var(--t);
+      font-family: var(--f); font-size: 15px; line-height: 1.8;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    a { color: var(--au); } a:hover { opacity:.8; }
+
+    /* ── back link ── */
+    .back-link {
+      position: fixed; top: 1rem; left: 1rem;
+      font-size: .78rem; color: var(--d);
+    }
+    .back-link:hover { color: var(--au); }
+
+    /* ── card ── */
+    .card {
+      width: 100%; max-width: 380px;
+      background: var(--s);
+      border: 1px solid var(--b);
+      border-radius: 6px;
+      padding: 2.2rem 2rem 2rem;
+      margin: 1rem;
+    }
+
+    .card-eye {
+      font-size: .68rem; letter-spacing: .3em;
+      color: var(--d); text-transform: uppercase;
+      text-align: center; margin-bottom: .6rem;
+    }
+    .card-title {
+      font-size: 1.55rem; font-weight: 700;
+      color: var(--au); letter-spacing: .08em;
+      text-align: center; margin-bottom: .3rem;
+    }
+    .card-sub {
+      font-size: .8rem; color: var(--d); text-align: center;
+      margin-bottom: 1.8rem;
+    }
+    .gold-rule { width: 40px; height: 1px; background: var(--au); opacity:.3; margin: .5rem auto 1.6rem; }
+
+    /* ── form ── */
+    .field { margin-bottom: 1.1rem; }
+    .field label {
+      display: block; font-size: .73rem;
+      letter-spacing: .12em; color: var(--d);
+      margin-bottom: .38rem; font-weight: 600;
+    }
+    .field input {
+      width: 100%; background: var(--g);
+      border: 1px solid var(--b); border-radius: 3px;
+      padding: .6rem .75rem; font-size: .95rem;
+      color: var(--t); font-family: var(--f);
+      outline: none; transition: border-color .15s;
+    }
+    .field input::placeholder { color: var(--d); opacity: .6; }
+    .field input:focus { border-color: rgba(196,154,56,.5); }
+
+    /* ── submit button ── */
+    .submit-btn {
+      width: 100%; margin-top: 1.4rem;
+      background: var(--au); color: #1a1208;
+      border: none; border-radius: 3px;
+      padding: .72rem 1rem; font-size: .95rem;
+      font-family: var(--f); font-weight: 700;
+      letter-spacing: .08em; cursor: pointer;
+      transition: opacity .15s;
+    }
+    .submit-btn:hover { opacity: .88; }
+    .submit-btn:active { opacity: .75; }
+    .submit-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* ── error / status ── */
+    .err-msg {
+      display: none; margin-top: .85rem;
+      font-size: .82rem; color: var(--err);
+      text-align: center; line-height: 1.55;
+    }
+    .err-msg.show { display: block; }
+
+    .success-msg {
+      display: none; margin-top: .85rem;
+      font-size: .82rem; color: #68b880;
+      text-align: center; line-height: 1.55;
+    }
+    .success-msg.show { display: block; }
+
+    /* ── mismatch banner ── */
+    .mismatch-banner {
+      display: none; width:100%; max-width:380px;
+      background: rgba(192,64,64,.12); border:1px solid rgba(192,64,64,.3);
+      border-radius: 4px; padding: .65rem .9rem;
+      font-size: .82rem; color: #d07070;
+      margin-bottom: .8rem; margin-left: 1rem; margin-right: 1rem;
+      line-height: 1.55;
+    }
+
+    /* ── register hint ── */
+    .register-hint {
+      margin-top: 1.5rem; padding-top: 1.2rem;
+      border-top: 1px solid var(--b);
+      font-size: .78rem; color: var(--d);
+      text-align: center; line-height: 1.7;
+    }
+    .register-hint strong { color: var(--t); }
+
+    /* ── logged-in state ── */
+    .already-in {
+      display: none; text-align: center;
+    }
+    .already-in .char-name {
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--au); margin: .5rem 0 .2rem;
+    }
+    .already-in .player-name { font-size: .85rem; color: var(--d); }
+    .already-in .goto-btn {
+      display: inline-block; margin-top: 1.2rem;
+      background: var(--au); color: #1a1208;
+      border-radius: 3px; padding: .6rem 1.4rem;
+      font-size: .9rem; font-weight: 700;
+      text-decoration: none; letter-spacing: .06em;
+    }
+    .already-in .goto-btn:hover { opacity: .88; }
+    .already-in .logout-link {
+      display: block; margin-top: .9rem;
+      font-size: .78rem; color: var(--d); cursor: pointer;
+    }
+    .already-in .logout-link:hover { color: var(--au); }
+
+    /* footer */
+    .login-footer {
+      position: fixed; bottom: 1rem; left: 0; right: 0;
+      text-align: center; font-size: .75rem; color: var(--d);
+    }
+    .login-footer a { color: var(--d); } .login-footer a:hover { color: var(--au); }
+
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+
+<a class="back-link" href="index.html">← 返回玩家入口</a>
+
+<!-- mismatch banner (shown if redirected from wrong character page) -->
+<div class="mismatch-banner" id="mismatch-banner">⚠ 此頁面只限對應角色查閱，請用正確的角色帳號登入。</div>
+
+<div class="card">
+  <div class="card-eye">寇俠 · 江湖令牌</div>
+  <div class="card-title">角色登入</div>
+  <div class="gold-rule"></div>
+
+  <!-- already logged in view -->
+  <div class="already-in" id="already-in">
+    <div style="font-size:.82rem;color:var(--d);">已以此角色登入</div>
+    <div class="char-name" id="logged-char-name">—</div>
+    <div class="player-name" id="logged-player-name">—</div>
+    <a class="goto-btn" id="goto-script-btn" href="#">前往我的劇本 →</a>
+    <span class="logout-link" id="logout-btn">登出</span>
+  </div>
+
+  <!-- login form -->
+  <form id="login-form" onsubmit="return false;">
+    <div class="field">
+      <label for="username">帳號</label>
+      <input id="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="請輸入帳號" />
+    </div>
+    <div class="field">
+      <label for="password">密碼</label>
+      <input id="password" type="password" autocomplete="current-password" placeholder="請輸入密碼" />
+    </div>
+
+    <button class="submit-btn" id="submit-btn" type="submit">進入劇本</button>
+
+    <div class="err-msg" id="err-msg">帳號或密碼錯誤，請再試一次。</div>
+    <div class="success-msg" id="success-msg">登入成功，正在跳轉…</div>
+
+    <div class="register-hint">
+      首次使用？請聯絡 GM 取得帳號密碼。<br />
+      <span style="opacity:.6;font-size:.74rem;"><!-- TODO: 開放後可加入「自助註冊」連結 --></span>
+    </div>
+  </form>
+</div>
+
+<div class="login-footer">
+  <a href="index.html">玩家入口</a> ｜ <a href="../index.html">寇俠</a>
+</div>
+
+<script src="scripts/auth.js"></script>
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('mismatch')) {
+    document.getElementById('mismatch-banner').style.display = 'block';
+  }
+
+  function scriptUrl(charId) {
+    return 'scripts/' + charId + '.html';
+  }
+
+  function showLoggedIn(session) {
+    document.getElementById('login-form').style.display = 'none';
+    var el = document.getElementById('already-in');
+    el.style.display = 'block';
+    document.getElementById('logged-char-name').textContent = session.characterName;
+    document.getElementById('logged-player-name').textContent = session.playerName;
+    document.getElementById('goto-script-btn').href = scriptUrl(session.characterId);
+  }
+
+  // if already logged in, show go-to-script state
+  var session = CharAuth.getSession();
+  if (session) { showLoggedIn(session); }
+
+  document.getElementById('logout-btn').addEventListener('click', function () {
+    CharAuth.logout();
+    location.reload();
+  });
+
+  document.getElementById('login-form').addEventListener('submit', function () {
+    var username = document.getElementById('username').value.trim();
+    var password = document.getElementById('password').value;
+    var errEl    = document.getElementById('err-msg');
+    var okEl     = document.getElementById('success-msg');
+    var btn      = document.getElementById('submit-btn');
+
+    errEl.classList.remove('show');
+    okEl.classList.remove('show');
+
+    if (!username || !password) {
+      errEl.textContent = '請填寫帳號與密碼。';
+      errEl.classList.add('show');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = '驗證中…';
+
+    // CharAuth.login 目前使用 DEMO_ACCOUNTS；後端完成後替換 auth.js 中的 _callApi 即可
+    var charId = CharAuth.login(username, password);
+
+    if (charId) {
+      okEl.textContent = '登入成功，正在跳轉…';
+      okEl.classList.add('show');
+      setTimeout(function () {
+        window.location.href = scriptUrl(charId);
+      }, 800);
+    } else {
+      btn.disabled = false;
+      btn.textContent = '進入劇本';
+      errEl.textContent = '帳號或密碼錯誤，請再試一次。';
+      errEl.classList.add('show');
+    }
+  });
+}());
+</script>
+</body>
+</html>
