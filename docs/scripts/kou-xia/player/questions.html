@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>答題卡 — 寇俠</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #8b0000; --red-lt: #fff0f0;
+      --green: #155724; --green-lt: #d4edda;
+      --orange: #8a4a00; --orange-lt: #fff3e0;
+      --paper: #faf6ef; --white: #fff; --ink: #1c1c1c; --muted: #666;
+      --border: #e0d0c0; --shadow: 0 1px 5px rgba(0,0,0,.1);
+    }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Segoe UI', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+      background: var(--paper); color: var(--ink); line-height: 1.7;
+      padding-bottom: env(safe-area-inset-bottom, 24px);
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--red); color: #fff;
+      padding: .7rem 1rem; font-size: .9rem; font-weight: 700;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .topbar a { color: #ffc0c0; text-decoration: none; font-weight: 400; font-size: .82rem; }
+
+    /* ── Character selector ── */
+    .char-bar {
+      background: var(--white); border-bottom: 2px solid var(--border);
+      padding: .75rem 1rem; position: sticky; top: 0; z-index: 20;
+      box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    }
+    .char-bar label { font-size: .82rem; color: var(--muted); display: block; margin-bottom: .3rem; }
+    .char-select {
+      width: 100%; padding: .6rem .9rem; font-size: 1.05rem;
+      border: 2px solid var(--red); border-radius: 8px;
+      background: var(--white); color: var(--ink);
+      font-family: inherit; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b0000' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center;
+      padding-right: 2.5rem; cursor: pointer;
+    }
+    .char-select:focus { outline: none; border-color: #c00; box-shadow: 0 0 0 3px rgba(139,0,0,.15); }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .5rem 1rem; background: var(--white);
+      border-bottom: 1px solid var(--border); font-size: .84rem;
+    }
+    .progress-dots { display: flex; gap: .3rem; }
+    .dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #ddd; transition: background .2s;
+    }
+    .dot.filled { background: var(--green); }
+    .progress-text { color: var(--muted); margin-left: auto; font-size: .8rem; }
+
+    /* ── Main content ── */
+    .wrapper { max-width: 680px; margin: 0 auto; padding: 1rem 1rem 3rem; }
+
+    /* ── Round sections ── */
+    .round {
+      background: var(--white); border-radius: 10px;
+      box-shadow: var(--shadow); margin-bottom: 1.2rem; overflow: hidden;
+    }
+    .round-header {
+      display: flex; align-items: center; gap: .75rem;
+      padding: .8rem 1.1rem; border-bottom: 1px solid var(--border);
+    }
+    .round-badge {
+      display: inline-block; font-size: .72rem; font-weight: bold;
+      padding: .2em .7em; border-radius: 10px; white-space: nowrap;
+    }
+    .badge-one { background: #e8f5e9; color: #2a6a3a; border: 1px solid #b8d8b8; }
+    .badge-two { background: #fff3e0; color: #8a4a00; border: 1px solid #f0c060; }
+    .round-title { font-weight: bold; font-size: 1rem; color: #3a2810; }
+    .round-note { font-size: .8rem; color: var(--muted); margin-left: auto; }
+
+    /* ── Question items ── */
+    .question { padding: 1rem 1.1rem; border-bottom: 1px solid var(--border); }
+    .question:last-child { border-bottom: none; }
+    .q-num {
+      font-size: .78rem; font-weight: bold; color: var(--red);
+      letter-spacing: .05em; margin-bottom: .3rem;
+    }
+    .q-text {
+      font-size: .96rem; color: var(--ink); line-height: 1.65;
+      margin-bottom: .65rem; font-weight: 500;
+    }
+    .q-text em { color: var(--muted); font-style: normal; font-size: .88rem; }
+    .q-answer {
+      width: 100%; min-height: 80px; padding: .65rem .85rem;
+      border: 1.5px solid var(--border); border-radius: 7px;
+      font-family: inherit; font-size: .95rem; line-height: 1.65;
+      background: var(--paper); color: var(--ink); resize: vertical;
+      transition: border-color .18s, box-shadow .18s;
+    }
+    .q-answer:focus {
+      outline: none; border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(139,0,0,.1);
+    }
+    .q-answer.has-answer { border-color: #4caf50; background: #f9fff9; }
+    .q-save-hint {
+      font-size: .75rem; color: var(--muted); margin-top: .3rem; text-align: right;
+      transition: color .3s;
+    }
+    .q-save-hint.saved { color: #4caf50; }
+
+    /* ── Score summary ── */
+    .score-card {
+      background: var(--white); border-radius: 10px; box-shadow: var(--shadow);
+      padding: 1rem 1.1rem; margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .score-icon { font-size: 1.8rem; }
+    .score-info { flex: 1; }
+    .score-label { font-size: .82rem; color: var(--muted); }
+    .score-count { font-size: 1.4rem; font-weight: bold; color: var(--red); line-height: 1.2; }
+    .score-max { font-size: .85rem; color: var(--muted); }
+    .clear-btn {
+      padding: .4rem .9rem; border-radius: 20px;
+      border: 1px solid #ddd; background: transparent;
+      color: var(--muted); cursor: pointer; font-size: .8rem; font-family: inherit;
+      transition: all .15s;
+    }
+    .clear-btn:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center; padding: 3rem 1rem; color: var(--muted);
+    }
+    .empty-state .icon { font-size: 2.5rem; margin-bottom: .75rem; }
+    .empty-state p { font-size: .92rem; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>📝 答題卡 — 寇俠</span>
+  <a href="index.html">← 玩家入口</a>
+</div>
+
+<!-- 角色選擇 -->
+<div class="char-bar">
+  <label for="char-select">選擇你的角色：</label>
+  <select id="char-select" class="char-select">
+    <option value="">── 請選擇角色 ──</option>
+    <option value="wang-si-han">王思涵（Luna）</option>
+    <option value="jia-san-niang">賈三娘（peggy）</option>
+    <option value="diao-wu-er">刁五兒（佩璇）</option>
+    <option value="yan-yi">嚴逸（健元）</option>
+    <option value="yan-shi">嚴氏（媛媛）</option>
+    <option value="wang-shun">王順（宣毅）</option>
+    <option value="nong-sou">農叟（佩妏）</option>
+    <option value="jin-si-dao">金四刀（建翔）</option>
+  </select>
+</div>
+
+<!-- 進度條 -->
+<div class="progress-bar" id="progress-bar" style="display:none;">
+  <div class="progress-dots" id="progress-dots"></div>
+  <span class="progress-text" id="progress-text"></span>
+</div>
+
+<div class="wrapper">
+
+  <!-- 空狀態 -->
+  <div class="empty-state" id="empty-state">
+    <div class="icon">🎭</div>
+    <p>請先選擇你的角色，再填寫答題卡。</p>
+  </div>
+
+  <!-- 答題內容（選角後顯示） -->
+  <div id="qa-content" style="display:none;">
+
+    <!-- 分數摘要 -->
+    <div class="score-card">
+      <div class="score-icon">🎯</div>
+      <div class="score-info">
+        <div class="score-label">已填寫答案</div>
+        <div class="score-count"><span id="filled-count">0</span> <span class="score-max">/ 6 題</span></div>
+      </div>
+      <button class="clear-btn" onclick="clearAnswers()">清除全部</button>
+    </div>
+
+    <!-- 情境一 · 第一輪答題 -->
+    <div class="round">
+      <div class="round-header">
+        <span class="round-badge badge-one">情境一</span>
+        <span class="round-title">第一輪答題</span>
+        <span class="round-note">遊戲開始後</span>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Q1 — 情境一</div>
+        <div class="q-text" id="q1-text">（待補充：由 GM 設定題目內容）<br><em>關於世界觀、歷史背景或公開資訊的問題。</em></div>
+        <textarea class="q-answer" id="q1" placeholder="請填寫你的答案…" oninput="saveAnswer('q1', this)"></textarea>
+        <div class="q-save-hint" id="q1-hint">未填寫</div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Q2 — 情境一</div>
+        <div class="q-text" id="q2-text">（待補充：由 GM 設定題目內容）<br><em>關於世界觀、歷史背景或公開資訊的問題。</em></div>
+        <textarea class="q-answer" id="q2" placeholder="請填寫你的答案…" oninput="saveAnswer('q2', this)"></textarea>
+        <div class="q-save-hint" id="q2-hint">未填寫</div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Q3 — 情境一</div>
+        <div class="q-text" id="q3-text">（待補充：由 GM 設定題目內容）<br><em>關於世界觀、歷史背景或公開資訊的問題。</em></div>
+        <textarea class="q-answer" id="q3" placeholder="請填寫你的答案…" oninput="saveAnswer('q3', this)"></textarea>
+        <div class="q-save-hint" id="q3-hint">未填寫</div>
+      </div>
+    </div>
+
+    <!-- 情境二 · 第二輪答題 -->
+    <div class="round">
+      <div class="round-header">
+        <span class="round-badge badge-two">情境二</span>
+        <span class="round-title">第二輪答題</span>
+        <span class="round-note">GM 宣告後開放</span>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Q4 — 情境二</div>
+        <div class="q-text" id="q4-text">（待補充：由 GM 設定題目內容）<br><em>關於凶案線索、角色關係或案情推理的問題。</em></div>
+        <textarea class="q-answer" id="q4" placeholder="請填寫你的答案…" oninput="saveAnswer('q4', this)"></textarea>
+        <div class="q-save-hint" id="q4-hint">未填寫</div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Q5 — 情境二</div>
+        <div class="q-text" id="q5-text">（待補充：由 GM 設定題目內容）<br><em>關於凶案線索、角色關係或案情推理的問題。</em></div>
+        <textarea class="q-answer" id="q5" placeholder="請填寫你的答案…" oninput="saveAnswer('q5', this)"></textarea>
+        <div class="q-save-hint" id="q5-hint">未填寫</div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Q6 — 情境二</div>
+        <div class="q-text" id="q6-text">（待補充：由 GM 設定題目內容）<br><em>關於凶案線索、角色關係或案情推理的問題。</em></div>
+        <textarea class="q-answer" id="q6" placeholder="請填寫你的答案…" oninput="saveAnswer('q6', this)"></textarea>
+        <div class="q-save-hint" id="q6-hint">未填寫</div>
+      </div>
+    </div>
+
+  </div><!-- #qa-content -->
+</div><!-- .wrapper -->
+
+<script>
+const QUESTIONS = 6;
+let currentChar = '';
+
+const charSelect = document.getElementById('char-select');
+const emptyState = document.getElementById('empty-state');
+const qaContent  = document.getElementById('qa-content');
+const progressBar = document.getElementById('progress-bar');
+
+charSelect.addEventListener('change', function() {
+  currentChar = this.value;
+  if (!currentChar) {
+    emptyState.style.display = '';
+    qaContent.style.display  = 'none';
+    progressBar.style.display = 'none';
+    return;
+  }
+  emptyState.style.display = 'none';
+  qaContent.style.display  = '';
+  progressBar.style.display = '';
+  loadAnswers();
+  updateProgress();
+});
+
+function key(qid) {
+  return 'kou-xia-qa__' + currentChar + '__' + qid;
+}
+
+function saveAnswer(qid, el) {
+  const val = el.value.trim();
+  if (val) {
+    localStorage.setItem(key(qid), el.value);
+    el.classList.add('has-answer');
+    const hint = document.getElementById(qid + '-hint');
+    hint.textContent = '已儲存';
+    hint.classList.add('saved');
+    setTimeout(() => {
+      hint.textContent = val ? '已填寫' : '未填寫';
+    }, 1200);
+  } else {
+    localStorage.removeItem(key(qid));
+    el.classList.remove('has-answer');
+    document.getElementById(qid + '-hint').textContent = '未填寫';
+    document.getElementById(qid + '-hint').classList.remove('saved');
+  }
+  updateProgress();
+}
+
+function loadAnswers() {
+  for (let i = 1; i <= QUESTIONS; i++) {
+    const qid = 'q' + i;
+    const el  = document.getElementById(qid);
+    const val = localStorage.getItem(key(qid)) || '';
+    el.value = val;
+    if (val.trim()) {
+      el.classList.add('has-answer');
+      document.getElementById(qid + '-hint').textContent = '已填寫';
+    } else {
+      el.classList.remove('has-answer');
+      document.getElementById(qid + '-hint').textContent = '未填寫';
+      document.getElementById(qid + '-hint').classList.remove('saved');
+    }
+  }
+}
+
+function updateProgress() {
+  let filled = 0;
+  for (let i = 1; i <= QUESTIONS; i++) {
+    const val = localStorage.getItem(key('q' + i));
+    if (val && val.trim()) filled++;
+  }
+  document.getElementById('filled-count').textContent = filled;
+
+  const dots = document.getElementById('progress-dots');
+  dots.innerHTML = '';
+  for (let i = 1; i <= QUESTIONS; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (localStorage.getItem(key('q' + i)) ? ' filled' : '');
+    dots.appendChild(d);
+  }
+  document.getElementById('progress-text').textContent = filled + ' / ' + QUESTIONS + ' 題已填';
+}
+
+function clearAnswers() {
+  if (!currentChar) return;
+  if (!confirm('確定要清除「' + charSelect.options[charSelect.selectedIndex].text + '」的所有答案？')) return;
+  for (let i = 1; i <= QUESTIONS; i++) {
+    localStorage.removeItem(key('q' + i));
+  }
+  loadAnswers();
+  updateProgress();
+}
+
+// Restore last selected character
+const saved = localStorage.getItem('kou-xia-qa__lastChar');
+if (saved) {
+  charSelect.value = saved;
+  if (charSelect.value) charSelect.dispatchEvent(new Event('change'));
+}
+charSelect.addEventListener('change', () => {
+  if (charSelect.value) localStorage.setItem('kou-xia-qa__lastChar', charSelect.value);
+});
+</script>
+</body>
+</html>
