@@ -6,14 +6,47 @@
   <title>寇俠 — 玩家入口</title>
   <link rel="stylesheet" href="../../../assets/css/style.css" />
   <style>
+  /* ── 角色九宮格圖 ── */
   .char-grid-img {
     display: block;
     width: 100%;
-    max-width: 640px;
+    max-width: 560px;
     height: auto;
-    margin: 1rem 0 2rem;
+    margin: 1rem auto 2rem;
     border-radius: 8px;
     border: 1px solid #c8b89a;
+    cursor: zoom-in;
+  }
+  /* ── 世界觀 / 江湖組織 雙欄圖 ── */
+  .info-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+    margin: 1rem 0 2rem;
+  }
+  @media (max-width: 560px) {
+    .info-images { grid-template-columns: 1fr; }
+  }
+  .info-img-wrap {
+    border: 1px solid #c8b89a;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1a120a;
+  }
+  .info-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: zoom-in;
+    transition: opacity .15s;
+  }
+  .info-img:hover { opacity: .92; }
+  .info-img-label {
+    text-align: center;
+    font-size: .78rem;
+    color: #8a7a50;
+    padding: .38rem .5rem;
+    letter-spacing: .05em;
   }
   /* ── 情境分區標題 ── */
   .phase-header {
@@ -31,7 +64,6 @@
     letter-spacing: .04em;
     white-space: nowrap;
   }
-  .phase-open   { background: #e8f0fe; color: #1a4a9a; }
   .phase-one    { background: #e8f5e9; color: #2a6a3a; }
   .phase-two    { background: #fff3e0; color: #8a4a00; }
   .phase-title  { font-size: 1rem; font-weight: bold; color: #3a2810; }
@@ -39,15 +71,6 @@
   </style>
 </head>
 <body>
-
-<header class="site-header">
-  <a class="logo" href="../../../index.html">📜 LARP Script Archive</a>
-  <nav>
-    <a href="../../../index.html">首頁</a>
-    <a href="../index.html">寇俠</a>
-    <a href="index.html">玩家入口</a>
-  </nav>
-</header>
 
 <!-- 密碼閘門（由 JS 渲染） -->
 <div id="password-gate" style="display:none;"></div>
@@ -61,41 +84,21 @@
     <p>寇俠 — 玩家資訊區</p>
   </div>
 
-  <div class="notice notice-warning">
-    本區包含玩家開場說明與遊戲資訊。<strong>不包含 GM 真相、完整解答或主持人專用資訊。</strong><br />
-    請勿將本頁網址分享給尚未確認會上桌的玩家。
-  </div>
-
   <!-- ══ 登場角色 ══ -->
   <h2>登場角色</h2>
-  <img class="char-grid-img" src="assets/kou-xia-character-grid.jpg" alt="寇俠登場角色一覽" />
+  <img class="char-grid-img zoomable" src="assets/kou-xia-character-grid.jpg" alt="寇俠登場角色一覽" title="點擊放大" />
 
-  <!-- ══ 公開資訊 ══ -->
-  <div class="phase-header">
-    <span class="phase-badge phase-open">公開資訊</span>
-    <span class="phase-title">世界觀背景</span>
-    <span class="phase-note">所有人均可查閱</span>
-  </div>
-  <div class="section-nav">
-
-    <a class="section-item" href="introduction.html">
-      <span class="icon">📖</span>
-      <span class="label">劇本介紹</span>
-      <span class="desc">《寇俠》的故事背景、世界設定與劇本說明。</span>
-    </a>
-
-    <a class="section-item" href="world.html">
-      <span class="icon">🌐</span>
-      <span class="label">世界觀</span>
-      <span class="desc">起朝的歷史背景、朝代更替與江湖環境介紹。</span>
-    </a>
-
-    <a class="section-item" href="organizations.html">
-      <span class="icon">🏛️</span>
-      <span class="label">江湖組織</span>
-      <span class="desc">各主要派系（繡衣使、寇俠、鶴須軍、玄甲軍）的公開介紹。</span>
-    </a>
-
+  <!-- ══ 世界觀 & 江湖組織 ══ -->
+  <h2>世界觀 · 江湖組織</h2>
+  <div class="info-images">
+    <div class="info-img-wrap">
+      <img class="info-img zoomable" src="assets/kou-xia-story-background.jpg" alt="世界觀背景" title="點擊放大" loading="lazy" />
+      <div class="info-img-label">世界觀背景</div>
+    </div>
+    <div class="info-img-wrap">
+      <img class="info-img zoomable" src="assets/kou-xia-faction-overview.jpg" alt="江湖組織" title="點擊放大" loading="lazy" />
+      <div class="info-img-label">江湖組織</div>
+    </div>
   </div>
 
   <!-- ══ 情境一 ══ -->
@@ -183,5 +186,27 @@
 </script>
 
   <script src="../../../assets/js/topbar.js"></script>
+<script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var img = e.target.closest('.zoomable');
+    if (!img) return;
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:99999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;padding:1rem;';
+    var big = document.createElement('img');
+    big.src = img.src; big.alt = img.alt;
+    big.style.cssText = 'max-width:100%;max-height:90vh;object-fit:contain;border-radius:4px;box-shadow:0 4px 40px rgba(0,0,0,.8);';
+    var hint = document.createElement('div');
+    hint.textContent = '點任意處關閉';
+    hint.style.cssText = 'position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);color:#666;font-size:.76rem;pointer-events:none;';
+    overlay.appendChild(big); overlay.appendChild(hint);
+    overlay.addEventListener('click', function () { document.body.removeChild(overlay); });
+    document.addEventListener('keydown', function esc(ev) {
+      if (ev.key === 'Escape') { if (document.body.contains(overlay)) document.body.removeChild(overlay); document.removeEventListener('keydown', esc); }
+    });
+    document.body.appendChild(overlay);
+  });
+}());
+</script>
 </body>
 </html>
