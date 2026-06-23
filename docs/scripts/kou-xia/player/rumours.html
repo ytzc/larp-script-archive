@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>江湖軼聞 — 寇俠公開線索</title>
+  <title>江湖軼聞 — 寇俠</title>
   <link rel="stylesheet" href="../../../assets/css/style.css" />
   <style>
     .rumour-list { display: flex; flex-direction: column; gap: 1.1rem; margin: 1.2rem 0 1.8rem; }
@@ -13,10 +13,6 @@
       border-left: 4px solid var(--red, #8b0000);
       border-radius: 0 8px 8px 0;
       padding: 1.1rem 1.4rem;
-    }
-    .rumour-card.phase2 {
-      border-left-color: #e07040;
-      opacity: .88;
     }
     .rumour-header {
       display: flex;
@@ -36,41 +32,20 @@
       font-weight: bold;
       color: var(--red, #8b0000);
     }
-    .rumour-card.phase2 .rumour-title { color: #8a4000; }
     .rumour-body {
       font-size: .9rem;
       color: #3a3028;
       line-height: 1.85;
       white-space: pre-line;
     }
-    /* 分段標題 */
-    .phase-divider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 2rem 0 .8rem;
-    }
-    .phase-badge {
-      display: inline-block;
-      font-size: .76rem;
-      font-weight: bold;
-      padding: .22em .75em;
-      border-radius: 10px;
-      letter-spacing: .04em;
-      white-space: nowrap;
-    }
-    .phase-one { background: #e8f5e9; color: #2a6a3a; }
-    .phase-two { background: #fff3e0; color: #8a4a00; }
-    .phase-label { font-size: .96rem; font-weight: bold; color: #3a2810; }
-    .phase-note  { font-size: .82rem; color: #999; margin-left: auto; }
-    .phase-warning {
-      background: #fff8e8;
-      border: 1px solid #f0c070;
+    .section-note {
+      font-size: .85rem;
+      color: #777;
+      background: #f5f0e8;
+      border: 1px solid #e0d4c0;
       border-radius: 6px;
       padding: .65rem 1rem;
-      font-size: .84rem;
-      color: #6a4a00;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
       line-height: 1.65;
     }
   </style>
@@ -88,7 +63,7 @@
 </header>
 
 <main>
-  <nav class="top-nav"><a href="index.html">← 玩家入口</a> › 江湖軼聞公開線索</nav>
+  <nav class="top-nav"><a href="index.html">← 玩家入口</a> › 江湖軼聞</nav>
 
   <div class="hero">
     <h1>📰 江湖軼聞</h1>
@@ -96,14 +71,11 @@
   </div>
 
   <div class="notice notice-info">
-    以下為遊戲中玩家可取得的江湖背景資訊。由 GM 依遊戲進度發放，可在推理過程中作為參考。
+    以下 9 張江湖軼聞線索卡均在情境一開始後由 GM 發放傳閱，可在推理過程中作為參考。
   </div>
 
-  <!-- ══ 情境一 ══ -->
-  <div class="phase-divider">
-    <span class="phase-badge phase-one">情境一</span>
-    <span class="phase-label">遊戲開始時發放</span>
-    <span class="phase-note">J01–J04</span>
+  <div class="section-note">
+    📋 共 9 張，由 GM 統一印製。遊戲開始後發放，玩家可互相傳閱，不屬於個人持有。
   </div>
 
   <div class="rumour-list">
@@ -146,21 +118,7 @@
 冷佛林早逝之後，鶴須軍的大統領由他的子嗣冷降塵繼承。</div>
     </div>
 
-  </div>
-
-  <!-- ══ 情境二 ══ -->
-  <div class="phase-divider">
-    <span class="phase-badge phase-two">情境二</span>
-    <span class="phase-label">GM 宣告後發放</span>
-    <span class="phase-note">J05–J09</span>
-  </div>
-  <div class="phase-warning">
-    ⚠️ 以下線索卡由 GM 於情境二開始後依序發放，請等待 GM 說明，勿提前閱讀。
-  </div>
-
-  <div class="rumour-list">
-
-    <div class="rumour-card phase2">
+    <div class="rumour-card">
       <div class="rumour-header">
         <span class="rumour-num">J05</span>
         <span class="rumour-title">赤霞和茶靈</span>
@@ -168,7 +126,7 @@
       <div class="rumour-body">繡衣使中最神秘莫測的兩種藥物。赤霞為迷藥，有異香，被迷暈的人持續昏迷時間很長；而茶靈則是一種劇毒，被茶靈毒殺的人會渾身烏黑，死狀極慘，此藥的味道似乎很臭。</div>
     </div>
 
-    <div class="rumour-card phase2">
+    <div class="rumour-card">
       <div class="rumour-header">
         <span class="rumour-num">J06</span>
         <span class="rumour-title">滅門</span>
@@ -176,7 +134,7 @@
       <div class="rumour-body">鄭木大肆暗殺遍布於九州的大夏皇族何氏後裔。濟陽縣令何彥乃是大夏王朝的八世孫，全家十九口一夜之間慘遭滅門，共發現屍體一十七具。</div>
     </div>
 
-    <div class="rumour-card phase2">
+    <div class="rumour-card">
       <div class="rumour-header">
         <span class="rumour-num">J07</span>
         <span class="rumour-title">私放</span>
@@ -188,7 +146,7 @@
 傳言丁崧武功很高，絕學縛陽掌，中招者會在身體上留下紫黑色掌痕，終身不褪。</div>
     </div>
 
-    <div class="rumour-card phase2">
+    <div class="rumour-card">
       <div class="rumour-header">
         <span class="rumour-num">J08</span>
         <span class="rumour-title">殞落</span>
@@ -198,7 +156,7 @@
 龍瑞二年，冷佛林意外死亡，據說屍體已經變得烏黑，極是駭人。</div>
     </div>
 
-    <div class="rumour-card phase2">
+    <div class="rumour-card">
       <div class="rumour-header">
         <span class="rumour-num">J09</span>
         <span class="rumour-title">寇俠內亂</span>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>個人線索拍賣 — 寇俠</title>
+  <link rel="stylesheet" href="../../../assets/css/style.css" />
+  <style>
+    .clue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin: 1.2rem 0 2rem;
+    }
+    .clue-card {
+      background: var(--paper, #faf6ef);
+      border: 1px solid #c8b89a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .clue-card summary {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .9rem 1.2rem;
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+      background: #f5ede0;
+      border-bottom: 1px solid #e0d0b8;
+    }
+    .clue-card summary::-webkit-details-marker { display: none; }
+    .clue-card[open] summary {
+      background: #ede0cc;
+    }
+    .clue-card summary:hover { background: #ede0cc; }
+    .clue-num {
+      font-size: .72rem;
+      font-weight: bold;
+      color: #aaa;
+      letter-spacing: .07em;
+      min-width: 2.6em;
+    }
+    .clue-subject {
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--red, #8b0000);
+      flex: 1;
+    }
+    .clue-reveal-hint {
+      font-size: .75rem;
+      color: #bbb;
+      transition: color .15s;
+      white-space: nowrap;
+    }
+    .clue-card summary:hover .clue-reveal-hint,
+    .clue-card[open] .clue-reveal-hint {
+      color: #888;
+    }
+    .clue-arrow {
+      font-size: .75rem;
+      color: #bbb;
+      transition: transform .2s;
+    }
+    .clue-card[open] .clue-arrow { transform: rotate(90deg); color: #888; }
+    .clue-content {
+      padding: 1rem 1.2rem 1.1rem;
+    }
+    .clue-desc {
+      font-size: .9rem;
+      color: #3a3028;
+      line-height: 1.85;
+      margin-bottom: .65rem;
+    }
+    .clue-note {
+      font-size: .8rem;
+      color: #888;
+      border-top: 1px dashed #e0d4c0;
+      padding-top: .5rem;
+    }
+    .bid-badge {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: bold;
+      background: #fef3c7;
+      color: #856404;
+      border: 1px solid #f0c060;
+      border-radius: 10px;
+      padding: .12em .55em;
+      white-space: nowrap;
+      margin-left: auto;
+    }
+    .auction-info {
+      background: #fffbf0;
+      border: 1px solid #e8c060;
+      border-radius: 8px;
+      padding: .8rem 1.1rem;
+      font-size: .88rem;
+      color: #5a4010;
+      line-height: 1.75;
+      margin-bottom: 1.4rem;
+    }
+    .auction-info strong { color: #8b6000; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="../../../index.html">📜 LARP Script Archive</a>
+  <nav>
+    <a href="../../../index.html">首頁</a>
+    <a href="../index.html">寇俠</a>
+    <a href="index.html">玩家入口</a>
+  </nav>
+</header>
+
+<main>
+  <nav class="top-nav"><a href="index.html">← 玩家入口</a> › 個人線索拍賣</nav>
+
+  <div class="hero">
+    <h1>🔖 個人線索</h1>
+    <p>寇俠 — 情境一拍賣線索（共 9 張）</p>
+  </div>
+
+  <div class="auction-info">
+    <strong>拍賣規則：</strong>共 9 張個人線索卡，每張對應一位角色，記錄該角色的可觀察特徵。<br>
+    情境一期間由 GM 主持公開競標，<strong>起拍價 10 兩銀票</strong>，出價最高者得標，得標後即可開啟查閱。<br>
+    每張線索只賣一次，由得標玩家個人持有，不需公開內容。
+  </div>
+
+  <div class="notice notice-info">
+    ℹ️ 請在取得該線索後再點擊展開，尊重其他玩家的遊戲體驗。
+  </div>
+
+  <div class="clue-grid">
+
+    <details class="clue-card">
+      <summary>
+        <span class="clue-num">PI 01</span>
+        <span class="clue-subject">王思涵的線索</span>
+        <span class="bid-badge">起拍 10 兩</span>
+        <span class="clue-arrow">▶</span>
+      </summary>
+      <div class="clue-content">
+        <div class="clue-desc">身上帶有一塊碧綠色的玉佩，玉佩上刻著「武」字。</div>
+        <div class="clue-note">取得方式：調查王思涵時取得。</div>
+      </div>
+    </details>
+
+    <details class="clue-card">
+      <summary>
+        <span class="clue-num">PI 02</span>
+        <span class="clue-subject">嚴氏的線索</span>
+        <span class="bid-badge">起拍 10 兩</span>
+        <span class="clue-arrow">▶</span>
+      </summary>
+      <div class="clue-content">
+        <div class="clue-desc">紅紗蒙面，身上還有一幅畫卷，上面畫著一對夫婦和一雙兒女，奇怪的是，畫上的夫婦和男孩都沒有臉，女孩子長得跟嚴氏有點像。</div>
+        <div class="clue-note">取得方式：調查嚴氏時取得。</div>
+      </div>
+    </details>
+
+    <details class="clue-card">
+      <summary>
+        <span class="clue-num">PI 03</span>
+        <span class="clue-subject">王順的線索</span>
+        <span class="bid-badge">起拍 10 兩</span>
+        <span class="clue-arrow">▶</span>
+      </summary>
+      <div class="clue-content">
+        <div class="clue-desc">身形肥胖，拿筷子的手似乎不怎麼利索。</div>
+        <div class="clue-note">取得方式：調查王順時取得。</div>
+      </div>
+    </details>
+
+    <details class="clue-card">
+      <summary>
+        <span class="clue-num">PI 04</span>
+        <span class="clue-subject">農叟的線索</span>
+        <span class="bid-badge">起拍 10 兩</span>
+        <span class="clue-arrow">▶</span>
+      </summary>
+      <div class="clue-content">
+        <div class="clue-desc">身上有一塊潤黃色的玉佩，看起來價值不菲。</div>
+        <div class="clue-note">取得方式：調查農叟時取得。</div>
+      </div>
+    </details>
+
+    <details class="clue-card">
+      <summary>
+        <span class="clue-num">PI 05</span>
+        <span class="clue-subject">張猛的線索</span>
+        <span class="bid-badge">起拍 10 兩</span>
+        <span class="clue-arrow">▶</span>
+      </summary>
+      <div class="clue-content">
+        <div class="clue-desc">身上有一塊碧綠色的玉佩，細看刻著淺淺的羽毛痕跡，身上還帶著一柄小木劍。</div>
+        <div class="clue-note">取得方式：調查張猛時取得。</div>
+      </div>
+    </details>
+
+    <details class="clue-card">
+      <summary>
+        <span class="clue-num">PI 06</span>
+        <span class="clue-subject">金四刀的線索</span>
+        <span class="bid-badge">起拍 10 兩</span>
+        <span class="clue-arrow">▶</span>
+      </summary>
+      <div class="clue-content">
+        <div class="clue-desc">身上有一本封面破舊的武功祕籍，看起來有一定年頭了。</div>
+        <div class="clue-note">取得方式：調查金四刀時取得。</div>
+      </div>
+    </details>
+
+    <details class="clue-card">
+      <summary>
+        <span class="clue-num">PI 07</span>
+        <span class="clue-subject">賈三娘的線索</span>
+        <span class="bid-badge">起拍 10 兩</span>
+        <span class="clue-arrow">▶</span>
+      </summary>
+      <div class="clue-content">
+        <div class="clue-desc">一身紅衣，衣領很高，遮住了肩頸。</div>
+        <div class="clue-note">取得方式：調查賈三娘時取得。</div>
+      </div>
+    </details>
+
+    <details class="clue-card">
+      <summary>
+        <span class="clue-num">PI 08</span>
+        <span class="clue-subject">刁五兒的線索</span>
+        <span class="bid-badge">起拍 10 兩</span>
+        <span class="clue-arrow">▶</span>
+      </summary>
+      <div class="clue-content">
+        <div class="clue-desc">脖頸上纏著厚厚的繃帶，身上帶著一本只有十三頁的祕籍手抄本。</div>
+        <div class="clue-note">取得方式：調查刁五兒時取得。</div>
+      </div>
+    </details>
+
+    <details class="clue-card">
+      <summary>
+        <span class="clue-num">PI 09</span>
+        <span class="clue-subject">嚴逸的線索</span>
+        <span class="bid-badge">起拍 10 兩</span>
+        <span class="clue-arrow">▶</span>
+      </summary>
+      <div class="clue-content">
+        <div class="clue-desc">身體很弱，似乎受過重傷，身上有一本約二十頁的祕籍。</div>
+        <div class="clue-note">取得方式：調查嚴逸時取得。</div>
+      </div>
+    </details>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <a href="index.html">← 玩家入口</a> &nbsp;|&nbsp; LARP Script Archive &nbsp;|&nbsp; <span class="site-version"></span>
+</footer>
+
+<script src="../../../assets/js/version.js"></script>
+</body>
+</html>
