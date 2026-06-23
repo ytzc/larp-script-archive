@@ -6,73 +6,14 @@
   <title>寇俠 — 玩家入口</title>
   <link rel="stylesheet" href="../../../assets/css/style.css" />
   <style>
-  /* ── 角色一覽卡片 ── */
-  .char-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    gap: 1rem;
-    margin: 1.2rem 0 2rem;
-  }
-  .char-card {
-    background: var(--paper, #faf6ef);
-    border: 1px solid #c8b89a;
-    border-radius: 8px;
-    padding: 1.1rem 1.3rem 1.2rem;
+  .char-grid-img {
     display: block;
-    color: inherit;
-    text-decoration: none;
-  }
-  .char-card.npc-card {
-    border-color: #bbb;
-    opacity: .82;
-  }
-  .char-cover-quote {
-    font-size: .82rem;
-    font-style: italic;
-    color: #999;
-    margin-bottom: .7rem;
-    line-height: 1.75;
-    letter-spacing: .02em;
-  }
-  .char-name-row {
-    display: flex;
-    align-items: baseline;
-    gap: .45rem;
-    flex-wrap: wrap;
-    margin-bottom: .4rem;
-  }
-  .char-name {
-    font-size: 1.15rem;
-    font-weight: bold;
-    color: var(--red, #8b0000);
-  }
-  .char-card.npc-card .char-name { color: #666; }
-  .char-player {
-    font-size: .82rem;
-    color: #777;
-  }
-  .char-age {
-    font-size: .82rem;
-    color: #999;
-  }
-  .char-appearance {
-    font-size: .84rem;
-    color: #444;
-    line-height: 1.7;
-    border-top: 1px solid #e0d4c0;
-    margin-top: .6rem;
-    padding-top: .55rem;
-  }
-  .npc-badge {
-    display: inline-block;
-    font-size: .68rem;
-    padding: .1em .45em;
-    background: #eee;
-    color: #777;
-    border-radius: 10px;
-    vertical-align: middle;
-    margin-left: .25rem;
-    font-style: normal;
+    width: 100%;
+    max-width: 640px;
+    height: auto;
+    margin: 1rem 0 2rem;
+    border-radius: 8px;
+    border: 1px solid #c8b89a;
   }
   /* ── 情境分區標題 ── */
   .phase-header {
@@ -127,99 +68,7 @@
 
   <!-- ══ 登場角色 ══ -->
   <h2>登場角色</h2>
-  <div class="char-grid">
-
-    <div class="char-card">
-      <div class="char-cover-quote">桃李春風一杯酒，江湖夜雨十年燈。</div>
-      <div class="char-name-row">
-        <span class="char-name">王思涵</span>
-        <span class="char-player">Luna</span>
-        <span class="char-age">· 21 歲</span>
-      </div>
-      <div class="char-appearance">才貌俱佳的賣唱女，著一件絳紫色的細麻長裙，眉眼間似有傲氣。</div>
-    </div>
-
-    <div class="char-card">
-      <div class="char-cover-quote">踏遍去來枝，孤鴻獨自飛。</div>
-      <div class="char-name-row">
-        <span class="char-name">賈三娘</span>
-        <span class="char-player">Peggy</span>
-        <span class="char-age">· 34 歲</span>
-      </div>
-      <div class="char-appearance">風韻猶存的客棧老闆娘，身著一襲紅衣。</div>
-    </div>
-
-    <div class="char-card">
-      <div class="char-cover-quote">已慣江湖作浪游，愛恨情仇總難休。</div>
-      <div class="char-name-row">
-        <span class="char-name">刁五兒</span>
-        <span class="char-player">佩璇</span>
-        <span class="char-age">· 22 歲</span>
-      </div>
-      <div class="char-appearance">瘦小乾枯，黑布蒙面的漢子，做客商打扮。</div>
-    </div>
-
-    <div class="char-card">
-      <div class="char-cover-quote">青燈古卷拭劍，落日餘生紅顏。</div>
-      <div class="char-name-row">
-        <span class="char-name">嚴逸</span>
-        <span class="char-player">健元</span>
-        <span class="char-age">· 36 歲</span>
-      </div>
-      <div class="char-appearance">清瘦但有魅力的男子，書生打扮，眉宇間有淡淡的黑印。</div>
-    </div>
-
-    <div class="char-card">
-      <div class="char-cover-quote">朝暮不棄，白首不離。</div>
-      <div class="char-name-row">
-        <span class="char-name">嚴氏</span>
-        <span class="char-player">媛媛</span>
-        <span class="char-age">· 22 歲</span>
-      </div>
-      <div class="char-appearance">身材曼妙的女子，著一身青色裙裝，面部被赤紗遮掩。</div>
-    </div>
-
-    <div class="char-card">
-      <div class="char-cover-quote">平生不修善果，只愛殺人放火。</div>
-      <div class="char-name-row">
-        <span class="char-name">王順</span>
-        <span class="char-player">宣毅</span>
-        <span class="char-age">· 43 歲</span>
-      </div>
-      <div class="char-appearance">賣唱女的父親，身形臃腫。</div>
-    </div>
-
-    <div class="char-card">
-      <div class="char-cover-quote">自古名士如美人，不許人間見白頭。</div>
-      <div class="char-name-row">
-        <span class="char-name">農叟</span>
-        <span class="char-player">佩妏</span>
-        <span class="char-age">· 50 歲左右</span>
-      </div>
-      <div class="char-appearance">雙手布滿老繭的農漢，頭髮花白，皮膚黝黑。</div>
-    </div>
-
-    <div class="char-card">
-      <div class="char-cover-quote">胸中藏戰將，腹內隱雄兵。</div>
-      <div class="char-name-row">
-        <span class="char-name">金四刀</span>
-        <span class="char-player">建翔</span>
-        <span class="char-age">· 26 歲</span>
-      </div>
-      <div class="char-appearance">俊朗倨傲，氣勢卓絕的男子。</div>
-    </div>
-
-    <div class="char-card npc-card">
-      <div class="char-cover-quote">只因衣冠無義俠，遂令草澤有奇雄。</div>
-      <div class="char-name-row">
-        <span class="char-name">張猛<span class="npc-badge">NPC</span></span>
-        <span class="char-player">子擎</span>
-        <span class="char-age">· 27 歲</span>
-      </div>
-      <div class="char-appearance">虯髯黑鬚，豪爽無比的大漢，做客商打扮。</div>
-    </div>
-
-  </div>
+  <img class="char-grid-img" src="assets/kou-xia-character-grid.jpg" alt="寇俠登場角色一覽" />
 
   <!-- ══ 公開資訊 ══ -->
   <div class="phase-header">
@@ -245,12 +94,6 @@
       <span class="icon">🏛️</span>
       <span class="label">江湖組織</span>
       <span class="desc">各主要派系（繡衣使、寇俠、鶴須軍、玄甲軍）的公開介紹。</span>
-    </a>
-
-    <a class="section-item" href="roster.html">
-      <span class="icon">👥</span>
-      <span class="label">角色名冊（公開版）</span>
-      <span class="desc">各角色的公開身份、外觀與飾演玩家。</span>
     </a>
 
   </div>
