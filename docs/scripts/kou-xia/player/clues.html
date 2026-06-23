@@ -217,27 +217,42 @@ tr:nth-child(even)td{background:#faf5ee}
 
 <!-- 調查方式 -->
 <div class="section">
-  <h2>🔎 調查方式</h2>
+  <h2>🔎 線索與物資取得方式</h2>
   <div class="search-steps">
     <div class="step">
-      <div class="step-num">① 自由行動搜查</div>
-      <div class="step-title">向 GM 申請搜查</div>
-      <div class="step-desc">在自由行動環節，可向 GM 申請搜查特定區域或詢問特定對象。GM 裁定結果後，搜查結果僅搜查者本人知道，除非主動公開。</div>
+      <div class="step-num">① 情境一・公開傳閱</div>
+      <div class="step-title">江湖軼聞（9 張）</div>
+      <div class="step-desc">遊戲開始後由 GM 統一發放，全員傳閱，可互相借閱，不屬於個人持有。</div>
     </div>
     <div class="step">
-      <div class="step-num">② 挖寶環節</div>
-      <div class="step-title">尋找隱藏線索卡</div>
-      <div class="step-desc">計時 30 分鐘，玩家在場景中尋找 GM 事先隱藏的線索卡（約 8–12 張）。找到線索卡後，玩家自行決定是否公開分享。</div>
+      <div class="step-num">② 情境一・競標拍賣</div>
+      <div class="step-title">個人線索（9 張）</div>
+      <div class="step-desc">由 GM 主持公開競標，起拍價 <strong>10 兩銀票</strong>。出價最高者得標，得標後方可開啟查閱，<strong>內容不需公開</strong>。</div>
     </div>
     <div class="step">
-      <div class="step-num">③ 角色互動</div>
+      <div class="step-num">③ 情境一・江湖密行</div>
+      <div class="step-title">挖寶：取得物資（非線索）</div>
+      <div class="step-desc">共 9 輪「猜數字」競猜遊戲（0–100），猜中者得到<strong>物品卡</strong>（銀票兌換卡、鶴紅草等）。<strong>此環節不發放線索卡。</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">④ 情境二・GM 發放</div>
+      <div class="step-title">兇案線索（15 張）</div>
+      <div class="step-desc">進入情境二後，玩家依序向 GM 領取，每人 2 張，最後一位玩家 1 張（共 8 人）。抽到後自行決定是否公開。</div>
+    </div>
+    <div class="step">
+      <div class="step-num">⑤ 情境二・屍體蒐證</div>
+      <div class="step-title">屍體線索（C1–C3）＋ 書信（L1）</div>
+      <div class="step-desc">由 GM 布置於凶案現場，玩家可直接查看，為公開線索。蒐證時每人<strong>只能從屍體取走一張卡片</strong>（線索或道具均計）。</div>
+    </div>
+    <div class="step">
+      <div class="step-num">⑥ 情境二・小二證詞</div>
+      <div class="step-title">小二證詞（8 張）</div>
+      <div class="step-desc">反面朝上洗混後排列，玩家依次各抽一張，<strong>不得抽取自己角色的證詞卡</strong>（抽到請放回重抽）。</div>
+    </div>
+    <div class="step">
+      <div class="step-num">⑦ 角色互動</div>
       <div class="step-title">與其他角色交流情報</div>
       <div class="step-desc">私下或公開與其他角色交換資訊。每個角色的個人劇本都包含只有他/她知道的初始線索，透過交流可以拼湊更完整的圖像。</div>
-    </div>
-    <div class="step">
-      <div class="step-num">④ 盤凶環節</div>
-      <div class="step-title">公開討論，提出指控</div>
-      <div class="step-desc">在盤凶環節中，所有玩家公開討論案情，分享線索，共同推理凶手身份。可提出質疑或指控，GM 協助裁定。</div>
     </div>
   </div>
 </div>
@@ -270,22 +285,22 @@ tr:nth-child(even)td{background:#faf5ee}
         <td><span class="badge b-search">可調查</span></td>
       </tr>
       <tr>
-        <td>J1–J9</td>
-        <td>江湖逸聞線索（9 張），關於大夏、起朝、寇俠、繡衣使的公開背景資訊</td>
-        <td>各角色初始持有或挖寶取得</td>
-        <td><span class="badge b-hidden">待收集</span></td>
+        <td>J01–J09</td>
+        <td>江湖軼聞（9 張），關於大夏、起朝、寇俠、繡衣使的公開背景資訊</td>
+        <td>情境一：GM 統一發放，全員公開傳閱</td>
+        <td><span class="badge b-open">公開傳閱</span></td>
       </tr>
       <tr>
-        <td>F1–F15</td>
-        <td>凶案線索（15 張），與案件直接相關的物證與情報。玩家依次上前各抽 2 張，最後一位玩家抽 1 張。</td>
-        <td>情境二：所有玩家依序上前抽取（反面朝上）</td>
+        <td>PI01–PI09</td>
+        <td>個人線索（9 張），對應各角色的可觀察特徵與隨身物品</td>
+        <td>情境一：GM 主持競標拍賣，起拍 10 兩，得標後個人持有</td>
+        <td><span class="badge b-qa">競標取得</span></td>
+      </tr>
+      <tr>
+        <td>F01–F15</td>
+        <td>兇案線索（15 張），與案件直接相關的物證與情報</td>
+        <td>情境二：玩家依序向 GM 領取，每人 2 張，最後一人 1 張</td>
         <td><span class="badge b-hidden">待發現</span></td>
-      </tr>
-      <tr>
-        <td>P1–P9</td>
-        <td>個人線索（9 張），各角色的私人情報，可透過交流取得</td>
-        <td>角色交流取得</td>
-        <td><span class="badge b-hidden">待交流</span></td>
       </tr>
     </tbody>
   </table>

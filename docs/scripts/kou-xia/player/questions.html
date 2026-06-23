@@ -7,20 +7,17 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --red: #8b0000; --red-lt: #fff0f0;
-      --green: #155724; --green-lt: #d4edda;
-      --orange: #8a4a00; --orange-lt: #fff3e0;
+      --red: #8b0000; --green: #155724;
       --paper: #faf6ef; --white: #fff; --ink: #1c1c1c; --muted: #666;
       --border: #e0d0c0; --shadow: 0 1px 5px rgba(0,0,0,.1);
     }
     html { font-size: 16px; }
     body {
-      font-family: 'Segoe UI', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+      font-family: 'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;
       background: var(--paper); color: var(--ink); line-height: 1.7;
       padding-bottom: env(safe-area-inset-bottom, 24px);
     }
 
-    /* ── Top bar ── */
     .topbar {
       background: var(--red); color: #fff;
       padding: .7rem 1rem; font-size: .9rem; font-weight: 700;
@@ -28,7 +25,6 @@
     }
     .topbar a { color: #ffc0c0; text-decoration: none; font-weight: 400; font-size: .82rem; }
 
-    /* ── Character selector ── */
     .char-bar {
       background: var(--white); border-bottom: 2px solid var(--border);
       padding: .75rem 1rem; position: sticky; top: 0; z-index: 20;
@@ -46,52 +42,32 @@
     }
     .char-select:focus { outline: none; border-color: #c00; box-shadow: 0 0 0 3px rgba(139,0,0,.15); }
 
-    /* ── Progress bar ── */
     .progress-bar {
       display: flex; align-items: center; gap: .6rem;
       padding: .5rem 1rem; background: var(--white);
       border-bottom: 1px solid var(--border); font-size: .84rem;
     }
     .progress-dots { display: flex; gap: .3rem; flex-wrap: wrap; }
-    .dot {
-      width: 12px; height: 12px; border-radius: 50%;
-      background: #ddd; transition: background .2s;
-    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; background: #ddd; transition: background .2s; }
     .dot.filled { background: var(--green); }
+    .dot.r2 { background: #f0c060; }
+    .dot.r2.filled { background: #d4a010; }
     .progress-text { color: var(--muted); margin-left: auto; font-size: .8rem; white-space: nowrap; }
 
-    /* ── Main content ── */
     .wrapper { max-width: 680px; margin: 0 auto; padding: 1rem 1rem 3rem; }
 
-    /* ── Round sections ── */
-    .round {
-      background: var(--white); border-radius: 10px;
-      box-shadow: var(--shadow); margin-bottom: 1.2rem; overflow: hidden;
-    }
-    .round-header {
-      display: flex; align-items: center; gap: .75rem;
-      padding: .8rem 1.1rem; border-bottom: 1px solid var(--border);
-    }
-    .round-badge {
-      display: inline-block; font-size: .72rem; font-weight: bold;
-      padding: .2em .7em; border-radius: 10px; white-space: nowrap;
-    }
+    .round { background: var(--white); border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 1.2rem; overflow: hidden; }
+    .round-header { display: flex; align-items: center; gap: .75rem; padding: .8rem 1.1rem; border-bottom: 1px solid var(--border); }
+    .round-badge { display: inline-block; font-size: .72rem; font-weight: bold; padding: .2em .7em; border-radius: 10px; white-space: nowrap; }
     .badge-one { background: #e8f5e9; color: #2a6a3a; border: 1px solid #b8d8b8; }
     .badge-two { background: #fff3e0; color: #8a4a00; border: 1px solid #f0c060; }
     .round-title { font-weight: bold; font-size: 1rem; color: #3a2810; }
     .round-note { font-size: .8rem; color: var(--muted); margin-left: auto; }
 
-    /* ── Question items ── */
     .question { padding: 1rem 1.1rem; border-bottom: 1px solid var(--border); }
     .question:last-child { border-bottom: none; }
-    .q-num {
-      font-size: .78rem; font-weight: bold; color: var(--red);
-      letter-spacing: .05em; margin-bottom: .3rem;
-    }
-    .q-text {
-      font-size: .96rem; color: var(--ink); line-height: 1.65;
-      margin-bottom: .65rem; font-weight: 500;
-    }
+    .q-num { font-size: .78rem; font-weight: bold; color: var(--red); letter-spacing: .05em; margin-bottom: .3rem; }
+    .q-text { font-size: .96rem; color: var(--ink); line-height: 1.65; margin-bottom: .65rem; font-weight: 500; }
     .q-answer {
       width: 100%; min-height: 80px; padding: .65rem .85rem;
       border: 1.5px solid var(--border); border-radius: 7px;
@@ -99,26 +75,32 @@
       background: var(--paper); color: var(--ink); resize: vertical;
       transition: border-color .18s, box-shadow .18s;
     }
-    .q-answer:focus {
-      outline: none; border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(139,0,0,.1);
-    }
+    .q-answer:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(139,0,0,.1); }
     .q-answer.has-answer { border-color: #4caf50; background: #f9fff9; }
-    .q-save-hint {
-      font-size: .75rem; color: var(--muted); margin-top: .3rem; text-align: right;
-      transition: color .3s;
-    }
+    .q-save-hint { font-size: .75rem; color: var(--muted); margin-top: .3rem; text-align: right; transition: color .3s; }
     .q-save-hint.saved { color: #4caf50; }
 
-    /* ── Pending notice ── */
-    .q-pending {
-      padding: 1.1rem 1.1rem;
-      color: #7a5a00; background: #fffbf0;
-      font-size: .88rem; line-height: 1.7;
-      border-top: 1px solid #f0e0a0;
+    /* ── R2 lock overlay ── */
+    .r2-lock {
+      padding: 1.6rem 1.1rem 1.8rem;
+      text-align: center;
     }
+    .r2-lock-icon { font-size: 2rem; margin-bottom: .5rem; }
+    .r2-lock-msg { font-size: .92rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.6; }
+    .r2-pw-row { display: flex; gap: .5rem; max-width: 280px; margin: 0 auto; }
+    .r2-pw-input {
+      flex: 1; padding: .55rem .8rem; border: 1.5px solid var(--border); border-radius: 7px;
+      font-family: inherit; font-size: .95rem; background: var(--paper);
+      color: var(--ink); text-align: center; letter-spacing: .15em;
+    }
+    .r2-pw-input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(139,0,0,.1); }
+    .r2-pw-btn {
+      padding: .55rem 1rem; background: var(--red); color: #fff; border: none;
+      border-radius: 7px; cursor: pointer; font-family: inherit; font-size: .9rem; font-weight: 600;
+    }
+    .r2-pw-btn:hover { background: #a00; }
+    .r2-pw-error { color: #c00; font-size: .82rem; margin-top: .5rem; }
 
-    /* ── Score summary ── */
     .score-card {
       background: var(--white); border-radius: 10px; box-shadow: var(--shadow);
       padding: 1rem 1.1rem; margin-bottom: 1.2rem;
@@ -130,19 +112,21 @@
     .score-count { font-size: 1.4rem; font-weight: bold; color: var(--red); line-height: 1.2; }
     .score-max { font-size: .85rem; color: var(--muted); }
     .clear-btn {
-      padding: .4rem .9rem; border-radius: 20px;
-      border: 1px solid #ddd; background: transparent;
-      color: var(--muted); cursor: pointer; font-size: .8rem; font-family: inherit;
-      transition: all .15s;
+      padding: .4rem .9rem; border-radius: 20px; border: 1px solid #ddd;
+      background: transparent; color: var(--muted); cursor: pointer;
+      font-size: .8rem; font-family: inherit; transition: all .15s;
     }
     .clear-btn:hover { border-color: var(--red); color: var(--red); }
 
-    /* ── Empty state ── */
-    .empty-state {
-      text-align: center; padding: 3rem 1rem; color: var(--muted);
-    }
+    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--muted); }
     .empty-state .icon { font-size: 2.5rem; margin-bottom: .75rem; }
     .empty-state p { font-size: .92rem; }
+
+    .reward-note {
+      font-size: .8rem; color: #7a5a00; background: #fffbf0;
+      border: 1px solid #f0e0a0; border-radius: 6px;
+      padding: .5rem .85rem; margin-top: .3rem;
+    }
   </style>
 </head>
 <body>
@@ -152,7 +136,6 @@
   <a href="index.html">← 玩家入口</a>
 </div>
 
-<!-- 角色選擇 -->
 <div class="char-bar">
   <label for="char-select">選擇你的角色：</label>
   <select id="char-select" class="char-select">
@@ -168,7 +151,6 @@
   </select>
 </div>
 
-<!-- 進度條 -->
 <div class="progress-bar" id="progress-bar" style="display:none;">
   <div class="progress-dots" id="progress-dots"></div>
   <span class="progress-text" id="progress-text"></span>
@@ -183,24 +165,48 @@
 </div>
 
 <script>
-// ── Per-character question data from DM manual ──
-// r1 = 情境一第一輪；r2 = 情境二第二輪
-// null = questions not yet confirmed (待確認)
-const QUESTIONS_DATA = {
+const QD = {
   'wang-si-han': {
     name: '王思涵',
-    r1: null,
-    r2: null
+    r1: [
+      '何乃武的真實身份是什麼？',
+      '何乃武來盤興口的真實目的？',
+      '客棧衆人中誰是冷降塵？'
+    ],
+    r2: [
+      '殺害你兄長旭晨的真兇是誰？',
+      '兇手是如何殺害旭晨的？',
+      '目前寇俠軍中究竟有沒有臥底，如果有，是誰？',
+      '天福客棧中和繡衣使有關的人都有誰？請至少說出 3 個名字。'
+    ]
   },
   'jia-san-niang': {
     name: '賈三娘',
-    r1: null,
-    r2: null
+    r1: [
+      '上峯派誰來和你接頭？請說出 ta 在客棧中的名字。',
+      '旭敏芝變裝化名來到天福客棧的目的是什麼？',
+      '誰和舊朝大夏有直接或間接的關係？至少說出 2 個名字。'
+    ],
+    r2: [
+      '有幾個人中過縛陽掌，都是誰？',
+      '給你通風報信盤興口有大夏重臣的線人是誰？',
+      '王順的真實身份是？',
+      '目前在天福客棧中和大夏一朝有關的人都是誰？請至少說出三人。'
+    ]
   },
   'diao-wu-er': {
     name: '刁五兒',
-    r1: null,
-    r2: null
+    r1: [
+      '這次冷降塵率領寇俠部衆來到盤興口的目的是什麼？',
+      '客棧中都有誰是繡衣使？至少說出兩人。',
+      '玄甲軍邀請你們前來的真實目的是什麼？'
+    ],
+    r2: [
+      '殺害你父親冷佛林的真兇是誰？',
+      '你的同僚金四刀給人的感覺高深莫測，你知道他的真正身份和目的都是什麼嗎？',
+      '你的武功是誰教的？請說出對方的真名。',
+      '爲何你的武功反噬效果這麼厲害？'
+    ]
   },
   'yan-yi': {
     name: '嚴逸',
@@ -232,8 +238,17 @@ const QUESTIONS_DATA = {
   },
   'wang-shun': {
     name: '王順',
-    r1: null,
-    r2: null
+    r1: [
+      '王思涵來天福客棧的目的是什麼？',
+      '天福客棧中的哪個人才是你先前寫信聯絡的繡衣使密探？',
+      '天福客棧中和大夏舊朝有關的人有誰？（至少說出兩個）'
+    ],
+    r2: [
+      '刁五兒和冷降塵是什麼關係？',
+      '誰掌握了你的祕密，留下了信件？',
+      '除了你之外，還有誰是繡衣使的民間線人？',
+      '天福客棧中，誰是繡衣使的核心成員？'
+    ]
   },
   'nong-sou': {
     name: '農叟',
@@ -251,173 +266,221 @@ const QUESTIONS_DATA = {
   },
   'jin-si-dao': {
     name: '金四刀',
-    r1: null,
-    r2: null
+    r1: [
+      '誰才是你要找的大夏重臣？對方的真名是什麼？',
+      '是誰邀請鶴須軍來到盤興口的？',
+      '旭敏芝到客棧的目的是什麼？'
+    ],
+    r2: [
+      '是誰殺害了你何氏全家？',
+      '你家中是否還有人存活下來？如果有，是誰？',
+      '誰是冷佛林的後人，誰是玄甲軍的實際統帥？',
+      '天福客棧中誰是繡衣使的核心成員？（至少說出兩個）'
+    ]
   }
 };
 
+const LS_R2_UNLOCKED = 'kou-xia-qa__r2unlocked';
 let currentChar = '';
+let r2Unlocked = localStorage.getItem(LS_R2_UNLOCKED) === 'gm';
 
-const charSelect   = document.getElementById('char-select');
-const emptyState   = document.getElementById('empty-state');
-const qaContent    = document.getElementById('qa-content');
-const progressBar  = document.getElementById('progress-bar');
-const wrapper      = document.getElementById('wrapper');
+const charSelect  = document.getElementById('char-select');
+const emptyState  = document.getElementById('empty-state');
+const qaContent   = document.getElementById('qa-content');
+const progressBar = document.getElementById('progress-bar');
+const wrapper     = document.getElementById('wrapper');
 
-function lsKey(qid) {
-  return 'kou-xia-qa__' + currentChar + '__' + qid;
-}
+function lsKey(char, qid) { return 'kou-xia-qa__' + char + '__' + qid; }
 
 function allQids(data) {
   const ids = [];
-  if (data.r1) data.r1.forEach((_, i) => ids.push('r1q' + (i + 1)));
-  if (data.r2) data.r2.forEach((_, i) => ids.push('r2q' + (i + 1)));
+  data.r1.forEach(function(_, i) { ids.push({ qid: 'r1q'+(i+1), r: 1 }); });
+  data.r2.forEach(function(_, i) { ids.push({ qid: 'r2q'+(i+1), r: 2 }); });
   return ids;
 }
 
-function renderRound(round, questions, charName) {
-  const rKey   = 'r' + round;
-  const badge  = round === 1 ? 'badge-one' : 'badge-two';
-  const label  = round === 1 ? '情境一' : '情境二';
-  const title  = round === 1 ? '第一輪答題' : '第二輪答題';
-  const note   = round === 1 ? '遊戲開始後' : 'GM 宣告後開放';
-
-  let html = '<div class="round"><div class="round-header">'
-    + '<span class="round-badge ' + badge + '">' + label + '</span>'
-    + '<span class="round-title">' + title + '</span>'
-    + '<span class="round-note">' + note + '</span>'
-    + '</div>';
-
-  if (questions === null) {
-    html += '<div class="q-pending">⏳ ' + charName + '的' + label + '題目尚待 GM 確認，遊戲當天請向主持人詢問。</div>';
-  } else {
-    questions.forEach(function(qText, idx) {
-      const qid = rKey + 'q' + (idx + 1);
-      html += '<div class="question">'
-        + '<div class="q-num">Q' + (idx + 1) + ' — ' + label + '</div>'
-        + '<div class="q-text">' + qText + '</div>'
-        + '<textarea class="q-answer" id="' + qid + '" placeholder="請填寫你的答案…" rows="3"></textarea>'
-        + '<div class="q-save-hint" id="' + qid + '-hint">未填寫</div>'
-        + '</div>';
-    });
-  }
+function buildR1(data, char) {
+  var html = '<div class="round"><div class="round-header">'
+    + '<span class="round-badge badge-one">情境一</span>'
+    + '<span class="round-title">第一輪答題</span>'
+    + '<span class="round-note">遊戲開始後</span></div>';
+  data.r1.forEach(function(q, i) {
+    var qid = 'r1q'+(i+1);
+    html += '<div class="question">'
+      + '<div class="q-num">Q'+(i+1)+' — 情境一</div>'
+      + '<div class="q-text">'+q+'</div>'
+      + '<textarea class="q-answer" id="'+qid+'" placeholder="請填寫你的答案…" rows="3"></textarea>'
+      + '<div class="q-save-hint" id="'+qid+'-hint">未填寫</div>'
+      + '</div>';
+  });
+  html += '<div style="padding:.6rem 1.1rem;"><div class="reward-note">💰 每題只能作答一次，答對一題獲得 10 兩銀子（無法得知哪題正確）。</div></div>';
   return html + '</div>';
 }
 
-function renderQA(charId) {
-  const data = QUESTIONS_DATA[charId];
-  if (!data) return;
-
-  const totalKnown = (data.r1 ? data.r1.length : 0) + (data.r2 ? data.r2.length : 0);
-  const totalLabel = totalKnown > 0 ? '/ ' + totalKnown + ' 題' : '';
-
-  let html = '<div class="score-card">'
-    + '<div class="score-icon">🎯</div>'
-    + '<div class="score-info">'
-    + '<div class="score-label">已填寫答案</div>'
-    + '<div class="score-count"><span id="filled-count">0</span> <span class="score-max">' + totalLabel + '</span></div>'
+function buildR2Locked() {
+  return '<div class="round"><div class="round-header">'
+    + '<span class="round-badge badge-two">情境二</span>'
+    + '<span class="round-title">第二輪答題</span>'
+    + '<span class="round-note">GM 宣告後開放</span></div>'
+    + '<div class="r2-lock" id="r2-lock">'
+    + '<div class="r2-lock-icon">🔒</div>'
+    + '<div class="r2-lock-msg">情境二題目需要 GM 輸入密碼後開放。<br>請將手機交給 GM 解鎖。</div>'
+    + '<div class="r2-pw-row">'
+    + '<input type="password" class="r2-pw-input" id="r2-pw" placeholder="GM 密碼" />'
+    + '<button class="r2-pw-btn" id="r2-pw-btn">解鎖</button>'
     + '</div>'
-    + '<button class="clear-btn" id="clear-btn">清除全部</button>'
-    + '</div>';
+    + '<div class="r2-pw-error" id="r2-pw-err" style="display:none">密碼錯誤，請再試一次。</div>'
+    + '</div></div>';
+}
 
-  html += renderRound(1, data.r1, data.name);
-  html += renderRound(2, data.r2, data.name);
+function buildR2Questions(data, char) {
+  var html = '<div class="round" id="r2-round"><div class="round-header">'
+    + '<span class="round-badge badge-two">情境二</span>'
+    + '<span class="round-title">第二輪答題</span>'
+    + '<span class="round-note">引蛇出洞</span></div>';
+  data.r2.forEach(function(q, i) {
+    var qid = 'r2q'+(i+1);
+    html += '<div class="question">'
+      + '<div class="q-num">Q'+(i+1)+' — 情境二</div>'
+      + '<div class="q-text">'+q+'</div>'
+      + '<textarea class="q-answer" id="'+qid+'" placeholder="請填寫你的答案…" rows="3"></textarea>'
+      + '<div class="q-save-hint" id="'+qid+'-hint">未填寫</div>'
+      + '</div>';
+  });
+  html += '<div style="padding:.6rem 1.1rem;"><div class="reward-note">💰 每題只能作答一次，答對一題獲得 10 兩銀子（無法得知哪題正確）。</div></div>';
+  return html + '</div>';
+}
 
+function renderQA(char) {
+  var data = QD[char];
+  var total = data.r1.length + data.r2.length;
+  var html = '<div class="score-card">'
+    + '<div class="score-icon">🎯</div>'
+    + '<div class="score-info"><div class="score-label">已填寫答案</div>'
+    + '<div class="score-count"><span id="filled-count">0</span>'
+    + ' <span class="score-max">/ '+total+' 題</span></div></div>'
+    + '<button class="clear-btn" id="clear-btn">清除全部</button></div>';
+  html += buildR1(data, char);
+  html += r2Unlocked ? buildR2Questions(data, char) : buildR2Locked();
   qaContent.innerHTML = html;
-
   document.getElementById('clear-btn').addEventListener('click', clearAnswers);
-
-  loadAnswers(data);
-  updateProgress(data);
+  if (!r2Unlocked) attachLockHandler(char);
+  loadAnswers(data, char);
+  updateProgress(data, char);
 }
 
-function loadAnswers(data) {
-  allQids(data).forEach(function(qid) {
-    const el  = document.getElementById(qid);
-    const val = localStorage.getItem(lsKey(qid)) || '';
-    if (!el) return;
-    el.value = val;
-    refreshAnswerState(el, qid, val);
-  });
-}
-
-function refreshAnswerState(el, qid, val) {
-  const hint = document.getElementById(qid + '-hint');
-  if (!hint) return;
-  if (val && val.trim()) {
-    el.classList.add('has-answer');
-    hint.textContent = '已填寫';
-  } else {
-    el.classList.remove('has-answer');
-    hint.textContent = '未填寫';
-    hint.classList.remove('saved');
+function attachLockHandler(char) {
+  var btn = document.getElementById('r2-pw-btn');
+  var inp = document.getElementById('r2-pw');
+  var err = document.getElementById('r2-pw-err');
+  function tryUnlock() {
+    if (inp.value.trim().toLowerCase() === 'gm') {
+      r2Unlocked = true;
+      localStorage.setItem(LS_R2_UNLOCKED, 'gm');
+      var lockDiv = document.getElementById('r2-lock').parentNode;
+      lockDiv.outerHTML = buildR2Questions(QD[char], char);
+      var data = QD[char];
+      loadR2Answers(data, char);
+      updateProgress(data, char);
+    } else {
+      err.style.display = '';
+      inp.value = '';
+      inp.focus();
+    }
   }
+  btn.addEventListener('click', tryUnlock);
+  inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') tryUnlock(); });
 }
 
-function updateProgress(data) {
-  const qids = allQids(data);
-  let filled = 0;
-  qids.forEach(function(qid) {
-    const val = localStorage.getItem(lsKey(qid));
-    if (val && val.trim()) filled++;
-  });
+function loadAnswers(data, char) {
+  data.r1.forEach(function(_, i) { loadOne(char, 'r1q'+(i+1)); });
+  if (r2Unlocked) { data.r2.forEach(function(_, i) { loadOne(char, 'r2q'+(i+1)); }); }
+}
 
-  const countEl = document.getElementById('filled-count');
+function loadR2Answers(data, char) {
+  data.r2.forEach(function(_, i) { loadOne(char, 'r2q'+(i+1)); });
+}
+
+function loadOne(char, qid) {
+  var el = document.getElementById(qid);
+  if (!el) return;
+  var val = localStorage.getItem(lsKey(char, qid)) || '';
+  el.value = val;
+  refreshState(el, qid, val);
+}
+
+function refreshState(el, qid, val) {
+  var hint = document.getElementById(qid + '-hint');
+  if (!hint) return;
+  if (val && val.trim()) { el.classList.add('has-answer'); hint.textContent = '已填寫'; }
+  else { el.classList.remove('has-answer'); hint.textContent = '未填寫'; hint.classList.remove('saved'); }
+}
+
+function updateProgress(data, char) {
+  var qids = allQids(data);
+  var r1count = 0, r1total = data.r1.length;
+  var r2count = 0, r2total = r2Unlocked ? data.r2.length : 0;
+  var filled = 0;
+  qids.forEach(function(q) {
+    var val = localStorage.getItem(lsKey(char, q.qid));
+    var has = val && val.trim();
+    if (q.r === 1) { r1total = r1total; if (has) { filled++; r1count++; } }
+    if (q.r === 2 && r2Unlocked) { if (has) { filled++; r2count++; } }
+  });
+  var countEl = document.getElementById('filled-count');
   if (countEl) countEl.textContent = filled;
 
-  const dots = document.getElementById('progress-dots');
+  var dots = document.getElementById('progress-dots');
   if (!dots) return;
   dots.innerHTML = '';
-  qids.forEach(function(qid) {
-    const d = document.createElement('div');
-    const val = localStorage.getItem(lsKey(qid));
+  data.r1.forEach(function(_, i) {
+    var d = document.createElement('div');
+    var val = localStorage.getItem(lsKey(char, 'r1q'+(i+1)));
     d.className = 'dot' + (val && val.trim() ? ' filled' : '');
     dots.appendChild(d);
   });
-
-  const ptxt = document.getElementById('progress-text');
+  if (r2Unlocked) {
+    data.r2.forEach(function(_, i) {
+      var d = document.createElement('div');
+      var val = localStorage.getItem(lsKey(char, 'r2q'+(i+1)));
+      d.className = 'dot r2' + (val && val.trim() ? ' filled' : '');
+      dots.appendChild(d);
+    });
+  }
+  var ptxt = document.getElementById('progress-text');
   if (ptxt) {
-    ptxt.textContent = qids.length > 0
-      ? filled + ' / ' + qids.length + ' 題已填'
-      : '題目待確認';
+    var shown = r2Unlocked ? data.r1.length + data.r2.length : data.r1.length;
+    ptxt.textContent = filled + ' / ' + shown + ' 題已填';
   }
 }
 
 function clearAnswers() {
   if (!currentChar) return;
-  const data = QUESTIONS_DATA[currentChar];
-  if (!data) return;
-  const label = charSelect.options[charSelect.selectedIndex].text;
-  if (!confirm('確定要清除「' + label + '」的所有答案？')) return;
-  allQids(data).forEach(function(qid) {
-    localStorage.removeItem(lsKey(qid));
-  });
-  loadAnswers(data);
-  updateProgress(data);
+  var data = QD[currentChar];
+  var label = charSelect.options[charSelect.selectedIndex].text;
+  if (!confirm('確定要清除「'+label+'」的所有答案？')) return;
+  allQids(data).forEach(function(q) { localStorage.removeItem(lsKey(currentChar, q.qid)); });
+  loadAnswers(data, currentChar);
+  updateProgress(data, currentChar);
 }
 
-// Event delegation for textarea input
 wrapper.addEventListener('input', function(e) {
-  const el = e.target;
+  var el = e.target;
   if (!el.classList.contains('q-answer') || !currentChar) return;
-  const qid = el.id;
-  const val = el.value;
+  var qid = el.id;
+  var val = el.value;
   if (val.trim()) {
-    localStorage.setItem(lsKey(qid), val);
+    localStorage.setItem(lsKey(currentChar, qid), val);
     el.classList.add('has-answer');
-    const hint = document.getElementById(qid + '-hint');
-    if (hint) {
-      hint.textContent = '已儲存';
-      hint.classList.add('saved');
-      setTimeout(function() { if (hint) hint.textContent = '已填寫'; }, 1200);
-    }
+    var hint = document.getElementById(qid + '-hint');
+    if (hint) { hint.textContent = '已儲存'; hint.classList.add('saved'); setTimeout(function() { if (hint) hint.textContent = '已填寫'; }, 1200); }
   } else {
-    localStorage.removeItem(lsKey(qid));
+    localStorage.removeItem(lsKey(currentChar, qid));
     el.classList.remove('has-answer');
-    const hint = document.getElementById(qid + '-hint');
-    if (hint) { hint.textContent = '未填寫'; hint.classList.remove('saved'); }
+    var h = document.getElementById(qid + '-hint');
+    if (h) { h.textContent = '未填寫'; h.classList.remove('saved'); }
   }
-  updateProgress(QUESTIONS_DATA[currentChar]);
+  updateProgress(QD[currentChar], currentChar);
 });
 
 charSelect.addEventListener('change', function() {
@@ -428,15 +491,14 @@ charSelect.addEventListener('change', function() {
     progressBar.style.display = 'none';
     return;
   }
-  if (currentChar) localStorage.setItem('kou-xia-qa__lastChar', currentChar);
+  localStorage.setItem('kou-xia-qa__lastChar', currentChar);
   emptyState.style.display = 'none';
   progressBar.style.display = '';
   renderQA(currentChar);
 });
 
-// Restore last selected character
-const savedChar = localStorage.getItem('kou-xia-qa__lastChar');
-if (savedChar) {
+var savedChar = localStorage.getItem('kou-xia-qa__lastChar');
+if (savedChar && QD[savedChar]) {
   charSelect.value = savedChar;
   if (charSelect.value) charSelect.dispatchEvent(new Event('change'));
 }
