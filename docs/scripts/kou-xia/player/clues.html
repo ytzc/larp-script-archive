@@ -375,6 +375,17 @@ tr:nth-child(even)td{background:#faf5ee}
 </div><!-- #protected-content -->
 
 <script src="../../../assets/js/version.js"></script>
+<script src="scripts/auth.js"></script>
+<script>
+  (function () {
+    var session = CharAuth.getSession();
+    if (!session) {
+      window.location.href = 'login.html';
+    } else {
+      CharAuth.renderStatusBar('login.html');
+    }
+  })();
+</script>
 <script src="../../../assets/js/password-gate.js"></script>
 <script>
   initPasswordGate({

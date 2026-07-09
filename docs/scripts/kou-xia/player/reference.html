@@ -387,6 +387,17 @@
 </div><!-- #protected-content -->
 
 <script src="../../../assets/js/version.js"></script>
+<script src="scripts/auth.js"></script>
+<script>
+  (function () {
+    var session = CharAuth.getSession();
+    if (!session) {
+      window.location.href = 'login.html';
+    } else {
+      CharAuth.renderStatusBar('login.html');
+    }
+  })();
+</script>
 <script src="../../../assets/js/password-gate.js"></script>
 <script>
   initPasswordGate({ role:'kou-xia-player', password:'player', icon:'📖', title:'玩家速查手冊 — 寇俠', desc:'請輸入玩家密碼以進入。', back:'index.html' });
