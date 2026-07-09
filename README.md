@@ -113,64 +113,7 @@ python3 tools/build-player-script-index.py
 - `materials/` 的外部連結（含 iCloud 連結、百度提取碼）也對外公開。
 - `gm/` 的 Markdown 文件即使有密碼保護 HTML，直接存取 .md URL 仍可繞過。
 
----
 
-## OCR 補拍流程（寇俠 / 其他劇本通用）
-
-當劇本 PDF 掃描因裝訂陰影或印刷品質導致部分頁面無法讀取時，需要補拍後重新提取文字。
-
-### 補拍操作步驟
-
-1. **拍攝補拍頁面**
-   - 解析度 ≥ 300 DPI（印刷字體過小的頁面建議 600 DPI 或 2× 縮放）
-   - 拍攝時盡量壓平書本內側，減少裝訂陰影
-   - 命名格式：`角色拼音-pXXX-retake.png`（例：`jia-san-niang-p007-retake.png`）
-   - 存放位置：`local-private/<劇本>/retake-photos/`（已 gitignore）
-
-2. **執行 OCR 提取**（在 Claude Code 中）
-
-   **通用 Prompt 模板：**
-   ```
-   請閱讀這張劇本掃描圖片，提取其中的所有文字內容。
-
-   背景說明：
-   - 這是《[劇本名稱]》LARP劇本，角色：[角色名稱]，頁碼：[頁碼]
-   - 先前的OCR提取此頁因裝訂陰影遮蔽無法讀取，請盡力提取可見文字
-
-   輸出格式：
-   - Markdown，保留段落結構（方框內容用 blockquote 或 code block 呈現）
-   - 原文語言保留（簡/繁體不互轉）
-   - 不確定詞語加 [需要人工確認：說明原因]
-   - 無法讀取的部分加 [需要補拍：說明原因]
-   - 不要腦補或改寫任何劇情內容
-   - GM隔頁說明（紅色橫幅文字）不需要輸出
-   ```
-
-   更多模板（跨頁比對、印刷過淡頁面等）請見 GM 區的 [OCR 提示詞指引](docs/scripts/kou-xia/gm/ocr-prompt-guide.html)。
-
-3. **整合進 md 整理稿**
-   - 找到對應角色 `materials/<劇本>/source/角色名.md` 中的 `[需要補拍]` 段落
-   - 用新提取的文字替換，保留低信心詞語的 `[需要人工確認]` 標記
-   - 同步更新 `local-private/<劇本>/clean-md/script-book/角色名.md`
-
-4. **重新生成角色 HTML**
-   ```
-   根據更新後的 xxx.md 重新生成 player/scripts/xxx.html
-   ```
-
-### 補拍優先順序（寇俠）
-
-| 優先級 | 角色 | 頁面 | 原因 |
-|--------|------|------|------|
-| 🔴 高 | 賈三娘 | 頁2–9 | 整個劇本幾乎不可讀；感情線對象不明 |
-| 🔴 高 | 王思涵 | 頁2–10 | 除封面外全部缺失 |
-| 🔴 高 | 嚴氏 | 頁6、頁8 | 凶手行動指令頁遮蔽（案件核心） |
-| 🔴 高 | 農叟 | 頁7 | 特殊技能規則方框（搏殺關鍵） |
-| 🟡 中 | 刁五兒 | 頁7 | HP/武力數值未確認 |
-| 🟡 中 | 王順 | 頁3–9 | 核心抉擇段落多行遮蔽 |
-| 🟡 中 | 張猛（NPC） | 頁4–6 | GM指引印刷過淡（NPC互動說明） |
-
-完整清單見 [gm/rephotograph.html](docs/scripts/kou-xia/gm/rephotograph.html)（需 GM 密碼）。
 
 ---
 
@@ -190,7 +133,7 @@ cp -r docs/scripts/kou-xia docs/scripts/<new-script-slug>
 
 ## 本地端測試與託管 (Local Hosting)
 
-當您在本地修改或新增劇本後，可以使用本專案提供的 `serve.sh` 腳本，直接在本地端區域網路 (LAN) 啟動一個輕量的 Web 伺服器：
+當您在本地修改或新增劇本後，可以使用本專案提供的 `serve.sh` 腳本，直接以 Docker 在本地端區域網路 (LAN) 啟動一個輕量的 Web 伺服器：
 
 ```bash
 # 給予執行權限（僅需執行一次）
@@ -203,28 +146,58 @@ chmod +x serve.sh
 ./serve.sh 8080
 ```
 
-執行後，腳本會自動偵測並印出您的本機 IP 網址（例如 `http://192.168.1.100:8000/`）。
-只要您的手機、平板或其他設備與此電腦連線至**同一個 Wi-Fi 區域網路**，即可直接掃描或輸入該 IP 網址進行劇本遊玩與測試，不需每次都推送到 GitHub Pages。
+執行後，腳本會自動偵測並印出您的本機 IP 網址（例如 `http://localhost:8000/`）。
+同時，任何玩家註冊帳號和 GM 存取狀態均會自動持久化保存在本地目錄的 `kou_xia.db` 中。
 
 ---
 
-## Release
+### 🌐 跨裝置連線設定 (特別是使用 WSL2 環境)
 
-This repository deploys GitHub Pages when a version tag is pushed.
-Use `release.sh` to automate version bumping, tagging, and pushing.
+如果您的執行環境在 Windows 的 **WSL2** 底下，由於 WSL2 採虛擬化 NAT 網路架構，同個 Wi-Fi 下的手機或平板（通常為 `192.168.x.x` 或 `10.0.0.x`）無法直接連入 WSL 的虛擬 IP。
+
+請依照以下實測成功的方式進行連線與轉發：
+
+1. **查詢 Windows 實體 IP**：
+   在 Windows 執行 `ipconfig`，找到「無線區域網路介面卡 Wi-Fi」下的 **IPv4 位址**（例如：`10.0.0.78`）。
+
+2. **設定連接埠轉發 (Port Forwarding)**：
+   以 **系統管理員身分 (Administrator)** 開啟 Windows PowerShell，設定 Windows 將對外 8000 埠流量轉發至本機 WSL。請執行：
+   ```powershell
+   netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8000 connectaddress=127.0.0.1
+   ```
+   *(請確保 Windows 防火牆允許 8000 連接埠。)*
+
+3. **外部設備連線**：
+   此時，只要手機或平板與您的主機連接在**同一個 Wi-Fi** 中，即可直接在瀏覽器輸入：
+   - 📱 **玩家入口**：`http://<您的Windows實體IP>:8000/scripts/kou-xia/player/index.html` (例如 `http://10.0.0.78:8000/scripts/kou-xia/player/index.html`)
+   - 🎲 **GM 入口**：`http://<您的Windows實體IP>:8000/scripts/kou-xia/gm/index.html`
+
+4. **關閉轉發（當您不需要使用時）**：
+   若想取消 8000 埠的轉發，可以在管理員權限的 Windows PowerShell 執行：
+   ```powershell
+   netsh interface portproxy delete v4tov4 listenport=8000 listenaddress=0.0.0.0
+   ```
+
+---
+
+## Release (發布更新)
+
+⚠️ **重要：發布 Release 與更新，現在開始都必須透過 `release.sh` 進行自動化發布。** 請不要手動設定或推送 Git Tag，以避免本機版本與 Git Pages / Actions 的部署流程發生不一致。
+
+### 自動化發布步驟
 
 ```bash
-# Bump patch version:  v0.1.0 → v0.1.1
+# 升級修訂版本 (Patch):  v1.1.0 → v1.1.1 (適用於 bug 修正、局部微調)
 ./release.sh patch
 
-# Bump minor version:  v0.1.0 → v0.2.0
+# 升級次要版本 (Minor):  v1.1.0 → v1.2.0 (適用於功能新增、新角色)
 ./release.sh minor
 
-# Bump major version:  v0.1.0 → v1.0.0
+# 升級主要版本 (Major):  v1.1.0 → v2.0.0 (適用於系統重構、大版本更新)
 ./release.sh major
 
-# Release a specific version:
-./release.sh v0.2.0
+# 發布指定版本號:
+./release.sh v1.2.0
 ```
 
 The script will:
