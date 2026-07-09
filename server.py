@@ -236,18 +236,15 @@ class CustomHandler(SimpleHTTPRequestHandler):
                 elif self.path == '/api/kou-xia/state':
                     password = data.get('password', '')
                     if password == 'gm':
-                        act1 = '1' if data.get('act1_unlocked') else '0'
-                        act2 = '1' if data.get('act2_unlocked') else '0'
-                        
-                        c.execute("INSERT OR REPLACE INTO game_state (key, value) VALUES ('act1_unlocked', ?)", (act1,))
-                        c.execute("INSERT OR REPLACE INTO game_state (key, value) VALUES ('act2_unlocked', ?)", (act2,))
+                        res = {'success': True}
+                        for key, val in data.items():
+                            if key == 'password':
+                                continue
+                            db_val = '1' if val else '0'
+                            c.execute("INSERT OR REPLACE INTO game_state (key, value) VALUES (?, ?)", (key, db_val))
+                            res[key] = (db_val == '1')
                         conn.commit()
-                        res = {
-                            'success': True,
-                            'act1_unlocked': data.get('act1_unlocked'),
-                            'act2_unlocked': data.get('act2_unlocked')
-                        }
-                        print(f"⚙️ GM 更新遊戲狀態: 情境一={act1 == '1'}, 情境二={act2 == '1'}")
+                        print(f"⚙️ GM 更新遊戲狀態: {res}")
                     else:
                         res = {'success': False, 'message': '權限不足：GM 密碼錯誤'}
 

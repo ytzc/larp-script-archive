@@ -36,7 +36,9 @@
   .info-img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 240px;
+    object-fit: cover;
+    object-position: center;
     cursor: zoom-in;
     transition: opacity .15s;
   }
@@ -127,37 +129,37 @@
   </div>
   <div class="section-nav" id="act1-nav">
 
-    <a class="section-item" href="guide.html">
+    <a class="section-item" id="act1-item-guide" href="guide.html">
       <span class="icon">📋</span>
       <span class="label">玩家指引</span>
       <span class="desc">開場說明、遊戲規則、流程概覽、注意事項。</span>
     </a>
 
-    <a class="section-item" href="characters.html">
+    <a class="section-item" id="act1-item-characters" href="characters.html">
       <span class="icon">🎭</span>
       <span class="label">角色資訊（玩家版）</span>
       <span class="desc">各角色的公開身份、戰鬥數值及陣營說明。不含 GM 真相。</span>
     </a>
 
-    <a class="section-item" href="scripts/index.html">
+    <a class="section-item" id="act1-item-scripts" href="scripts/index.html">
       <span class="icon">📜</span>
       <span class="label">角色劇本</span>
       <span class="desc">各角色劇本整理稿。請只閱讀自己所扮演的角色，勿閱讀他人劇本。</span>
     </a>
 
-    <a class="section-item" href="rumours.html">
+    <a class="section-item" id="act1-item-rumours" href="rumours.html">
       <span class="icon">📰</span>
       <span class="label">江湖軼聞</span>
       <span class="desc">關於大夏、起朝、寇俠、繡衣使的背景線索（共 9 張），全員傳閱。</span>
     </a>
 
-    <a class="section-item" href="personal-clues.html">
+    <a class="section-item" id="act1-item-personal-clues" href="personal-clues.html">
       <span class="icon">🔖</span>
       <span class="label">個人線索拍賣</span>
       <span class="desc">共 9 張個人線索，起拍價 10 兩銀票。得標後點擊查閱，不需公開。</span>
     </a>
 
-    <a class="section-item" href="questions.html">
+    <a class="section-item" id="act1-item-questions" href="questions.html">
       <span class="icon">📝</span>
       <span class="label">答題卡</span>
       <span class="desc">情境一、情境二各 3 題。選擇角色後填寫答案，自動儲存於本機。</span>
@@ -174,7 +176,7 @@
   </div>
   <div class="section-nav" id="act2-nav">
 
-    <a class="section-item" href="clues.html">
+    <a class="section-item" id="act2-item-clues" href="clues.html">
       <span class="icon">🔍</span>
       <span class="label">線索整理</span>
       <span class="desc">凶案基本事實、初始線索、調查方式、推理提示。不含完整解答。</span>
@@ -222,15 +224,16 @@
     // Add CSS for disabled state dynamically
     var style = document.createElement('style');
     style.textContent = [
-      '.disabled-nav {',
-      '  opacity: 0.35;',
+      '.disabled-item {',
       '  pointer-events: none!important;',
       '  cursor: not-allowed!important;',
+      '  opacity: 0.45!important;',
+      '  background: #1c150f!important;',
+      '  border-color: #2b2118!important;',
       '  user-select: none;',
       '}',
-      '.disabled-nav a {',
-      '  pointer-events: none!important;',
-      '  cursor: not-allowed!important;',
+      '.disabled-item span, .disabled-item strong {',
+      '  color: #7a6e5a!important;',
       '}'
     ].join('\n');
     document.head.appendChild(style);
@@ -242,41 +245,76 @@
           return res.json();
         })
         .then(function (data) {
-          var act1Nav = document.getElementById('act1-nav');
-          var act1Label = document.getElementById('act1-status-label');
-          var act2Nav = document.getElementById('act2-nav');
-          var act2Label = document.getElementById('act2-status-label');
+          // Dynamic items mapping (finer granularity!)
+          var items = {
+            'act1-item-guide': !!data.act1_guide_unlocked,
+            'act1-item-characters': !!data.act1_characters_unlocked,
+            'act1-item-scripts': !!data.act1_scripts_unlocked,
+            'act1-item-rumours': !!data.act1_rumours_unlocked,
+            'act1-item-personal-clues': !!data.act1_personal_clues_unlocked,
+            'act1-item-questions': !!data.act1_questions_unlocked,
+            'act2-item-clues': !!data.act2_unlocked
+          };
 
-          if (act1Nav && act1Label) {
-            if (data.act1_unlocked) {
-              act1Nav.classList.remove('disabled-nav');
-              act1Label.style.display = 'inline-block';
-              act1Label.style.background = '#2e7d32';
-              act1Label.textContent = '🟢 已開放';
+          // Update each item individually
+          for (var id in items) {
+            var el = document.getElementById(id);
+            if (!el) continue;
+
+            if (items[id]) {
+              el.classList.remove('disabled-item');
+              var lockBadge = el.querySelector('.dynamic-lock-badge');
+              if (lockBadge) lockBadge.style.display = 'none';
             } else {
-              act1Nav.classList.add('disabled-nav');
-              act1Label.style.display = 'inline-block';
-              act1Label.style.background = '#c04040';
-              act1Label.textContent = '🔒 GM 未開放';
+              el.classList.add('disabled-item');
+              var lockBadge = el.querySelector('.dynamic-lock-badge');
+              if (!lockBadge) {
+                lockBadge = document.createElement('span');
+                lockBadge.className = 'dynamic-lock-badge';
+                lockBadge.style.cssText = 'background:#c04040; color:#fff; padding:0.12rem 0.38rem; border-radius:3px; font-size:0.7rem; font-weight:bold; margin-left:0.5rem; display:inline-block; vertical-align:middle;';
+                lockBadge.textContent = '🔒 主持人未開放';
+                var labelEl = el.querySelector('.label');
+                if (labelEl) {
+                  labelEl.appendChild(lockBadge);
+                }
+              } else {
+                lockBadge.style.display = 'inline-block';
+              }
             }
           }
 
-          if (act2Nav && act2Label) {
-            if (data.act2_unlocked) {
-              act2Nav.classList.remove('disabled-nav');
-              act2Label.style.display = 'inline-block';
-              act2Label.style.background = '#2e7d32';
-              act2Label.textContent = '🟢 已開放';
+          // Also set the section header badges for cosmetic completion
+          var act1Label = document.getElementById('act1-status-label');
+          var act2Label = document.getElementById('act2-status-label');
+
+          // If at least one item under act1 is unlocked, show act1 as open
+          var act1Any = items['act1-item-guide'] || items['act1-item-characters'] || 
+                        items['act1-item-scripts'] || items['act1-item-rumours'] || 
+                        items['act1-item-personal-clues'] || items['act1-item-questions'];
+
+          if (act1Label) {
+            act1Label.style.display = 'inline-block';
+            if (act1Any) {
+              act1Label.style.background = '#2e7d32';
+              act1Label.textContent = '🟢 進行中';
             } else {
-              act2Nav.classList.add('disabled-nav');
-              act2Label.style.display = 'inline-block';
+              act1Label.style.background = '#c04040';
+              act1Label.textContent = '🔒 未啟動';
+            }
+          }
+
+          if (act2Label) {
+            act2Label.style.display = 'inline-block';
+            if (items['act2-item-clues']) {
+              act2Label.style.background = '#2e7d32';
+              act2Label.textContent = '🟢 進行中';
+            } else {
               act2Label.style.background = '#c04040';
-              act2Label.textContent = '🔒 GM 未開放';
+              act2Label.textContent = '🔒 未啟動';
             }
           }
         })
         .catch(function (err) {
-          // On static hosts like GitHub Pages, keep it enabled as fallback
           console.log('Static fallback or API error:', err);
         });
     }

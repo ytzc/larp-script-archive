@@ -162,33 +162,97 @@
   <!-- 🕹️ 遊戲進程與情境存取控制 (GM Control Panel) -->
   <h2 style="margin-top: 2rem;">🕹️ 遊戲進程與情境存取控制 (GM Controls)</h2>
   <div class="notice notice-info" style="margin-top:1em; background: #12100e; border: 1px solid #3a2e1a; border-radius: 8px; padding: 1.2rem 1.4rem;">
-    <strong>📢 啟動玩家網頁的情境存取權限：</strong>
-    <p style="color: #a09078; font-size: 0.85rem; margin: 0.3rem 0 1rem 0;">
-      點擊下方按鈕以啟動或關閉玩家端「情境一」與「情境二」的存取權。關閉時玩家將無法點開對應頁面。
+    <strong>📢 啟動玩家網頁項目存取權限 (細粒度控制)：</strong>
+    <p style="color: #a09078; font-size: 0.85rem; margin: 0.3rem 0 1.2rem 0;">
+      您可以分別獨立控制玩家端各個項目的開放狀態。關閉時玩家端會顯示「未開放」且無法點擊。
     </p>
-    
-    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
-      <!-- 情境一控制 -->
-      <div style="background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 1rem; min-width: 200px; flex: 1;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-          <strong style="color: #f0d080; font-size: 1.05rem;">🎬 情境一</strong>
-          <span id="act1-status-badge" style="background: #c04040; color: #fff; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.75rem; font-weight: bold; display: inline-block;">已關閉</span>
+
+    <!-- Master quick toggles -->
+    <div style="margin-bottom: 1.2rem; display: flex; gap: 0.8rem; flex-wrap: wrap;">
+      <button onclick="toggleAllAct1(true)" style="background: #2e7d32; color: #fff; border: none; border-radius: 4px; padding: 0.38rem 0.8rem; font-size: 0.82rem; font-weight: bold; cursor: pointer; font-family: inherit;">🟢 一鍵開放情境一所有項目</button>
+      <button onclick="toggleAllAct1(false)" style="background: #c04040; color: #fff; border: none; border-radius: 4px; padding: 0.38rem 0.8rem; font-size: 0.82rem; font-weight: bold; cursor: pointer; font-family: inherit;">🔴 一鍵關閉情境一所有項目</button>
+    </div>
+
+    <!-- Granular controls grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+      
+      <!-- 玩家指引 -->
+      <div style="background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+          <span style="color: #f0d080; font-size: 0.93rem; font-weight: bold;">📋 玩家指引</span>
+          <span id="state-guide-badge" style="background: #c04040; color: #fff; padding: 0.12rem 0.35rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold;">已關閉</span>
         </div>
-        <button id="act1-toggle-btn" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.45rem 1rem; width: 100%; font-weight: bold; cursor: pointer; transition: background 0.15s; font-family: inherit;">
-          啟動情境一
+        <button id="state-guide-btn" onclick="toggleStateKey('act1_guide_unlocked')" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.35rem; font-size: 0.85rem; font-weight: bold; cursor: pointer; font-family: inherit;">
+          開啟項目
         </button>
       </div>
 
-      <!-- 情境二控制 -->
-      <div style="background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 1rem; min-width: 200px; flex: 1;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-          <strong style="color: #f0d080; font-size: 1.05rem;">🎬 情境二</strong>
-          <span id="act2-status-badge" style="background: #c04040; color: #fff; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.75rem; font-weight: bold; display: inline-block;">已關閉</span>
+      <!-- 角色資訊 -->
+      <div style="background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+          <span style="color: #f0d080; font-size: 0.93rem; font-weight: bold;">🎭 角色資訊</span>
+          <span id="state-characters-badge" style="background: #c04040; color: #fff; padding: 0.12rem 0.35rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold;">已關閉</span>
         </div>
-        <button id="act2-toggle-btn" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.45rem 1rem; width: 100%; font-weight: bold; cursor: pointer; transition: background 0.15s; font-family: inherit;">
-          啟動情境二
+        <button id="state-characters-btn" onclick="toggleStateKey('act1_characters_unlocked')" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.35rem; font-size: 0.85rem; font-weight: bold; cursor: pointer; font-family: inherit;">
+          開啟項目
         </button>
       </div>
+
+      <!-- 角色劇本 -->
+      <div style="background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+          <span style="color: #f0d080; font-size: 0.93rem; font-weight: bold;">📜 角色劇本</span>
+          <span id="state-scripts-badge" style="background: #c04040; color: #fff; padding: 0.12rem 0.35rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold;">已關閉</span>
+        </div>
+        <button id="state-scripts-btn" onclick="toggleStateKey('act1_scripts_unlocked')" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.35rem; font-size: 0.85rem; font-weight: bold; cursor: pointer; font-family: inherit;">
+          開啟項目
+        </button>
+      </div>
+
+      <!-- 江湖軼聞 -->
+      <div style="background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+          <span style="color: #f0d080; font-size: 0.93rem; font-weight: bold;">📰 江湖軼聞</span>
+          <span id="state-rumours-badge" style="background: #c04040; color: #fff; padding: 0.12rem 0.35rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold;">已關閉</span>
+        </div>
+        <button id="state-rumours-btn" onclick="toggleStateKey('act1_rumours_unlocked')" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.35rem; font-size: 0.85rem; font-weight: bold; cursor: pointer; font-family: inherit;">
+          開啟項目
+        </button>
+      </div>
+
+      <!-- 個人線索拍賣 -->
+      <div style="background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+          <span style="color: #f0d080; font-size: 0.93rem; font-weight: bold;">🔖 線索拍賣</span>
+          <span id="state-clues-badge" style="background: #c04040; color: #fff; padding: 0.12rem 0.35rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold;">已關閉</span>
+        </div>
+        <button id="state-clues-btn" onclick="toggleStateKey('act1_personal_clues_unlocked')" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.35rem; font-size: 0.85rem; font-weight: bold; cursor: pointer; font-family: inherit;">
+          開啟項目
+        </button>
+      </div>
+
+      <!-- 答題卡 -->
+      <div style="background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+          <span style="color: #f0d080; font-size: 0.93rem; font-weight: bold;">📝 答題卡</span>
+          <span id="state-questions-badge" style="background: #c04040; color: #fff; padding: 0.12rem 0.35rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold;">已關閉</span>
+        </div>
+        <button id="state-questions-btn" onclick="toggleStateKey('act1_questions_unlocked')" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.35rem; font-size: 0.85rem; font-weight: bold; cursor: pointer; font-family: inherit;">
+          開啟項目
+        </button>
+      </div>
+
+      <!-- 情境二：線索整理 -->
+      <div style="background: #1a2216; border: 1px solid #2e3a22; border-radius: 6px; padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+          <span style="color: #a3e080; font-size: 0.93rem; font-weight: bold;">🔍 情境二：線索整理</span>
+          <span id="state-act2-badge" style="background: #c04040; color: #fff; padding: 0.12rem 0.35rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold;">已關閉</span>
+        </div>
+        <button id="state-act2-btn" onclick="toggleStateKey('act2_unlocked')" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.35rem; font-size: 0.85rem; font-weight: bold; cursor: pointer; font-family: inherit;">
+          開啟項目
+        </button>
+      </div>
+
     </div>
     <div id="gm-state-msg" style="font-size: .85rem; display: none;"></div>
   </div>
@@ -290,45 +354,49 @@
     });
   })();
 
-  // GM Game State Controls
+  // GM Game State Controls (Granular Controls Panel)
   (function () {
-    var currentAct1 = false;
-    var currentAct2 = false;
+    // Current state object
+    var state = {
+      act1_guide_unlocked: false,
+      act1_characters_unlocked: false,
+      act1_scripts_unlocked: false,
+      act1_rumours_unlocked: false,
+      act1_personal_clues_unlocked: false,
+      act1_questions_unlocked: false,
+      act2_unlocked: false
+    };
 
     function updateStateUI() {
-      var act1Badge = document.getElementById('act1-status-badge');
-      var act1Btn = document.getElementById('act1-toggle-btn');
-      var act2Badge = document.getElementById('act2-status-badge');
-      var act2Btn = document.getElementById('act2-toggle-btn');
+      var configs = {
+        'act1_guide_unlocked': { badge: 'state-guide-badge', btn: 'state-guide-btn' },
+        'act1_characters_unlocked': { badge: 'state-characters-badge', btn: 'state-characters-btn' },
+        'act1_scripts_unlocked': { badge: 'state-scripts-badge', btn: 'state-scripts-btn' },
+        'act1_rumours_unlocked': { badge: 'state-rumours-badge', btn: 'state-rumours-btn' },
+        'act1_personal_clues_unlocked': { badge: 'state-clues-badge', btn: 'state-clues-btn' },
+        'act1_questions_unlocked': { badge: 'state-questions-badge', btn: 'state-questions-btn' },
+        'act2_unlocked': { badge: 'state-act2-badge', btn: 'state-act2-btn' }
+      };
 
-      if (!act1Badge || !act1Btn || !act2Badge || !act2Btn) return;
+      for (var key in configs) {
+        var badge = document.getElementById(configs[key].badge);
+        var btn = document.getElementById(configs[key].btn);
+        if (!badge || !btn) continue;
 
-      if (currentAct1) {
-        act1Badge.style.background = '#2e7d32';
-        act1Badge.textContent = '已開放';
-        act1Btn.textContent = '關閉情境一';
-        act1Btn.style.background = '#4e3e2e';
-        act1Btn.style.color = '#c49a38';
-      } else {
-        act1Badge.style.background = '#c04040';
-        act1Badge.textContent = '已關閉';
-        act1Btn.textContent = '啟動情境一';
-        act1Btn.style.background = '#c49a38';
-        act1Btn.style.color = '#120a04';
-      }
-
-      if (currentAct2) {
-        act2Badge.style.background = '#2e7d32';
-        act2Badge.textContent = '已開放';
-        act2Btn.textContent = '關閉情境二';
-        act2Btn.style.background = '#4e3e2e';
-        act2Btn.style.color = '#c49a38';
-      } else {
-        act2Badge.style.background = '#c04040';
-        act2Badge.textContent = '已關閉';
-        act2Btn.textContent = '啟動情境二';
-        act2Btn.style.background = '#c49a38';
-        act2Btn.style.color = '#120a04';
+        var isUnlocked = !!state[key];
+        if (isUnlocked) {
+          badge.style.background = '#2e7d32';
+          badge.textContent = '已開放';
+          btn.textContent = '關閉項目';
+          btn.style.background = '#4e3e2e';
+          btn.style.color = '#c49a38';
+        } else {
+          badge.style.background = '#c04040';
+          badge.textContent = '已關閉';
+          btn.textContent = '開啟項目';
+          btn.style.background = '#c49a38';
+          btn.style.color = '#120a04';
+        }
       }
     }
 
@@ -339,8 +407,12 @@
           return res.json();
         })
         .then(function (data) {
-          currentAct1 = !!data.act1_unlocked;
-          currentAct2 = !!data.act2_unlocked;
+          // Map to local state object
+          for (var key in state) {
+            if (key in data) {
+              state[key] = !!data[key];
+            }
+          }
           updateStateUI();
         })
         .catch(function (err) {
@@ -348,7 +420,7 @@
         });
     }
 
-    function saveGameState(act1, act2) {
+    function saveGameState(updatedState) {
       var msg = document.getElementById('gm-state-msg');
       if (msg) {
         msg.style.display = 'block';
@@ -356,14 +428,12 @@
         msg.textContent = '正在更新遊戲狀態…';
       }
 
+      var reqBody = Object.assign({ password: 'gm' }, updatedState);
+
       fetch('/api/kou-xia/state', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          password: 'gm',
-          act1_unlocked: act1,
-          act2_unlocked: act2
-        })
+        body: JSON.stringify(reqBody)
       })
         .then(function (res) {
           if (!res.ok) throw new Error('與伺服器連線失敗');
@@ -371,8 +441,11 @@
         })
         .then(function (data) {
           if (data.success) {
-            currentAct1 = !!data.act1_unlocked;
-            currentAct2 = !!data.act2_unlocked;
+            for (var key in state) {
+              if (key in data) {
+                state[key] = !!data[key];
+              }
+            }
             updateStateUI();
             if (msg) {
               msg.style.color = '#68b880';
@@ -394,16 +467,27 @@
         });
     }
 
+    // Expose control functions to global scope
+    window.toggleStateKey = function (key) {
+      var patch = {};
+      patch[key] = !state[key];
+      saveGameState(patch);
+    };
+
+    window.toggleAllAct1 = function (unlock) {
+      var patch = {
+        act1_guide_unlocked: unlock,
+        act1_characters_unlocked: unlock,
+        act1_scripts_unlocked: unlock,
+        act1_rumours_unlocked: unlock,
+        act1_personal_clues_unlocked: unlock,
+        act1_questions_unlocked: unlock
+      };
+      saveGameState(patch);
+    };
+
     document.addEventListener('gate:unlocked', function () {
       loadGameState();
-    });
-
-    document.getElementById('act1-toggle-btn').addEventListener('click', function () {
-      saveGameState(!currentAct1, currentAct2);
-    });
-
-    document.getElementById('act2-toggle-btn').addEventListener('click', function () {
-      saveGameState(currentAct1, !currentAct2);
     });
   })();
 
