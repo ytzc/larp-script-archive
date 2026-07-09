@@ -122,6 +122,7 @@
     <button class="tab-btn active" role="tab" data-page="0" onclick="switchPage(0)">情景一</button>
     <button class="tab-btn locked" role="tab" data-page="1" onclick="switchPage(1)">情景二</button>
     <button class="tab-btn locked" role="tab" data-page="2" onclick="switchPage(2)">情景三</button>
+    <button class="tab-btn" role="tab" data-page="3" onclick="switchPage(3)">🌍 公開資訊</button>
   </div>
 
   <div class="pdf-btn-row">
@@ -384,6 +385,30 @@
 
     </div>
   </div>
+  <div class="chapter-page" data-page="3">
+    <div class="chapter-content">
+      <div class="script-chapter">
+        <h2>🌍 遊戲公開資訊 (登場角色 · 世界觀 · 組織圖)</h2>
+        <div class="script-section">
+          <h3>🎭 登場角色一覽 (點擊可放大)</h3>
+          <img class="char-grid-img zoomable" src="../assets/kou-xia-character-grid2.png" alt="登場角色一覽" title="點擊放大" style="display:block; width:100%; max-width:560px; height:auto; margin:1rem auto 2rem; border-radius:8px; border:1px solid #c8b89a; cursor:zoom-in;" />
+        </div>
+        <div class="script-section">
+          <h3>🗺️ 世界觀與江湖組織 (點擊可放大)</h3>
+          <div class="info-images" style="display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; margin:1rem 0 2rem;">
+            <div class="info-img-wrap" style="border:1px solid #c8b89a; border-radius:8px; overflow:hidden; background:#1a120a;">
+              <img class="info-img zoomable" src="../assets/kou-xia-story-background.jpg" alt="世界觀背景" title="點擊放大" style="display:block; width:100%; height:auto; cursor:zoom-in; transition:opacity .15s;" />
+              <div class="info-img-label" style="text-align:center; font-size:.78rem; color:#8a7a50; padding:.38rem .5rem; letter-spacing:.05em;">世界觀背景</div>
+            </div>
+            <div class="info-img-wrap" style="border:1px solid #c8b89a; border-radius:8px; overflow:hidden; background:#1a120a;">
+              <img class="info-img zoomable" src="../assets/kou-xia-faction-overview.jpg" alt="江湖組織" title="點擊放大" style="display:block; width:100%; height:auto; cursor:zoom-in; transition:opacity .15s;" />
+              <div class="info-img-label" style="text-align:center; font-size:.78rem; color:#8a7a50; padding:.38rem .5rem; letter-spacing:.05em;">江湖組織</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   </div><!-- /script-body -->
 </main>
@@ -485,7 +510,8 @@
     var last = 0;
     try{ last = parseInt(sessionStorage.getItem(SSK) || '0') || 0; }catch(e){}
     var u = getUnlocked();
-    showPage(u.indexOf(last) !== -1 ? last : 0);
+    var lenPages = 3;
+    showPage((last === lenPages || u.indexOf(last) !== -1) ? last : 0);
     document.querySelectorAll('.unlock-input').forEach(function(inp){
       inp.addEventListener('keydown', function(e){
         if(e.key === 'Enter'){
@@ -502,6 +528,28 @@
   } else {
     document.addEventListener('gate:unlocked', initChapterPages, {once: true});
   }
+})();
+</script>
+<script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var img = e.target.closest('.zoomable');
+    if (!img) return;
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:99999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;padding:1rem;';
+    var big = document.createElement('img');
+    big.src = img.src; big.alt = img.alt;
+    big.style.cssText = 'max-width:100%;max-height:90vh;object-fit:contain;border-radius:4px;box-shadow:0 4px 40px rgba(0,0,0,.8);';
+    var hint = document.createElement('div');
+    hint.textContent = '點任意處關閉';
+    hint.style.cssText = 'position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);color:#666;font-size:.76rem;pointer-events:none;';
+    overlay.appendChild(big); overlay.appendChild(hint);
+    overlay.addEventListener('click', function () { document.body.removeChild(overlay); });
+    document.addEventListener('keydown', function esc(ev) {
+      if (ev.key === 'Escape') { if (document.body.contains(overlay)) document.body.removeChild(overlay); document.removeEventListener('keydown', esc); }
+    });
+    document.body.appendChild(overlay);
+  });
 })();
 </script>
 </body>

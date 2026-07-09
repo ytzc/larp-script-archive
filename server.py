@@ -38,6 +38,15 @@ def init_db():
             password TEXT NOT NULL
         )
     ''')
+    # Add optional tracking columns if they don't exist
+    try:
+        c.execute("ALTER TABLE users ADD COLUMN created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'))")
+    except sqlite3.OperationalError:
+        pass
+    try:
+        c.execute("ALTER TABLE users ADD COLUMN last_login TEXT")
+    except sqlite3.OperationalError:
+        pass
     conn.commit()
     conn.close()
     print("✅ 資料庫初始化完成。")
@@ -50,6 +59,13 @@ class DualStackServer(ThreadingHTTPServer):
 
 class CustomHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
+        # Redirect root and main index to Kou Xia entrance page
+        if self.path in ('/', '/index.html'):
+            self.send_response(302)
+            self.send_header('Location', '/scripts/kou-xia/index.html')
+            self.end_headers()
+            return
+
         # Handle GET API for fetching character registration statuses
         if self.path == '/api/kou-xia/characters':
             self.send_response(200)
@@ -60,14 +76,14 @@ class CustomHandler(SimpleHTTPRequestHandler):
             try:
                 conn = sqlite3.connect(DB_FILE)
                 c = conn.cursor()
-                c.execute('SELECT character_id, player_name FROM users')
+                c.execute('SELECT character_id, player_name, created_at, last_login FROM users')
                 rows = c.fetchall()
                 conn.close()
             except Exception as e:
                 print(f"❌ 查詢資料庫時發生錯誤: {e}")
                 rows = []
                 
-            claimed = {row[0]: row[1] for row in rows}
+            claimed = {row[0]: {'playerName': row[1], 'createdAt': row[2], 'lastLogin': row[3]} for row in rows}
             
             resp = []
             for cid, name in CHARACTERS.items():
@@ -76,7 +92,9 @@ class CustomHandler(SimpleHTTPRequestHandler):
                     'characterId': cid,
                     'characterName': name,
                     'claimed': is_claimed,
-                    'playerName': claimed[cid] if is_claimed else ''
+                    'playerName': claimed[cid]['playerName'] if is_claimed else '',
+                    'createdAt': claimed[cid]['createdAt'] if is_claimed else '',
+                    'lastLogin': claimed[cid]['lastLogin'] if is_claimed else ''
                 })
             
             self.wfile.write(json.dumps(resp).encode('utf-8'))
@@ -153,6 +171,9 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         c.execute('SELECT player_name, password FROM users WHERE character_id = ?', (username,))
                         row = c.fetchone()
                         if row and row[1] == password:
+                            # Update last login time
+                            c.execute("UPDATE users SET last_login = (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) WHERE character_id = ?", (username,))
+                            conn.commit()
                             res = {
                                 'success': True,
                                 'session': {

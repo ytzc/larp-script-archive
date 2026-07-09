@@ -133,11 +133,26 @@
 
   <!-- SQLite 玩家註冊管理 -->
   <h2>⚙️ 玩家註冊與系統管理 (SQLite Admin)</h2>
-  <div class="notice notice-info" style="margin-top:1em; background: #12100e; border: 1px solid #3a2e1a; border-radius: 8px; padding: 1.2rem 1.4rem;">
-    <strong>👥 目前已註冊玩家狀態：</strong>
-    <ul id="gm-registered-list" style="margin: .8em 0 1.2em 1.5em; font-size: .92em; line-height: 1.7; color: #f0d080;">
-      <li>載入中…</li>
-    </ul>
+  <div class="notice notice-info" style="margin-top:1em; background: #12100e; border: 1px solid #3a2e1a; border-radius: 8px; padding: 1.2rem 1.4rem; overflow-x: auto;">
+    <strong>👥 目前已註冊玩家與資料庫狀態：</strong>
+    
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin: 1rem 0 1.5rem; color: #e4d9c4; border: 1px solid #3a2e22; min-width: 600px;">
+      <thead>
+        <tr style="background: #1e1812; border-bottom: 2px solid #3a2e22;">
+          <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">角色名稱</th>
+          <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">玩家名稱</th>
+          <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">登入狀態</th>
+          <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">註冊時間</th>
+          <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">最後登入</th>
+        </tr>
+      </thead>
+      <tbody id="gm-registered-table-body">
+        <tr>
+          <td colspan="5" style="padding: 1rem; text-align: center; color: #8a7a50; font-style: italic;">資料載入中…</td>
+        </tr>
+      </tbody>
+    </table>
+
     <button id="gm-reset-db-btn" style="background:#c04040; color:#fff; border:none; border-radius:4px; padding:.55rem 1.2rem; font-size:.85rem; cursor:pointer; font-weight:bold; transition:opacity .15s; font-family: inherit;">
       🧹 重設所有玩家註冊資料 (清空資料庫)
     </button>
@@ -178,8 +193,8 @@
   // SQLite registered player administration
   (function () {
     function loadRegisteredPlayers() {
-      var ul = document.getElementById('gm-registered-list');
-      if (!ul) return;
+      var tbody = document.getElementById('gm-registered-table-body');
+      if (!tbody) return;
       
       fetch('/api/kou-xia/characters')
         .then(function (res) {
@@ -187,29 +202,34 @@
           return res.json();
         })
         .then(function (data) {
-          ul.innerHTML = '';
+          tbody.innerHTML = '';
           var claimedCount = 0;
           data.forEach(function (char) {
-            var li = document.createElement('li');
-            li.style.marginBottom = '0.35rem';
-            if (char.claimed) {
-              li.innerHTML = '🎭 <strong style="color:#f0d080;">' + char.characterName + '</strong> (' + char.characterId + ') &nbsp;·&nbsp; 已由 <strong style="color:#68b880;">' + char.playerName + '</strong> 註冊';
-              claimedCount++;
-            } else {
-              li.innerHTML = '🎭 <span style="color:#8a7a50;">' + char.characterName + ' (' + char.characterId + ')</span> &nbsp;·&nbsp; <span style="color:#5a4e3e; font-style:italic;">未註冊</span>';
-            }
-            ul.appendChild(li);
+            var tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid #3a2e22';
+            tr.style.background = char.claimed ? 'rgba(196,154,56,0.06)' : 'transparent';
+            
+            var statusBadge = char.claimed 
+              ? '<span style="background: #2e7d32; color: #fff; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.75rem; font-weight: bold;">已註冊</span>'
+              : '<span style="background: #333; color: #888; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.75rem; font-weight: bold;">未註冊</span>';
+            
+            tr.innerHTML = 
+              '<td style="padding: 0.75rem; font-weight: bold; color: ' + (char.claimed ? '#f0d080' : '#8a7a50') + '; border: 1px solid #3a2e22;">🎭 ' + char.characterName + ' <span style="font-size:0.8rem; color:#888;">(' + char.characterId + ')</span></td>' +
+              '<td style="padding: 0.75rem; color: ' + (char.claimed ? '#e4d9c4' : '#5a4e3e') + '; border: 1px solid #3a2e22;">' + (char.playerName || '—') + '</td>' +
+              '<td style="padding: 0.75rem; border: 1px solid #3a2e22;">' + statusBadge + '</td>' +
+              '<td style="padding: 0.75rem; font-size: 0.8rem; color: #a09078; border: 1px solid #3a2e22;">' + (char.createdAt || '—') + '</td>' +
+              '<td style="padding: 0.75rem; font-size: 0.8rem; color: #a09078; border: 1px solid #3a2e22;">' + (char.lastLogin || '—') + '</td>';
+            
+            tbody.appendChild(tr);
+            if (char.claimed) claimedCount++;
           });
+          
           if (claimedCount === 0) {
-            var li = document.createElement('li');
-            li.style.color = '#8a7a50';
-            li.style.fontStyle = 'italic';
-            li.textContent = '目前尚未有玩家進行註冊。';
-            ul.insertBefore(li, ul.firstChild);
+            tbody.innerHTML = '<tr><td colspan="5" style="padding: 1.5rem; text-align: center; color: #8a7a50; font-style: italic;">目前尚未有玩家進行註冊。</td></tr>';
           }
         })
         .catch(function (err) {
-          ul.innerHTML = '<li style="color:#c04040;">無法載入註冊玩家列表：' + err.message + '</li>';
+          tbody.innerHTML = '<tr><td colspan="5" style="padding: 1.5rem; text-align: center; color: #c04040;">無法載入註冊玩家列表：' + err.message + '</td></tr>';
         });
     }
 

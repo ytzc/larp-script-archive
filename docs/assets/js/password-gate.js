@@ -49,6 +49,20 @@
       } catch (e) {}
     }
 
+    // Automatically bypass the GM password gate if logged in as GM character!
+    if (config.role === 'kou-xia-gm') {
+      try {
+        var sess = sessionStorage.getItem('kou-xia-char-session');
+        if (sess) {
+          var parsed = JSON.parse(sess);
+          if (parsed && parsed.is_gm) {
+            _unlock(gate, content);
+            return;
+          }
+        }
+      } catch (e) {}
+    }
+
     // Render the gate UI
     gate.innerHTML = _buildHTML(config);
     gate.style.display = 'flex';

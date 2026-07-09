@@ -118,9 +118,21 @@
       bar.id = 'char-auth-bar';
       bar.style.cssText = 'background:#1a1510;color:#7a6a52;font-size:.78rem;padding:.38rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;border-bottom:1px solid #3a2e22;font-family:sans-serif;';
       if (session) {
+        var isPlayerIndex = (loginUrl.indexOf('..') === -1);
+        var myScriptUrl;
+        if (session.is_gm) {
+          myScriptUrl = isPlayerIndex ? 'gm/index.html' : '../gm/index.html';
+        } else {
+          myScriptUrl = isPlayerIndex ? ('scripts/' + session.characterId + '.html') : (session.characterId + '.html');
+        }
         var roleText = session.is_gm ? '🎲 <strong style="color:#c49a38;">GM</strong>' : '🎭 <strong style="color:#c49a38;">' + session.characterName + '</strong> (' + session.playerName + ')';
+        
+        var scriptLink = ' &nbsp; <a href="' + myScriptUrl + '" style="color:#c49a38;text-decoration:underline;font-weight:bold;margin-left:0.5rem;">[進入我的劇本 →]</a>';
+        var entranceUrl = isPlayerIndex ? 'index.html' : '../index.html';
+        var entranceLink = isPlayerIndex ? '' : ' &nbsp; <a href="' + entranceUrl + '" style="color:#c49a38;text-decoration:underline;font-weight:bold;margin-left:0.5rem;">[返回玩家入口 ←]</a>';
+
         bar.innerHTML =
-          '<span>' + roleText + '</span>' +
+          '<span>' + roleText + scriptLink + entranceLink + '</span>' +
           '<button id="char-auth-logout-btn" style="background:none;border:1px solid #3a2e22;color:#7a6a52;padding:.18rem .65rem;border-radius:2px;cursor:pointer;font-size:.75rem;">登出</button>';
       } else {
         bar.innerHTML =

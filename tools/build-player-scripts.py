@@ -226,6 +226,8 @@ def _tabs_html(pages):
         cls = 'tab-btn active' if i == 0 else 'tab-btn locked'
         label = html_mod.escape(page['title'])
         lines.append(f'    <button class="{cls}" role="tab" data-page="{i}" onclick="switchPage({i})">{label}</button>')
+    global_idx = len(pages)
+    lines.append(f'    <button class="tab-btn" role="tab" data-page="{global_idx}" onclick="switchPage({global_idx})">🌍 公開資訊</button>')
     return '\n'.join(lines)
 
 
@@ -262,6 +264,33 @@ def _pages_html(pages):
                 f'    </div>\n'
                 f'  </div>'
             )
+    global_idx = len(pages)
+    parts.append(
+        f'  <div class="chapter-page" data-page="{global_idx}">\n'
+        f'    <div class="chapter-content">\n'
+        f'      <div class="script-chapter">\n'
+        f'        <h2>🌍 遊戲公開資訊 (登場角色 · 世界觀 · 組織圖)</h2>\n'
+        f'        <div class="script-section">\n'
+        f'          <h3>🎭 登場角色一覽 (點擊可放大)</h3>\n'
+        f'          <img class="char-grid-img zoomable" src="../assets/kou-xia-character-grid2.png" alt="登場角色一覽" title="點擊放大" style="display:block; width:100%; max-width:560px; height:auto; margin:1rem auto 2rem; border-radius:8px; border:1px solid #c8b89a; cursor:zoom-in;" />\n'
+        f'        </div>\n'
+        f'        <div class="script-section">\n'
+        f'          <h3>🗺️ 世界觀與江湖組織 (點擊可放大)</h3>\n'
+        f'          <div class="info-images" style="display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; margin:1rem 0 2rem;">\n'
+        f'            <div class="info-img-wrap" style="border:1px solid #c8b89a; border-radius:8px; overflow:hidden; background:#1a120a;">\n'
+        f'              <img class="info-img zoomable" src="../assets/kou-xia-story-background.jpg" alt="世界觀背景" title="點擊放大" style="display:block; width:100%; height:auto; cursor:zoom-in; transition:opacity .15s;" />\n'
+        f'              <div class="info-img-label" style="text-align:center; font-size:.78rem; color:#8a7a50; padding:.38rem .5rem; letter-spacing:.05em;">世界觀背景</div>\n'
+        f'            </div>\n'
+        f'            <div class="info-img-wrap" style="border:1px solid #c8b89a; border-radius:8px; overflow:hidden; background:#1a120a;">\n'
+        f'              <img class="info-img zoomable" src="../assets/kou-xia-faction-overview.jpg" alt="江湖組織" title="點擊放大" style="display:block; width:100%; height:auto; cursor:zoom-in; transition:opacity .15s;" />\n'
+        f'              <div class="info-img-label" style="text-align:center; font-size:.78rem; color:#8a7a50; padding:.38rem .5rem; letter-spacing:.05em;">江湖組織</div>\n'
+        f'            </div>\n'
+        f'          </div>\n'
+        f'        </div>\n'
+        f'      </div>\n'
+        f'    </div>\n'
+        f'  </div>'
+    )
     return '\n'.join(parts)
 
 
@@ -506,7 +535,8 @@ TEMPLATE = '''\
     var last = 0;
     try{{ last = parseInt(sessionStorage.getItem(SSK) || '0') || 0; }}catch(e){{}}
     var u = getUnlocked();
-    showPage(u.indexOf(last) !== -1 ? last : 0);
+    var lenPages = {len_pages};
+    showPage((last === lenPages || u.indexOf(last) !== -1) ? last : 0);
     document.querySelectorAll('.unlock-input').forEach(function(inp){{
       inp.addEventListener('keydown', function(e){{
         if(e.key === 'Enter'){{
@@ -523,6 +553,28 @@ TEMPLATE = '''\
   }} else {{
     document.addEventListener('gate:unlocked', initChapterPages, {{once: true}});
   }}
+}})();
+</script>
+<script>
+(function () {{
+  document.addEventListener('click', function (e) {{
+    var img = e.target.closest('.zoomable');
+    if (!img) return;
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:99999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;padding:1rem;';
+    var big = document.createElement('img');
+    big.src = img.src; big.alt = img.alt;
+    big.style.cssText = 'max-width:100%;max-height:90vh;object-fit:contain;border-radius:4px;box-shadow:0 4px 40px rgba(0,0,0,.8);';
+    var hint = document.createElement('div');
+    hint.textContent = '點任意處關閉';
+    hint.style.cssText = 'position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);color:#666;font-size:.76rem;pointer-events:none;';
+    overlay.appendChild(big); overlay.appendChild(hint);
+    overlay.addEventListener('click', function () {{ document.body.removeChild(overlay); }});
+    document.addEventListener('keydown', function esc(ev) {{
+      if (ev.key === 'Escape') {{ if (document.body.contains(overlay)) document.body.removeChild(overlay); document.removeEventListener('keydown', esc); }}
+    }});
+    document.body.appendChild(overlay);
+  }});
 }})();
 </script>
 </body>
@@ -563,6 +615,7 @@ def build_html(fm, pages):
         unlock_codes_json=codes,
         code1=code1,
         code2=code2,
+        len_pages=len(pages),
     )
 
 
