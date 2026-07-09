@@ -256,16 +256,26 @@ cloudflared --version
 cloudflared tunnel --url http://localhost:8787
 ```
 
-執行後，畫面會輸出大量的日誌，請在日誌中尋找類似以下的關鍵網址：
+##### 實測成功終端機日誌對照：
+當啟動成功後，您會在畫面上看到類似以下的日誌（注意其中產生的 `trycloudflare.com` 網址）：
+
 ```text
-+-------------------------------------------------------------+
-|  Your quick Tunnel has been created! Visit it at:           |
-|  https://some-random-words-trycloudflare.com                |
-+-------------------------------------------------------------+
+PS C:\WINDOWS\system32> cloudflared tunnel --url http://localhost:8787
+INF Requesting new quick Tunnel on trycloudflare.com...
+INF +--------------------------------------------------------------------------------------------+
+INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+INF |  https://www-cute-found-highland.trycloudflare.com                                         |
+INF +--------------------------------------------------------------------------------------------+
+INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8787]
+INF Registered tunnel connection connIndex=0 connection=6a37a411-0e64-4149-9ebb-4e8460318bb0 event=0 ip=198.41.192.7 location=khh01 protocol=quic
+INF SUMMARY: Environment is healthy. cloudflared will use 'quic' as primary protocol.
 ```
-把這個 **`https://...trycloudflare.com`** 的專屬網址分享給玩家，他們就可以在任何地方（不需 Wi-Fi、用 4G/5G 也可以）透過安全 HTTPS 連入您的網頁！
-- 📱 玩家登入：`https://<您的Cloudflare網址>/scripts/kou-xia/player/login.html`
-- 🎲 主持人端：`https://<您的Cloudflare網址>/scripts/kou-xia/gm/index.html`
+
+這時候，畫面中產生的 **`https://www-cute-found-highland.trycloudflare.com`**（每次重開會不同）就是您的專屬外部 HTTPS 網址！
+
+您可以直接把這個網址分享給玩家，他們就可以在任何地方（不需 Wi-Fi、用手機 4G/5G 也可以）透過安全 HTTPS 連入您的網頁：
+- 📱 **玩家登入端**：`https://www-cute-found-highland.trycloudflare.com/scripts/kou-xia/player/login.html`
+- 🎲 **主持人 (GM) 端**：`https://www-cute-found-highland.trycloudflare.com/scripts/kou-xia/gm/index.html`
 
 #### 💡 Tunnel 機制的重要提醒：
 1. **本機代管性質**：Cloudflare Tunnel 就像是「在雲端幫你開了一個公開門牌」，但所有的網頁服務、玩家註冊資料庫（`kou_xia.db`）依然安全地存在你本機電腦。
