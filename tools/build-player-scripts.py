@@ -12,7 +12,7 @@ into the preceding 情景 page automatically.
 """
 import os, re, html as html_mod
 
-BASE       = '/home/fiducia/larp-script-archive'
+BASE       = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCE_DIR = os.path.join(BASE, 'materials/kou-xia/source')
 OUTPUT_DIR = os.path.join(BASE, 'docs/scripts/kou-xia/player/scripts')
 
@@ -228,6 +228,8 @@ def _tabs_html(pages):
         lines.append(f'    <button class="{cls}" role="tab" data-page="{i}" onclick="switchPage({i})">{label}</button>')
     global_idx = len(pages)
     lines.append(f'    <button class="tab-btn" role="tab" data-page="{global_idx}" onclick="switchPage({global_idx})">🌍 公開資訊</button>')
+    lines.append(f'    <a class="tab-btn" href="../rumours.html" target="_blank">📰 江湖軼聞 ↗</a>')
+    lines.append(f'    <a class="tab-btn" href="../clues.html" target="_blank">🔍 線索整理 ↗</a>')
     return '\n'.join(lines)
 
 
@@ -325,6 +327,8 @@ TEMPLATE = '''\
     /* ── Chapter tabs ─────────────────────────── */
     .chapter-tabs{{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;padding:.3rem 0;align-items:center}}
     .tab-btn{{background:#fff;border:2px solid #c8b89a;border-radius:6px;padding:.45rem 1.1rem;font-size:.9rem;cursor:pointer;color:#5a3a1a;font-family:inherit;letter-spacing:.04em;transition:background .15s,border-color .15s,color .15s;white-space:nowrap}}
+    a.tab-btn{{text-decoration:none;display:inline-flex;align-items:center}}
+    a.tab-btn:hover{{background:#faf0d9;border-color:#b98b5b;text-decoration:none;color:#5a3a1a}}
     .tab-btn.active{{background:#8b0000;border-color:#8b0000;color:#fff;font-weight:700}}
     .tab-btn.locked{{color:#bbb;border-color:#e0d4c0}}
     .tab-btn.locked::after{{content:' 🔒';font-size:.8em}}

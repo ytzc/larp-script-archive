@@ -5,7 +5,7 @@ Run whenever a character md is updated.
 """
 import os, re, html as html_mod
 
-BASE     = '/home/fiducia/larp-script-archive'
+BASE     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CHAR_DIR = os.path.join(BASE, 'docs/scripts/kou-xia/gm/characters')
 
 # Ordered list for prev/next navigation
@@ -145,7 +145,8 @@ def section_to_html(lines):
         elif re.match(r'^\d+\. ', s):
             items = []
             while i < n and re.match(r'^\d+\. ', lines[i].rstrip()):
-                items.append(f'<li>{process_inline(re.sub(r"^\d+\. ", "", lines[i].rstrip()))}</li>')
+                cleaned_line = re.sub(r"^\d+\. ", "", lines[i].rstrip())
+                items.append(f'<li>{process_inline(cleaned_line)}</li>')
                 i += 1
             out.append('<ol>' + ''.join(items) + '</ol>')
 
