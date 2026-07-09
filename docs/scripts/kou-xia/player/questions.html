@@ -515,12 +515,61 @@ charSelect.addEventListener('change', function() {
   renderQA(currentChar);
 });
 
-var savedChar = localStorage.getItem('kou-xia-qa__lastChar');
-if (savedChar && QD[savedChar]) {
-  charSelect.value = savedChar;
-  if (charSelect.value) charSelect.dispatchEvent(new Event('change'));
-}
+// Check user session & restrict character answering cards
+(function () {
+  var session = CharAuth.getSession();
+  if (!session) {
+    // If not logged in, force redirect to login.html
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // Render status bar for nice logged in info
+  CharAuth.renderStatusBar('login.html');
+
+  if (session.is_gm) {
+    // GM mode - can inspect all character answers
+    var label = document.querySelector('.char-bar label');
+    if (label) {
+      label.innerHTML = '選擇要檢視的角色（🎲 主持人檢視模式）：';
+      label.style.color = '#8b0000';
+      label.style.fontWeight = 'bold';
+    }
+
+    var savedChar = localStorage.getItem('kou-xia-qa__lastChar');
+    if (savedChar && QD[savedChar]) {
+      charSelect.value = savedChar;
+    } else {
+      charSelect.value = '';
+    }
+  } else {
+    // Normal player - locked to their own character!
+    var userCharId = session.characterId;
+    if (QD[userCharId]) {
+      charSelect.value = userCharId;
+      charSelect.disabled = true; // Lock select element
+      charSelect.style.background = '#faf5ee';
+      charSelect.style.borderColor = '#b8a090';
+      charSelect.style.cursor = 'not-allowed';
+
+      var label = document.querySelector('.char-bar label');
+      if (label) {
+        label.innerHTML = '👤 已鎖定您的角色項目（只能填寫自己的答題卡）：';
+        label.style.color = '#2a6a3a';
+        label.style.fontWeight = 'bold';
+      }
+    } else {
+      charSelect.value = '';
+    }
+  }
+
+  // Trigger loading questions
+  if (charSelect.value) {
+    charSelect.dispatchEvent(new Event('change'));
+  }
+})();
 </script>
+  <script src="scripts/auth.js"></script>
   <script src="../../../assets/js/topbar.js"></script>
 </body>
 </html>
