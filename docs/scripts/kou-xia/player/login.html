@@ -161,7 +161,7 @@
 
 <div class="card">
   <div class="card-eye">寇俠 · 江湖令牌</div>
-  <div class="card-title" id="card-heading">角色登入</div>
+  <div class="card-title" id="card-heading">角色登入與註冊</div>
   <div class="gold-rule"></div>
 
   <!-- already logged in view -->
@@ -173,52 +173,35 @@
     <span class="logout-link" id="logout-btn">登出</span>
   </div>
 
-  <!-- login form -->
+  <!-- unified smart form -->
   <form id="login-form" onsubmit="return false;">
     <div class="field">
-      <label for="username">帳號 (角色 ID 或 gm)</label>
-      <input id="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="例如：diao-wu-er 或 gm" />
-    </div>
-    <div class="field">
-      <label for="password">密碼</label>
-      <input id="password" type="password" autocomplete="current-password" placeholder="請輸入您的密碼" />
+      <label for="character-select">選擇扮演角色</label>
+      <select id="character-select">
+        <option value="">載入角色清單中…</option>
+      </select>
     </div>
 
-    <button class="submit-btn" id="submit-btn" type="submit">進入劇本</button>
+    <!-- Smart dynamic status hint -->
+    <div id="status-hint" style="font-size: 0.8rem; color: var(--d); margin-bottom: 1.1rem; line-height: 1.6; padding: 0.2rem 0; display: none;"></div>
+
+    <div class="field" id="player-name-field" style="display: none;">
+      <label for="player-name">玩家真實姓名 / 暱稱</label>
+      <input id="player-name" type="text" placeholder="例如：Tzc" />
+    </div>
+
+    <div class="field" id="password-field" style="display: none;">
+      <label for="password" id="password-label">輸入密碼</label>
+      <input id="password" type="password" autocomplete="current-password" placeholder="請輸入密碼" />
+    </div>
+
+    <button class="submit-btn" id="submit-btn" type="submit" disabled>請先選擇角色</button>
 
     <div class="err-msg" id="err-msg">帳號或密碼錯誤，請再試一次。</div>
     <div class="success-msg" id="success-msg">登入成功，正在跳轉…</div>
 
     <div class="register-hint">
-      首次使用此系統？<a href="#" id="go-to-register">按此自主註冊角色</a><br />
       需要主持大局？<a href="#" id="go-to-gm-login">切換至 GM 登入</a>
-    </div>
-  </form>
-
-  <!-- register form -->
-  <form id="register-form" onsubmit="return false;" style="display:none;">
-    <div class="field">
-      <label for="reg-character">選擇扮演角色</label>
-      <select id="reg-character">
-        <option value="">載入角色清單中…</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="reg-playername">玩家真實姓名 / 暱稱</label>
-      <input id="reg-playername" type="text" placeholder="例如：Tzc" />
-    </div>
-    <div class="field">
-      <label for="reg-password">設定登入密碼</label>
-      <input id="reg-password" type="password" placeholder="請設定您的專屬密碼" />
-    </div>
-
-    <button class="submit-btn" id="reg-submit-btn" type="submit">註冊並進入劇本</button>
-
-    <div class="err-msg" id="reg-err-msg">註冊失敗，請再試一次。</div>
-    <div class="success-msg" id="reg-success-msg">註冊成功，正在進入劇本…</div>
-
-    <div class="register-hint">
-      已有帳號？<a href="#" id="go-to-login">切換至角色登入</a>
     </div>
   </form>
 </div>
@@ -244,7 +227,6 @@
 
   function showLoggedIn(session) {
     document.getElementById('login-form').style.display = 'none';
-    document.getElementById('register-form').style.display = 'none';
     var el = document.getElementById('already-in');
     el.style.display = 'block';
     
@@ -261,9 +243,12 @@
     }
   }
 
-  // Load and display character list for registration
-  function loadCharacters() {
-    var select = document.getElementById('reg-character');
+  // Store raw character data globally in scope
+  var charactersData = [];
+
+  // Load and display character list for the unified dropdown
+  function loadCharacters(selectedCharId) {
+    var select = document.getElementById('character-select');
     select.innerHTML = '<option value="">-- 載入中 --</option>';
     
     fetch('/api/kou-xia/characters')
@@ -272,58 +257,131 @@
         return res.json();
       })
       .then(function (data) {
+        charactersData = data;
         select.innerHTML = '<option value="">-- 請選擇您的角色 --</option>';
+        
+        // Add standard characters
         data.forEach(function (char) {
           var opt = document.createElement('option');
           opt.value = char.characterId;
           if (char.claimed) {
             opt.textContent = char.characterName + ' (已由 ' + char.playerName + ' 註冊)';
-            opt.disabled = true;
           } else {
-            opt.textContent = char.characterName;
+            opt.textContent = char.characterName + ' (🟢 尚未註冊)';
           }
           select.appendChild(opt);
         });
+
+        // Add GM as a special subtle option at the bottom
+        var optGm = document.createElement('option');
+        optGm.value = 'gm';
+        optGm.textContent = '主持人 (GM)';
+        select.appendChild(optGm);
+
+        if (selectedCharId) {
+          select.value = selectedCharId;
+          handleCharacterChange(selectedCharId);
+        }
       })
       .catch(function (err) {
         select.innerHTML = '<option value="">無法載入角色列表：' + err.message + '</option>';
       });
   }
 
+  function handleCharacterChange(charId) {
+    var nameField = document.getElementById('player-name-field');
+    var passField = document.getElementById('password-field');
+    var statusHint = document.getElementById('status-hint');
+    var submitBtn = document.getElementById('submit-btn');
+    var cardHeading = document.getElementById('card-heading');
+    var errEl = document.getElementById('err-msg');
+    var okEl = document.getElementById('success-msg');
+
+    if (errEl) errEl.classList.remove('show');
+    if (okEl) okEl.classList.remove('show');
+
+    if (!charId) {
+      nameField.style.display = 'none';
+      passField.style.display = 'none';
+      statusHint.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = '請先選擇角色';
+      cardHeading.textContent = '角色登入與註冊';
+      return;
+    }
+
+    submitBtn.disabled = false;
+    passField.style.display = 'block';
+
+    if (charId === 'gm') {
+      nameField.style.display = 'none';
+      statusHint.style.display = 'block';
+      statusHint.innerHTML = '🎲 <strong>主持人大局登入</strong><br>請輸入您的專屬管理員密碼。';
+      submitBtn.textContent = '進入主持主控台';
+      cardHeading.textContent = 'GM 登入';
+      document.getElementById('password').placeholder = '請輸入 GM 密碼';
+      document.getElementById('password-label').textContent = 'GM 登入密碼';
+    } else {
+      var charInfo = null;
+      for (var i = 0; i < charactersData.length; i++) {
+        if (charactersData[i].characterId === charId) {
+          charInfo = charactersData[i];
+          break;
+        }
+      }
+
+      if (charInfo && charInfo.claimed) {
+        nameField.style.display = 'none';
+        statusHint.style.display = 'block';
+        statusHint.innerHTML = '🔵 <strong>此角色已被註冊</strong><br>玩家：' + charInfo.playerName + '，請輸入密碼登入劇本。';
+        submitBtn.textContent = '驗證密碼進入劇本';
+        cardHeading.textContent = '角色登入';
+        document.getElementById('password').placeholder = '請輸入您的密碼';
+        document.getElementById('password-label').textContent = '密碼';
+      } else {
+        nameField.style.display = 'block';
+        statusHint.style.display = 'block';
+        statusHint.innerHTML = '🟢 <strong>此角色尚未註冊</strong><br>請輸入您的玩家真實姓名，並設定一個密碼。';
+        submitBtn.textContent = '註冊並進入劇本';
+        cardHeading.textContent = '角色註冊';
+        document.getElementById('password').placeholder = '請設定您的登入密碼';
+        document.getElementById('password-label').textContent = '設定密碼';
+      }
+    }
+  }
+
+  // Hook change event
+  document.getElementById('character-select').addEventListener('change', function (e) {
+    handleCharacterChange(e.target.value);
+  });
+
   // Check login state
   var session = CharAuth.getSession();
-  if (session) { showLoggedIn(session); }
-
-  // Toggle forms
-  document.getElementById('go-to-register').addEventListener('click', function (e) {
-    e.preventDefault();
-    document.getElementById('login-form').style.display = 'none';
-    document.getElementById('register-form').style.display = 'block';
-    document.getElementById('card-heading').textContent = '角色註冊';
+  if (session) { 
+    showLoggedIn(session); 
+  } else {
     loadCharacters();
-  });
-
-  document.getElementById('go-to-login').addEventListener('click', function (e) {
-    e.preventDefault();
-    document.getElementById('register-form').style.display = 'none';
-    document.getElementById('login-form').style.display = 'block';
-    document.getElementById('card-heading').textContent = '角色登入';
-  });
+  }
 
   // GM quick login
   var gmLoginBtn = document.getElementById('go-to-gm-login');
   if (gmLoginBtn) {
     gmLoginBtn.addEventListener('click', function (e) {
       e.preventDefault();
-      var errEl = document.getElementById('err-msg');
-      var okEl  = document.getElementById('success-msg');
-      if (errEl) errEl.classList.remove('show');
-      if (okEl) okEl.classList.remove('show');
+      var select = document.getElementById('character-select');
+      select.value = 'gm';
+      handleCharacterChange('gm');
 
-      document.getElementById('username').value = 'gm';
+      // Autofill GM password and log in immediately
       document.getElementById('password').value = 'gm';
       
+      var errEl = document.getElementById('err-msg');
+      var okEl  = document.getElementById('success-msg');
       var btn = document.getElementById('submit-btn');
+      
+      if (errEl) errEl.classList.remove('show');
+      if (okEl) okEl.classList.remove('show');
+      
       if (btn) {
         btn.disabled = true;
         btn.textContent = '驗證中…';
@@ -342,10 +400,10 @@
         .catch(function (err) {
           if (btn) {
             btn.disabled = false;
-            btn.textContent = '進入劇本';
+            btn.textContent = '進入主持主控台';
           }
           if (errEl) {
-            errEl.textContent = err.message || 'GM 登入失敗，請手動輸入 gm / gm';
+            errEl.textContent = err.message || 'GM 登入失敗';
             errEl.classList.add('show');
           }
         });
@@ -358,88 +416,89 @@
     location.reload();
   });
 
-  // Login handler
+  // Form submit handler
   document.getElementById('login-form').addEventListener('submit', function () {
-    var username = document.getElementById('username').value.trim();
+    var charId = document.getElementById('character-select').value;
     var password = document.getElementById('password').value;
-    var errEl    = document.getElementById('err-msg');
-    var okEl     = document.getElementById('success-msg');
-    var btn      = document.getElementById('submit-btn');
+    var errEl = document.getElementById('err-msg');
+    var okEl = document.getElementById('success-msg');
+    var btn = document.getElementById('submit-btn');
 
-    errEl.classList.remove('show');
-    okEl.classList.remove('show');
-
-    if (!username || !password) {
-      errEl.textContent = '請填寫帳號與密碼。';
-      errEl.classList.add('show');
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = '驗證中…';
-
-    CharAuth.login(username, password)
-      .then(function (charId) {
-        okEl.textContent = '登入成功，正在跳轉…';
-        okEl.classList.add('show');
-        setTimeout(function () {
-          window.location.href = scriptUrl(charId);
-        }, 800);
-      })
-      .catch(function (err) {
-        btn.disabled = false;
-        btn.textContent = '進入劇本';
-        errEl.textContent = err.message || '帳號或密碼錯誤，請再試一次。';
-        errEl.classList.add('add');
-        errEl.classList.add('show');
-      });
-  });
-
-  // Register handler
-  document.getElementById('register-form').addEventListener('submit', function () {
-    var charId     = document.getElementById('reg-character').value;
-    var playerName = document.getElementById('reg-playername').value.trim();
-    var password   = document.getElementById('reg-password').value;
-    var errEl      = document.getElementById('reg-err-msg');
-    var okEl       = document.getElementById('reg-success-msg');
-    var btn        = document.getElementById('reg-submit-btn');
-
-    errEl.classList.remove('show');
-    okEl.classList.remove('show');
+    if (errEl) errEl.classList.remove('show');
+    if (okEl) okEl.classList.remove('show');
 
     if (!charId) {
-      errEl.textContent = '請選擇要註冊的角色。';
-      errEl.classList.add('show');
-      return;
-    }
-    if (!playerName) {
-      errEl.textContent = '請填寫玩家姓名或暱稱。';
+      errEl.textContent = '請先選擇角色。';
       errEl.classList.add('show');
       return;
     }
     if (!password) {
-      errEl.textContent = '請設定登入密碼。';
+      errEl.textContent = '請輸入密碼。';
       errEl.classList.add('show');
       return;
     }
 
-    btn.disabled = true;
-    btn.textContent = '註冊中…';
+    var charInfo = null;
+    for (var i = 0; i < charactersData.length; i++) {
+      if (charactersData[i].characterId === charId) {
+        charInfo = charactersData[i];
+        break;
+      }
+    }
 
-    CharAuth.register(charId, playerName, password)
-      .then(function (registeredId) {
-        okEl.textContent = '註冊並登入成功，正在進入劇本…';
-        okEl.classList.add('show');
-        setTimeout(function () {
-          window.location.href = scriptUrl(registeredId);
-        }, 1000);
-      })
-      .catch(function (err) {
+    btn.disabled = true;
+
+    if (charId === 'gm' || (charInfo && charInfo.claimed)) {
+      btn.textContent = '驗證中…';
+      CharAuth.login(charId, password)
+        .then(function (targetCharId) {
+          if (okEl) {
+            okEl.textContent = '登入成功，正在跳轉…';
+            okEl.classList.add('show');
+          }
+          setTimeout(function () {
+            window.location.href = scriptUrl(targetCharId);
+          }, 800);
+        })
+        .catch(function (err) {
+          btn.disabled = false;
+          btn.textContent = charId === 'gm' ? '進入主持主控台' : '驗證密碼進入劇本';
+          if (errEl) {
+            errEl.textContent = err.message || '密碼錯誤，請再試一次。';
+            errEl.classList.add('show');
+          }
+        });
+    } else {
+      var playerName = document.getElementById('player-name').value.trim();
+      if (!playerName) {
         btn.disabled = false;
-        btn.textContent = '註冊並進入劇本';
-        errEl.textContent = err.message || '註冊失敗，該角色可能已被註冊。';
-        errEl.classList.add('show');
-      });
+        if (errEl) {
+          errEl.textContent = '請填寫玩家真實姓名或暱稱。';
+          errEl.classList.add('show');
+        }
+        return;
+      }
+
+      btn.textContent = '註冊中…';
+      CharAuth.register(charId, playerName, password)
+        .then(function (registeredId) {
+          if (okEl) {
+            okEl.textContent = '註冊並登入成功，正在進入劇本…';
+            okEl.classList.add('show');
+          }
+          setTimeout(function () {
+            window.location.href = scriptUrl(registeredId);
+          }, 1000);
+        })
+        .catch(function (err) {
+          btn.disabled = false;
+          btn.textContent = '註冊並進入劇本';
+          if (errEl) {
+            errEl.textContent = err.message || '註冊失敗，該角色可能已被註冊。';
+            errEl.classList.add('show');
+          }
+        });
+    }
   });
 }());
 </script>
