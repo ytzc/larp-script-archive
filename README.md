@@ -133,7 +133,59 @@ cp -r docs/scripts/kou-xia docs/scripts/<new-script-slug>
 
 ## 本地端測試與託管 (Local Hosting)
 
-當您在本地修改或新增劇本後，可以使用本專案提供的 `serve.sh` 腳本，直接以 Docker 在本地端區域網路 (LAN) 啟動一個輕量的 Web 伺服器：
+當您在本地修改或新增劇本後，本專案支援以兩種方式在本地端區域網路 (LAN) 啟動一個輕量的 Web 伺服器，使本機電腦、手機、平板皆可連入測試。
+
+---
+
+### 💻 方式一：使用 Docker Desktop for Windows (Windows 平台最佳推薦)
+
+在 Windows 系統下，使用 **Docker Desktop for Windows** 搭配 WSL2 是最簡便、最穩定的本地部署方式。**它會自動處理 Windows 與 WSL 之間的 Port Forwarding 網路轉發，完全免去複雜的 `netsh` 網路指令設定！**
+
+#### 1. 建置 Docker 映像檔 (僅需在專案修改後執行)
+打開 PowerShell 並進入專案根目錄，執行以下指令：
+```powershell
+docker build -t larp-script-archive -f Dockerfile .
+```
+
+#### 2. 一鍵啟動容器 (推薦使用環境變數或設定檔)
+
+為了避免每次都要在指令最後手動輸入 `8787 docs`，我們已將系統升級為 **「智慧環境變數與預設值」** 機制。您可以使用以下兩種更優雅的方式啟動：
+
+##### 👍 推薦作法 A：使用環境設定檔 (`.env`) ── 最輕鬆、免打長指令
+在專案根目錄（`larp-script-archive/`）下建立一個名為 **`.env`** 的文字檔案，內容填入您的個人設定：
+```ini
+PORT=8787
+WEB_DIR=docs
+HOST_IP=10.0.0.78
+```
+之後啟動容器時，**只需在 PowerShell 輸入這一行**，Docker 就會自動載入所有設定並在日誌輸出手機連線網址：
+```powershell
+docker run -it --rm --env-file .env -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
+```
+*(注意：`-p 0.0.0.0:8787:8787` 中的兩個 Port 號碼，請與您 `.env` 檔案中的 `PORT` 保持一致。)*
+
+##### 作法 B：使用行內環境變數 (Inline Env)
+若不想建立 `.env` 檔案，也可以直接在指令中用 `-e` 帶入變數：
+```powershell
+docker run -it --rm -e PORT=8787 -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
+```
+
+##### 💡 傳統相容作法（CLI 參數）
+系統依然支援舊有參數方式。如果指令最後有帶參數，將會優先覆蓋環境變數與預設值：
+```powershell
+docker run -it --rm -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive 8787 docs
+```
+*(如果完全不帶任何參數與環境變數，系統將自動套用安全預設值：Port `8000` 與 `docs` 目錄。)*
+
+> **💡 參數解析：**
+> - `-it`：允許您在終端機中看到即時的登入、註冊日誌，並可隨時按 `Ctrl + C` 停止伺服器。
+> - `-v "${PWD}:/workspace"`：將當前資料夾掛載進容器中，任何網頁或資料庫修改（`kou_xia.db`）皆會同步與持久化保存在本地。
+
+---
+
+### 🐧 方式二：使用 `serve.sh` 腳本 (Linux / macOS / WSL2 本地環境)
+
+如果您身處 Linux、macOS 或是在 WSL2 原生 Linux 環境中，可以使用內建的 `serve.sh` 腳本：
 
 ```bash
 # 給予執行權限（僅需執行一次）
@@ -146,37 +198,24 @@ chmod +x serve.sh
 ./serve.sh 8080
 ```
 
-執行後，腳本會自動偵測並印出您的本機 IP 網址（例如 `http://localhost:8000/`）。
+執行後，腳本會自動偵測並印出您的本機 IP 網址。
 同時，任何玩家註冊帳號和 GM 存取狀態均會自動持久化保存在本地目錄的 `kou_xia.db` 中。
 
 ---
 
-### 🌐 跨裝置連線設定 (特別是使用 WSL2 環境)
+### 🌐 跨裝置連線設定 (手機/平板連入測試)
 
-如果您的執行環境在 Windows 的 **WSL2** 底下，由於 WSL2 採虛擬化 NAT 網路架構，同個 Wi-Fi 下的手機或平板（通常為 `192.168.x.x` 或 `10.0.0.x`）無法直接連入 WSL 的虛擬 IP。
+當伺服器啟動成功後，同個 Wi-Fi 網路底下的玩家設備即可直接連入：
 
-請依照以下實測成功的方式進行連線與轉發：
+1. **查詢 Windows 電腦 IP**：
+   在 Windows 的 PowerShell 中輸入 `ipconfig`，找到「無線區域網路介面卡 Wi-Fi」下的 **IPv4 位址**（例如：`10.0.0.78`）。
 
-1. **查詢 Windows 實體 IP**：
-   在 Windows 執行 `ipconfig`，找到「無線區域網路介面卡 Wi-Fi」下的 **IPv4 位址**（例如：`10.0.0.78`）。
+2. **外部設備（手機/平板）連線網址**：
+   確保手機與您的主機連接在**同一個 Wi-Fi** 中，在手機瀏覽器輸入：
+   - 📱 **玩家登入端**：`http://<您的電腦IP>:8787/scripts/kou-xia/player/login.html` (例如 `http://10.0.0.78:8787/scripts/kou-xia/player/login.html`)
+   - 🎲 **主持人 (GM) 端**：`http://<您的電腦IP>:8787/scripts/kou-xia/gm/index.html` (例如 `http://10.0.0.78:8787/scripts/kou-xia/gm/index.html`)
 
-2. **設定連接埠轉發 (Port Forwarding)**：
-   以 **系統管理員身分 (Administrator)** 開啟 Windows PowerShell，設定 Windows 將對外 8000 埠流量轉發至本機 WSL。請執行：
-   ```powershell
-   netsh interface portproxy add v4tov4 listenport=8000 listenaddress=0.0.0.0 connectport=8000 connectaddress=127.0.0.1
-   ```
-   *(請確保 Windows 防火牆允許 8000 連接埠。)*
-
-3. **外部設備連線**：
-   此時，只要手機或平板與您的主機連接在**同一個 Wi-Fi** 中，即可直接在瀏覽器輸入：
-   - 📱 **玩家入口**：`http://<您的Windows實體IP>:8000/scripts/kou-xia/player/index.html` (例如 `http://10.0.0.78:8000/scripts/kou-xia/player/index.html`)
-   - 🎲 **GM 入口**：`http://<您的Windows實體IP>:8000/scripts/kou-xia/gm/index.html`
-
-4. **關閉轉發（當您不需要使用時）**：
-   若想取消 8000 埠的轉發，可以在管理員權限的 Windows PowerShell 執行：
-   ```powershell
-   netsh interface portproxy delete v4tov4 listenport=8000 listenaddress=0.0.0.0
-   ```
+*(備註：若手機連不上，請確保 Windows Defender 防火牆在 Docker 啟動時有勾選允許「私人」與「公用」網路存取。)*
 
 ---
 

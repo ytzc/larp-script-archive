@@ -8,8 +8,8 @@
     /* ground:#1a1510 text:#e4d9c4 gold:#c49a38 */
     :root {
       --g: #1a1510; --s: #231d16; --s2: #2d2519;
-      --t: #e4d9c4; --d: #7a6a52; --b: #3a2e22;
-      --au: #c49a38; --err: #c04040;
+      --t: #f4ebd9; --d: #ad997e; --b: #4e3f2f;
+      --au: #e4b854; --err: #e65555;
       --f: "Noto Serif SC","Source Han Serif SC","思源宋體","Noto Serif","SimSun","MingLiU",Georgia,serif;
     }
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
@@ -154,7 +154,7 @@
 </head>
 <body>
 
-<a class="back-link" href="index.html">← 返回玩家入口</a>
+<a class="back-link" href="../index.html">← 返回上一層 (寇俠首頁)</a>
 
 <!-- mismatch banner (shown if redirected from wrong character page) -->
 <div class="mismatch-banner" id="mismatch-banner">⚠ 此頁面只限對應角色查閱，請用正確的角色帳號登入。</div>
@@ -191,6 +191,7 @@
 
     <div class="register-hint">
       首次使用此系統？<a href="#" id="go-to-register">按此自主註冊角色</a><br />
+      需要主持大局？<a href="#" id="go-to-gm-login">切換至 GM 登入</a>
     </div>
   </form>
 
@@ -308,6 +309,48 @@
     document.getElementById('login-form').style.display = 'block';
     document.getElementById('card-heading').textContent = '角色登入';
   });
+
+  // GM quick login
+  var gmLoginBtn = document.getElementById('go-to-gm-login');
+  if (gmLoginBtn) {
+    gmLoginBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var errEl = document.getElementById('err-msg');
+      var okEl  = document.getElementById('success-msg');
+      if (errEl) errEl.classList.remove('show');
+      if (okEl) okEl.classList.remove('show');
+
+      document.getElementById('username').value = 'gm';
+      document.getElementById('password').value = 'gm';
+      
+      var btn = document.getElementById('submit-btn');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = '驗證中…';
+      }
+
+      CharAuth.login('gm', 'gm')
+        .then(function (charId) {
+          if (okEl) {
+            okEl.textContent = 'GM 登入成功，正在跳轉…';
+            okEl.classList.add('show');
+          }
+          setTimeout(function () {
+            window.location.href = scriptUrl(charId);
+          }, 800);
+        })
+        .catch(function (err) {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = '進入劇本';
+          }
+          if (errEl) {
+            errEl.textContent = err.message || 'GM 登入失敗，請手動輸入 gm / gm';
+            errEl.classList.add('show');
+          }
+        });
+    });
+  }
 
   // Logout click
   document.getElementById('logout-btn').addEventListener('click', function () {

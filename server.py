@@ -264,12 +264,13 @@ class CustomHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
 def main():
-    if len(sys.argv) < 3:
-        print("用法: server.py <port> <directory>")
-        sys.exit(1)
+    # 讀取環境變數，若無則套用預設值 (Port: 8000, Dir: docs)
+    env_port = int(os.environ.get('PORT', 8000))
+    env_dir = os.environ.get('WEB_DIR', 'docs')
 
-    port = int(sys.argv[1])
-    directory = sys.argv[2]
+    # 第一優先：如果指令最後有帶 CLI 參數，則覆蓋環境變數與預設值
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else env_port
+    directory = sys.argv[2] if len(sys.argv) > 2 else env_dir
 
     # Switch working directory so SimpleHTTPRequestHandler serves files correctly
     os.chdir(directory)
@@ -280,6 +281,30 @@ def main():
     try:
         server = DualStackServer(('0.0.0.0', port), CustomHandler)
         print(f"🚀 伺服器正在 0.0.0.0:{port} 運行，託管目錄為 {directory}")
+
+        # Print helpful testing URLs
+        host_ip = os.environ.get('HOST_IP')
+        print("\n========================================================")
+        print("💻 [本機電腦測試網址]")
+        print(f"   - 玩家入口: http://localhost:{port}/scripts/kou-xia/player/index.html")
+        print(f"   - 角色登入: http://localhost:{port}/scripts/kou-xia/player/login.html")
+        print(f"   - 主持人端: http://localhost:{port}/scripts/kou-xia/gm/index.html")
+        
+        print("\n🌐 [區域網路 / 手機連線測試]")
+        if host_ip:
+            print(f"   偵測到主機 IP 參數為: {host_ip}")
+            print(f"   - 玩家登入: http://{host_ip}:{port}/scripts/kou-xia/player/login.html")
+            print(f"   - 主持人端: http://{host_ip}:{port}/scripts/kou-xia/gm/index.html")
+        else:
+            print(f"   1. 請在 Windows PowerShell 執行 'ipconfig' 查詢您的 Wi-Fi IPv4 (例如 10.0.0.78)")
+            print(f"   2. 確保手機與此電腦連接到同一個 Wi-Fi 路由器")
+            print(f"   3. 在手機瀏覽器輸入：")
+            print(f"      - 玩家登入: http://<您的電腦IP>:{port}/scripts/kou-xia/player/login.html")
+            print(f"      - 主持人端: http://<您的電腦IP>:{port}/scripts/kou-xia/gm/index.html")
+            print("\n   💡 提示: 啟動 Docker 時加上 -e HOST_IP=您的IP，即可直接印出可點選的完整連線網址！")
+            print(f"      範例: docker run -it --rm -e HOST_IP=10.0.0.78 -p 0.0.0.0:{port}:{port} -v \"${{PWD}}:/workspace\" larp-script-archive {port} {directory}")
+        print("========================================================\n")
+
         server.serve_forever()
     except OSError as e:
         if e.errno == 98 or 'already in use' in str(e).lower():
