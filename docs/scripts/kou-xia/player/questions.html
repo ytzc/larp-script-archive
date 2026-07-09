@@ -4,6 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>答題卡 — 寇俠</title>
+  <script>
+    (function () {
+      fetch('/api/kou-xia/state')
+        .then(function (res) {
+          if (res.ok) return res.json();
+          throw new Error('Static host');
+        })
+        .then(function (data) {
+          if (!data.act1_unlocked) {
+            alert('⚠️ 情境一尚未開放，請等待 GM 宣佈！');
+            window.location.href = 'index.html';
+          }
+        })
+        .catch(function () {
+          // Fallback for static hosting
+        });
+    })();
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {

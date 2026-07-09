@@ -120,11 +120,12 @@
   </div>
 
   <!-- ══ 情境一 ══ -->
-  <div class="phase-header">
+  <div class="phase-header" id="act1-header" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
     <span class="phase-badge phase-one">情境一</span>
     <span class="phase-title">遊戲開始後可查閱</span>
+    <span class="phase-status-label" id="act1-status-label" style="font-size:0.75rem; background: #c04040; color: #fff; padding: 0.15rem 0.45rem; border-radius: 3px; font-weight: bold; margin-left: auto; display: none;">等待 GM 啟動</span>
   </div>
-  <div class="section-nav">
+  <div class="section-nav" id="act1-nav">
 
     <a class="section-item" href="guide.html">
       <span class="icon">📋</span>
@@ -165,12 +166,13 @@
   </div>
 
   <!-- ══ 情境二 ══ -->
-  <div class="phase-header">
+  <div class="phase-header" id="act2-header" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
     <span class="phase-badge phase-two">情境二</span>
     <span class="phase-title">GM 宣告後開放</span>
     <span class="phase-note">等待 GM 說明後再開啟</span>
+    <span class="phase-status-label" id="act2-status-label" style="font-size:0.75rem; background: #c04040; color: #fff; padding: 0.15rem 0.45rem; border-radius: 3px; font-weight: bold; margin-left: auto; display: none;">等待 GM 啟動</span>
   </div>
-  <div class="section-nav">
+  <div class="section-nav" id="act2-nav">
 
     <a class="section-item" href="clues.html">
       <span class="icon">🔍</span>
@@ -215,6 +217,75 @@
 </script>
 
   <script src="../../../assets/js/topbar.js"></script>
+<script>
+  (function () {
+    // Add CSS for disabled state dynamically
+    var style = document.createElement('style');
+    style.textContent = [
+      '.disabled-nav {',
+      '  opacity: 0.35;',
+      '  pointer-events: none!important;',
+      '  cursor: not-allowed!important;',
+      '  user-select: none;',
+      '}',
+      '.disabled-nav a {',
+      '  pointer-events: none!important;',
+      '  cursor: not-allowed!important;',
+      '}'
+    ].join('\n');
+    document.head.appendChild(style);
+
+    function checkGameState() {
+      fetch('/api/kou-xia/state')
+        .then(function (res) {
+          if (!res.ok) throw new Error('無法載入狀態');
+          return res.json();
+        })
+        .then(function (data) {
+          var act1Nav = document.getElementById('act1-nav');
+          var act1Label = document.getElementById('act1-status-label');
+          var act2Nav = document.getElementById('act2-nav');
+          var act2Label = document.getElementById('act2-status-label');
+
+          if (act1Nav && act1Label) {
+            if (data.act1_unlocked) {
+              act1Nav.classList.remove('disabled-nav');
+              act1Label.style.display = 'inline-block';
+              act1Label.style.background = '#2e7d32';
+              act1Label.textContent = '🟢 已開放';
+            } else {
+              act1Nav.classList.add('disabled-nav');
+              act1Label.style.display = 'inline-block';
+              act1Label.style.background = '#c04040';
+              act1Label.textContent = '🔒 GM 未開放';
+            }
+          }
+
+          if (act2Nav && act2Label) {
+            if (data.act2_unlocked) {
+              act2Nav.classList.remove('disabled-nav');
+              act2Label.style.display = 'inline-block';
+              act2Label.style.background = '#2e7d32';
+              act2Label.textContent = '🟢 已開放';
+            } else {
+              act2Nav.classList.add('disabled-nav');
+              act2Label.style.display = 'inline-block';
+              act2Label.style.background = '#c04040';
+              act2Label.textContent = '🔒 GM 未開放';
+            }
+          }
+        })
+        .catch(function (err) {
+          // On static hosts like GitHub Pages, keep it enabled as fallback
+          console.log('Static fallback or API error:', err);
+        });
+    }
+
+    // Run immediately and poll every 3 seconds
+    checkGameState();
+    setInterval(checkGameState, 3000);
+  })();
+</script>
 <script>
 (function () {
   document.addEventListener('click', function (e) {

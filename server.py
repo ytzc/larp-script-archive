@@ -40,13 +40,24 @@ def init_db():
     ''')
     # Add optional tracking columns if they don't exist
     try:
-        c.execute("ALTER TABLE users ADD COLUMN created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'))")
+        c.execute("ALTER TABLE users ADD COLUMN created_at TEXT")
     except sqlite3.OperationalError:
         pass
     try:
         c.execute("ALTER TABLE users ADD COLUMN last_login TEXT")
     except sqlite3.OperationalError:
         pass
+
+    # Game state table for Act 1 and Act 2 access control
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS game_state (
+            key TEXT PRIMARY KEY,
+            value TEXT NOT NULL
+        )
+    ''')
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_unlocked', '0')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act2_unlocked', '0')")
+
     conn.commit()
     conn.close()
     print("✅ 資料庫初始化完成。")
@@ -92,12 +103,36 @@ class CustomHandler(SimpleHTTPRequestHandler):
                     'characterId': cid,
                     'characterName': name,
                     'claimed': is_claimed,
-                    'playerName': claimed[cid]['playerName'] if is_claimed else '',
-                    'createdAt': claimed[cid]['createdAt'] if is_claimed else '',
-                    'lastLogin': claimed[cid]['lastLogin'] if is_claimed else ''
+                    'playerName': (claimed[cid]['playerName'] or '') if is_claimed else '',
+                    'createdAt': (claimed[cid]['createdAt'] or '') if is_claimed else '',
+                    'lastLogin': (claimed[cid]['lastLogin'] or '') if is_claimed else ''
                 })
             
             self.wfile.write(json.dumps(resp).encode('utf-8'))
+            return
+
+        # Handle GET API for game state
+        if self.path == '/api/kou-xia/state':
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.end_headers()
+            
+            try:
+                conn = sqlite3.connect(DB_FILE)
+                c = conn.cursor()
+                c.execute("SELECT key, value FROM game_state")
+                rows = c.fetchall()
+                conn.close()
+                state = {row[0]: row[1] == '1' for row in rows}
+            except Exception as e:
+                print(f"❌ 查詢遊戲狀態時發生錯誤: {e}")
+                state = {"act1_unlocked": False, "act2_unlocked": False}
+                
+            if "act1_unlocked" not in state: state["act1_unlocked"] = False
+            if "act2_unlocked" not in state: state["act2_unlocked"] = False
+            
+            self.wfile.write(json.dumps(state).encode('utf-8'))
             return
 
         # Otherwise, fall back to standard static file serving
@@ -105,7 +140,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         # Intercept API POST routes
-        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset'):
+        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state'):
             content_length = int(self.headers.get('Content-Length', 0))
             post_data = self.rfile.read(content_length)
             
@@ -138,7 +173,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         res = {'success': False, 'message': '玩家姓名與密碼不能為空'}
                     else:
                         try:
-                            c.execute('INSERT INTO users (character_id, player_name, password) VALUES (?, ?, ?)', (cid, player_name, password))
+                            c.execute("INSERT INTO users (character_id, player_name, password, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'))", (cid, player_name, password))
                             conn.commit()
                             res = {
                                 'success': True,
@@ -197,6 +232,24 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         print("🧹 GM 已重設所有玩家註冊資料")
                     else:
                         res = {'success': False, 'message': '重設失敗：GM 密碼錯誤'}
+
+                elif self.path == '/api/kou-xia/state':
+                    password = data.get('password', '')
+                    if password == 'gm':
+                        act1 = '1' if data.get('act1_unlocked') else '0'
+                        act2 = '1' if data.get('act2_unlocked') else '0'
+                        
+                        c.execute("INSERT OR REPLACE INTO game_state (key, value) VALUES ('act1_unlocked', ?)", (act1,))
+                        c.execute("INSERT OR REPLACE INTO game_state (key, value) VALUES ('act2_unlocked', ?)", (act2,))
+                        conn.commit()
+                        res = {
+                            'success': True,
+                            'act1_unlocked': data.get('act1_unlocked'),
+                            'act2_unlocked': data.get('act2_unlocked')
+                        }
+                        print(f"⚙️ GM 更新遊戲狀態: 情境一={act1 == '1'}, 情境二={act2 == '1'}")
+                    else:
+                        res = {'success': False, 'message': '權限不足：GM 密碼錯誤'}
 
                 self.wfile.write(json.dumps(res).encode('utf-8'))
             except Exception as e:

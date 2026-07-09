@@ -159,14 +159,41 @@
     <div id="gm-reset-msg" style="margin-top:0.8em; font-size:.85rem; display:none;"></div>
   </div>
 
-  <hr />
+  <!-- 🕹️ 遊戲進程與情境存取控制 (GM Control Panel) -->
+  <h2 style="margin-top: 2rem;">🕹️ 遊戲進程與情境存取控制 (GM Controls)</h2>
+  <div class="notice notice-info" style="margin-top:1em; background: #12100e; border: 1px solid #3a2e1a; border-radius: 8px; padding: 1.2rem 1.4rem;">
+    <strong>📢 啟動玩家網頁的情境存取權限：</strong>
+    <p style="color: #a09078; font-size: 0.85rem; margin: 0.3rem 0 1rem 0;">
+      點擊下方按鈕以啟動或關閉玩家端「情境一」與「情境二」的存取權。關閉時玩家將無法點開對應頁面。
+    </p>
+    
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+      <!-- 情境一控制 -->
+      <div style="background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 1rem; min-width: 200px; flex: 1;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+          <strong style="color: #f0d080; font-size: 1.05rem;">🎬 情境一</strong>
+          <span id="act1-status-badge" style="background: #c04040; color: #fff; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.75rem; font-weight: bold; display: inline-block;">已關閉</span>
+        </div>
+        <button id="act1-toggle-btn" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.45rem 1rem; width: 100%; font-weight: bold; cursor: pointer; transition: background 0.15s; font-family: inherit;">
+          啟動情境一
+        </button>
+      </div>
 
-  <div class="notice notice-warning">
-    <strong>⚠️ 安全提醒：</strong>
-    本頁使用 client-side password gate，密碼可見於頁面原始碼。
-    上方所有連結皆部署於公開 GitHub Pages，任何知道 URL 的人均可直接存取。
-    若需要真正的存取控制，請使用 private repo 或 GitHub Enterprise。
+      <!-- 情境二控制 -->
+      <div style="background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 1rem; min-width: 200px; flex: 1;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+          <strong style="color: #f0d080; font-size: 1.05rem;">🎬 情境二</strong>
+          <span id="act2-status-badge" style="background: #c04040; color: #fff; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.75rem; font-weight: bold; display: inline-block;">已關閉</span>
+        </div>
+        <button id="act2-toggle-btn" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.45rem 1rem; width: 100%; font-weight: bold; cursor: pointer; transition: background 0.15s; font-family: inherit;">
+          啟動情境二
+        </button>
+      </div>
+    </div>
+    <div id="gm-state-msg" style="font-size: .85rem; display: none;"></div>
   </div>
+
+  <hr />
 </main>
 
 <footer class="site-footer">
@@ -178,18 +205,6 @@
 <script src="../../../assets/js/version.js"></script>
 <script src="../../../assets/js/password-gate.js"></script>
 <script>
-  // WARNING: This password is visible in page source.
-  // This gate is for casual spoiler prevention only — not strong security.
-  // Do not rely on this to protect truly sensitive or copyrighted content.
-  initPasswordGate({
-    role:     'kou-xia-gm',
-    password: 'gm',
-    icon:     '🎲',
-    title:    'GM Area — 主持人專用',
-    desc:     '請輸入 GM 密碼以進入。本區包含完整劇情真相與主持人資訊。',
-    back:     '../index.html'
-  });
-
   // SQLite registered player administration
   (function () {
     function loadRegisteredPlayers() {
@@ -274,6 +289,133 @@
         });
     });
   })();
+
+  // GM Game State Controls
+  (function () {
+    var currentAct1 = false;
+    var currentAct2 = false;
+
+    function updateStateUI() {
+      var act1Badge = document.getElementById('act1-status-badge');
+      var act1Btn = document.getElementById('act1-toggle-btn');
+      var act2Badge = document.getElementById('act2-status-badge');
+      var act2Btn = document.getElementById('act2-toggle-btn');
+
+      if (!act1Badge || !act1Btn || !act2Badge || !act2Btn) return;
+
+      if (currentAct1) {
+        act1Badge.style.background = '#2e7d32';
+        act1Badge.textContent = '已開放';
+        act1Btn.textContent = '關閉情境一';
+        act1Btn.style.background = '#4e3e2e';
+        act1Btn.style.color = '#c49a38';
+      } else {
+        act1Badge.style.background = '#c04040';
+        act1Badge.textContent = '已關閉';
+        act1Btn.textContent = '啟動情境一';
+        act1Btn.style.background = '#c49a38';
+        act1Btn.style.color = '#120a04';
+      }
+
+      if (currentAct2) {
+        act2Badge.style.background = '#2e7d32';
+        act2Badge.textContent = '已開放';
+        act2Btn.textContent = '關閉情境二';
+        act2Btn.style.background = '#4e3e2e';
+        act2Btn.style.color = '#c49a38';
+      } else {
+        act2Badge.style.background = '#c04040';
+        act2Badge.textContent = '已關閉';
+        act2Btn.textContent = '啟動情境二';
+        act2Btn.style.background = '#c49a38';
+        act2Btn.style.color = '#120a04';
+      }
+    }
+
+    function loadGameState() {
+      fetch('/api/kou-xia/state')
+        .then(function (res) {
+          if (!res.ok) throw new Error('無法載入狀態');
+          return res.json();
+        })
+        .then(function (data) {
+          currentAct1 = !!data.act1_unlocked;
+          currentAct2 = !!data.act2_unlocked;
+          updateStateUI();
+        })
+        .catch(function (err) {
+          console.error('Error loading game state:', err);
+        });
+    }
+
+    function saveGameState(act1, act2) {
+      var msg = document.getElementById('gm-state-msg');
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.color = '#8a7a50';
+        msg.textContent = '正在更新遊戲狀態…';
+      }
+
+      fetch('/api/kou-xia/state', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: 'gm',
+          act1_unlocked: act1,
+          act2_unlocked: act2
+        })
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('與伺服器連線失敗');
+          return res.json();
+        })
+        .then(function (data) {
+          if (data.success) {
+            currentAct1 = !!data.act1_unlocked;
+            currentAct2 = !!data.act2_unlocked;
+            updateStateUI();
+            if (msg) {
+              msg.style.color = '#68b880';
+              msg.textContent = '🎉 成功更新存取狀態！';
+              setTimeout(function () { msg.style.display = 'none'; }, 2000);
+            }
+          } else {
+            if (msg) {
+              msg.style.color = '#c04040';
+              msg.textContent = '❌ 更新失敗：' + data.message;
+            }
+          }
+        })
+        .catch(function (err) {
+          if (msg) {
+            msg.style.color = '#c04040';
+            msg.textContent = '❌ 發生錯誤：' + err.message;
+          }
+        });
+    }
+
+    document.addEventListener('gate:unlocked', function () {
+      loadGameState();
+    });
+
+    document.getElementById('act1-toggle-btn').addEventListener('click', function () {
+      saveGameState(!currentAct1, currentAct2);
+    });
+
+    document.getElementById('act2-toggle-btn').addEventListener('click', function () {
+      saveGameState(currentAct1, !currentAct2);
+    });
+  })();
+
+  // Initialize password gate AFTER all event listeners are registered
+  initPasswordGate({
+    role:     'kou-xia-gm',
+    password: 'gm',
+    icon:     '🎲',
+    title:    'GM Area — 主持人專用',
+    desc:     '請輸入 GM 密碼以進入。本區包含完整劇情真相與主持人資訊。',
+    back:     '../index.html'
+  });
 </script>
 
   <script src="../../../assets/js/topbar.js"></script>

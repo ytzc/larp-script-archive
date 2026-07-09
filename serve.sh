@@ -58,5 +58,13 @@ echo " 💡 提示：按 Ctrl+C 可以安全停止伺服器。"
 echo "============================================================="
 echo ""
 
-# 啟動自訂的 Python 伺服器 (包含 SQLite API 支援)
-python3 "$SCRIPT_DIR/server.py" "$PORT" "$DOCS_DIR"
+# 建立 Docker 映像檔 (自動建立)
+echo "🐳 正在建置/檢查 Docker 映像檔 (larp-script-archive)..."
+docker build -q -t larp-script-archive -f "$SCRIPT_DIR/Dockerfile" "$SCRIPT_DIR"
+
+# 啟動 Docker 容器，將本地工作區目錄掛載為 Volume 以便持久化資料庫
+echo "🚀 正在啟動 Docker 容器..."
+docker run -it --rm \
+  -p "$PORT:$PORT" \
+  -v "$SCRIPT_DIR:/workspace" \
+  larp-script-archive "$PORT" "docs"

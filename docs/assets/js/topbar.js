@@ -6,7 +6,9 @@
   'use strict';
 
   // 此專案的 GitHub Pages 根目錄（只有一個 repo）
-  const BASE = location.origin + '/larp-script-archive/';
+  const BASE = location.pathname.startsWith('/larp-script-archive/')
+    ? location.origin + '/larp-script-archive/'
+    : location.origin + '/';
 
   const path = location.pathname;
   const inGm     = path.includes('/kou-xia/gm/');
