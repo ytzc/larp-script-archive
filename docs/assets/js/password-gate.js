@@ -39,6 +39,16 @@
       return;
     }
 
+    // Automatically bypass the player password gate if already logged in as a character!
+    if (config.role === 'kou-xia-player') {
+      try {
+        if (sessionStorage.getItem('kou-xia-char-session')) {
+          _unlock(gate, content);
+          return;
+        }
+      } catch (e) {}
+    }
+
     // Render the gate UI
     gate.innerHTML = _buildHTML(config);
     gate.style.display = 'flex';

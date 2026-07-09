@@ -131,6 +131,21 @@
 
   <hr />
 
+  <!-- SQLite 玩家註冊管理 -->
+  <h2>⚙️ 玩家註冊與系統管理 (SQLite Admin)</h2>
+  <div class="notice notice-info" style="margin-top:1em; background: #12100e; border: 1px solid #3a2e1a; border-radius: 8px; padding: 1.2rem 1.4rem;">
+    <strong>👥 目前已註冊玩家狀態：</strong>
+    <ul id="gm-registered-list" style="margin: .8em 0 1.2em 1.5em; font-size: .92em; line-height: 1.7; color: #f0d080;">
+      <li>載入中…</li>
+    </ul>
+    <button id="gm-reset-db-btn" style="background:#c04040; color:#fff; border:none; border-radius:4px; padding:.55rem 1.2rem; font-size:.85rem; cursor:pointer; font-weight:bold; transition:opacity .15s; font-family: inherit;">
+      🧹 重設所有玩家註冊資料 (清空資料庫)
+    </button>
+    <div id="gm-reset-msg" style="margin-top:0.8em; font-size:.85rem; display:none;"></div>
+  </div>
+
+  <hr />
+
   <div class="notice notice-warning">
     <strong>⚠️ 安全提醒：</strong>
     本頁使用 client-side password gate，密碼可見於頁面原始碼。
@@ -159,6 +174,86 @@
     desc:     '請輸入 GM 密碼以進入。本區包含完整劇情真相與主持人資訊。',
     back:     '../index.html'
   });
+
+  // SQLite registered player administration
+  (function () {
+    function loadRegisteredPlayers() {
+      var ul = document.getElementById('gm-registered-list');
+      if (!ul) return;
+      
+      fetch('/api/kou-xia/characters')
+        .then(function (res) {
+          if (!res.ok) { throw new Error('連線伺服器失敗'); }
+          return res.json();
+        })
+        .then(function (data) {
+          ul.innerHTML = '';
+          var claimedCount = 0;
+          data.forEach(function (char) {
+            var li = document.createElement('li');
+            li.style.marginBottom = '0.35rem';
+            if (char.claimed) {
+              li.innerHTML = '🎭 <strong style="color:#f0d080;">' + char.characterName + '</strong> (' + char.characterId + ') &nbsp;·&nbsp; 已由 <strong style="color:#68b880;">' + char.playerName + '</strong> 註冊';
+              claimedCount++;
+            } else {
+              li.innerHTML = '🎭 <span style="color:#8a7a50;">' + char.characterName + ' (' + char.characterId + ')</span> &nbsp;·&nbsp; <span style="color:#5a4e3e; font-style:italic;">未註冊</span>';
+            }
+            ul.appendChild(li);
+          });
+          if (claimedCount === 0) {
+            var li = document.createElement('li');
+            li.style.color = '#8a7a50';
+            li.style.fontStyle = 'italic';
+            li.textContent = '目前尚未有玩家進行註冊。';
+            ul.insertBefore(li, ul.firstChild);
+          }
+        })
+        .catch(function (err) {
+          ul.innerHTML = '<li style="color:#c04040;">無法載入註冊玩家列表：' + err.message + '</li>';
+        });
+    }
+
+    // Load registered player status once the page password gate is unlocked
+    document.addEventListener('gate:unlocked', function () {
+      loadRegisteredPlayers();
+    });
+
+    // Handle database reset
+    document.getElementById('gm-reset-db-btn').addEventListener('click', function () {
+      if (!confirm('⚠️ 警告：您確定要清空所有玩家的註冊資料嗎？\n此動作會刪除所有角色的帳號與密碼，玩家將必須重新註冊才能登入，且此操作無法復原。')) {
+        return;
+      }
+      
+      var msg = document.getElementById('gm-reset-msg');
+      msg.style.display = 'block';
+      msg.style.color = '#8a7a50';
+      msg.textContent = '正在清空註冊資料…';
+      
+      fetch('/api/kou-xia/reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: 'gm' })
+      })
+        .then(function (res) {
+          if (!res.ok) { throw new Error('與伺服器斷開連線'); }
+          return res.json();
+        })
+        .then(function (data) {
+          if (data.success) {
+            msg.style.color = '#68b880';
+            msg.textContent = '🎉 所有玩家註冊資料已成功清空！您可以開始新的一局遊戲了。';
+            loadRegisteredPlayers();
+          } else {
+            msg.style.color = '#c04040';
+            msg.textContent = '❌ 清空失敗：' + data.message;
+          }
+        })
+        .catch(function (err) {
+          msg.style.color = '#c04040';
+          msg.textContent = '❌ 發生錯誤：' + err.message;
+        });
+    });
+  })();
 </script>
 
   <script src="../../../assets/js/topbar.js"></script>

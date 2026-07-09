@@ -37,3 +37,4 @@ local-private/
 
 # GM / Spoiler — 若要排除 gm 資料夾，取消下方註解
 # docs/scripts/*/gm/
+kou_xia.db

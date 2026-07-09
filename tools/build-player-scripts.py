@@ -414,16 +414,19 @@ TEMPLATE = '''\
 </div><!-- /protected-content -->
 
 <script src="../../../../assets/js/version.js"></script>
-<script src="../../../../assets/js/password-gate.js"></script>
+<script src="auth.js"></script>
 <script>
-  initPasswordGate({{
-    role: 'kou-xia-player',
-    password: 'player',
-    icon: '\U0001F4DC',
-    title: '{name} — 角色劇本',
-    desc: '請輸入玩家密碼以查看角色劇本。',
-    back: '../index.html'
-  }});
+  (function() {{
+    var session = CharAuth.requireCharacter('{slug}', '../login.html');
+    if (session) {{
+      CharAuth.renderStatusBar('../login.html');
+      var content = document.getElementById('protected-content');
+      if (content) {{
+        content.style.display = 'block';
+      }}
+      document.dispatchEvent(new CustomEvent('gate:unlocked'));
+    }}
+  }})();
 </script>
 <!-- GM: chapter unlock codes — 情景二: {code1}  情景三: {code2} -->
 <script>

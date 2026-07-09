@@ -1,53 +1,72 @@
 /**
- * CharAuth — 角色登入工具
+ * CharAuth — 角色登入與註冊工具 (SQLite API Backend Version)
  *
  * sessionStorage key: kou-xia-char-session
- * 後端接入點：將 _callApi() 中的 fetch 換成真實 API 即可，
- *             其餘 login / logout / getSession 不需修改。
  */
 (function (global) {
   'use strict';
 
   var SESSION_KEY = 'kou-xia-char-session';
 
-  /* ── 後端接入點 ─────────────────────────────────
-     TODO: 當後端完成後，將 DEMO_ACCOUNTS 移除，
-           並在 _callApi() 改為實際 fetch 呼叫。
-  ──────────────────────────────────────────────── */
-  var DEMO_ACCOUNTS = {
-    'wang-si-han':   { characterId: 'wang-si-han',   characterName: '王思涵', playerName: 'Luna',   password: 'demo-luna'   },
-    'jia-san-niang': { characterId: 'jia-san-niang', characterName: '賈三娘', playerName: 'Peggy',  password: 'demo-peggy'  },
-    'diao-wu-er':    { characterId: 'diao-wu-er',    characterName: '刁五兒', playerName: '佩璇',   password: 'demo-px'     },
-    'yan-yi':        { characterId: 'yan-yi',        characterName: '嚴逸',   playerName: '健元',   password: 'demo-jy'     },
-    'yan-shi':       { characterId: 'yan-shi',       characterName: '嚴氏',   playerName: '媛媛',   password: 'demo-yy'     },
-    'wang-shun':     { characterId: 'wang-shun',     characterName: '王順',   playerName: '宣毅',   password: 'demo-xy'     },
-    'nong-sou':      { characterId: 'nong-sou',      characterName: '農叟',   playerName: '佩妏',   password: 'demo-pw'     },
-    'jin-si-dao':    { characterId: 'jin-si-dao',    characterName: '金四刀', playerName: '建翔',   password: 'demo-jx'     },
-    'zhang-meng':    { characterId: 'zhang-meng',    characterName: '張猛',   playerName: '子擎',   password: 'demo-zq'     }
-  };
-
-  /**
-   * 驗證帳號密碼。
-   * 後端完成後將此函式改為 fetch('/api/login', { method:'POST', body:... })
-   * 並 return 後端回傳的 { characterId, characterName, playerName } 物件（失敗回 null）。
-   */
-  function _callApi(username, password) {
-    var acct = DEMO_ACCOUNTS[username.trim().toLowerCase()];
-    if (acct && acct.password === password) {
-      return { characterId: acct.characterId, characterName: acct.characterName, playerName: acct.playerName };
-    }
-    return null;
-  }
-
   var CharAuth = {
-    /** 登入：驗證後寫入 sessionStorage，回傳 characterId 或 null。 */
+    /**
+     * 登入：呼叫後端 API 驗證，成功後寫入 sessionStorage。
+     * 回傳 Promise，resolve 角色 ID (string) 或 reject 錯誤。
+     */
     login: function (username, password) {
-      var data = _callApi(username, password);
-      if (data) {
-        data.loginTime = Date.now();
-        try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(data)); } catch (e) {}
-      }
-      return data ? data.characterId : null;
+      return fetch('/api/kou-xia/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      })
+      .then(function (res) {
+        if (!res.ok) { throw new Error('連線伺服器失敗'); }
+        return res.json();
+      })
+      .then(function (data) {
+        if (data.success && data.session) {
+          data.session.loginTime = Date.now();
+          if (data.is_gm) {
+            data.session.is_gm = true;
+          }
+          try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(data.session)); } catch (e) {}
+          return data.session.characterId;
+        } else {
+          throw new Error(data.message || '帳號或密碼錯誤');
+        }
+      });
+    },
+
+    /**
+     * 註冊：呼叫後端 API 註冊角色並直接登入，成功後寫入 sessionStorage。
+     * 回傳 Promise，resolve 角色 ID (string) 或 reject 錯誤。
+     */
+    register: function (characterId, playerName, password) {
+      return fetch('/api/kou-xia/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          characterId: characterId,
+          playerName: playerName,
+          password: password
+        })
+      })
+      .then(function (res) {
+        if (!res.ok) { throw new Error('連線伺服器失敗'); }
+        return res.json();
+      })
+      .then(function (data) {
+        if (data.success && data.session) {
+          data.session.loginTime = Date.now();
+          try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(data.session)); } catch (e) {}
+          return data.session.characterId;
+        } else {
+          throw new Error(data.message || '註冊失敗');
+        }
+      });
     },
 
     /** 登出：清除 session。 */
@@ -80,6 +99,10 @@
         window.location.href = loginUrl;
         return null;
       }
+      // If GM is logged in, they can view any character's script page!
+      if (session.is_gm) {
+        return session;
+      }
       if (session.characterId !== expectedId) {
         window.location.href = loginUrl + '?mismatch=1';
         return null;
@@ -95,9 +118,10 @@
       bar.id = 'char-auth-bar';
       bar.style.cssText = 'background:#1a1510;color:#7a6a52;font-size:.78rem;padding:.38rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;border-bottom:1px solid #3a2e22;font-family:sans-serif;';
       if (session) {
+        var roleText = session.is_gm ? '🎲 <strong style="color:#c49a38;">GM</strong>' : '🎭 <strong style="color:#c49a38;">' + session.characterName + '</strong> (' + session.playerName + ')';
         bar.innerHTML =
-          '<span>🎭 <strong style="color:#c49a38;">' + session.characterName + '</strong> (' + session.playerName + ')</span>' +
-          '<button onclick="CharAuth.logout();location.reload();" style="background:none;border:1px solid #3a2e22;color:#7a6a52;padding:.18rem .65rem;border-radius:2px;cursor:pointer;font-size:.75rem;">登出</button>';
+          '<span>' + roleText + '</span>' +
+          '<button id="char-auth-logout-btn" style="background:none;border:1px solid #3a2e22;color:#7a6a52;padding:.18rem .65rem;border-radius:2px;cursor:pointer;font-size:.75rem;">登出</button>';
       } else {
         bar.innerHTML =
           '<span style="color:#7a6a52;">未登入角色帳號</span>' +
@@ -106,6 +130,14 @@
       var body = document.body;
       if (body.firstChild) { body.insertBefore(bar, body.firstChild); }
       else { body.appendChild(bar); }
+
+      var logoutBtn = bar.querySelector('#char-auth-logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+          CharAuth.logout();
+          location.reload();
+        });
+      }
     }
   };
 

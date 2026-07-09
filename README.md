@@ -188,6 +188,26 @@ cp -r docs/scripts/kou-xia docs/scripts/<new-script-slug>
 
 ---
 
+## 本地端測試與託管 (Local Hosting)
+
+當您在本地修改或新增劇本後，可以使用本專案提供的 `serve.sh` 腳本，直接在本地端區域網路 (LAN) 啟動一個輕量的 Web 伺服器：
+
+```bash
+# 給予執行權限（僅需執行一次）
+chmod +x serve.sh
+
+# 啟動本地伺服器，預設使用 port 8000
+./serve.sh
+
+# 或是指定其他 Port 啟動
+./serve.sh 8080
+```
+
+執行後，腳本會自動偵測並印出您的本機 IP 網址（例如 `http://192.168.1.100:8000/`）。
+只要您的手機、平板或其他設備與此電腦連線至**同一個 Wi-Fi 區域網路**，即可直接掃描或輸入該 IP 網址進行劇本遊玩與測試，不需每次都推送到 GitHub Pages。
+
+---
+
 ## Release
 
 This repository deploys GitHub Pages when a version tag is pushed.

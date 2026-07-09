@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>張猛 &#8212; 角色劇本 &#8212; 寇俠</title>
+  <title>張猛 &#8212; 角色劇本 &#8212; 寇侠</title>
   <link rel="stylesheet" href="../../../../assets/css/style.css" />
   <style>
     /* ── Page base ────────────────────────────── */
@@ -95,7 +95,7 @@
   <a class="logo" href="../../../../index.html">&#128220; LARP Script Archive</a>
   <nav>
     <a href="../../../../index.html">首頁</a>
-    <a href="../../index.html">寇俠</a>
+    <a href="../../index.html">寇侠</a>
     <a href="../index.html">Player</a>
     <a href="index.html">角色劇本</a>
   </nav>
@@ -262,16 +262,19 @@
 </div><!-- /protected-content -->
 
 <script src="../../../../assets/js/version.js"></script>
-<script src="../../../../assets/js/password-gate.js"></script>
+<script src="auth.js"></script>
 <script>
-  initPasswordGate({
-    role: 'kou-xia-player',
-    password: 'player',
-    icon: '📜',
-    title: '張猛 — 角色劇本',
-    desc: '請輸入玩家密碼以查看角色劇本。',
-    back: '../index.html'
-  });
+  (function() {
+    var session = CharAuth.requireCharacter('zhang-meng', '../login.html');
+    if (session) {
+      CharAuth.renderStatusBar('../login.html');
+      var content = document.getElementById('protected-content');
+      if (content) {
+        content.style.display = 'block';
+      }
+      document.dispatchEvent(new CustomEvent('gate:unlocked'));
+    }
+  })();
 </script>
 <!-- GM: chapter unlock codes — 情景二: act2  情景三: act3 -->
 <script>
@@ -370,6 +373,5 @@
   }
 })();
 </script>
-  <script src="../../../../assets/js/topbar.js"></script>
 </body>
 </html>

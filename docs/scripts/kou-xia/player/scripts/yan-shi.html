@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>嚴氏 &#8212; 角色劇本 &#8212; 寇俠</title>
+  <title>嚴氏 &#8212; 角色劇本 &#8212; 寇侠</title>
   <link rel="stylesheet" href="../../../../assets/css/style.css" />
   <style>
     /* ── Page base ────────────────────────────── */
@@ -95,7 +95,7 @@
   <a class="logo" href="../../../../index.html">&#128220; LARP Script Archive</a>
   <nav>
     <a href="../../../../index.html">首頁</a>
-    <a href="../../index.html">寇俠</a>
+    <a href="../../index.html">寇侠</a>
     <a href="../index.html">Player</a>
     <a href="index.html">角色劇本</a>
   </nav>
@@ -216,9 +216,9 @@
     <h4>本階段你能獲得的道具如下：</h4>
     <ul class="prop-list">
       <li>70 兩銀兩卡：銀兩可以進行玩家間的私下交易，也可以同 NPC進行交易。</li>
-      <li>【武功卡】×1：一次發動可造成 2 點傷害。</li>
-      <li>【天賦卡一迷醉】×1：迷藥讓他人出現幻覺。在武器競拍環節使用，能夠以起拍價直接購買任一武器盒子。（使用後回收）</li>
-      <li>【物品卡一繡衣使傳音令一玄】×1：價值 50 兩，可在競買武器時賣給武器店老闆。只有正確的人才能讓它發揮出最大威力。</li>
+      <li>【武功卡】×1：你掌握的繡衣使功法。</li>
+      <li>【天賦卡一迷醉】×1：你的個人天賦技能，請謹慎使用。</li>
+      <li>【物品卡一繡衣使傳音令一玄】×1：一塊屬於繡衣使的令牌。</li>
     </ul>
   </div><!-- /script-section -->
 
@@ -410,16 +410,19 @@
 </div><!-- /protected-content -->
 
 <script src="../../../../assets/js/version.js"></script>
-<script src="../../../../assets/js/password-gate.js"></script>
+<script src="auth.js"></script>
 <script>
-  initPasswordGate({
-    role: 'kou-xia-player',
-    password: 'player',
-    icon: '📜',
-    title: '嚴氏 — 角色劇本',
-    desc: '請輸入玩家密碼以查看角色劇本。',
-    back: '../index.html'
-  });
+  (function() {
+    var session = CharAuth.requireCharacter('yan-shi', '../login.html');
+    if (session) {
+      CharAuth.renderStatusBar('../login.html');
+      var content = document.getElementById('protected-content');
+      if (content) {
+        content.style.display = 'block';
+      }
+      document.dispatchEvent(new CustomEvent('gate:unlocked'));
+    }
+  })();
 </script>
 <!-- GM: chapter unlock codes — 情景二: act2  情景三: act3 -->
 <script>
@@ -518,6 +521,5 @@
   }
 })();
 </script>
-  <script src="../../../../assets/js/topbar.js"></script>
 </body>
 </html>
