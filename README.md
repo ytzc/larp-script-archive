@@ -181,6 +181,44 @@ docker run -it --rm -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/worksp
 > - `-it`：允許您在終端機中看到即時的登入、註冊日誌，並可隨時按 `Ctrl + C` 停止伺服器。
 > - `-v "${PWD}:/workspace"`：將當前資料夾掛載進容器中，任何網頁或資料庫修改（`kou_xia.db`）皆會同步與持久化保存在本地。
 
+#### 3. 如何改在「背景執行」？(Detached Mode)
+
+如果您希望伺服器持續在背景執行，不佔用 PowerShell 視窗，可以將前述指令中的 `-it --rm` 改成 **`-d`** (Detached) 並加上 **`--name larp-server`** (命名容器為 `larp-server`)。
+
+##### 🚀 背景啟動指令（行內變數範例）：
+```powershell
+docker run -d --name larp-server -e PORT=8787 -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
+```
+
+##### 📂 如果是使用 `.env` 檔案啟動：
+```powershell
+docker run -d --name larp-server --env-file .env -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
+```
+
+##### 📊 背景管理實用指令：
+當容器在背景執行時，您可以透過以下三個超好用指令進行控管：
+
+* **看即時日誌（查誰登入、誰註冊）**：
+  ```powershell
+  docker logs -f larp-server
+  ```
+  *(按 `Ctrl + C` 可以隨時退出日誌畫面，背景服務依然在跑)*
+
+* **停止背景伺服器**：
+  ```powershell
+  docker stop larp-server
+  ```
+
+* **手動再次啟動（若之前被停止）**：
+  ```powershell
+  docker start larp-server
+  ```
+
+* **徹底刪除背景容器（更換 Port 或重置設定時需執行）**：
+  ```powershell
+  docker rm -f larp-server
+  ```
+
 ---
 
 ### 🐧 方式二：使用 `serve.sh` 腳本 (Linux / macOS / WSL2 本地環境)
