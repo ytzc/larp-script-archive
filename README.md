@@ -207,15 +207,70 @@ chmod +x serve.sh
 
 當伺服器啟動成功後，同個 Wi-Fi 網路底下的玩家設備即可直接連入：
 
-1. **查詢 Windows 電腦 IP**：
-   在 Windows 的 PowerShell 中輸入 `ipconfig`，找到「無線區域網路介面卡 Wi-Fi」下的 **IPv4 位址**（例如：`10.0.0.78`）。
+#### 1. 查詢 Windows 電腦區域網路 IP (ipconfig)
+請在 Windows 開啟一個新的 PowerShell 或命令提示字元 (CMD)，輸入以下指令：
+```powershell
+ipconfig
+```
+在輸出的一大堆資訊中，尋找名稱為 **「無線區域網路介面卡 Wi-Fi」** (如果是英文版 Windows 請找 `Wireless LAN adapter Wi-Fi`) 的區段，並記下它的 **「IPv4 位址」**：
 
-2. **外部設備（手機/平板）連線網址**：
-   確保手機與您的主機連接在**同一個 Wi-Fi** 中，在手機瀏覽器輸入：
-   - 📱 **玩家登入端**：`http://<您的電腦IP>:8787/scripts/kou-xia/player/login.html` (例如 `http://10.0.0.78:8787/scripts/kou-xia/player/login.html`)
-   - 🎲 **主持人 (GM) 端**：`http://<您的電腦IP>:8787/scripts/kou-xia/gm/index.html` (例如 `http://10.0.0.78:8787/scripts/kou-xia/gm/index.html`)
+```text
+無線區域網路介面卡 Wi-Fi:
+
+   連線專用 DNS 伺服器尾碼 . . . . . . . :
+   連結-本機 IPv6 位址 . . . . . . . . . : fe80::81b7:6bb2:8b85:4d91%18
+   IPv4 位址 . . . . . . . . . . . . . . : 10.0.0.78  <--- 就是這個！記下它
+   子網路遮罩 . . . . . . . . . . . . . : 255.255.255.0
+   預設閘道 . . . . . . . . . . . . . . : 10.0.0.1
+```
+
+#### 2. 外部設備（手機/平板）連線網址：
+確保手機與您的主機連接在**同一個 Wi-Fi** 中，在手機瀏覽器輸入：
+- 📱 **玩家登入端**：`http://<您的電腦IP>:8787/scripts/kou-xia/player/login.html` (例如 `http://10.0.0.78:8787/scripts/kou-xia/player/login.html`)
+- 🎲 **主持人 (GM) 端**：`http://<您的電腦IP>:8787/scripts/kou-xia/gm/index.html` (例如 `http://10.0.0.78:8787/scripts/kou-xia/gm/index.html`)
 
 *(備註：若手機連不上，請確保 Windows Defender 防火牆在 Docker 啟動時有勾選允許「私人」與「公用」網路存取。)*
+
+---
+
+### 🌌 方式三：使用 Cloudflare Tunnel 讓外部玩家安全連線 (免開 IP / 免設定防火牆)
+
+如果您不想開啟 Windows 防火牆、或者玩家與您**不在同一個 Wi-Fi 底下**（例如跨縣市線上跑、或使用手機行動網路），最安全且推薦的做法是使用 **Cloudflare Tunnel (cloudflared)**。
+
+這會將您的本機 Port 轉發成一個免費、高安全性的 **HTTPS 加密網址**，任何外部設備都能直接連線，完全不需洩漏您的真實 IP。
+
+#### 1. 安裝 Cloudflare CLI (`cloudflared`)
+在 Windows 上，使用 **winget** 安裝是最推薦且快速的方式。請在 PowerShell 輸入：
+```powershell
+winget install --id Cloudflare.cloudflared
+```
+安裝完成後，**關閉目前的 PowerShell 並重新打開一個**，測試是否安裝成功：
+```powershell
+cloudflared --version
+```
+*如果有正常顯示版本號（例如 `cloudflared version 2026.x.x`），即代表安裝成功！*
+
+#### 2. 啟動臨時 Tunnel 測試
+確保您的 Docker 容器已經在 `8787` Port 啟動（正在執行中），接著在 PowerShell 輸入：
+```powershell
+cloudflared tunnel --url http://localhost:8787
+```
+
+執行後，畫面會輸出大量的日誌，請在日誌中尋找類似以下的關鍵網址：
+```text
++-------------------------------------------------------------+
+|  Your quick Tunnel has been created! Visit it at:           |
+|  https://some-random-words-trycloudflare.com                |
++-------------------------------------------------------------+
+```
+把這個 **`https://...trycloudflare.com`** 的專屬網址分享給玩家，他們就可以在任何地方（不需 Wi-Fi、用 4G/5G 也可以）透過安全 HTTPS 連入您的網頁！
+- 📱 玩家登入：`https://<您的Cloudflare網址>/scripts/kou-xia/player/login.html`
+- 🎲 主持人端：`https://<您的Cloudflare網址>/scripts/kou-xia/gm/index.html`
+
+#### 💡 Tunnel 機制的重要提醒：
+1. **本機代管性質**：Cloudflare Tunnel 就像是「在雲端幫你開了一個公開門牌」，但所有的網頁服務、玩家註冊資料庫（`kou_xia.db`）依然安全地存在你本機電腦。
+2. **連線生命週期**：當你電腦關機、Docker 關閉、或者在 PowerShell 按 `Ctrl + C` 停掉 `cloudflared`，外面就會立刻斷開連線，安全無虞。
+3. **固定專屬網域 (進階)**：透過 `trycloudflare.com` 建立的臨時網址在每次關閉重開後都會改變。若您希望能固定網址（例如 `https://kouxia.yourdomain.com`），您可以申請一個免費的 Cloudflare 帳戶，並綁定您自己的網域，在 Cloudflare 控制台（Zero Trust）設定永久的 Custom Host Tunnel。
 
 ---
 
