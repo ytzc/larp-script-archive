@@ -142,15 +142,14 @@
           <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">角色名稱</th>
           <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">玩家名稱</th>
           <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">玩家密碼</th>
-          <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">登入狀態</th>
           <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">註冊時間</th>
-          <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">最後登入</th>
+          <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">最後登入時間</th>
           <th style="padding: 0.75rem; text-align: center; color: #c49a38; border: 1px solid #3a2e22;">操作</th>
         </tr>
       </thead>
       <tbody id="gm-registered-table-body">
         <tr>
-          <td colspan="7" style="padding: 1rem; text-align: center; color: #8a7a50; font-style: italic;">資料載入中…</td>
+          <td colspan="6" style="padding: 1rem; text-align: center; color: #8a7a50; font-style: italic;">資料載入中…</td>
         </tr>
       </tbody>
     </table>
@@ -182,6 +181,7 @@
           <option value="wang-shun">王順</option>
           <option value="nong-sou">農叟</option>
           <option value="jin-si-dao">金四刀</option>
+          <option value="zhang-meng">張猛</option>
         </select>
         
         <div id="gm-private-chat-badge-container" style="font-size: 0.82rem; color: #ad997e; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.3rem;">
@@ -395,7 +395,7 @@
     function loadRegisteredPlayers() {
       var tbody = document.getElementById('gm-registered-table-body');
       if (!tbody) return;
-      
+
       fetch('/api/kou-xia/characters')
         .then(function (res) {
           if (!res.ok) { throw new Error('連線伺服器失敗'); }
@@ -408,18 +408,6 @@
             var tr = document.createElement('tr');
             tr.style.borderBottom = '1px solid #3a2e22';
             tr.style.background = char.claimed ? 'rgba(196,154,56,0.06)' : 'transparent';
-            
-            var statusBadge = char.claimed 
-              ? '<span style="background: #2e7d32; color: #fff; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.75rem; font-weight: bold;">已註冊</span>'
-              : '<span style="background: #333; color: #888; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.75rem; font-weight: bold;">未註冊</span>';
-            
-            if (char.claimed) {
-              var isOnline = char.lastSeenSecondsAgo >= 0 && char.lastSeenSecondsAgo <= 18;
-              var onlineBadge = isOnline
-                ? '<span style="background: #1b5e20; color: #81c784; border: 1px solid #2e7d32; padding: 0.12rem 0.4rem; border-radius: 3px; font-size: 0.72rem; font-weight: bold; margin-left: 0.3rem;">🟢 在線</span>'
-                : '<span style="background: #212121; color: #757575; border: 1px solid #424242; padding: 0.12rem 0.4rem; border-radius: 3px; font-size: 0.72rem; font-weight: bold; margin-left: 0.3rem;">⚫ 離線</span>';
-              statusBadge += onlineBadge;
-            }
 
             var passwordText = char.claimed
               ? '<code style="background:#2a1a0a; padding:0.1rem 0.3rem; border-radius:3px; color:#ad997e; font-family: monospace;">' + char.password + '</code>'
@@ -434,21 +422,20 @@
               '<td style="padding: 0.75rem; font-weight: bold; color: ' + (char.claimed ? '#f0d080' : '#8a7a50') + '; border: 1px solid #3a2e22;">🎭 ' + char.characterName + ' <span style="font-size:0.8rem; color:#888;">(' + char.characterId + ')</span></td>' +
               '<td style="padding: 0.75rem; color: ' + (char.claimed ? '#e4d9c4' : '#5a4e3e') + '; border: 1px solid #3a2e22;">' + (char.playerName || '—') + '</td>' +
               '<td style="padding: 0.75rem; border: 1px solid #3a2e22;">' + passwordText + '</td>' +
-              '<td style="padding: 0.75rem; border: 1px solid #3a2e22;">' + statusBadge + '</td>' +
               '<td style="padding: 0.75rem; font-size: 0.8rem; color: #a09078; border: 1px solid #3a2e22;">' + (char.createdAt || '—') + '</td>' +
               '<td style="padding: 0.75rem; font-size: 0.8rem; color: #a09078; border: 1px solid #3a2e22;">' + (char.lastLogin || '—') + '</td>' +
               '<td style="padding: 0.75rem; text-align: center; border: 1px solid #3a2e22;">' + actionButtons + '</td>';
-            
+
             tbody.appendChild(tr);
             if (char.claimed) claimedCount++;
           });
-          
+
           if (claimedCount === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" style="padding: 1.5rem; text-align: center; color: #8a7a50; font-style: italic;">目前尚未有玩家進行註冊。</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" style="padding: 1.5rem; text-align: center; color: #8a7a50; font-style: italic;">目前尚未有玩家進行註冊。</td></tr>';
           }
         })
         .catch(function (err) {
-          tbody.innerHTML = '<tr><td colspan="7" style="padding: 1.5rem; text-align: center; color: #c04040;">無法載入註冊玩家列表：' + err.message + '</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="6" style="padding: 1.5rem; text-align: center; color: #c04040;">無法載入註冊玩家列表：' + err.message + '</td></tr>';
         });
     }
 
@@ -672,7 +659,8 @@
             'yan-shi': '嚴氏',
             'wang-shun': '王順',
             'nong-sou': '農叟',
-            'jin-si-dao': '金四刀'
+            'jin-si-dao': '金四刀',
+            'zhang-meng': '張猛'
           };
           
           for (var cid in charNames) {

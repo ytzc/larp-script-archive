@@ -352,7 +352,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         res = {'success': False, 'message': '玩家姓名與密碼不能為空'}
                     else:
                         try:
-                            c.execute("INSERT INTO users (character_id, player_name, password, created_at) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'))", (cid, player_name, password))
+                            c.execute("INSERT INTO users (character_id, player_name, password, created_at, last_login) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'), strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'))", (cid, player_name, password))
                             conn.commit()
                             res = {
                                 'success': True,
@@ -524,7 +524,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
                     if character_id:
                         import datetime
                         now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                        c.execute("UPDATE users SET last_seen = ? WHERE character_id = ?", (now_str, character_id))
+                        c.execute("UPDATE users SET last_seen = ?, last_login = ? WHERE character_id = ?", (now_str, now_str, character_id))
                         conn.commit()
                         res = {'success': True, 'last_seen': now_str}
                     else:
