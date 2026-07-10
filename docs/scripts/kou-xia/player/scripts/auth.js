@@ -157,7 +157,64 @@
       var session = this.getSession();
       var bar = document.createElement('div');
       bar.id = 'char-auth-bar';
-      bar.style.cssText = 'background:#1a1510;color:#7a6a52;font-size:.78rem;padding:.38rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;border-bottom:1px solid #3a2e22;font-family:sans-serif;';
+
+      if (!document.getElementById('char-auth-bar-style')) {
+        var css = [
+          '#char-auth-bar {',
+          '  position: fixed;',
+          '  top: 36px;',
+          '  left: 0;',
+          '  right: 0;',
+          '  z-index: 9998;',
+          '  background: #1a1510;',
+          '  color: #7a6a52;',
+          '  font-size: .78rem;',
+          '  padding: .38rem 1rem;',
+          '  display: flex;',
+          '  justify-content: space-between;',
+          '  align-items: center;',
+          '  gap: 1rem;',
+          '  border-bottom: 1px solid #3a2e22;',
+          '  font-family: sans-serif;',
+          '  box-shadow: 0 2px 10px rgba(0,0,0,0.45);',
+          '}',
+          '#char-auth-bar a {',
+          '  color: #c49a38;',
+          '  text-decoration: underline;',
+          '  font-weight: bold;',
+          '}',
+          '#char-auth-bar a:hover {',
+          '  color: #f0c060;',
+          '}',
+          'body.authbar-mounted {',
+          '  padding-top: 72px !important;',
+          '}',
+          'body.authbar-mounted main {',
+          '  padding-top: 0 !important;',
+          '}',
+          '@media (max-width: 600px) {',
+          '  #char-auth-bar {',
+          '    flex-direction: column;',
+          '    align-items: flex-start;',
+          '    gap: .25rem;',
+          '    padding: .45rem .8rem;',
+          '  }',
+          '  body.authbar-mounted {',
+          '    padding-top: 92px !important;',
+          '  }',
+          '}',
+          '@media (max-width: 400px) {',
+          '  body.authbar-mounted {',
+          '    padding-top: 108px !important;',
+          '  }',
+          '}'
+        ].join('\n');
+        var se = document.createElement('style');
+        se.id = 'char-auth-bar-style';
+        se.textContent = css;
+        document.head.appendChild(se);
+      }
+
       if (session) {
         var isPlayerIndex = (loginUrl.indexOf('..') === -1);
         var myScriptUrl;
@@ -183,6 +240,7 @@
       var body = document.body;
       if (body.firstChild) { body.insertBefore(bar, body.firstChild); }
       else { body.appendChild(bar); }
+      document.body.classList.add('authbar-mounted');
 
       var logoutBtn = bar.querySelector('#char-auth-logout-btn');
       if (logoutBtn) {

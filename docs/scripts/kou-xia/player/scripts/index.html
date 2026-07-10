@@ -6,6 +6,23 @@
   <title>角色劇本 — 寇俠</title>
   <script>
     (function () {
+      try {
+        var raw = sessionStorage.getItem('kou-xia-char-session');
+        var session = raw ? JSON.parse(raw) : null;
+        if (session) {
+          if (!session.is_gm && session.characterId) {
+            window.location.replace(session.characterId + '.html');
+            return;
+          }
+        } else {
+          window.location.replace('../login.html');
+          return;
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <script>
+    (function () {
       fetch('/api/kou-xia/state')
         .then(function (res) {
           if (res.ok) return res.json();
@@ -58,7 +75,6 @@
 </header>
 
 <main>
-  <nav class="top-nav"><a href="../index.html">← 玩家入口</a> › 角色劇本</nav>
 
   <div class="hero">
     <h1>📜 角色劇本</h1>

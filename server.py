@@ -186,7 +186,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         # Intercept API POST routes
-        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state', '/api/kou-xia/submit-answers'):
+        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state', '/api/kou-xia/submit-answers', '/api/kou-xia/delete-user'):
             content_length = int(self.headers.get('Content-Length', 0))
             post_data = self.rfile.read(content_length)
             
@@ -278,6 +278,21 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         print("🧹 GM 已重設所有玩家註冊資料")
                     else:
                         res = {'success': False, 'message': '重設失敗：GM 密碼錯誤'}
+
+                elif self.path == '/api/kou-xia/delete-user':
+                    password = data.get('password', '')
+                    character_id = data.get('characterId', '')
+                    if password == 'gm':
+                        if character_id:
+                            c.execute('DELETE FROM users WHERE character_id = ?', (character_id,))
+                            c.execute('DELETE FROM player_answers WHERE character_id = ?', (character_id,))
+                            conn.commit()
+                            res = {'success': True, 'message': f'已成功刪除角色 {character_id} 的註冊與答題資料！'}
+                            print(f"🧹 GM 刪除了註冊角色: {character_id}")
+                        else:
+                            res = {'success': False, 'message': '刪除失敗：未提供角色 ID'}
+                    else:
+                        res = {'success': False, 'message': '刪除失敗：GM 密碼錯誤'}
 
                 elif self.path == '/api/kou-xia/state':
                     password = data.get('password', '')

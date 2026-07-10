@@ -228,8 +228,6 @@ def _tabs_html(pages):
         lines.append(f'    <button class="{cls}" role="tab" data-page="{i}" onclick="switchPage({i})">{label}</button>')
     global_idx = len(pages)
     lines.append(f'    <button class="tab-btn" role="tab" data-page="{global_idx}" onclick="switchPage({global_idx})">🌍 公開資訊</button>')
-    lines.append(f'    <a class="tab-btn" href="../rumours.html" target="_blank">📰 江湖軼聞 ↗</a>')
-    lines.append(f'    <a class="tab-btn" href="../clues.html" target="_blank">🔍 線索整理 ↗</a>')
     return '\n'.join(lines)
 
 
@@ -402,8 +400,6 @@ TEMPLATE = '''\
   </style>
 </head>
 <body>
-
-<a class="back-link" href="../index.html" style="position:absolute; top:1.2rem; left:1.5rem; font-size:.85rem; color:#a08060; text-decoration:none; z-index:100;">← 返回上一層 (玩家入口)</a>
 
 <div id="password-gate" style="display:none;"></div>
 <div id="protected-content" style="display:none;">

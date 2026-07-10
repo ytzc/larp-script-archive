@@ -149,11 +149,6 @@
 </head>
 <body>
 
-<div class="topbar">
-  <span>📝 答題卡 — 寇俠</span>
-  <a href="index.html">← 玩家入口</a>
-</div>
-
 <div class="char-bar" id="char-bar-container">
   <label for="char-select">選擇你的角色：</label>
   <select id="char-select" class="char-select">
@@ -398,6 +393,11 @@ function renderQA(char) {
 }
 
 function submitAnswersToBackend(char) {
+  var session = CharAuth.getSession();
+  if (session && !session.is_gm && char !== session.characterId) {
+    alert('無權操作非本角色的答題系統！');
+    return;
+  }
   var btn = document.getElementById('submit-api-btn');
   var msg = document.getElementById('submit-api-msg');
   if (!btn || !msg) return;
@@ -544,6 +544,12 @@ function clearAnswers() {
 wrapper.addEventListener('input', function(e) {
   var el = e.target;
   if (!el.classList.contains('q-answer') || !currentChar) return;
+  var session = CharAuth.getSession();
+  if (session && !session.is_gm && currentChar !== session.characterId) {
+    currentChar = session.characterId;
+    renderQA(currentChar);
+    return;
+  }
   var qid = el.id;
   var val = el.value;
   if (val.trim()) {
@@ -561,6 +567,10 @@ wrapper.addEventListener('input', function(e) {
 });
 
 charSelect.addEventListener('change', function() {
+  var session = CharAuth.getSession();
+  if (session && !session.is_gm && this.value !== session.characterId) {
+    this.value = session.characterId; // Force back to their own character!
+  }
   currentChar = this.value;
   if (!currentChar) {
     emptyState.style.display = '';
