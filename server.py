@@ -63,6 +63,7 @@ def init_db():
     c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_personal_clues_unlocked', '0')")
     c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_questions_unlocked', '0')")
     c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act2_unlocked', '0')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act2_questions_unlocked', '0')")
     c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act3_unlocked', '0')")
 
     # Player answers table
@@ -143,10 +144,11 @@ class CustomHandler(SimpleHTTPRequestHandler):
                 state = {row[0]: row[1] == '1' for row in rows}
             except Exception as e:
                 print(f"❌ 查詢遊戲狀態時發生錯誤: {e}")
-                state = {"act1_unlocked": False, "act2_unlocked": False}
+                state = {"act1_unlocked": False, "act2_unlocked": False, "act2_questions_unlocked": False}
                 
             if "act1_unlocked" not in state: state["act1_unlocked"] = False
             if "act2_unlocked" not in state: state["act2_unlocked"] = False
+            if "act2_questions_unlocked" not in state: state["act2_questions_unlocked"] = False
             
             self.wfile.write(json.dumps(state).encode('utf-8'))
             return
@@ -186,7 +188,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         # Intercept API POST routes
-        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state', '/api/kou-xia/submit-answers', '/api/kou-xia/delete-user'):
+        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state', '/api/kou-xia/submit-answers', '/api/kou-xia/delete-user', '/api/kou-xia/delete-answers'):
             content_length = int(self.headers.get('Content-Length', 0))
             post_data = self.rfile.read(content_length)
             
@@ -288,7 +290,21 @@ class CustomHandler(SimpleHTTPRequestHandler):
                             c.execute('DELETE FROM player_answers WHERE character_id = ?', (character_id,))
                             conn.commit()
                             res = {'success': True, 'message': f'已成功刪除角色 {character_id} 的註冊與答題資料！'}
-                            print(f"🧹 GM 刪除了註冊角色: {character_id}")
+                            print(f"🧹 GM 刪下了註冊角色: {character_id}")
+                        else:
+                            res = {'success': False, 'message': '刪除失敗：未提供角色 ID'}
+                    else:
+                        res = {'success': False, 'message': '刪除失敗：GM 密碼錯誤'}
+
+                elif self.path == '/api/kou-xia/delete-answers':
+                    password = data.get('password', '')
+                    character_id = data.get('characterId', '')
+                    if password == 'gm':
+                        if character_id:
+                            c.execute('DELETE FROM player_answers WHERE character_id = ?', (character_id,))
+                            conn.commit()
+                            res = {'success': True, 'message': f'已成功刪除角色 {character_id} 的答題資料！'}
+                            print(f"🧹 GM 刪除了答題資料: {character_id}")
                         else:
                             res = {'success': False, 'message': '刪除失敗：未提供角色 ID'}
                     else:

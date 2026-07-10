@@ -147,24 +147,31 @@ cp -r docs/scripts/kou-xia docs/scripts/<new-script-slug>
 docker build -t larp-script-archive -f Dockerfile .
 ```
 
-#### 2. 一鍵啟動容器 (推薦使用環境變數或設定檔)
+#### 2. 一鍵啟動容器
 
-為了避免每次都要在指令最後手動輸入 `8787 docs`，我們已將系統升級為 **「智慧環境變數與預設值」** 機制。您可以使用以下兩種更優雅的方式啟動：
+您可以使用以下幾種方式啟動容器，其中**標準作法 A** 完全不需建立 `.env` 設定檔，開箱即用：
 
-##### 👍 推薦作法 A：使用環境設定檔 (`.env`) ── 最輕鬆、免打長指令
+##### 🚀 標準作法 A：直接輸入參數啟動 (開箱即用，免設定檔)
+在終端機（PowerShell / Linux Bash）輸入以下指令，直接指定 Port `8787` 與掛載目錄：
+```bash
+docker run -it --rm -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive "8787" "docs"
+```
+*(本指令會將本地工作目錄掛載進容器中，確保資料庫 `kou_xia.db` 的更新能正常同步並持久化保存到本機。)*
+
+##### 👍 推薦作法 B：使用環境設定檔 (`.env`) ── 免打長參數
 在專案根目錄（`larp-script-archive/`）下建立一個名為 **`.env`** 的文字檔案，內容填入您的個人設定：
 ```ini
 PORT=8787
 WEB_DIR=docs
 HOST_IP=10.0.0.78
 ```
-之後啟動容器時，**只需在 PowerShell 輸入這一行**，Docker 就會自動載入所有設定並在日誌輸出手機連線網址：
+之後啟動容器時，只要建立好 `.env`，**只需在終端機輸入這一行**，Docker 就會自動載入設定：
 ```powershell
 docker run -it --rm --env-file .env -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
 ```
-*(注意：`-p 0.0.0.0:8787:8787` 中的兩個 Port 號碼，請與您 `.env` 檔案中的 `PORT` 保持一致。)*
+*(注意：如果您使用 `--env-file` 參數，請確保根目錄下**確實存在** `.env` 檔案，否則 Docker 會回報 `no such file or directory` 錯誤。`-p 0.0.0.0:8787:8787` 中的兩個 Port 號碼，請與您 `.env` 檔案中的 `PORT` 保持一致。)*
 
-##### 作法 B：使用行內環境變數 (Inline Env)
+##### 作法 C：使用行內環境變數 (Inline Env)
 若不想建立 `.env` 檔案，也可以直接在指令中用 `-e` 帶入變數：
 ```powershell
 docker run -it --rm -e PORT=8787 -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
@@ -183,16 +190,21 @@ docker run -it --rm -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/worksp
 
 #### 3. 如何改在「背景執行」？(Detached Mode)
 
-如果您希望伺服器持續在背景執行，不佔用 PowerShell 視窗，可以將前述指令中的 `-it --rm` 改成 **`-d`** (Detached) 並加上 **`--name larp-server`** (命名容器為 `larp-server`)。
+如果您希望伺服器持續在背景執行，不佔用終端機視窗，可以將前述指令中的 `-it --rm` 改成 **`-d`** (Detached) 並加上 **`--name larp-server`** (命名容器為 `larp-server`)。
 
-##### 🚀 背景啟動指令（行內變數範例）：
-```powershell
-docker run -d --name larp-server -e PORT=8787 -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
+##### 🚀 背景啟動指令（標準直接參數，最推薦，免設定檔）：
+```bash
+docker run -d --name larp-server -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive "8787" "docs"
 ```
 
 ##### 📂 如果是使用 `.env` 檔案啟動：
-```powershell
+```bash
 docker run -d --name larp-server --env-file .env -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
+```
+
+##### ⚡ 背景啟動指令（行內環境變數範例）：
+```powershell
+docker run -d --name larp-server -e PORT=8787 -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
 ```
 
 ##### 📊 背景管理實用指令：
@@ -278,12 +290,31 @@ ipconfig
 這會將您的本機 Port 轉發成一個免費、高安全性的 **HTTPS 加密網址**，任何外部設備都能直接連線，完全不需洩漏您的真實 IP。
 
 #### 1. 安裝 Cloudflare CLI (`cloudflared`)
-在 Windows 上，使用 **winget** 安裝是最推薦且快速的方式。請在 PowerShell 輸入：
+
+##### 🖥️ Windows 平台安裝
+使用 **winget** 是最推薦且快速的方式。請在 PowerShell 輸入：
 ```powershell
 winget install --id Cloudflare.cloudflared
 ```
-安裝完成後，**關閉目前的 PowerShell 並重新打開一個**，測試是否安裝成功：
-```powershell
+安裝完成後，**關閉目前的 PowerShell 並重新打開一個**，即可開始使用。
+
+##### 🐧 Ubuntu / Debian 平台安裝 (AMD64 系統)
+在 Ubuntu 上，您可以透過官方的 `.deb` 安裝套件快速安裝最新版。請在終端機輸入：
+```bash
+# 下載最新官方 Debian 軟體包 (AMD64 晶片架構)
+curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+
+# 安裝軟體包 (需要 sudo 權限)
+sudo dpkg -i cloudflared.deb
+
+# 清除下載的暫存安裝檔
+rm cloudflared.deb
+```
+*(如果是 ARM 晶片架構（例如樹莓派），只需將上述指令中的 `amd64` 改成 `arm64` 即可。)*
+
+##### ✅ 驗證安裝
+安裝完成後，請在終端機輸入以下指令測試：
+```bash
 cloudflared --version
 ```
 *如果有正常顯示版本號（例如 `cloudflared version 2026.x.x`），即代表安裝成功！*
@@ -316,9 +347,51 @@ INF SUMMARY: Environment is healthy. cloudflared will use 'quic' as primary prot
 - 🎲 **主持人 (GM) 端**：`https://www-cute-found-highland.trycloudflare.com/scripts/kou-xia/gm/index.html`
 
 #### 💡 Tunnel 機制的重要提醒：
-1. **本機代管性質**：Cloudflare Tunnel 就像是「在雲端幫你開了一個公開門牌」，但所有的網頁服務、玩家註冊資料庫（`kou_xia.db`）依然安全地存在你本機電腦。
-2. **連線生命週期**：當你電腦關機、Docker 關閉、或者在 PowerShell 按 `Ctrl + C` 停掉 `cloudflared`，外面就會立刻斷開連線，安全無虞。
+1. **本機代管性質**：Cloudflare Tunnel 就像是「在雲端幫你開了一個公開門牌」，但所有的網頁服務、玩家註冊資料庫（`kou_xia.db`）依然安全地存在您本機電腦。
+2. **連線生命週期**：當你電腦關機、Docker 關閉、或者在終端機按 `Ctrl + C` 停掉 `cloudflared`，外面就會立刻斷開連線，安全無虞。
 3. **固定專屬網域 (進階)**：透過 `trycloudflare.com` 建立的臨時網址在每次關閉重開後都會改變。若您希望能固定網址（例如 `https://kouxia.yourdomain.com`），您可以申請一個免費的 Cloudflare 帳戶，並綁定您自己的網域，在 Cloudflare 控制台（Zero Trust）設定永久的 Custom Host Tunnel。
+
+#### 3. 如何將 Cloudflare Tunnel 運行於背景？(Background Running)
+
+當您使用 `-d` 將 Docker 容器放在背景執行後，通常也會希望 `cloudflared` 的臨時 Tunnel 也能一併在背景執行，這樣就可以關閉終端機（PowerShell / SSH）且連線不中斷。
+
+您可以使用以下兩種主流方式將 `cloudflared` 跑在背景：
+
+##### 方式 A：使用 Linux `nohup` (極力推薦，最輕量簡便)
+在 Linux / WSL2 環境下，您可以使用 `nohup` 搭配 `&` 將程序放到背景執行：
+```bash
+nohup cloudflared tunnel --url http://localhost:8787 > cloudflared.log 2>&1 &
+```
+*這會在背景開啟 Tunnel，並將所有的輸出日誌（包含隨機生成的臨時網址）導向到專案根目錄底下的 `cloudflared.log` 檔案中。*
+
+###### 📊 背景 Tunnel 實用管理指令：
+- **查看產生的外部安全網址**：
+  由於是在背景執行，您需要讀取日誌來取得 Cloudflare 生成的 `trycloudflare.com` 網址：
+  ```bash
+  cat cloudflared.log | grep -oE "https://[a-zA-Z0-9.-]+\.trycloudflare\.com" | uniq
+  ```
+- **查看即時連線日誌**：
+  ```bash
+  tail -f cloudflared.log
+  ```
+- **關閉/停止背景 Tunnel**：
+  ```bash
+  pkill cloudflared
+  ```
+
+##### 方式 B：使用 `tmux` / `screen` 虛擬終端機
+如果您習慣使用 Linux，可以用 `tmux` 或 `screen` 建立一個持久的會話：
+```bash
+# 建立一個名為 larp-tunnel 的會話
+tmux new -s larp-tunnel
+
+# 在裡面執行 cloudflared
+cloudflared tunnel --url http://localhost:8787
+
+# 按下 Ctrl + B，然後按 D 鍵 (Detach) 離開會話，Tunnel 會在背景持續運行
+```
+- **重新回到 Tunnel 畫面**：`tmux a -t larp-tunnel`
+- **關閉 Tunnel**：回到畫面中按下 `Ctrl + C` 即可。
 
 ---
 

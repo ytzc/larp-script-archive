@@ -635,10 +635,22 @@ charSelect.addEventListener('change', function() {
     }
   }
 
-  // Trigger loading questions
-  if (charSelect.value) {
-    charSelect.dispatchEvent(new Event('change'));
-  }
+  // Fetch game state to dynamically check if Act 2 questions are unlocked
+  fetch('/api/kou-xia/state')
+    .then(function (res) { if (res.ok) return res.json(); throw new Error(); })
+    .then(function (data) {
+      if (data.act2_questions_unlocked) {
+        r2Unlocked = true;
+      }
+      if (charSelect.value) {
+        charSelect.dispatchEvent(new Event('change'));
+      }
+    })
+    .catch(function () {
+      if (charSelect.value) {
+        charSelect.dispatchEvent(new Event('change'));
+      }
+    });
 })();
 </script>
   <script src="scripts/auth.js"></script>

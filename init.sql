@@ -15,3 +15,4 @@ CREATE TABLE IF NOT EXISTS game_state (
 
 INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_unlocked', '0');
 INSERT OR IGNORE INTO game_state (key, value) VALUES ('act2_unlocked', '0');
+INSERT OR IGNORE INTO game_state (key, value) VALUES ('act2_questions_unlocked', '0');
