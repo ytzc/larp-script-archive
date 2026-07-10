@@ -141,6 +141,7 @@
         <tr style="background: #1e1812; border-bottom: 2px solid #3a2e22;">
           <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">角色名稱</th>
           <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">玩家名稱</th>
+          <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">玩家密碼</th>
           <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">登入狀態</th>
           <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">註冊時間</th>
           <th style="padding: 0.75rem; text-align: left; color: #c49a38; border: 1px solid #3a2e22;">最後登入</th>
@@ -149,7 +150,7 @@
       </thead>
       <tbody id="gm-registered-table-body">
         <tr>
-          <td colspan="6" style="padding: 1rem; text-align: center; color: #8a7a50; font-style: italic;">資料載入中…</td>
+          <td colspan="7" style="padding: 1rem; text-align: center; color: #8a7a50; font-style: italic;">資料載入中…</td>
         </tr>
       </tbody>
     </table>
@@ -158,6 +159,48 @@
       🧹 重設所有玩家註冊資料 (清空資料庫)
     </button>
     <div id="gm-reset-msg" style="margin-top:0.8em; font-size:.85rem; display:none;"></div>
+  </div>
+
+  <!-- ✉️ 玩家與 GM 私密密談視窗 -->
+  <h2>✉️ 玩家與 GM 私密密談視窗 (Private Message Control)</h2>
+  <div class="notice notice-info" style="margin-top:1em; background: #12100e; border: 1px solid #3a2e1a; border-radius: 8px; padding: 1.2rem 1.4rem;">
+    <strong>💬 選擇密談對手（角色）：</strong>
+    <p style="color: #a09078; font-size: 0.85rem; margin: 0.3rem 0 1rem 0;">
+      點擊角色選擇並載入對話內容，您可以代表主持人 (GM) 傳送訊息給特定的玩家角色。對話每 5 秒會自動重新載入。
+    </p>
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <!-- 左欄：角色選擇列表 -->
+      <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 0.4rem;">
+        <select id="gm-private-chat-select" style="width: 100%; padding: 0.6rem; background: #1a120a; border: 1px solid #3a2e22; border-radius: 4px; color: #e4d9c4; font-family: inherit; font-size: 0.95rem;">
+          <option value="">-- 請選擇密談角色 --</option>
+          <option value="wang-si-han">王思涵</option>
+          <option value="jia-san-niang">賈三娘</option>
+          <option value="diao-wu-er">刁五兒</option>
+          <option value="yan-yi">嚴逸</option>
+          <option value="yan-shi">嚴氏</option>
+          <option value="wang-shun">王順</option>
+          <option value="nong-sou">農叟</option>
+          <option value="jin-si-dao">金四刀</option>
+        </select>
+        
+        <div id="gm-private-chat-badge-container" style="font-size: 0.82rem; color: #ad997e; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.3rem;">
+          <!-- 顯示哪些角色有新訊息或正在對話 -->
+        </div>
+      </div>
+      
+      <!-- 右欄：對話歷史與傳送框 -->
+      <div style="flex: 2; min-width: 320px; display: flex; flex-direction: column; background: #0c0805; border: 1px solid #3a2e22; border-radius: 6px; padding: 1rem;">
+        <div id="gm-private-chat-history" style="height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem; padding: 0.5rem;">
+          <div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.85rem; padding-top: 5rem;">🔌 請先選擇左側的角色以開啟密談對話。</div>
+        </div>
+        
+        <form id="gm-private-chat-form" onsubmit="sendGmPrivateMessage(event); return false;" style="display: flex; gap: 0.5rem;">
+          <input type="text" id="gm-private-chat-input" placeholder="請先選擇角色後輸入訊息…" disabled required style="flex: 1; background: #120a04; border: 1px solid #3a2e22; border-radius: 4px; padding: 0.5rem 0.8rem; color: #e4d9c4; font-family: inherit; font-size: 0.9rem;" />
+          <button type="submit" id="gm-private-chat-btn" disabled style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.5rem 1.2rem; font-size: 0.9rem; font-weight: bold; cursor: pointer; font-family: inherit; transition: opacity 0.15s;">傳送</button>
+        </form>
+      </div>
+    </div>
   </div>
 
   <!-- 🕹️ 遊戲進程與情境存取控制 (GM Control Panel) -->
@@ -370,30 +413,79 @@
               ? '<span style="background: #2e7d32; color: #fff; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.75rem; font-weight: bold;">已註冊</span>'
               : '<span style="background: #333; color: #888; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.75rem; font-weight: bold;">未註冊</span>';
             
-            var deleteButton = char.claimed
-              ? '<button onclick="deletePlayer(\'' + char.characterId + '\', \'' + char.characterName + '\')" style="background:#c04040; color:#fff; border:none; border-radius:3px; padding:.25rem .55rem; font-size:.75rem; cursor:pointer; font-weight:bold; font-family:inherit;">刪除帳號</button>'
+            if (char.claimed) {
+              var isOnline = char.lastSeenSecondsAgo >= 0 && char.lastSeenSecondsAgo <= 18;
+              var onlineBadge = isOnline
+                ? '<span style="background: #1b5e20; color: #81c784; border: 1px solid #2e7d32; padding: 0.12rem 0.4rem; border-radius: 3px; font-size: 0.72rem; font-weight: bold; margin-left: 0.3rem;">🟢 在線</span>'
+                : '<span style="background: #212121; color: #757575; border: 1px solid #424242; padding: 0.12rem 0.4rem; border-radius: 3px; font-size: 0.72rem; font-weight: bold; margin-left: 0.3rem;">⚫ 離線</span>';
+              statusBadge += onlineBadge;
+            }
+
+            var passwordText = char.claimed
+              ? '<code style="background:#2a1a0a; padding:0.1rem 0.3rem; border-radius:3px; color:#ad997e; font-family: monospace;">' + char.password + '</code>'
+              : '<span style="color:#5a4e3e;">—</span>';
+
+            var actionButtons = char.claimed
+              ? '<button onclick="changePlayerPassword(\'' + char.characterId + '\', \'' + char.characterName + '\')" style="background:#2e7d32; color:#fff; border:none; border-radius:3px; padding:.25rem .55rem; font-size:.75rem; cursor:pointer; font-weight:bold; font-family:inherit; margin-right:0.3rem;">修改密碼</button>' +
+                '<button onclick="deletePlayer(\'' + char.characterId + '\', \'' + char.characterName + '\')" style="background:#c04040; color:#fff; border:none; border-radius:3px; padding:.25rem .55rem; font-size:.75rem; cursor:pointer; font-weight:bold; font-family:inherit;">刪除帳號</button>'
               : '<span style="color:#5a4e3e;">—</span>';
 
             tr.innerHTML = 
               '<td style="padding: 0.75rem; font-weight: bold; color: ' + (char.claimed ? '#f0d080' : '#8a7a50') + '; border: 1px solid #3a2e22;">🎭 ' + char.characterName + ' <span style="font-size:0.8rem; color:#888;">(' + char.characterId + ')</span></td>' +
               '<td style="padding: 0.75rem; color: ' + (char.claimed ? '#e4d9c4' : '#5a4e3e') + '; border: 1px solid #3a2e22;">' + (char.playerName || '—') + '</td>' +
+              '<td style="padding: 0.75rem; border: 1px solid #3a2e22;">' + passwordText + '</td>' +
               '<td style="padding: 0.75rem; border: 1px solid #3a2e22;">' + statusBadge + '</td>' +
               '<td style="padding: 0.75rem; font-size: 0.8rem; color: #a09078; border: 1px solid #3a2e22;">' + (char.createdAt || '—') + '</td>' +
               '<td style="padding: 0.75rem; font-size: 0.8rem; color: #a09078; border: 1px solid #3a2e22;">' + (char.lastLogin || '—') + '</td>' +
-              '<td style="padding: 0.75rem; text-align: center; border: 1px solid #3a2e22;">' + deleteButton + '</td>';
+              '<td style="padding: 0.75rem; text-align: center; border: 1px solid #3a2e22;">' + actionButtons + '</td>';
             
             tbody.appendChild(tr);
             if (char.claimed) claimedCount++;
           });
           
           if (claimedCount === 0) {
-            tbody.innerHTML = '<tr><td colspan="6" style="padding: 1.5rem; text-align: center; color: #8a7a50; font-style: italic;">目前尚未有玩家進行註冊。</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" style="padding: 1.5rem; text-align: center; color: #8a7a50; font-style: italic;">目前尚未有玩家進行註冊。</td></tr>';
           }
         })
         .catch(function (err) {
-          tbody.innerHTML = '<tr><td colspan="6" style="padding: 1.5rem; text-align: center; color: #c04040;">無法載入註冊玩家列表：' + err.message + '</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="7" style="padding: 1.5rem; text-align: center; color: #c04040;">無法載入註冊玩家列表：' + err.message + '</td></tr>';
         });
     }
+
+    // Window-level function to change player password
+    window.changePlayerPassword = function (characterId, characterName) {
+      var newPass = prompt('請輸入角色「' + characterName + '」的新密碼：');
+      if (newPass === null) return; // User cancelled
+      newPass = newPass.trim();
+      if (!newPass) {
+        alert('密碼不能為空！');
+        return;
+      }
+      fetch('/api/kou-xia/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: 'gm',
+          characterId: characterId,
+          newPassword: newPass
+        })
+      })
+      .then(function (res) {
+        if (!res.ok) { throw new Error('與伺服器斷開連線'); }
+        return res.json();
+      })
+      .then(function (data) {
+        if (data.success) {
+          alert('✅ 成功修改角色「' + characterName + '」的密碼為：' + newPass);
+          loadRegisteredPlayers(); // Reload table
+        } else {
+          alert('❌ 修改失敗：' + data.message);
+        }
+      })
+      .catch(function (err) {
+        alert('❌ 發生錯誤：' + err.message);
+      });
+    };
 
     // Window-level function to delete a specific player's registration and answers
     window.deletePlayer = function (characterId, characterName) {
@@ -428,6 +520,8 @@
     // Load registered player status once the page password gate is unlocked
     document.addEventListener('gate:unlocked', function () {
       loadRegisteredPlayers();
+      // Auto refresh every 5 seconds for live online statuses
+      setInterval(loadRegisteredPlayers, 5000);
     });
 
     // Handle database reset
@@ -464,6 +558,219 @@
           msg.style.color = '#c04040';
           msg.textContent = '❌ 發生錯誤：' + err.message;
         });
+    });
+  })();
+
+  // Private Messages administration for GM
+  (function () {
+    var select = document.getElementById('gm-private-chat-select');
+    var historyDiv = document.getElementById('gm-private-chat-history');
+    var input = document.getElementById('gm-private-chat-input');
+    var btn = document.getElementById('gm-private-chat-btn');
+
+    function loadGmPrivateMessages() {
+      var cid = select.value;
+      if (!cid) {
+        historyDiv.innerHTML = '<div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.85rem; padding-top: 5rem;">🔌 請先選擇左側的角色以開啟密談對話。</div>';
+        input.disabled = true;
+        btn.disabled = true;
+        input.placeholder = '請先選擇角色後輸入訊息…';
+        return;
+      }
+
+      input.disabled = false;
+      btn.disabled = false;
+      input.placeholder = '代表 GM 輸入私密密談訊息…';
+
+      fetch('/api/kou-xia/private-messages?characterId=' + cid)
+        .then(function (res) {
+          if (!res.ok) throw new Error('與伺服器斷開連線');
+          return res.json();
+        })
+        .then(function (data) {
+          var autoScroll = historyDiv.scrollTop + historyDiv.clientHeight >= historyDiv.scrollHeight - 20;
+          
+          historyDiv.innerHTML = '';
+          if (data.length === 0) {
+            historyDiv.innerHTML = '<div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.85rem; padding-top: 5rem;">📪 與此角色尚無任何密談對話紀錄。</div>';
+            return;
+          }
+
+          data.forEach(function (msg) {
+            var bubble = document.createElement('div');
+            bubble.style.maxWidth = '85%';
+            bubble.style.padding = '0.55rem 0.8rem';
+            bubble.style.borderRadius = '6px';
+            bubble.style.fontSize = '0.86rem';
+            bubble.style.lineHeight = '1.4';
+            bubble.style.wordBreak = 'break-all';
+            bubble.style.margin = '0.3rem 0';
+
+            var isGm = msg.sender === 'gm';
+            if (isGm) {
+              bubble.style.alignSelf = 'flex-end';
+              bubble.style.background = 'rgba(196, 154, 56, 0.15)';
+              bubble.style.border = '1px solid rgba(196, 154, 56, 0.3)';
+              bubble.style.color = '#f4ebd9';
+            } else {
+              bubble.style.alignSelf = 'flex-start';
+              bubble.style.background = 'rgba(139, 0, 0, 0.15)';
+              bubble.style.border = '1px solid rgba(139, 0, 0, 0.3)';
+              bubble.style.color = '#ffc0c0';
+            }
+
+            var header = document.createElement('div');
+            header.style.fontSize = '0.72rem';
+            header.style.color = isGm ? '#ad997e' : '#d07070';
+            header.style.marginBottom = '0.2rem';
+            header.style.fontWeight = 'bold';
+            header.textContent = (isGm ? '我 (GM)' : select.options[select.selectedIndex].text) + ' • ' + msg.created_at;
+
+            var body = document.createElement('div');
+            body.textContent = msg.content;
+
+            bubble.appendChild(header);
+            bubble.appendChild(body);
+            historyDiv.appendChild(bubble);
+          });
+
+          if (autoScroll) {
+            historyDiv.scrollTop = historyDiv.scrollHeight;
+          }
+        })
+        .catch(function (err) {
+          historyDiv.innerHTML = '<div style="color: #c04040; text-align: center; font-size: 0.85rem; padding-top: 5rem;">❌ 無法載入對話內容：' + err.message + '</div>';
+        });
+    }
+
+    // Load recent message statuses for ALL characters
+    function updateChatBadges() {
+      fetch('/api/kou-xia/private-messages-all?password=gm')
+        .then(function (res) {
+          if (res.ok) return res.json();
+          return [];
+        })
+        .then(function (data) {
+          var counts = {};
+          var lastMessages = {};
+          data.forEach(function (msg) {
+            counts[msg.characterId] = (counts[msg.characterId] || 0) + 1;
+            lastMessages[msg.characterId] = msg;
+          });
+          
+          var container = document.getElementById('gm-private-chat-badge-container');
+          if (!container) return;
+          
+          container.innerHTML = '<strong>📬 對話動態：</strong>';
+          var hasDynamic = false;
+          
+          var charNames = {
+            'wang-si-han': '王思涵',
+            'jia-san-niang': '賈三娘',
+            'diao-wu-er': '刁五兒',
+            'yan-yi': '嚴逸',
+            'yan-shi': '嚴氏',
+            'wang-shun': '王順',
+            'nong-sou': '農叟',
+            'jin-si-dao': '金四刀'
+          };
+          
+          for (var cid in charNames) {
+            var count = counts[cid] || 0;
+            if (count > 0) {
+              hasDynamic = true;
+              var lastMsg = lastMessages[cid];
+              var lastSender = lastMsg.sender === 'player' ? charNames[cid] : 'GM';
+              var textPreview = lastMsg.content.length > 15 ? lastMsg.content.substring(0, 15) + '…' : lastMsg.content;
+              
+              var div = document.createElement('div');
+              div.style.background = '#1a120a';
+              div.style.border = '1px solid #3a2e22';
+              div.style.padding = '0.3rem 0.5rem';
+              div.style.borderRadius = '4px';
+              div.style.cursor = 'pointer';
+              div.style.marginTop = '0.2rem';
+              
+              // Bind click to switch active chat
+              (function(cidVal) {
+                div.addEventListener('click', function() {
+                  select.value = cidVal;
+                  loadGmPrivateMessages();
+                });
+              })(cid);
+              
+              var badgeColor = lastMsg.sender === 'player' ? '#e65555' : '#888';
+              var badgeText = lastMsg.sender === 'player' ? ' (有新訊息)' : ' (已回覆)';
+              
+              div.innerHTML = '<span style="color: #c49a38; font-weight: bold;">' + charNames[cid] + '</span> (' + count + ' 條)' +
+                '<span style="color: ' + badgeColor + '; font-size: 0.72rem; font-weight: bold;">' + badgeText + '</span><br>' +
+                '<span style="color: #8a7a50; font-size: 0.76rem;">' + lastSender + ': ' + textPreview + '</span>';
+              
+              container.appendChild(div);
+            }
+          }
+          
+          if (!hasDynamic) {
+            var div = document.createElement('div');
+            div.style.color = '#5a4e3e';
+            div.style.fontStyle = 'italic';
+            div.textContent = '目前沒有任何玩家傳送訊息。';
+            container.appendChild(div);
+          }
+        });
+    }
+
+    window.sendGmPrivateMessage = function (e) {
+      if (e) e.preventDefault();
+      var cid = select.value;
+      if (!cid) return;
+
+      var content = input.value.trim();
+      if (!content) return;
+
+      btn.disabled = true;
+      btn.textContent = '…';
+
+      fetch('/api/kou-xia/send-private-message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          characterId: cid,
+          sender: 'gm',
+          content: content
+        })
+      })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        btn.disabled = false;
+        btn.textContent = '傳送';
+        if (data.success) {
+          input.value = '';
+          loadGmPrivateMessages();
+          updateChatBadges();
+        } else {
+          alert('❌ 傳送失敗: ' + data.message);
+        }
+      })
+      .catch(function (err) {
+        btn.disabled = false;
+        btn.textContent = '傳送';
+        alert('❌ 傳送失敗: ' + err.message);
+      });
+    };
+
+    select.addEventListener('change', function () {
+      loadGmPrivateMessages();
+    });
+
+    document.addEventListener('gate:unlocked', function () {
+      loadGmPrivateMessages();
+      updateChatBadges();
+      // Poll every 5 seconds
+      setInterval(function () {
+        loadGmPrivateMessages();
+        updateChatBadges();
+      }, 5000);
     });
   })();
 

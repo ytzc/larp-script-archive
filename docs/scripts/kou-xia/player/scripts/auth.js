@@ -251,5 +251,26 @@
     }
   };
 
+  // Background heartbeat polling (only active when logged in as a normal player)
+  (function () {
+    function sendHeartbeat() {
+      var session = CharAuth.getSession();
+      if (session && !session.is_gm && session.characterId) {
+        fetch('/api/kou-xia/heartbeat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ characterId: session.characterId })
+        }).catch(function (err) {
+          // Fail silently in static/offline fallback mode
+        });
+      }
+    }
+    // Start heartbeat: immediately, then every 8 seconds
+    document.addEventListener('DOMContentLoaded', function () {
+      sendHeartbeat();
+      setInterval(sendHeartbeat, 8000);
+    });
+  }());
+
   global.CharAuth = CharAuth;
 }(window));

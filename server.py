@@ -47,6 +47,10 @@ def init_db():
         c.execute("ALTER TABLE users ADD COLUMN last_login TEXT")
     except sqlite3.OperationalError:
         pass
+    try:
+        c.execute("ALTER TABLE users ADD COLUMN last_seen TEXT")
+    except sqlite3.OperationalError:
+        pass
 
     # Game state table for Act 1 and Act 2 access control
     c.execute('''
@@ -85,6 +89,17 @@ def init_db():
         )
     ''')
 
+    # Private messages table
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS private_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            character_id TEXT NOT NULL,
+            sender TEXT NOT NULL,
+            content TEXT NOT NULL,
+            created_at TEXT NOT NULL
+        )
+    ''')
+
     conn.commit()
     conn.close()
     print("✅ 資料庫初始化完成。")
@@ -114,25 +129,37 @@ class CustomHandler(SimpleHTTPRequestHandler):
             try:
                 conn = sqlite3.connect(DB_FILE)
                 c = conn.cursor()
-                c.execute('SELECT character_id, player_name, created_at, last_login FROM users')
+                c.execute('SELECT character_id, player_name, created_at, last_login, password, last_seen FROM users')
                 rows = c.fetchall()
                 conn.close()
             except Exception as e:
                 print(f"❌ 查詢資料庫時發生錯誤: {e}")
                 rows = []
                 
-            claimed = {row[0]: {'playerName': row[1], 'createdAt': row[2], 'lastLogin': row[3]} for row in rows}
+            claimed = {row[0]: {'playerName': row[1], 'createdAt': row[2], 'lastLogin': row[3], 'password': row[4], 'lastSeen': row[5]} for row in rows}
             
             resp = []
             for cid, name in CHARACTERS.items():
                 is_claimed = cid in claimed
+                last_seen_secs = -1
+                if is_claimed and claimed[cid]['lastSeen']:
+                    try:
+                        import datetime
+                        ls_dt = datetime.datetime.strptime(claimed[cid]['lastSeen'], '%Y-%m-%d %H:%M:%S')
+                        now_dt = datetime.datetime.now()
+                        last_seen_secs = int((now_dt - ls_dt).total_seconds())
+                    except Exception:
+                        pass
                 resp.append({
                     'characterId': cid,
                     'characterName': name,
                     'claimed': is_claimed,
                     'playerName': (claimed[cid]['playerName'] or '') if is_claimed else '',
                     'createdAt': (claimed[cid]['createdAt'] or '') if is_claimed else '',
-                    'lastLogin': (claimed[cid]['lastLogin'] or '') if is_claimed else ''
+                    'lastLogin': (claimed[cid]['lastLogin'] or '') if is_claimed else '',
+                    'password': (claimed[cid]['password'] or '') if is_claimed else '',
+                    'lastSeen': (claimed[cid]['lastSeen'] or '') if is_claimed else '',
+                    'lastSeenSecondsAgo': last_seen_secs
                 })
             
             self.wfile.write(json.dumps(resp).encode('utf-8'))
@@ -219,12 +246,80 @@ class CustomHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(resp).encode('utf-8'))
             return
 
+        # Handle GET API for GM fetching ALL private messages
+        if self.path.startswith('/api/kou-xia/private-messages-all'):
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.end_headers()
+            
+            is_authorized = 'password=gm' in self.path
+            if not is_authorized:
+                self.wfile.write(json.dumps({'success': False, 'message': '權限不足'}).encode('utf-8'))
+                return
+                
+            try:
+                conn = sqlite3.connect(DB_FILE)
+                c = conn.cursor()
+                c.execute('SELECT id, character_id, sender, content, created_at FROM private_messages ORDER BY id ASC')
+                rows = c.fetchall()
+                conn.close()
+                messages = [{
+                    'id': row[0],
+                    'characterId': row[1],
+                    'sender': row[2],
+                    'content': row[3],
+                    'created_at': row[4]
+                } for row in rows]
+            except Exception as e:
+                print(f"❌ 查詢所有私密留言時發生錯誤: {e}")
+                messages = []
+                
+            self.wfile.write(json.dumps(messages).encode('utf-8'))
+            return
+
+        # Handle GET API for fetching private messages for a character
+        if self.path.startswith('/api/kou-xia/private-messages'):
+            import urllib.parse
+            parsed_url = urllib.parse.urlparse(self.path)
+            params = urllib.parse.parse_qs(parsed_url.query)
+            character_id = params.get('characterId', [''])[0]
+            
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.end_headers()
+            
+            if not character_id:
+                self.wfile.write(json.dumps([]).encode('utf-8'))
+                return
+                
+            try:
+                conn = sqlite3.connect(DB_FILE)
+                c = conn.cursor()
+                c.execute('SELECT id, character_id, sender, content, created_at FROM private_messages WHERE character_id = ? ORDER BY id ASC', (character_id,))
+                rows = c.fetchall()
+                conn.close()
+                messages = [{
+                    'id': row[0],
+                    'characterId': row[1],
+                    'sender': row[2],
+                    'content': row[3],
+                    'created_at': row[4]
+                } for row in rows]
+            except Exception as e:
+                print(f"❌ 查詢私密留言時發生錯誤: {e}")
+                messages = []
+                
+            self.wfile.write(json.dumps(messages).encode('utf-8'))
+            return
+
         # Otherwise, fall back to standard static file serving
         super().do_GET()
 
     def do_POST(self):
         # Intercept API POST routes
-        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state', '/api/kou-xia/submit-answers', '/api/kou-xia/delete-user', '/api/kou-xia/delete-answers', '/api/kou-xia/comments'):
+        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state', '/api/kou-xia/submit-answers', '/api/kou-xia/delete-user', '/api/kou-xia/delete-answers', '/api/kou-xia/comments', '/api/kou-xia/change-password', '/api/kou-xia/send-private-message', '/api/kou-xia/heartbeat'):
             content_length = int(self.headers.get('Content-Length', 0))
             post_data = self.rfile.read(content_length)
             
@@ -392,6 +487,48 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         conn.commit()
                         res = {'success': True, 'message': '留言發表成功！'}
                         print(f"💬 新增玩家留言: {nickname} 於 {now_str}")
+
+                elif self.path == '/api/kou-xia/change-password':
+                    password = data.get('password', '')
+                    character_id = data.get('characterId', '')
+                    new_password = data.get('newPassword', '')
+                    if password == 'gm':
+                        if character_id and new_password:
+                            c.execute('UPDATE users SET password = ? WHERE character_id = ?', (new_password, character_id))
+                            conn.commit()
+                            res = {'success': True, 'message': f'已成功修改角色 {character_id} 的密碼！'}
+                            print(f"🔑 GM 修改了角色密碼: {character_id}")
+                        else:
+                            res = {'success': False, 'message': '修改失敗：未提供角色 ID 或新密碼'}
+                    else:
+                        res = {'success': False, 'message': '修改失敗：GM 密碼錯誤'}
+
+                elif self.path == '/api/kou-xia/send-private-message':
+                    character_id = data.get('characterId', '')
+                    sender = data.get('sender', '')
+                    content = data.get('content', '').strip()
+                    
+                    if not character_id or not sender or not content:
+                        res = {'success': False, 'message': '參數不完整'}
+                    else:
+                        import datetime
+                        now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        c.execute("INSERT INTO private_messages (character_id, sender, content, created_at) VALUES (?, ?, ?, ?)", 
+                                  (character_id, sender, content, now_str))
+                        conn.commit()
+                        res = {'success': True, 'message': '私密留言傳送成功！'}
+                        print(f"✉️ 私密留言: [{character_id}] {sender}: {content} 於 {now_str}")
+
+                elif self.path == '/api/kou-xia/heartbeat':
+                    character_id = data.get('characterId', '')
+                    if character_id:
+                        import datetime
+                        now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        c.execute("UPDATE users SET last_seen = ? WHERE character_id = ?", (now_str, character_id))
+                        conn.commit()
+                        res = {'success': True, 'last_seen': now_str}
+                    else:
+                        res = {'success': False, 'message': 'Missing characterId'}
 
                 self.wfile.write(json.dumps(res).encode('utf-8'))
             except Exception as e:
