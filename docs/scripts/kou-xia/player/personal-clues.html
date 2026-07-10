@@ -12,8 +12,8 @@
           throw new Error('Static host');
         })
         .then(function (data) {
-          if (!data.act1_unlocked) {
-            alert('⚠️ 情境一尚未開放，請等待 GM 宣佈！');
+          if (!data.act1_personal_clues_unlocked) {
+            alert('⚠️ 個人線索尚未開放，請等待 GM 宣佈！');
             window.location.href = 'index.html';
           }
         })
@@ -122,15 +122,6 @@
   </style>
 </head>
 <body>
-
-<header class="site-header">
-  <a class="logo" href="../../../index.html">📜 LARP Script Archive</a>
-  <nav>
-    <a href="../../../index.html">首頁</a>
-    <a href="../index.html">寇俠</a>
-    <a href="index.html">玩家入口</a>
-  </nav>
-</header>
 
 <main>
 

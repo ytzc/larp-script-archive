@@ -194,6 +194,16 @@
       window.location.href = 'login.html';
     } else {
       CharAuth.renderStatusBar('login.html');
+      
+      // Dynamically rewrite "角色劇本" link based on login state
+      var scriptsEl = document.getElementById('act1-item-scripts');
+      if (scriptsEl) {
+        if (!session.is_gm) {
+          scriptsEl.href = 'scripts/' + session.characterId + '.html';
+        } else {
+          scriptsEl.href = 'scripts/index.html';
+        }
+      }
     }
   })();
 </script>

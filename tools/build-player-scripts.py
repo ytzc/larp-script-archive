@@ -611,6 +611,7 @@ TEMPLATE = '''\
   }});
 }})();
 </script>
+<script src="../../../../assets/js/topbar.js"></script>
 </body>
 </html>
 '''

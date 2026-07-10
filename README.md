@@ -393,6 +393,75 @@ cloudflared tunnel --url http://localhost:8787
 - **重新回到 Tunnel 畫面**：`tmux a -t larp-tunnel`
 - **關閉 Tunnel**：回到畫面中按下 `Ctrl + C` 即可。
 
+#### 4. 實戰：設定固定專屬網域並背景開機自動啟動 (以 `larp.tz-c.net` 為例)
+
+如果您已經擁有自己的網域（例如 `larp.tz-c.net`），可以透過 Cloudflare 建立 **Named Tunnel**（具名隧道），將其設定為 Linux 系統服務，達到**開機自動在背景啟動**且**網址永久固定**的完美效果！
+
+##### ① 登入並建立具名 Tunnel
+首先，在伺服器上登入您的 Cloudflare 帳號：
+```bash
+cloudflared tunnel login
+```
+*這會提供一個驗證網址，請在瀏覽器打開並授權您的網域。*
+
+接著，建立一個名為 `larp-script` 的 Tunnel：
+```bash
+cloudflared tunnel create larp-script
+```
+*建立成功後，系統會為您分配一個專屬的 Tunnel UUID（例如 `1731525f-b29e-47f8-bd12-85a05eb3c41c`）以及認證金鑰。*
+
+##### ② 建立具名 Tunnel 設定檔
+在 `/home/fiducia/.cloudflared/` 目錄下建立設定檔：
+```bash
+nano ~/.cloudflared/config.yml
+```
+寫入以下設定（請將 UUID 與檔案路徑替換成您的實際值）：
+```yaml
+tunnel: 1731525f-b29e-47f8-bd12-85a05eb3c41c
+credentials-file: /home/fiducia/.cloudflared/1731525f-b29e-47f8-bd12-85a05eb3c41c.json
+
+ingress:
+  - hostname: larp.tz-c.net
+    service: http://localhost:8787
+
+  - service: http_status:404
+```
+
+##### ③ 綁定 DNS CNAME 記錄
+將您的網域與 Tunnel 進行綁定（這會自動在 Cloudflare DNS 加上一筆 CNAME 記錄）：
+```bash
+cloudflared tunnel route dns larp-script larp.tz-c.net
+```
+*成功後，`larp.tz-c.net` 將會永久安全地轉發至您本機的 `8787` 服務！*
+
+##### ④ 測試設定與手動啟動
+測試您的 Ingress 規則是否正確：
+```bash
+cloudflared tunnel ingress validate
+```
+進行手動測試運行：
+```bash
+cloudflared tunnel run larp-script
+```
+*如果看到 `Registered tunnel connection`，此時透過任何設備瀏覽 `https://larp.tz-c.net` 即可成功連入！*
+
+##### ⑤ 安裝為系統服務（開機自動於背景啟動）
+手動測試成功後，按 `Ctrl + C` 退出。接著，將其安裝為 Linux 系統服務，使其完全常駐在背景：
+```bash
+# 安裝為系統服務 (明確指定設定檔路徑以避免權限問題)
+sudo cloudflared --config /home/fiducia/.cloudflared/config.yml service install
+
+# 啟動並設定開機自動載入
+sudo systemctl enable --now cloudflared
+```
+
+##### 🛠️ 實用背景服務維護指令：
+- **查看服務即時狀態**：`sudo systemctl status cloudflared`
+- **查看即時運行日誌**：`sudo journalctl -u cloudflared -f`
+- **重啟服務**：`sudo systemctl restart cloudflared`
+
+> ⚠️ **安全警告：** 請務必確保 `~/.cloudflared/cert.pem` 以及您的私密 JSON 金鑰檔案（如 `1731525f-b29e-47f8-bd12-85a05eb3c41c.json`）**不被 commit 到 Git 倉庫中**，它們已自動包含在 `.gitignore` 中。
+
 ---
 
 ## Release (發布更新)

@@ -162,6 +162,34 @@
 
   <hr />
 
+  <!-- 留言板 -->
+  <h2>💬 玩家留言板</h2>
+  <p>留下你對《寇俠》的感想或給其他大俠的留言吧！</p>
+  <div id="comment-board" style="background: var(--color-surface, #1e150f); border: 1px solid var(--color-border, #3a2e22); border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0 2.5rem;">
+    <!-- 留言表單 -->
+    <form id="comment-form" onsubmit="submitComment(event); return false;" style="margin-bottom: 2rem;">
+      <div style="display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 200px;">
+          <label for="comment-nickname" style="display: block; font-size: 0.85rem; color: #a09078; font-weight: bold; margin-bottom: 0.4rem;">🎭 暱稱 / 角色</label>
+          <input type="text" id="comment-nickname" required placeholder="例如：路過俠客、刁五兒" style="width: 100%; background: #120a04; border: 1px solid #3a2e22; border-radius: 4px; padding: 0.5rem 0.8rem; color: var(--color-text, #e4d9c4); font-family: inherit; font-size: 0.9rem;" />
+        </div>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <label for="comment-content" style="display: block; font-size: 0.85rem; color: #a09078; font-weight: bold; margin-bottom: 0.4rem;">✍️ 留言內容</label>
+        <textarea id="comment-content" required rows="3" placeholder="在這裡寫下你的留言..." style="width: 100%; background: #120a04; border: 1px solid #3a2e22; border-radius: 4px; padding: 0.5rem 0.8rem; color: var(--color-text, #e4d9c4); font-family: inherit; font-size: 0.9rem; resize: vertical; line-height: 1.5;"></textarea>
+      </div>
+      <button type="submit" id="comment-submit-btn" style="background: #8b0000; color: #fff; border: none; border-radius: 4px; padding: 0.55rem 1.4rem; font-size: 0.9rem; font-weight: bold; cursor: pointer; transition: background 0.15s; font-family: inherit;">📤 發表留言</button>
+    </form>
+
+    <!-- 留言列表 -->
+    <div id="comments-list" style="display: flex; flex-direction: column; gap: 1rem;">
+      <!-- 由 JS 渲染 -->
+      <div style="color: #a09078; text-align: center; font-style: italic; font-size: 0.85rem; padding: 1rem 0;">⏳ 正在載入留言中…</div>
+    </div>
+  </div>
+
+  <hr />
+
   <div class="notice notice-warning">
     <strong>⚠️ 密碼保護說明：</strong>
     玩家入口與 GM 入口使用 client-side password gate，密碼可見於頁面原始碼。
@@ -176,5 +204,93 @@
 
 <script src="../../assets/js/version.js"></script>
   <script src="../../assets/js/topbar.js"></script>
+  <script>
+    function loadComments() {
+      var list = document.getElementById('comments-list');
+      if (!list) return;
+
+      fetch('/api/kou-xia/comments')
+        .then(function (res) {
+          if (!res.ok) throw new Error('載入失敗');
+          return res.json();
+        })
+        .then(function (data) {
+          list.innerHTML = '';
+          if (data.length === 0) {
+            list.innerHTML = '<div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.85rem; padding: 1rem 0;">📪 目前尚未有任何留言，歡迎搶沙發！</div>';
+            return;
+          }
+
+          data.forEach(function (c) {
+            var item = document.createElement('div');
+            item.style.cssText = 'background: #120a04; border: 1px solid #2d2117; border-radius: 6px; padding: 0.9rem 1.1rem;';
+            
+            var header = document.createElement('div');
+            header.style.cssText = 'display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #261b11; padding-bottom: 0.4rem; margin-bottom: 0.5rem;';
+            
+            var nick = document.createElement('span');
+            nick.style.cssText = 'color: #c49a38; font-weight: bold; font-size: 0.93rem;';
+            nick.textContent = '👤 ' + c.nickname;
+            
+            var time = document.createElement('span');
+            time.style.cssText = 'color: #5a4a35; font-size: 0.72rem;';
+            time.textContent = '⏱️ ' + c.created_at;
+            
+            header.appendChild(nick);
+            header.appendChild(time);
+            
+            var content = document.createElement('div');
+            content.style.cssText = 'color: #e4d9c4; font-size: 0.88rem; line-height: 1.6; white-space: pre-wrap; word-break: break-all;';
+            content.textContent = c.content;
+            
+            item.appendChild(header);
+            item.appendChild(content);
+            list.appendChild(item);
+          });
+        })
+        .catch(function (err) {
+          list.innerHTML = '<div style="color: #c04040; text-align: center; font-size: 0.85rem; padding: 1rem 0;">❌ 無法載入留言（可能是因靜態託管限制或網路連線錯誤）</div>';
+        });
+    }
+
+    function submitComment(e) {
+      e.preventDefault();
+      var btn = document.getElementById('comment-submit-btn');
+      var nickInput = document.getElementById('comment-nickname');
+      var contentInput = document.getElementById('comment-content');
+      
+      var nick = nickInput.value.trim();
+      var content = contentInput.value.trim();
+      if (!nick || !content) return;
+
+      btn.disabled = true;
+      btn.textContent = '⚡ 發表中…';
+
+      fetch('/api/kou-xia/comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nickname: nick, content: content })
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          btn.disabled = false;
+          btn.textContent = '📤 發表留言';
+          if (data.success) {
+            contentInput.value = '';
+            loadComments(); // Reload comments
+          } else {
+            alert('❌ 發表失敗：' + data.message);
+          }
+        })
+        .catch(function (err) {
+          btn.disabled = false;
+          btn.textContent = '📤 發表留言';
+          alert('❌ 連線伺服器失敗，留言功能在 GitHub Pages 靜態環境下無法運作。');
+        });
+    }
+
+    // Load comments immediately on load
+    document.addEventListener('DOMContentLoaded', loadComments);
+  </script>
 </body>
 </html>

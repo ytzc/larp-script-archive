@@ -75,6 +75,16 @@ def init_db():
         )
     ''')
 
+    # Landing page comments table
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS comments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nickname TEXT NOT NULL,
+            content TEXT NOT NULL,
+            created_at TEXT NOT NULL
+        )
+    ''')
+
     conn.commit()
     conn.close()
     print("✅ 資料庫初始化完成。")
@@ -153,6 +163,32 @@ class CustomHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(state).encode('utf-8'))
             return
 
+        # Handle GET API for comments
+        if self.path == '/api/kou-xia/comments':
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.end_headers()
+            
+            try:
+                conn = sqlite3.connect(DB_FILE)
+                c = conn.cursor()
+                c.execute("SELECT id, nickname, content, created_at FROM comments ORDER BY id DESC")
+                rows = c.fetchall()
+                conn.close()
+                comments = [{
+                    'id': row[0],
+                    'nickname': row[1],
+                    'content': row[2],
+                    'created_at': row[3]
+                } for row in rows]
+            except Exception as e:
+                print(f"❌ 查詢留言板時發生錯誤: {e}")
+                comments = []
+                
+            self.wfile.write(json.dumps(comments).encode('utf-8'))
+            return
+
         # Handle GET API for GM fetching player answers
         if self.path.startswith('/api/kou-xia/answers'):
             self.send_response(200)
@@ -188,7 +224,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self):
         # Intercept API POST routes
-        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state', '/api/kou-xia/submit-answers', '/api/kou-xia/delete-user', '/api/kou-xia/delete-answers'):
+        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state', '/api/kou-xia/submit-answers', '/api/kou-xia/delete-user', '/api/kou-xia/delete-answers', '/api/kou-xia/comments'):
             content_length = int(self.headers.get('Content-Length', 0))
             post_data = self.rfile.read(content_length)
             
@@ -341,6 +377,21 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         conn.commit()
                         res = {'success': True, 'message': '答案已成功提交並儲存！'}
                         print(f"📝 玩家答題已儲存: {character_id} 於 {now_str}")
+
+                elif self.path == '/api/kou-xia/comments':
+                    nickname = data.get('nickname', '').strip()
+                    content = data.get('content', '').strip()
+                    
+                    if not nickname or not content:
+                        res = {'success': False, 'message': '暱稱與留言內容不得為空！'}
+                    else:
+                        import datetime
+                        now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        c.execute("INSERT INTO comments (nickname, content, created_at) VALUES (?, ?, ?)", 
+                                  (nickname, content, now_str))
+                        conn.commit()
+                        res = {'success': True, 'message': '留言發表成功！'}
+                        print(f"💬 新增玩家留言: {nickname} 於 {now_str}")
 
                 self.wfile.write(json.dumps(res).encode('utf-8'))
             except Exception as e:

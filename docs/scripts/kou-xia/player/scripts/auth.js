@@ -226,8 +226,7 @@
         var roleText = session.is_gm ? '🎲 <strong style="color:#c49a38;">GM</strong>' : '🎭 <strong style="color:#c49a38;">' + session.characterName + '</strong> (' + session.playerName + ')';
         
         var scriptLink = ' &nbsp; <a href="' + myScriptUrl + '" style="color:#c49a38;text-decoration:underline;font-weight:bold;margin-left:0.5rem;">[進入我的劇本 →]</a>';
-        var entranceUrl = isPlayerIndex ? 'index.html' : '../index.html';
-        var entranceLink = isPlayerIndex ? '' : ' &nbsp; <a href="' + entranceUrl + '" style="color:#c49a38;text-decoration:underline;font-weight:bold;margin-left:0.5rem;">[返回玩家入口 ←]</a>';
+        var entranceLink = '';
 
         bar.innerHTML =
           '<span>' + roleText + scriptLink + entranceLink + '</span>' +
