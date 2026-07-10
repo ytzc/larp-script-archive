@@ -241,8 +241,20 @@
     function checkGameState() {
       fetch('/api/kou-xia/state')
         .then(function (res) {
-          if (!res.ok) throw new Error('無法載入狀態');
+          if (!res.ok) throw new Error('Static Fallback');
           return res.json();
+        })
+        .catch(function (err) {
+          console.warn('Backend state API unavailable. Defaulting to fully unlocked static mode.', err);
+          return {
+            act1_guide_unlocked: true,
+            act1_characters_unlocked: true,
+            act1_scripts_unlocked: true,
+            act1_rumours_unlocked: true,
+            act1_personal_clues_unlocked: true,
+            act1_questions_unlocked: true,
+            act2_unlocked: true
+          };
         })
         .then(function (data) {
           // Dynamic items mapping (finer granularity!)

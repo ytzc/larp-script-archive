@@ -253,8 +253,22 @@
     
     fetch('/api/kou-xia/characters')
       .then(function (res) {
-        if (!res.ok) { throw new Error('無法取得角色列表'); }
+        if (!res.ok) { throw new Error('Static Fallback'); }
         return res.json();
+      })
+      .catch(function (err) {
+        console.warn('Backend API unavailable. Loading static character list.', err);
+        return [
+          { characterId: 'wang-si-han', characterName: '王思涵', claimed: false },
+          { characterId: 'jia-san-niang', characterName: '賈三娘', claimed: false },
+          { characterId: 'diao-wu-er', characterName: '刁五兒', claimed: false },
+          { characterId: 'yan-yi', characterName: '嚴逸', claimed: false },
+          { characterId: 'yan-shi', characterName: '嚴氏', claimed: false },
+          { characterId: 'wang-shun', characterName: '王順', claimed: false },
+          { characterId: 'nong-sou', characterName: '農叟', claimed: false },
+          { characterId: 'jin-si-dao', characterName: '金四刀', claimed: false },
+          { characterId: 'zhang-meng', characterName: '張猛', claimed: false }
+        ];
       })
       .then(function (data) {
         charactersData = data;
@@ -282,9 +296,6 @@
           select.value = selectedCharId;
           handleCharacterChange(selectedCharId);
         }
-      })
-      .catch(function (err) {
-        select.innerHTML = '<option value="">無法載入角色列表：' + err.message + '</option>';
       });
   }
 

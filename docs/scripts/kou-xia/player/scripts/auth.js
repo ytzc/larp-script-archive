@@ -14,6 +14,18 @@
      * 回傳 Promise，resolve 角色 ID (string) 或 reject 錯誤。
      */
     login: function (username, password) {
+      var STATIC_CHARS = {
+        'wang-si-han': '王思涵',
+        'jia-san-niang': '賈三娘',
+        'diao-wu-er': '刁五兒',
+        'yan-yi': '嚴逸',
+        'yan-shi': '嚴氏',
+        'wang-shun': '王順',
+        'nong-sou': '農叟',
+        'jin-si-dao': '金四刀',
+        'zhang-meng': '張猛'
+      };
+
       return fetch('/api/kou-xia/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -23,8 +35,18 @@
         })
       })
       .then(function (res) {
-        if (!res.ok) { throw new Error('連線伺服器失敗'); }
+        if (!res.ok) { throw new Error('Static Fallback'); }
         return res.json();
+      })
+      .catch(function (err) {
+        console.warn('Backend API unavailable. Falling back to static mode.', err);
+        if (username === 'gm' && password === 'gm') {
+          return { success: true, is_gm: true, session: { characterId: 'gm', characterName: 'GM', playerName: 'GM' } };
+        }
+        if (STATIC_CHARS[username]) {
+          return { success: true, session: { characterId: username, characterName: STATIC_CHARS[username], playerName: 'Static Player' } };
+        }
+        return { success: false, message: '靜態模式：帳號或密碼錯誤' };
       })
       .then(function (data) {
         if (data.success && data.session) {
@@ -45,6 +67,18 @@
      * 回傳 Promise，resolve 角色 ID (string) 或 reject 錯誤。
      */
     register: function (characterId, playerName, password) {
+      var STATIC_CHARS = {
+        'wang-si-han': '王思涵',
+        'jia-san-niang': '賈三娘',
+        'diao-wu-er': '刁五兒',
+        'yan-yi': '嚴逸',
+        'yan-shi': '嚴氏',
+        'wang-shun': '王順',
+        'nong-sou': '農叟',
+        'jin-si-dao': '金四刀',
+        'zhang-meng': '張猛'
+      };
+
       return fetch('/api/kou-xia/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -55,8 +89,15 @@
         })
       })
       .then(function (res) {
-        if (!res.ok) { throw new Error('連線伺服器失敗'); }
+        if (!res.ok) { throw new Error('Static Fallback'); }
         return res.json();
+      })
+      .catch(function (err) {
+        console.warn('Backend API unavailable. Falling back to static mode.', err);
+        if (STATIC_CHARS[characterId]) {
+          return { success: true, session: { characterId: characterId, characterName: STATIC_CHARS[characterId], playerName: playerName } };
+        }
+        return { success: false, message: '靜態模式：註冊失敗' };
       })
       .then(function (data) {
         if (data.success && data.session) {
