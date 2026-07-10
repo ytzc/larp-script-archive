@@ -253,8 +253,31 @@
         </button>
       </div>
 
+      <!-- 情境三：結局解鎖 -->
+      <div style="background: #25161c; border: 1px solid #3a2228; border-radius: 6px; padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+          <span style="color: #e080a3; font-size: 0.93rem; font-weight: bold;">🎬 情境三：結局解鎖</span>
+          <span id="state-act3-badge" style="background: #c04040; color: #fff; padding: 0.12rem 0.35rem; border-radius: 3px; font-size: 0.7rem; font-weight: bold;">已關閉</span>
+        </div>
+        <button id="state-act3-btn" onclick="toggleStateKey('act3_unlocked')" style="background: #c49a38; color: #120a04; border: none; border-radius: 4px; padding: 0.35rem; font-size: 0.85rem; font-weight: bold; cursor: pointer; font-family: inherit;">
+          開啟項目
+        </button>
+      </div>
+
     </div>
-    <div id="gm-state-msg" style="font-size: .85rem; display: none;"></div>
+    <div id="gm-state-msg" style="font-size: .85rem; display: none; text-align: center;"></div>
+  </div>
+
+  <!-- 📝 玩家答題檢視 (Player Answers) -->
+  <h2 style="margin-top: 2rem;">📝 玩家答題檢視 (Player Answers)</h2>
+  <div class="notice notice-info" style="margin-top:1em; background: #12100e; border: 1px solid #3a2e1a; border-radius: 8px; padding: 1.2rem 1.4rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+      <strong>📢 玩家即時答題答案：</strong>
+      <button onclick="loadPlayerAnswers()" style="background:#2e7d32; color:#fff; border:none; border-radius:4px; padding:0.35rem 0.8rem; font-size:0.8rem; font-weight:bold; cursor:pointer; font-family:inherit;">🔄 重新整理答案</button>
+    </div>
+    <div id="gm-answers-container" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+      <div style="color: #a09078; text-align: center; font-style: italic; font-size: 0.85rem; padding: 1rem 0;">點擊重新整理載入玩家答案。</div>
+    </div>
   </div>
 
   <hr />
@@ -364,7 +387,8 @@
       act1_rumours_unlocked: false,
       act1_personal_clues_unlocked: false,
       act1_questions_unlocked: false,
-      act2_unlocked: false
+      act2_unlocked: false,
+      act3_unlocked: false
     };
 
     function updateStateUI() {
@@ -375,7 +399,8 @@
         'act1_rumours_unlocked': { badge: 'state-rumours-badge', btn: 'state-rumours-btn' },
         'act1_personal_clues_unlocked': { badge: 'state-clues-badge', btn: 'state-clues-btn' },
         'act1_questions_unlocked': { badge: 'state-questions-badge', btn: 'state-questions-btn' },
-        'act2_unlocked': { badge: 'state-act2-badge', btn: 'state-act2-btn' }
+        'act2_unlocked': { badge: 'state-act2-badge', btn: 'state-act2-btn' },
+        'act3_unlocked': { badge: 'state-act3-badge', btn: 'state-act3-btn' }
       };
 
       for (var key in configs) {
@@ -486,8 +511,76 @@
       saveGameState(patch);
     };
 
+    window.loadPlayerAnswers = function() {
+      var container = document.getElementById('gm-answers-container');
+      if (!container) return;
+
+      container.innerHTML = '<div style="color: #a09078; text-align: center; font-style: italic; font-size: 0.85rem; padding: 1rem 0;">⏳ 正在從伺服器載入答案中…</div>';
+
+      fetch('/api/kou-xia/answers?password=gm')
+        .then(function (res) {
+          if (!res.ok) throw new Error('連線失敗');
+          return res.json();
+        })
+        .then(function (data) {
+          container.innerHTML = '';
+          var charCount = 0;
+
+          var charNames = {
+            'wang-si-han': '王思涵',
+            'jia-san-niang': '賈三娘',
+            'diao-wu-er': '刁五兒',
+            'yan-yi': '嚴逸',
+            'yan-shi': '嚴氏',
+            'wang-shun': '王順',
+            'nong-sou': '農叟',
+            'jin-si-dao': '金四刀',
+            'zhang-meng': '張猛'
+          };
+
+          var questionsMap = {
+            'r1q1': '情境一 Q1', 'r1q2': '情境一 Q2', 'r1q3': '情境一 Q3',
+            'r2q1': '情境二 Q1', 'r2q2': '情境二 Q2', 'r2q3': '情境二 Q3', 'r2q4': '情境二 Q4'
+          };
+
+          for (var cid in data) {
+            charCount++;
+            var pData = data[cid];
+            var answers = pData.answers || {};
+
+            var section = document.createElement('div');
+            section.style.cssText = 'background: #1e1812; border: 1px solid #3a2e22; border-radius: 6px; padding: 1rem; margin-bottom: 0.8rem;';
+
+            var nameText = charNames[cid] || cid;
+            var header = '<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #3a2e22; padding-bottom: 0.5rem; margin-bottom: 0.6rem;">'
+              + '<span style="color: #f0d080; font-weight: bold; font-size: 1.02rem;">🎭 ' + nameText + ' 的答題</span>'
+              + '<span style="font-size: 0.75rem; color: #8a7a50;">⏱️ 提交時間: ' + pData.updatedAt + '</span></div>';
+
+            var listHtml = '<div style="display: flex; flex-direction: column; gap: 0.5rem;">';
+            for (var qid in answers) {
+              var qLabel = questionsMap[qid] || qid;
+              var ansText = answers[qid] ? answers[qid] : '<span style="color:#5a4e3e; font-style:italic;">未作答</span>';
+              listHtml += '<div><strong style="color: #c49a38; font-size: 0.82rem;">[' + qLabel + ']: </strong>'
+                + '<span style="color: #e4d9c4; font-size: 0.88rem; line-height:1.5;">' + ansText + '</span></div>';
+            }
+            listHtml += '</div>';
+
+            section.innerHTML = header + listHtml;
+            container.appendChild(section);
+          }
+
+          if (charCount === 0) {
+            container.innerHTML = '<div style="color: #a09078; text-align: center; font-style: italic; font-size: 0.85rem; padding: 1rem 0;">目前尚未有任何玩家提交答案。</div>';
+          }
+        })
+        .catch(function (err) {
+          container.innerHTML = '<div style="color: #c04040; text-align: center; font-size: 0.85rem; padding: 1rem 0;">❌ 無法載入答案：' + err.message + '</div>';
+        });
+    };
+
     document.addEventListener('gate:unlocked', function () {
       loadGameState();
+      loadPlayerAnswers();
     });
   })();
 

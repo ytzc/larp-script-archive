@@ -56,7 +56,23 @@ def init_db():
         )
     ''')
     c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_unlocked', '0')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_guide_unlocked', '0')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_characters_unlocked', '0')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_scripts_unlocked', '0')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_rumours_unlocked', '0')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_personal_clues_unlocked', '0')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act1_questions_unlocked', '0')")
     c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act2_unlocked', '0')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act3_unlocked', '0')")
+
+    # Player answers table
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS player_answers (
+            character_id TEXT PRIMARY KEY,
+            answers TEXT NOT NULL,
+            updated_at TEXT NOT NULL
+        )
+    ''')
 
     conn.commit()
     conn.close()
@@ -135,12 +151,42 @@ class CustomHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(state).encode('utf-8'))
             return
 
+        # Handle GET API for GM fetching player answers
+        if self.path.startswith('/api/kou-xia/answers'):
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.end_headers()
+            
+            is_authorized = 'password=gm' in self.path
+            if not is_authorized:
+                self.wfile.write(json.dumps({'success': False, 'message': '權限不足'}).encode('utf-8'))
+                return
+            
+            resp = {}
+            try:
+                conn = sqlite3.connect(DB_FILE)
+                c = conn.cursor()
+                c.execute('SELECT character_id, answers, updated_at FROM player_answers')
+                rows = c.fetchall()
+                conn.close()
+                for row in rows:
+                    resp[row[0]] = {
+                        'answers': json.loads(row[1]),
+                        'updatedAt': row[2]
+                    }
+            except Exception as e:
+                print(f"❌ 查詢玩家答題時發生錯誤: {e}")
+                
+            self.wfile.write(json.dumps(resp).encode('utf-8'))
+            return
+
         # Otherwise, fall back to standard static file serving
         super().do_GET()
 
     def do_POST(self):
         # Intercept API POST routes
-        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state'):
+        if self.path in ('/api/kou-xia/register', '/api/kou-xia/login', '/api/kou-xia/reset', '/api/kou-xia/state', '/api/kou-xia/submit-answers'):
             content_length = int(self.headers.get('Content-Length', 0))
             post_data = self.rfile.read(content_length)
             
@@ -247,6 +293,23 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         print(f"⚙️ GM 更新遊戲狀態: {res}")
                     else:
                         res = {'success': False, 'message': '權限不足：GM 密碼錯誤'}
+
+                elif self.path == '/api/kou-xia/submit-answers':
+                    character_id = data.get('characterId', '')
+                    answers = data.get('answers', {})
+                    
+                    if not character_id or character_id not in CHARACTERS:
+                        res = {'success': False, 'message': '無效的角色 ID'}
+                    else:
+                        import datetime
+                        now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        answers_json = json.dumps(answers, ensure_ascii=False)
+                        
+                        c.execute("INSERT OR REPLACE INTO player_answers (character_id, answers, updated_at) VALUES (?, ?, ?)", 
+                                  (character_id, answers_json, now_str))
+                        conn.commit()
+                        res = {'success': True, 'message': '答案已成功提交並儲存！'}
+                        print(f"📝 玩家答題已儲存: {character_id} 於 {now_str}")
 
                 self.wfile.write(json.dumps(res).encode('utf-8'))
             except Exception as e:

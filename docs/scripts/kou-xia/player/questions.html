@@ -154,7 +154,7 @@
   <a href="index.html">← 玩家入口</a>
 </div>
 
-<div class="char-bar">
+<div class="char-bar" id="char-bar-container">
   <label for="char-select">選擇你的角色：</label>
   <select id="char-select" class="char-select">
     <option value="">── 請選擇角色 ──</option>
@@ -167,6 +167,8 @@
     <option value="nong-sou">農叟（佩妏）</option>
     <option value="jin-si-dao">金四刀（建翔）</option>
   </select>
+  <!-- For normal players, display a beautiful simple header instead of select -->
+  <div id="player-char-display" style="display:none; font-size:1.15rem; font-weight:bold; color:var(--red); padding:0.2rem 0; text-align: center;"></div>
 </div>
 
 <div class="progress-bar" id="progress-bar" style="display:none;">
@@ -372,19 +374,76 @@ function buildR2Questions(data, char) {
 function renderQA(char) {
   var data = QD[char];
   var total = data.r1.length + data.r2.length;
-  var html = '<div class="score-card">'
+  var html = '<div class="score-card" style="display:flex; flex-wrap:wrap; gap:0.6rem;">'
     + '<div class="score-icon">🎯</div>'
     + '<div class="score-info"><div class="score-label">已填寫答案</div>'
     + '<div class="score-count"><span id="filled-count">0</span>'
     + ' <span class="score-max">/ '+total+' 題</span></div></div>'
-    + '<button class="clear-btn" id="clear-btn">清除全部</button></div>';
+    + '<div style="display:flex; gap:0.5rem; width:100%; margin-top:0.4rem;">'
+    + '<button id="submit-api-btn" style="flex:1; background:#2e7d32; color:#fff; border:none; padding:0.55rem 0.8rem; border-radius:20px; font-size:0.85rem; font-weight:bold; cursor:pointer; transition:opacity .15s;">📤 提交答案給 GM</button>'
+    + '<button class="clear-btn" id="clear-btn" style="border-radius:20px; padding:0.4rem 0.8rem; font-size:0.8rem;">清除全部</button>'
+    + '</div>'
+    + '<div id="submit-api-msg" style="width:100%; font-size:0.8rem; font-weight:bold; display:none; text-align:center; padding-top:0.2rem;"></div>'
+    + '</div>';
   html += buildR1(data, char);
   html += r2Unlocked ? buildR2Questions(data, char) : buildR2Locked();
   qaContent.innerHTML = html;
   document.getElementById('clear-btn').addEventListener('click', clearAnswers);
+  document.getElementById('submit-api-btn').addEventListener('click', function () {
+    submitAnswersToBackend(char);
+  });
   if (!r2Unlocked) attachLockHandler(char);
   loadAnswers(data, char);
   updateProgress(data, char);
+}
+
+function submitAnswersToBackend(char) {
+  var btn = document.getElementById('submit-api-btn');
+  var msg = document.getElementById('submit-api-msg');
+  if (!btn || !msg) return;
+
+  btn.disabled = true;
+  btn.textContent = '⏳ 正在提交中…';
+  msg.style.display = 'block';
+  msg.style.color = '#8a7a50';
+  msg.textContent = '正在與後端連線…';
+
+  var answers = {};
+  var data = QD[char];
+  allQids(data).forEach(function (q) {
+    var val = localStorage.getItem(lsKey(char, q.qid)) || '';
+    answers[q.qid] = val;
+  });
+
+  fetch('/api/kou-xia/submit-answers', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      characterId: char,
+      answers: answers
+    })
+  })
+    .then(function (res) {
+      if (!res.ok) throw new Error('Static Fallback');
+      return res.json();
+    })
+    .then(function (data) {
+      btn.disabled = false;
+      btn.textContent = '📤 提交答案給 GM';
+      if (data.success) {
+        msg.style.color = '#2e7d32';
+        msg.textContent = '🎉 答案已成功提交到後端資料庫！';
+      } else {
+        msg.style.color = '#c04040';
+        msg.textContent = '❌ 提交失敗：' + data.message;
+      }
+    })
+    .catch(function (err) {
+      btn.disabled = false;
+      btn.textContent = '📤 提交答案給 GM';
+      msg.style.color = '#7a6e5a';
+      msg.textContent = '💡 靜態網頁模式：您的答案已自動儲存於本機瀏覽器，無須上傳。';
+    });
 }
 
 function attachLockHandler(char) {
@@ -543,20 +602,23 @@ charSelect.addEventListener('change', function() {
       charSelect.value = '';
     }
   } else {
-    // Normal player - locked to their own character!
+    // Normal player - locked and hidden dropdown!
     var userCharId = session.characterId;
     if (QD[userCharId]) {
       charSelect.value = userCharId;
-      charSelect.disabled = true; // Lock select element
-      charSelect.style.background = '#faf5ee';
-      charSelect.style.borderColor = '#b8a090';
-      charSelect.style.cursor = 'not-allowed';
-
+      
+      // Hide selection bar label and select dropdown
       var label = document.querySelector('.char-bar label');
-      if (label) {
-        label.innerHTML = '👤 已鎖定您的角色項目（只能填寫自己的答題卡）：';
-        label.style.color = '#2a6a3a';
-        label.style.fontWeight = 'bold';
+      if (label) label.style.display = 'none';
+      charSelect.style.display = 'none';
+      
+      // Render clean, friendly, styled display
+      var display = document.getElementById('player-char-display');
+      if (display) {
+        var opt = charSelect.querySelector('option[value="' + userCharId + '"]');
+        var optText = opt ? opt.textContent : QD[userCharId].name;
+        display.innerHTML = '👤 您的專屬答題卡：' + optText;
+        display.style.display = 'block';
       }
     } else {
       charSelect.value = '';

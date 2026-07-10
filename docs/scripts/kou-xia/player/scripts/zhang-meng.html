@@ -93,24 +93,12 @@
   </style>
 </head>
 <body>
-<header class="site-header">
-  <a class="logo" href="../../../../index.html">&#128220; LARP Script Archive</a>
-  <nav>
-    <a href="../../../../index.html">首頁</a>
-    <a href="../../index.html">寇侠</a>
-    <a href="../index.html">Player</a>
-    <a href="index.html">角色劇本</a>
-  </nav>
-</header>
+
+<a class="back-link" href="../index.html" style="position:absolute; top:1.2rem; left:1.5rem; font-size:.85rem; color:#a08060; text-decoration:none; z-index:100;">← 返回上一層 (玩家入口)</a>
 
 <div id="password-gate" style="display:none;"></div>
 <div id="protected-content" style="display:none;">
-<main>
-  <nav class="top-nav">
-    <a href="../index.html">&#8592; Player Area</a> &#8250;
-    <a href="index.html">角色劇本</a> &#8250;
-    張猛
-  </nav>
+<main style="padding-top: 3.5rem;">
 
   <div class="script-body">
 
@@ -364,6 +352,52 @@
       if(inp) setTimeout(function(){ inp.focus(); }, 50);
     }
   };
+
+  // Dynamic state polling & auto-unlock logic (SQLite integration)
+  (function () {
+    function checkState() {
+      fetch('/api/kou-xia/state')
+        .then(function (res) {
+          if (!res.ok) throw new Error('Static Fallback');
+          return res.json();
+        })
+        .then(function (data) {
+          // 1. Hide manual input rows in dynamic mode
+          var urows = document.querySelectorAll('.unlock-row');
+          urows.forEach(function (el) { el.style.display = 'none'; });
+
+          // 2. Update hint to show active server connection
+          var hints = document.querySelectorAll('.lock-hint');
+          hints.forEach(function (el) {
+            el.innerHTML = '🟢 系統已連線，請等待 GM 從主持人控制台開放此章節...';
+          });
+
+          // 3. Auto-unlock chapters based on backend states
+          var u = getUnlocked();
+          if (data.act2_unlocked && u.indexOf(1) === -1) {
+            u.push(1); setUnlocked(u); revealPage(1); showPage(1);
+          }
+          if (data.act3_unlocked && u.indexOf(2) === -1) {
+            u.push(2); setUnlocked(u); revealPage(2); showPage(2);
+          }
+        })
+        .catch(function (err) {
+          // Static fallback: restore manual unlock inputs
+          var urows = document.querySelectorAll('.unlock-row');
+          urows.forEach(function (el) { el.style.display = 'flex'; });
+
+          var hints = document.querySelectorAll('.lock-hint');
+          hints.forEach(function (el) {
+            el.innerHTML = '【靜態模式】請等待主持人宣布，並輸入 GM 提供之解鎖碼以開啟本章節。';
+          });
+        });
+    }
+
+    document.addEventListener('gate:unlocked', function () {
+      checkState();
+      setInterval(checkState, 3000);
+    });
+  })();
 
   window.printActive = function(){
     var active = document.querySelector('.chapter-page.active');
