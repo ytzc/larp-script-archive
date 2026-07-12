@@ -188,8 +188,23 @@
     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
       <!-- 左欄：角色選擇列表 -->
       <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 0.4rem;">
+        <label style="font-size: 0.8rem; color: #a09078; font-weight: bold; margin-bottom: 0.1rem; display: block;">對象 A (發訊人 / 對話方)：</label>
         <select id="gm-private-chat-select" style="width: 100%; padding: 0.6rem; background: #1a120a; border: 1px solid #3a2e22; border-radius: 4px; color: #e4d9c4; font-family: inherit; font-size: 0.95rem;">
-          <option value="">-- 請選擇密談角色 --</option>
+          <option value="">-- 請選擇對話角色 A --</option>
+          <option value="wang-si-han">王思涵</option>
+          <option value="jia-san-niang">賈三娘</option>
+          <option value="diao-wu-er">刁五兒</option>
+          <option value="yan-yi">嚴逸</option>
+          <option value="yan-shi">嚴氏</option>
+          <option value="wang-shun">王順</option>
+          <option value="nong-sou">農叟</option>
+          <option value="jin-si-dao">金四刀</option>
+          <option value="zhang-meng">張猛</option>
+        </select>
+
+        <label style="font-size: 0.8rem; color: #a09078; font-weight: bold; margin-top: 0.5rem; margin-bottom: 0.1rem; display: block;">對象 B (收訊人)：</label>
+        <select id="gm-private-chat-target-select" style="width: 100%; padding: 0.6rem; background: #1a120a; border: 1px solid #3a2e22; border-radius: 4px; color: #e4d9c4; font-family: inherit; font-size: 0.95rem; margin-bottom: 0.4rem;">
+          <option value="gm">📢 主持人 (GM) — 可對話與回覆</option>
           <option value="wang-si-han">王思涵</option>
           <option value="jia-san-niang">賈三娘</option>
           <option value="diao-wu-er">刁五兒</option>
@@ -568,25 +583,56 @@
   // Private Messages administration for GM
   (function () {
     var select = document.getElementById('gm-private-chat-select');
+    var targetSelect = document.getElementById('gm-private-chat-target-select');
     var historyDiv = document.getElementById('gm-private-chat-history');
     var input = document.getElementById('gm-private-chat-input');
     var btn = document.getElementById('gm-private-chat-btn');
 
+    var charNames = {
+      'wang-si-han': '王思涵',
+      'jia-san-niang': '賈三娘',
+      'diao-wu-er': '刁五兒',
+      'yan-yi': '嚴逸',
+      'yan-shi': '嚴氏',
+      'wang-shun': '王順',
+      'nong-sou': '農叟',
+      'jin-si-dao': '金四刀',
+      'zhang-meng': '張猛',
+      'gm': '主持人 (GM)'
+    };
+
     function loadGmPrivateMessages() {
       var cid = select.value;
+      var tid = targetSelect ? targetSelect.value : 'gm';
+      
       if (!cid) {
-        historyDiv.innerHTML = '<div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.85rem; padding-top: 5rem;">🔌 請先選擇左側的角色以開啟密談對話。</div>';
+        historyDiv.innerHTML = '<div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.85rem; padding-top: 5rem;">🔌 請先選擇對象 A (發訊人 / 對話方) 以開啟密談。</div>';
         input.disabled = true;
         btn.disabled = true;
         input.placeholder = '請先選擇角色後輸入訊息…';
         return;
       }
 
-      input.disabled = false;
-      btn.disabled = false;
-      input.placeholder = '代表 GM 輸入私密密談訊息…';
+      if (cid === tid) {
+        historyDiv.innerHTML = '<div style="color: #c04040; text-align: center; font-style: italic; font-size: 0.85rem; padding-top: 5rem;">⚠️ 角色不能與自己對話！請選擇不同的對象 B。</div>';
+        input.disabled = true;
+        btn.disabled = true;
+        input.placeholder = '對象 A 不能與對象 B 相同…';
+        return;
+      }
 
-      fetch('/api/kou-xia/private-messages?characterId=' + cid)
+      var isGmMode = (tid === 'gm');
+      if (isGmMode) {
+        input.disabled = false;
+        btn.disabled = false;
+        input.placeholder = '代表 GM 輸入私密密談訊息…';
+      } else {
+        input.disabled = true;
+        btn.disabled = true;
+        input.placeholder = '🔒 監看模式：GM 無法在玩家之間的私聊中發言。';
+      }
+
+      fetch('/api/kou-xia/private-messages?characterId=' + cid + '&targetId=' + tid)
         .then(function (res) {
           if (!res.ok) throw new Error('與伺服器斷開連線');
           return res.json();
@@ -595,8 +641,19 @@
           var autoScroll = historyDiv.scrollTop + historyDiv.clientHeight >= historyDiv.scrollHeight - 20;
           
           historyDiv.innerHTML = '';
+          
+          if (!isGmMode) {
+            var monitorHint = document.createElement('div');
+            monitorHint.style.cssText = 'color: #a3e080; background: rgba(163, 224, 128, 0.08); border: 1px solid rgba(163, 224, 128, 0.2); padding: 0.4rem 0.6rem; border-radius: 4px; font-size: 0.78rem; text-align: center; margin-bottom: 0.5rem; font-weight: bold;';
+            monitorHint.textContent = '👁️ GM 監看視窗：正在監看 ' + charNames[cid] + ' 與 ' + charNames[tid] + ' 之間的玩家私聊。';
+            historyDiv.appendChild(monitorHint);
+          }
+
           if (data.length === 0) {
-            historyDiv.innerHTML = '<div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.85rem; padding-top: 5rem;">📪 與此角色尚無任何密談對話紀錄。</div>';
+            var emptyDiv = document.createElement('div');
+            emptyDiv.style.cssText = 'color: #7a6a52; text-align: center; font-style: italic; font-size: 0.85rem; padding-top: 3rem;';
+            emptyDiv.textContent = '📪 兩者之間尚無任何密談對話紀錄。';
+            historyDiv.appendChild(emptyDiv);
             return;
           }
 
@@ -610,25 +667,27 @@
             bubble.style.wordBreak = 'break-all';
             bubble.style.margin = '0.3rem 0';
 
-            var isGm = msg.sender === 'gm';
-            if (isGm) {
-              bubble.style.alignSelf = 'flex-end';
-              bubble.style.background = 'rgba(196, 154, 56, 0.15)';
-              bubble.style.border = '1px solid rgba(196, 154, 56, 0.3)';
-              bubble.style.color = '#f4ebd9';
-            } else {
+            var isSenderA = (msg.sender_id === cid);
+            if (isSenderA) {
               bubble.style.alignSelf = 'flex-start';
               bubble.style.background = 'rgba(139, 0, 0, 0.15)';
               bubble.style.border = '1px solid rgba(139, 0, 0, 0.3)';
               bubble.style.color = '#ffc0c0';
+            } else {
+              bubble.style.alignSelf = 'flex-end';
+              bubble.style.background = 'rgba(196, 154, 56, 0.15)';
+              bubble.style.border = '1px solid rgba(196, 154, 56, 0.3)';
+              bubble.style.color = '#f4ebd9';
             }
 
             var header = document.createElement('div');
             header.style.fontSize = '0.72rem';
-            header.style.color = isGm ? '#ad997e' : '#d07070';
+            header.style.color = isSenderA ? '#d07070' : '#ad997e';
             header.style.marginBottom = '0.2rem';
             header.style.fontWeight = 'bold';
-            header.textContent = (isGm ? '我 (GM)' : select.options[select.selectedIndex].text) + ' • ' + msg.created_at;
+            
+            var senderDisplayName = charNames[msg.sender_id] || msg.sender_id;
+            header.textContent = senderDisplayName + ' • ' + msg.created_at;
 
             var body = document.createElement('div');
             body.textContent = msg.content;
@@ -658,8 +717,18 @@
           var counts = {};
           var lastMessages = {};
           data.forEach(function (msg) {
-            counts[msg.characterId] = (counts[msg.characterId] || 0) + 1;
-            lastMessages[msg.characterId] = msg;
+            // Identify conversation key (either characterId, or combination of sender and recipient)
+            var key = msg.characterId;
+            if (msg.sender_id && msg.recipient_id) {
+              if (msg.sender_id !== 'gm' && msg.recipient_id !== 'gm') {
+                // Player-to-player active chat
+                var p1 = msg.sender_id;
+                var p2 = msg.recipient_id;
+                key = (p1 < p2) ? (p1 + '__' + p2) : (p2 + '__' + p1);
+              }
+            }
+            counts[key] = (counts[key] || 0) + 1;
+            lastMessages[key] = msg;
           });
           
           var container = document.getElementById('gm-private-chat-badge-container');
@@ -668,24 +737,14 @@
           container.innerHTML = '<strong>📬 對話動態：</strong>';
           var hasDynamic = false;
           
-          var charNames = {
-            'wang-si-han': '王思涵',
-            'jia-san-niang': '賈三娘',
-            'diao-wu-er': '刁五兒',
-            'yan-yi': '嚴逸',
-            'yan-shi': '嚴氏',
-            'wang-shun': '王順',
-            'nong-sou': '農叟',
-            'jin-si-dao': '金四刀',
-            'zhang-meng': '張猛'
-          };
-          
+          // Render Player-to-GM chats
           for (var cid in charNames) {
+            if (cid === 'gm') continue;
             var count = counts[cid] || 0;
             if (count > 0) {
               hasDynamic = true;
               var lastMsg = lastMessages[cid];
-              var lastSender = lastMsg.sender === 'player' ? charNames[cid] : 'GM';
+              var lastSenderName = charNames[lastMsg.sender_id] || lastMsg.sender_id;
               var textPreview = lastMsg.content.length > 15 ? lastMsg.content.substring(0, 15) + '…' : lastMsg.content;
               
               var div = document.createElement('div');
@@ -696,21 +755,58 @@
               div.style.cursor = 'pointer';
               div.style.marginTop = '0.2rem';
               
-              // Bind click to switch active chat
               (function(cidVal) {
                 div.addEventListener('click', function() {
                   select.value = cidVal;
+                  if (targetSelect) targetSelect.value = 'gm';
                   loadGmPrivateMessages();
                 });
               })(cid);
               
-              var badgeColor = lastMsg.sender === 'player' ? '#e65555' : '#888';
-              var badgeText = lastMsg.sender === 'player' ? ' (有新訊息)' : ' (已回覆)';
+              var isNew = (lastMsg.sender_id !== 'gm');
+              var badgeColor = isNew ? '#e65555' : '#888';
+              var badgeText = isNew ? ' (有新訊息)' : ' (已回覆)';
               
-              div.innerHTML = '<span style="color: #c49a38; font-weight: bold;">' + charNames[cid] + '</span> (' + count + ' 條)' +
+              div.innerHTML = '<span style="color: #c49a38; font-weight: bold;">[GM 密談] ' + charNames[cid] + '</span> (' + count + ' 條)' +
                 '<span style="color: ' + badgeColor + '; font-size: 0.72rem; font-weight: bold;">' + badgeText + '</span><br>' +
-                '<span style="color: #8a7a50; font-size: 0.76rem;">' + lastSender + ': ' + textPreview + '</span>';
+                '<span style="color: #8a7a50; font-size: 0.76rem;">' + lastSenderName + ': ' + textPreview + '</span>';
               
+              container.appendChild(div);
+            }
+          }
+
+          // Render Player-to-Player chats
+          for (var key in counts) {
+            if (key.indexOf('__') !== -1) {
+              hasDynamic = true;
+              var parts = key.split('__');
+              var charA = parts[0];
+              var charB = parts[1];
+              var count = counts[key];
+              var lastMsg = lastMessages[key];
+              var lastSenderName = charNames[lastMsg.sender_id] || lastMsg.sender_id;
+              var textPreview = lastMsg.content.length > 15 ? lastMsg.content.substring(0, 15) + '…' : lastMsg.content;
+
+              var div = document.createElement('div');
+              div.style.background = '#121610';
+              div.style.border = '1px solid #2e3a22';
+              div.style.padding = '0.3rem 0.5rem';
+              div.style.borderRadius = '4px';
+              div.style.cursor = 'pointer';
+              div.style.marginTop = '0.2rem';
+
+              (function(a, b) {
+                div.addEventListener('click', function() {
+                  select.value = a;
+                  if (targetSelect) targetSelect.value = b;
+                  loadGmPrivateMessages();
+                });
+              })(charA, charB);
+
+              div.innerHTML = '<span style="color: #a3e080; font-weight: bold;">[玩家私聊] ' + charNames[charA] + ' ↔ ' + charNames[charB] + '</span> (' + count + ' 條)' +
+                '<span style="color: #a3e080; font-size: 0.72rem; font-weight: bold;"> (監看)</span><br>' +
+                '<span style="color: #8a9a80; font-size: 0.76rem;">' + lastSenderName + ': ' + textPreview + '</span>';
+
               container.appendChild(div);
             }
           }
@@ -728,6 +824,7 @@
     window.sendGmPrivateMessage = function (e) {
       if (e) e.preventDefault();
       var cid = select.value;
+      var tid = targetSelect ? targetSelect.value : 'gm';
       if (!cid) return;
 
       var content = input.value.trim();
@@ -742,7 +839,8 @@
         body: JSON.stringify({
           characterId: cid,
           sender: 'gm',
-          content: content
+          content: content,
+          targetId: tid
         })
       })
       .then(function (res) { return res.json(); })
@@ -767,6 +865,11 @@
     select.addEventListener('change', function () {
       loadGmPrivateMessages();
     });
+    if (targetSelect) {
+      targetSelect.addEventListener('change', function () {
+        loadGmPrivateMessages();
+      });
+    }
 
     document.addEventListener('gate:unlocked', function () {
       loadGmPrivateMessages();

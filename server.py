@@ -100,6 +100,23 @@ def init_db():
         )
     ''')
 
+    # Add new columns to private_messages table if they do not exist
+    try:
+        c.execute("ALTER TABLE private_messages ADD COLUMN sender_id TEXT")
+    except Exception:
+        pass
+    try:
+        c.execute("ALTER TABLE private_messages ADD COLUMN recipient_id TEXT")
+    except Exception:
+        pass
+
+    # Backfill migration for older messages to ensure backward compatibility
+    try:
+        c.execute("UPDATE private_messages SET sender_id = character_id, recipient_id = 'gm' WHERE sender_id IS NULL AND sender = 'player'")
+        c.execute("UPDATE private_messages SET sender_id = 'gm', recipient_id = character_id WHERE sender_id IS NULL AND sender = 'gm'")
+    except Exception as e:
+        print(f"⚠️ Backfill migration failed (or columns already populated): {e}")
+
     conn.commit()
     conn.close()
     print("✅ 資料庫初始化完成。")
@@ -261,7 +278,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
             try:
                 conn = sqlite3.connect(DB_FILE)
                 c = conn.cursor()
-                c.execute('SELECT id, character_id, sender, content, created_at FROM private_messages ORDER BY id ASC')
+                c.execute('SELECT id, character_id, sender, content, created_at, sender_id, recipient_id FROM private_messages ORDER BY id ASC')
                 rows = c.fetchall()
                 conn.close()
                 messages = [{
@@ -269,7 +286,9 @@ class CustomHandler(SimpleHTTPRequestHandler):
                     'characterId': row[1],
                     'sender': row[2],
                     'content': row[3],
-                    'created_at': row[4]
+                    'created_at': row[4],
+                    'sender_id': row[5] if row[5] else (row[1] if row[2] == 'player' else 'gm'),
+                    'recipient_id': row[6] if row[6] else ('gm' if row[2] == 'player' else row[1])
                 } for row in rows]
             except Exception as e:
                 print(f"❌ 查詢所有私密留言時發生錯誤: {e}")
@@ -284,6 +303,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
             parsed_url = urllib.parse.urlparse(self.path)
             params = urllib.parse.parse_qs(parsed_url.query)
             character_id = params.get('characterId', [''])[0]
+            target_id = params.get('targetId', ['gm'])[0]
             
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
@@ -297,7 +317,14 @@ class CustomHandler(SimpleHTTPRequestHandler):
             try:
                 conn = sqlite3.connect(DB_FILE)
                 c = conn.cursor()
-                c.execute('SELECT id, character_id, sender, content, created_at FROM private_messages WHERE character_id = ? ORDER BY id ASC', (character_id,))
+                # Query messages between character_id and target_id (and vice versa)
+                c.execute('''
+                    SELECT id, character_id, sender, content, created_at, sender_id, recipient_id 
+                    FROM private_messages 
+                    WHERE (sender_id = ? AND recipient_id = ?) 
+                       OR (sender_id = ? AND recipient_id = ?) 
+                    ORDER BY id ASC
+                ''', (character_id, target_id, target_id, character_id))
                 rows = c.fetchall()
                 conn.close()
                 messages = [{
@@ -305,7 +332,9 @@ class CustomHandler(SimpleHTTPRequestHandler):
                     'characterId': row[1],
                     'sender': row[2],
                     'content': row[3],
-                    'created_at': row[4]
+                    'created_at': row[4],
+                    'sender_id': row[5] if row[5] else (row[1] if row[2] == 'player' else 'gm'),
+                    'recipient_id': row[6] if row[6] else ('gm' if row[2] == 'player' else row[1])
                 } for row in rows]
             except Exception as e:
                 print(f"❌ 查詢私密留言時發生錯誤: {e}")
@@ -507,17 +536,21 @@ class CustomHandler(SimpleHTTPRequestHandler):
                     character_id = data.get('characterId', '')
                     sender = data.get('sender', '')
                     content = data.get('content', '').strip()
+                    target_id = data.get('targetId', 'gm')
                     
                     if not character_id or not sender or not content:
                         res = {'success': False, 'message': '參數不完整'}
                     else:
+                        sender_id = 'gm' if sender == 'gm' else character_id
+                        recipient_id = character_id if sender == 'gm' else target_id
+                        
                         import datetime
                         now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                        c.execute("INSERT INTO private_messages (character_id, sender, content, created_at) VALUES (?, ?, ?, ?)", 
-                                  (character_id, sender, content, now_str))
+                        c.execute("INSERT INTO private_messages (character_id, sender, content, created_at, sender_id, recipient_id) VALUES (?, ?, ?, ?, ?, ?)", 
+                                  (character_id, sender, content, now_str, sender_id, recipient_id))
                         conn.commit()
                         res = {'success': True, 'message': '私密留言傳送成功！'}
-                        print(f"✉️ 私密留言: [{character_id}] {sender}: {content} 於 {now_str}")
+                        print(f"✉️ 私密留言: [{sender_id} -> {recipient_id}] {content} 於 {now_str}")
 
                 elif self.path == '/api/kou-xia/heartbeat':
                     character_id = data.get('characterId', '')

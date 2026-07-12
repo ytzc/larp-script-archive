@@ -409,12 +409,28 @@
     </div>
   </div>
 
-  <!-- 💬 留言給 GM 的窗口 -->
+  <!-- 💬 留言與密談窗口 -->
   <div class="script-section private-chat-section" style="margin-top: 2.5rem; border-top: 2px solid #8b0000; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-    <h3 style="margin-bottom:0.5rem;">💬 與 主持人 (GM) 的私密密談視窗</h3>
-    <p style="text-indent: 0; font-size: 0.85rem; color: #8a7a50; margin: 0 0 1rem 0; line-height: 1.55;">
+    <h3 style="margin-bottom:0.5rem;" id="private-chat-title">💬 與 主持人 (GM) 的私密密談視窗</h3>
+    <p style="text-indent: 0; font-size: 0.85rem; color: #8a7a50; margin: 0 0 1rem 0; line-height: 1.55;" id="private-chat-desc">
       這裡的對話僅有您與 GM 能夠看見，可用於暗中密談、回報任務進度、或隨時向 GM 尋求指引。對話每 5 秒會自動重整。
     </p>
+
+    <!-- 選擇密談對象 -->
+    <div style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+      <span style="font-size: 0.85rem; color: #a09078; font-weight: bold;">💬 選擇密談對話對象：</span>
+      <select id="private-chat-target-select" onchange="switchPrivateChatTarget()" style="padding: 0.35rem 0.6rem; background: #1a120a; border: 1px solid #3a2e22; border-radius: 4px; color: #e4d9c4; font-family: inherit; font-size: 0.85rem; outline: none;">
+        <option value="gm">📢 主持人 (GM)</option>
+        <option value="wang-si-han">🎭 王思涵</option>
+        <option value="jia-san-niang">🎭 賈三娘</option>
+        <option value="diao-wu-er">🎭 刁五兒</option>
+        <option value="yan-shi">🎭 嚴氏</option>
+        <option value="wang-shun">🎭 王順</option>
+        <option value="nong-sou">🎭 農叟</option>
+        <option value="jin-si-dao">🎭 金四刀</option>
+        <option value="zhang-meng">🎭 張猛</option>
+      </select>
+    </div>
     
     <!-- 對話歷史 -->
     <div id="private-chat-history" style="background: #120a04; border: 1px solid #3a2e22; border-radius: 8px; padding: 0.8rem; height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem;">
@@ -592,7 +608,10 @@
     var historyDiv = document.getElementById('private-chat-history');
     if (!historyDiv) return;
     
-    fetch('/api/kou-xia/private-messages?characterId=' + SLUG)
+    var select = document.getElementById('private-chat-target-select');
+    var targetId = select ? select.value : 'gm';
+    
+    fetch('/api/kou-xia/private-messages?characterId=' + SLUG + '&targetId=' + targetId)
       .then(function (res) {
         if (!res.ok) throw new Error('連線失敗');
         return res.json();
@@ -602,7 +621,7 @@
         
         historyDiv.innerHTML = '';
         if (data.length === 0) {
-          historyDiv.innerHTML = '<div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.82rem; padding: 0.5rem 0;">📪 目前無對話紀錄，您可以發送訊息與 GM 開啟密談。</div>';
+          historyDiv.innerHTML = '<div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.82rem; padding: 0.5rem 0;">📪 目前無對話紀錄，您可以發送訊息與對方開啟密談。</div>';
           return;
         }
         
@@ -616,7 +635,7 @@
           bubble.style.wordBreak = 'break-all';
           bubble.style.margin = '0.3rem 0';
           
-          var isMe = msg.sender === 'player';
+          var isMe = msg.sender_id === SLUG;
           if (isMe) {
             bubble.style.alignSelf = 'flex-end';
             bubble.style.background = 'rgba(196, 154, 56, 0.18)';
@@ -634,7 +653,30 @@
           header.style.color = isMe ? '#ad997e' : '#d07070';
           header.style.marginBottom = '0.2rem';
           header.style.fontWeight = 'bold';
-          header.textContent = (isMe ? '我' : '主持人 (GM)') + ' • ' + msg.created_at;
+          
+          var senderName = '對方';
+          if (isMe) {
+            senderName = '我';
+          } else {
+            if (msg.sender_id === 'gm') {
+              senderName = '主持人 (GM)';
+            } else {
+              var CHAR_MAP = {
+                'wang-si-han': '王思涵',
+                'jia-san-niang': '賈三娘',
+                'diao-wu-er': '刁五兒',
+                'yan-yi': '嚴逸',
+                'yan-shi': '嚴氏',
+                'wang-shun': '王順',
+                'nong-sou': '農叟',
+                'jin-si-dao': '金四刀',
+                'zhang-meng': '張猛'
+              };
+              senderName = CHAR_MAP[msg.sender_id] || msg.sender_id;
+            }
+          }
+          
+          header.textContent = senderName + ' • ' + msg.created_at;
           
           var body = document.createElement('div');
           body.textContent = msg.content;
@@ -657,10 +699,13 @@
     if (e) e.preventDefault();
     var input = document.getElementById('private-chat-input');
     var btn = document.getElementById('private-chat-btn');
+    var select = document.getElementById('private-chat-target-select');
     if (!input || !btn) return;
     
     var content = input.value.trim();
     if (!content) return;
+    
+    var targetId = select ? select.value : 'gm';
     
     btn.disabled = true;
     btn.textContent = '…';
@@ -671,7 +716,8 @@
       body: JSON.stringify({
         characterId: SLUG,
         sender: 'player',
-        content: content
+        content: content,
+        targetId: targetId
       })
     })
     .then(function (res) { return res.json(); })
@@ -690,6 +736,33 @@
       btn.textContent = '傳送';
       alert('❌ 伺服器連線失敗。留言功能在 GitHub Pages 靜態環境下無法運作。');
     });
+  };
+  
+  window.switchPrivateChatTarget = function () {
+    var select = document.getElementById('private-chat-target-select');
+    var input = document.getElementById('private-chat-input');
+    var title = document.getElementById('private-chat-title');
+    var desc = document.getElementById('private-chat-desc');
+    if (!select) return;
+    
+    var targetId = select.value;
+    var targetName = select.options[select.selectedIndex].text;
+    
+    if (input) {
+      input.placeholder = '輸入要傳送給 ' + targetName + ' 的密談訊息…';
+    }
+    if (title) {
+      title.textContent = '💬 與 ' + targetName + ' 的私密密談視窗';
+    }
+    if (desc) {
+      if (targetId === 'gm') {
+        desc.textContent = '這裡的對話僅有您與 GM 能夠看見，可用於暗中密談、回報任務進度、或隨時向 GM 尋求指引。對話每 5 秒會自動重整。';
+      } else {
+        desc.textContent = '您與 ' + targetName + ' 的私密密談。此對話僅有您二人與 GM（主持人監視器）能夠看見。對話每 5 秒會自動重整。';
+      }
+    }
+    
+    loadPrivateMessages();
   };
   
   function initPrivateMessages() {
