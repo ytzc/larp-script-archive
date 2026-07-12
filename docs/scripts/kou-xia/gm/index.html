@@ -5,6 +5,242 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>寇俠 — GM Area</title>
   <link rel="stylesheet" href="../../../assets/css/style.css" />
+  <style>
+    /* ── Immersive GM Login Screen / Password Gate Overrides ── */
+    #password-gate {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle, #22140f 0%, #0d0704 100%), 
+                  repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px);
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      padding: 1.5rem;
+    }
+    #password-gate .gate-box {
+      background: #18110b;
+      border: 2px solid #c49a38;
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      max-width: 460px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.8), 
+                  inset 0 0 20px rgba(196, 154, 56, 0.1);
+      position: relative;
+    }
+    #password-gate .gate-box::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px dashed rgba(196, 154, 56, 0.25);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+    #password-gate .gate-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 10px rgba(196, 154, 56, 0.4));
+      animation: floatPulse 3s ease-in-out infinite;
+    }
+    #password-gate .gate-title {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #f0d080;
+      letter-spacing: 0.1rem;
+      margin-bottom: 0.4rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+    #password-gate .gate-desc {
+      font-size: 0.88rem;
+      color: #a09078;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+    }
+    #password-gate .gate-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    #password-gate .gate-input {
+      background: #0f0a06;
+      border: 1px solid #3a2e22;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      color: #e4d9c4;
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 0.2rem;
+      transition: all 0.25s;
+    }
+    #password-gate .gate-input:focus {
+      border-color: #c49a38;
+      box-shadow: 0 0 12px rgba(196, 154, 56, 0.35);
+      background: #140e0a;
+      outline: none;
+    }
+    #password-gate .gate-button {
+      background: linear-gradient(135deg, #c49a38 0%, #8c6a18 100%);
+      color: #120a04;
+      border: none;
+      border-radius: 6px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 4px 10px rgba(140, 106, 24, 0.3);
+    }
+    #password-gate .gate-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 15px rgba(140, 106, 24, 0.5);
+      filter: brightness(1.1);
+    }
+    #password-gate .gate-error {
+      color: #e65555;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    #password-gate .gate-back {
+      margin-top: 2rem;
+    }
+    #password-gate .gate-back a {
+      color: #7a6a52;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    #password-gate .gate-back a:hover {
+      color: #c49a38;
+    }
+
+    @keyframes floatPulse {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* ── Logged-in GM Workspace Beautification ── */
+    body {
+      background: #0d0704;
+      color: #e4d9c4;
+    }
+    main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero {
+      background: linear-gradient(180deg, #22140f 0%, #150a06 100%);
+      border: 1px solid #3a2e22;
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero h1 {
+      color: #f0d080;
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .hero p {
+      color: #a09078;
+      font-size: 1rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px dashed rgba(196, 154, 56, 0.15);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+    h2 {
+      color: #c49a38;
+      font-size: 1.4rem;
+      border-bottom: 1px solid #3a2e22;
+      padding-bottom: 0.5rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .notice {
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .section-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .section-item {
+      background: #18110b;
+      border: 1px solid #3a2e22;
+      border-radius: 8px;
+      padding: 1.2rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: all 0.2s ease-in-out;
+      position: relative;
+    }
+    .section-item:hover {
+      border-color: #c49a38;
+      box-shadow: 0 4px 15px rgba(196, 154, 56, 0.08);
+      transform: translateY(-2px);
+      background: #1f150e;
+    }
+    .section-item .icon {
+      font-size: 1.8rem;
+    }
+    .section-item .label {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: #f0d080;
+    }
+    .section-item .desc {
+      font-size: 0.85rem;
+      color: #a09078;
+      line-height: 1.5;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: #120a06;
+      border: 1px solid #3a2e22;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border: 1px solid #2a1e15;
+    }
+    th {
+      background: #18110b;
+      color: #c49a38;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background: #140c07;
+    }
+  </style>
 </head>
 <body>
 
