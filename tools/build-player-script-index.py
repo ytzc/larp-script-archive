@@ -114,7 +114,7 @@ with open(INDEX_HTML, 'r', encoding='utf-8') as f:
     html = f.read()
 
 # 替換 <h2>玩家角色</h2> ... <hr /> 之間的內容
-pattern = r'(  <h2>玩家角色</h2>.*?)(?=\n  <hr />)'
+pattern = r'(\s*<h2>玩家角色</h2>.*?)(?=\n\s*<hr />)'
 replacement = cards_html
 new_html = re.sub(pattern, replacement, html, flags=re.DOTALL)
 
