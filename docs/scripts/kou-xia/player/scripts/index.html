@@ -7,13 +7,19 @@
   <script>
     (function () {
       try {
+        var isGmUnlocked = sessionStorage.getItem('larp-gate-kou-xia-gm') === '1';
         var raw = sessionStorage.getItem('kou-xia-char-session');
         var session = raw ? JSON.parse(raw) : null;
+        
         if (session) {
           if (!session.is_gm && session.characterId) {
             window.location.replace(session.characterId + '.html');
             return;
           }
+        } else if (isGmUnlocked) {
+          // If GM backend is unlocked, automatically initialize GM session here!
+          var gmSess = { characterId: 'gm', characterName: 'GM', playerName: 'GM', is_gm: true };
+          sessionStorage.setItem('kou-xia-char-session', JSON.stringify(gmSess));
         } else {
           window.location.replace('../login.html');
           return;
