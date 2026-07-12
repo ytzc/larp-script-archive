@@ -297,7 +297,8 @@ const QD = {
 
 const LS_R2_UNLOCKED = 'kou-xia-qa__r2unlocked';
 let currentChar = '';
-let r2Unlocked = localStorage.getItem(LS_R2_UNLOCKED) === 'gm';
+var act2Code = 'act2';
+let r2Unlocked = (localStorage.getItem(LS_R2_UNLOCKED) === 'gm' || localStorage.getItem(LS_R2_UNLOCKED) === '1');
 
 const charSelect  = document.getElementById('char-select');
 const emptyState  = document.getElementById('empty-state');
@@ -451,9 +452,10 @@ function attachLockHandler(char) {
   var inp = document.getElementById('r2-pw');
   var err = document.getElementById('r2-pw-err');
   function tryUnlock() {
-    if (inp.value.trim().toLowerCase() === 'gm') {
+    var val = inp.value.trim().toLowerCase();
+    if (val === 'gm' || val === act2Code.toLowerCase()) {
       r2Unlocked = true;
-      localStorage.setItem(LS_R2_UNLOCKED, 'gm');
+      localStorage.setItem(LS_R2_UNLOCKED, '1');
       var lockDiv = document.getElementById('r2-lock').parentNode;
       lockDiv.outerHTML = buildR2Questions(QD[char], char);
       var data = QD[char];
@@ -639,6 +641,9 @@ charSelect.addEventListener('change', function() {
   fetch('/api/kou-xia/state')
     .then(function (res) { if (res.ok) return res.json(); throw new Error(); })
     .then(function (data) {
+      if (data.act2_code) {
+        act2Code = data.act2_code;
+      }
       if (data.act2_questions_unlocked) {
         r2Unlocked = true;
       }

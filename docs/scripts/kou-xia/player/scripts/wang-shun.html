@@ -538,6 +538,10 @@
         if (data.act3_unlocked && u.indexOf(2) === -1) {
           u.push(2); setUnlocked(u); revealPage(2); showPage(2);
         }
+
+        // 4. Dynamically synchronize manual unlock codes from server
+        if (data.act2_code) CODES[1] = data.act2_code;
+        if (data.act3_code) CODES[2] = data.act3_code;
       })
       .catch(function (err) {
         // Static fallback: restore manual unlock inputs

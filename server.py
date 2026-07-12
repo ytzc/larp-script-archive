@@ -69,6 +69,8 @@ def init_db():
     c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act2_unlocked', '0')")
     c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act2_questions_unlocked', '0')")
     c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act3_unlocked', '0')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act2_code', 'act2')")
+    c.execute("INSERT OR IGNORE INTO game_state (key, value) VALUES ('act3_code', 'act3')")
 
     # Player answers table
     c.execute('''
@@ -195,7 +197,13 @@ class CustomHandler(SimpleHTTPRequestHandler):
                 c.execute("SELECT key, value FROM game_state")
                 rows = c.fetchall()
                 conn.close()
-                state = {row[0]: row[1] == '1' for row in rows}
+                state = {}
+                for row in rows:
+                    key, val = row[0], row[1]
+                    if key.endswith('_code'):
+                        state[key] = val
+                    else:
+                        state[key] = (val == '1')
             except Exception as e:
                 print(f"❌ 查詢遊戲狀態時發生錯誤: {e}")
                 state = {"act1_unlocked": False, "act2_unlocked": False, "act2_questions_unlocked": False}
@@ -477,9 +485,13 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         for key, val in data.items():
                             if key == 'password':
                                 continue
-                            db_val = '1' if val else '0'
+                            if key.endswith('_code'):
+                                db_val = str(val)
+                                res[key] = val
+                            else:
+                                db_val = '1' if val else '0'
+                                res[key] = (db_val == '1')
                             c.execute("INSERT OR REPLACE INTO game_state (key, value) VALUES (?, ?)", (key, db_val))
-                            res[key] = (db_val == '1')
                         conn.commit()
                         print(f"⚙️ GM 更新遊戲狀態: {res}")
                     else:

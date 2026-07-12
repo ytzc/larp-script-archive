@@ -352,6 +352,31 @@
       </div>
 
     </div>
+
+    <!-- Password settings -->
+    <hr style="border-top: 1px solid #2e2417; margin: 1.5rem 0;" />
+    <strong>🔑 自訂腳本情景解鎖密碼設定：</strong>
+    <p style="color: #a09078; font-size: 0.85rem; margin: 0.3rem 0 1.2rem 0;">
+      您可以自訂玩家在解鎖腳本第二幕（情景二）與第三幕（情景三）時所需的密碼。修改後將即時儲存並同步給全體玩家。
+    </p>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+      <div style="flex: 1; min-width: 240px;">
+        <label style="font-size: 0.82rem; color: #a09078; font-weight: bold; display: block; margin-bottom: 0.3rem;">情景二解鎖碼 (預設 act2)：</label>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" id="setting-act2-code" placeholder="例如: act2" style="flex: 1; background: #120a04; border: 1px solid #3a2e22; border-radius: 4px; padding: 0.4rem 0.6rem; color: #e4d9c4; font-family: inherit; font-size: 0.9rem;" />
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 240px;">
+        <label style="font-size: 0.82rem; color: #a09078; font-weight: bold; display: block; margin-bottom: 0.3rem;">情景三解鎖碼 (預設 act3)：</label>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" id="setting-act3-code" placeholder="例如: act3" style="flex: 1; background: #120a04; border: 1px solid #3a2e22; border-radius: 4px; padding: 0.4rem 0.6rem; color: #e4d9c4; font-family: inherit; font-size: 0.9rem;" />
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 1rem; margin-bottom: 0.5rem;">
+      <button onclick="saveCustomCodes()" style="background: #2e7d32; color: #fff; border: none; border-radius: 4px; padding: 0.45rem 1.4rem; font-size: 0.88rem; font-weight: bold; cursor: pointer; font-family: inherit;">💾 儲存自訂解鎖碼</button>
+    </div>
+
     <div id="gm-state-msg" style="font-size: .85rem; display: none; text-align: center;"></div>
   </div>
 
@@ -946,11 +971,65 @@
             }
           }
           updateStateUI();
+          
+          // Populate custom settings fields
+          if (data.act2_code) {
+            var el = document.getElementById('setting-act2-code');
+            if (el) el.value = data.act2_code;
+          }
+          if (data.act3_code) {
+            var el = document.getElementById('setting-act3-code');
+            if (el) el.value = data.act3_code;
+          }
         })
         .catch(function (err) {
           console.error('Error loading game state:', err);
         });
     }
+
+    window.saveCustomCodes = function() {
+      var act2Code = document.getElementById('setting-act2-code').value.trim();
+      var act3Code = document.getElementById('setting-act3-code').value.trim();
+      if (!act2Code || !act3Code) {
+        alert('❌ 解鎖密碼不得為空！');
+        return;
+      }
+      
+      var pwd = prompt('請輸入 GM 密碼以驗證存檔權限：');
+      if (!pwd) return;
+      
+      var msgEl = document.getElementById('gm-state-msg');
+      if (msgEl) {
+        msgEl.style.display = 'block';
+        msgEl.style.color = '#8a7a50';
+        msgEl.textContent = '正在儲存自訂解鎖碼…';
+      }
+      
+      fetch('/api/kou-xia/state', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: pwd,
+          act2_code: act2Code,
+          act3_code: act3Code
+        })
+      })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data.success) {
+          msgEl.style.color = '#68b880';
+          msgEl.textContent = '🎉 自訂解鎖密碼已成功儲存並同步給玩家！';
+          setTimeout(function() { location.reload(); }, 1500);
+        } else {
+          msgEl.style.color = '#c04040';
+          msgEl.textContent = '❌ 儲存失敗：' + data.message;
+        }
+      })
+      .catch(function (err) {
+        msgEl.style.color = '#c04040';
+        msgEl.textContent = '❌ 連線錯誤：' + err.message;
+      });
+    };
 
     function saveGameState(updatedState) {
       var msg = document.getElementById('gm-state-msg');
