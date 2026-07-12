@@ -216,17 +216,34 @@
       }
 
       if (session) {
-        var isPlayerIndex = (loginUrl.indexOf('..') === -1);
-        var isRootKouXia = (location.pathname.endsWith('/kou-xia/index.html') || location.pathname.endsWith('/kou-xia/'));
-        var myScriptUrl;
-        if (session.is_gm) {
-          myScriptUrl = isRootKouXia ? 'gm/index.html' : (isPlayerIndex ? 'gm/index.html' : '../gm/index.html');
+        var isRootIndex = (location.pathname.endsWith('/kou-xia/') || location.pathname.endsWith('/kou-xia/index.html'));
+        var isPlayerIndex = (location.pathname.endsWith('/player/') || location.pathname.endsWith('/player/index.html'));
+        
+        var gmBackendUrl, playerScriptsUrl, myScriptUrl;
+        if (isRootIndex) {
+          gmBackendUrl = 'gm/index.html';
+          playerScriptsUrl = 'player/scripts/index.html';
+          myScriptUrl = 'player/scripts/' + session.characterId + '.html';
+        } else if (isPlayerIndex) {
+          gmBackendUrl = '../gm/index.html';
+          playerScriptsUrl = 'scripts/index.html';
+          myScriptUrl = 'scripts/' + session.characterId + '.html';
         } else {
-          myScriptUrl = isRootKouXia ? ('player/scripts/' + session.characterId + '.html') : (isPlayerIndex ? ('scripts/' + session.characterId + '.html') : (session.characterId + '.html'));
+          // Inside player/scripts/
+          gmBackendUrl = '../../gm/index.html';
+          playerScriptsUrl = 'index.html';
+          myScriptUrl = session.characterId + '.html';
         }
+
         var roleText = session.is_gm ? '🎲 <strong style="color:#c49a38;">GM</strong>' : '🎭 <strong style="color:#c49a38;">' + session.characterName + '</strong> (' + session.playerName + ')';
         
-        var scriptLink = ' &nbsp; <a href="' + myScriptUrl + '" style="color:#c49a38;text-decoration:underline;font-weight:bold;margin-left:0.5rem;">[進入我的劇本 →]</a>';
+        var scriptLink;
+        if (session.is_gm) {
+          scriptLink = ' &nbsp; <a href="' + playerScriptsUrl + '" style="color:#c49a38;text-decoration:underline;font-weight:bold;margin-left:0.5rem;">[進入玩家劇本總覽 →]</a>' +
+                       ' &nbsp; <a href="' + gmBackendUrl + '" style="color:#a3e080;text-decoration:underline;font-weight:bold;margin-left:0.5rem;">[進入 GM 後台 →]</a>';
+        } else {
+          scriptLink = ' &nbsp; <a href="' + myScriptUrl + '" style="color:#c49a38;text-decoration:underline;font-weight:bold;margin-left:0.5rem;">[進入我的劇本 →]</a>';
+        }
         var entranceLink = '';
 
         bar.innerHTML =

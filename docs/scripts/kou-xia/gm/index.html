@@ -897,6 +897,17 @@
     }
 
     document.addEventListener('gate:unlocked', function () {
+      // Automatically log them in as GM character session for the rest of the site!
+      try {
+        var sess = {
+          characterId: 'gm',
+          characterName: 'GM',
+          playerName: 'GM',
+          is_gm: true
+        };
+        sessionStorage.setItem('kou-xia-char-session', JSON.stringify(sess));
+      } catch(e) {}
+
       loadGmPrivateMessages();
       updateChatBadges();
       // Poll every 5 seconds

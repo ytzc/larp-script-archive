@@ -75,6 +75,15 @@
     ⚠️ <strong>請只查看自己所扮演角色的劇本，請勿閱讀其他玩家角色劇本，以免影響遊戲體驗。</strong>
   </div>
 
+  <!-- GM Navigation Banner -->
+  <div id="gm-nav-banner" style="display:none; background: #181d12; border: 2px solid #3c4a22; border-radius: 8px; padding: 1.1rem 1.4rem; margin: 1rem 0 1.5rem; color: #a3e080; line-height: 1.6;">
+    👑 <strong>您已登入為主持人 (GM)</strong><br />
+    <span style="font-size: 0.88rem; color: #a09880;">GM 視角已解鎖！您可以點擊下方任意角色卡片，<strong>免登入、免密碼</strong>直接閱讀他們的所有情景劇本，方便您開本與監控劇情。</span>
+    <div style="margin-top: 0.65rem;">
+      <a href="../../gm/index.html" style="display: inline-block; background: #c49a38; color: #120a04; font-weight: bold; padding: 0.45rem 1.1rem; border-radius: 4px; text-decoration: none; font-size: 0.88rem; border: none; cursor: pointer;">← 進入 GM 後台控制台</a>
+    </div>
+  </div>
+
   <div class="notice notice-info">
     各角色劇本僅收錄該角色視角的資訊。點選角色卡片後，需輸入各角色專屬密碼才能查看完整劇本。
   </div>  <h2>玩家角色</h2>
@@ -161,6 +170,16 @@
 <script src="auth.js"></script>
 <script>
   CharAuth.renderStatusBar('../login.html');
+  (function () {
+    try {
+      var raw = sessionStorage.getItem('kou-xia-char-session');
+      var session = raw ? JSON.parse(raw) : null;
+      if (session && session.is_gm) {
+        var banner = document.getElementById('gm-nav-banner');
+        if (banner) banner.style.display = 'block';
+      }
+    } catch(e) {}
+  })();
 </script>
 <script src="../../../../assets/js/topbar.js"></script>
 </body>
