@@ -217,11 +217,12 @@
 
       if (session) {
         var isPlayerIndex = (loginUrl.indexOf('..') === -1);
+        var isRootKouXia = (location.pathname.endsWith('/kou-xia/index.html') || location.pathname.endsWith('/kou-xia/'));
         var myScriptUrl;
         if (session.is_gm) {
-          myScriptUrl = isPlayerIndex ? 'gm/index.html' : '../gm/index.html';
+          myScriptUrl = isRootKouXia ? 'gm/index.html' : (isPlayerIndex ? 'gm/index.html' : '../gm/index.html');
         } else {
-          myScriptUrl = isPlayerIndex ? ('scripts/' + session.characterId + '.html') : (session.characterId + '.html');
+          myScriptUrl = isRootKouXia ? ('player/scripts/' + session.characterId + '.html') : (isPlayerIndex ? ('scripts/' + session.characterId + '.html') : (session.characterId + '.html'));
         }
         var roleText = session.is_gm ? '🎲 <strong style="color:#c49a38;">GM</strong>' : '🎭 <strong style="color:#c49a38;">' + session.characterName + '</strong> (' + session.playerName + ')';
         
