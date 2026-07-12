@@ -515,50 +515,49 @@
   };
 
   // Dynamic state polling & auto-unlock logic (SQLite integration)
-  (function () {
-    function checkState() {
-      fetch('/api/kou-xia/state')
-        .then(function (res) {
-          if (!res.ok) throw new Error('Static Fallback');
-          return res.json();
-        })
-        .then(function (data) {
-          // 1. Hide manual input rows in dynamic mode
-          var urows = document.querySelectorAll('.unlock-row');
-          urows.forEach(function (el) { el.style.display = 'none'; });
+  var checkStateIntervalId = null;
+  function checkState() {
+    fetch('/api/kou-xia/state')
+      .then(function (res) {
+        if (!res.ok) throw new Error('Static Fallback');
+        return res.json();
+      })
+      .then(function (data) {
+        // 1. Hide manual input rows in dynamic mode
+        var urows = document.querySelectorAll('.unlock-row');
+        urows.forEach(function (el) { el.style.display = 'none'; });
 
-          // 2. Update hint to show active server connection
-          var hints = document.querySelectorAll('.lock-hint');
-          hints.forEach(function (el) {
-            el.innerHTML = '🟢 系統已連線，請等待 GM 從主持人控制台開放此章節...';
-          });
-
-          // 3. Auto-unlock chapters based on backend states
-          var u = getUnlocked();
-          if (data.act2_unlocked && u.indexOf(1) === -1) {
-            u.push(1); setUnlocked(u); revealPage(1); showPage(1);
-          }
-          if (data.act3_unlocked && u.indexOf(2) === -1) {
-            u.push(2); setUnlocked(u); revealPage(2); showPage(2);
-          }
-        })
-        .catch(function (err) {
-          // Static fallback: restore manual unlock inputs
-          var urows = document.querySelectorAll('.unlock-row');
-          urows.forEach(function (el) { el.style.display = 'flex'; });
-
-          var hints = document.querySelectorAll('.lock-hint');
-          hints.forEach(function (el) {
-            el.innerHTML = '【靜態模式】請等待主持人宣布，並輸入 GM 提供之解鎖碼以開啟本章節。';
-          });
+        // 2. Update hint to show active server connection
+        var hints = document.querySelectorAll('.lock-hint');
+        hints.forEach(function (el) {
+          el.innerHTML = '🟢 系統已連線，請等待 GM 從主持人控制台開放此章節...';
         });
-    }
 
-    document.addEventListener('gate:unlocked', function () {
-      checkState();
-      setInterval(checkState, 3000);
-    });
-  })();
+        // 3. Auto-unlock chapters based on backend states
+        var u = getUnlocked();
+        if (data.act2_unlocked && u.indexOf(1) === -1) {
+          u.push(1); setUnlocked(u); revealPage(1); showPage(1);
+        }
+        if (data.act3_unlocked && u.indexOf(2) === -1) {
+          u.push(2); setUnlocked(u); revealPage(2); showPage(2);
+        }
+      })
+      .catch(function (err) {
+        // Static fallback: restore manual unlock inputs
+        var urows = document.querySelectorAll('.unlock-row');
+        urows.forEach(function (el) { el.style.display = 'flex'; });
+
+        var hints = document.querySelectorAll('.lock-hint');
+        hints.forEach(function (el) {
+          el.innerHTML = '【靜態模式】請等待主持人宣布，並輸入 GM 提供之解鎖碼以開啟本章節。';
+        });
+      });
+  }
+  function initDynamicState() {
+    if (checkStateIntervalId) clearInterval(checkStateIntervalId);
+    checkState();
+    checkStateIntervalId = setInterval(checkState, 3000);
+  }
 
   window.printActive = function(){
     var active = document.querySelector('.chapter-page.active');
@@ -590,257 +589,262 @@
   }
 
   // ── Private Messages ──
-  (function () {
-    function loadPrivateMessages() {
-      var historyDiv = document.getElementById('private-chat-history');
-      if (!historyDiv) return;
-      
-      fetch('/api/kou-xia/private-messages?characterId=' + SLUG)
-        .then(function (res) {
-          if (!res.ok) throw new Error('連線失敗');
-          return res.json();
-        })
-        .then(function (data) {
-          var autoScroll = historyDiv.scrollTop + historyDiv.clientHeight >= historyDiv.scrollHeight - 20;
-          
-          historyDiv.innerHTML = '';
-          if (data.length === 0) {
-            historyDiv.innerHTML = '<div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.82rem; padding: 0.5rem 0;">📪 目前無對話紀錄，您可以發送訊息與 GM 開啟密談。</div>';
-            return;
-          }
-          
-          data.forEach(function (msg) {
-            var bubble = document.createElement('div');
-            bubble.style.maxWidth = '85%';
-            bubble.style.padding = '0.55rem 0.8rem';
-            bubble.style.borderRadius = '6px';
-            bubble.style.fontSize = '0.86rem';
-            bubble.style.lineHeight = '1.4';
-            bubble.style.wordBreak = 'break-all';
-            bubble.style.margin = '0.3rem 0';
-            
-            var isMe = msg.sender === 'player';
-            if (isMe) {
-              bubble.style.alignSelf = 'flex-end';
-              bubble.style.background = 'rgba(196, 154, 56, 0.18)';
-              bubble.style.border = '1px solid rgba(196, 154, 56, 0.4)';
-              bubble.style.color = '#f4ebd9';
-            } else {
-              bubble.style.alignSelf = 'flex-start';
-              bubble.style.background = 'rgba(139, 0, 0, 0.15)';
-              bubble.style.border = '1px solid rgba(139, 0, 0, 0.3)';
-              bubble.style.color = '#ffc0c0';
-            }
-            
-            var header = document.createElement('div');
-            header.style.fontSize = '0.72rem';
-            header.style.color = isMe ? '#ad997e' : '#d07070';
-            header.style.marginBottom = '0.2rem';
-            header.style.fontWeight = 'bold';
-            header.textContent = (isMe ? '我' : '主持人 (GM)') + ' • ' + msg.created_at;
-            
-            var body = document.createElement('div');
-            body.textContent = msg.content;
-            
-            bubble.appendChild(header);
-            bubble.appendChild(body);
-            historyDiv.appendChild(bubble);
-          });
-          
-          if (autoScroll) {
-            historyDiv.scrollTop = historyDiv.scrollHeight;
-          }
-        })
-        .catch(function () {
-          historyDiv.innerHTML = '<div style="color: #c04040; text-align: center; font-size: 0.82rem; padding: 0.5rem 0;">❌ 無法載入對話紀錄 (靜態模式無對話)</div>';
-        });
-    }
+  var loadPrivateMessagesIntervalId = null;
+  function loadPrivateMessages() {
+    var historyDiv = document.getElementById('private-chat-history');
+    if (!historyDiv) return;
     
-    window.sendPrivateMessage = function (e) {
-      if (e) e.preventDefault();
-      var input = document.getElementById('private-chat-input');
-      var btn = document.getElementById('private-chat-btn');
-      if (!input || !btn) return;
-      
-      var content = input.value.trim();
-      if (!content) return;
-      
-      btn.disabled = true;
-      btn.textContent = '…';
-      
-      fetch('/api/kou-xia/send-private-message', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          characterId: SLUG,
-          sender: 'player',
-          content: content
-        })
+    fetch('/api/kou-xia/private-messages?characterId=' + SLUG)
+      .then(function (res) {
+        if (!res.ok) throw new Error('連線失敗');
+        return res.json();
       })
-      .then(function (res) { return res.json(); })
       .then(function (data) {
-        btn.disabled = false;
-        btn.textContent = '傳送';
-        if (data.success) {
-          input.value = '';
-          loadPrivateMessages();
-        } else {
-          alert('❌ 傳送失敗: ' + data.message);
+        var autoScroll = historyDiv.scrollTop + historyDiv.clientHeight >= historyDiv.scrollHeight - 20;
+        
+        historyDiv.innerHTML = '';
+        if (data.length === 0) {
+          historyDiv.innerHTML = '<div style="color: #7a6a52; text-align: center; font-style: italic; font-size: 0.82rem; padding: 0.5rem 0;">📪 目前無對話紀錄，您可以發送訊息與 GM 開啟密談。</div>';
+          return;
+        }
+        
+        data.forEach(function (msg) {
+          var bubble = document.createElement('div');
+          bubble.style.maxWidth = '85%';
+          bubble.style.padding = '0.55rem 0.8rem';
+          bubble.style.borderRadius = '6px';
+          bubble.style.fontSize = '0.86rem';
+          bubble.style.lineHeight = '1.4';
+          bubble.style.wordBreak = 'break-all';
+          bubble.style.margin = '0.3rem 0';
+          
+          var isMe = msg.sender === 'player';
+          if (isMe) {
+            bubble.style.alignSelf = 'flex-end';
+            bubble.style.background = 'rgba(196, 154, 56, 0.18)';
+            bubble.style.border = '1px solid rgba(196, 154, 56, 0.4)';
+            bubble.style.color = '#f4ebd9';
+          } else {
+            bubble.style.alignSelf = 'flex-start';
+            bubble.style.background = 'rgba(139, 0, 0, 0.15)';
+            bubble.style.border = '1px solid rgba(139, 0, 0, 0.3)';
+            bubble.style.color = '#ffc0c0';
+          }
+          
+          var header = document.createElement('div');
+          header.style.fontSize = '0.72rem';
+          header.style.color = isMe ? '#ad997e' : '#d07070';
+          header.style.marginBottom = '0.2rem';
+          header.style.fontWeight = 'bold';
+          header.textContent = (isMe ? '我' : '主持人 (GM)') + ' • ' + msg.created_at;
+          
+          var body = document.createElement('div');
+          body.textContent = msg.content;
+          
+          bubble.appendChild(header);
+          bubble.appendChild(body);
+          historyDiv.appendChild(bubble);
+        });
+        
+        if (autoScroll) {
+          historyDiv.scrollTop = historyDiv.scrollHeight;
         }
       })
       .catch(function () {
-        btn.disabled = false;
-        btn.textContent = '傳送';
-        alert('❌ 伺服器連線失敗。留言功能在 GitHub Pages 靜態環境下無法運作。');
+        historyDiv.innerHTML = '<div style="color: #c04040; text-align: center; font-size: 0.82rem; padding: 0.5rem 0;">❌ 無法載入對話紀錄 (靜態模式無對話)</div>';
       });
-    };
+  }
+  
+  window.sendPrivateMessage = function (e) {
+    if (e) e.preventDefault();
+    var input = document.getElementById('private-chat-input');
+    var btn = document.getElementById('private-chat-btn');
+    if (!input || !btn) return;
     
-    document.addEventListener('gate:unlocked', function () {
-      loadPrivateMessages();
-      setInterval(loadPrivateMessages, 5000);
+    var content = input.value.trim();
+    if (!content) return;
+    
+    btn.disabled = true;
+    btn.textContent = '…';
+    
+    fetch('/api/kou-xia/send-private-message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        characterId: SLUG,
+        sender: 'player',
+        content: content
+      })
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      btn.disabled = false;
+      btn.textContent = '傳送';
+      if (data.success) {
+        input.value = '';
+        loadPrivateMessages();
+      } else {
+        alert('❌ 傳送失敗: ' + data.message);
+      }
+    })
+    .catch(function () {
+      btn.disabled = false;
+      btn.textContent = '傳送';
+      alert('❌ 伺服器連線失敗。留言功能在 GitHub Pages 靜態環境下無法運作。');
     });
-  })();
+  };
+  
+  function initPrivateMessages() {
+    if (loadPrivateMessagesIntervalId) clearInterval(loadPrivateMessagesIntervalId);
+    loadPrivateMessages();
+    loadPrivateMessagesIntervalId = setInterval(loadPrivateMessages, 5000);
+  }
 
   // ── Inline Question Answering ──
-  (function () {
-    document.addEventListener('gate:unlocked', function () {
-      var lists = document.querySelectorAll('.question-list');
-      lists.forEach(function (list, roundIdx) {
-        var roundKey = 'r' + (roundIdx + 1); // r1 or r2
-        var lis = list.querySelectorAll('li');
-        lis.forEach(function (li, qIdx) {
-          var qid = roundKey + 'q' + (qIdx + 1); // e.g. r1q1, r1q2, r2q1
-          var storageKey = 'kou-xia-qa__' + SLUG + '__' + qid;
-          var savedVal = localStorage.getItem(storageKey) || '';
-          
-          var wrapper = document.createElement('div');
-          wrapper.className = 'inline-answer-wrap';
-          wrapper.style.marginTop = '0.5rem';
-          wrapper.style.marginBottom = '0.8rem';
-          
-          var textarea = document.createElement('textarea');
-          textarea.className = 'inline-answer-input';
-          textarea.placeholder = '請在此輸入您的回答...';
-          textarea.value = savedVal;
-          textarea.style.width = '100%';
-          textarea.style.minHeight = '60px';
-          textarea.style.padding = '0.5rem';
-          textarea.style.borderRadius = '5px';
-          textarea.style.border = '1px solid #c8b89a';
-          textarea.style.background = '#faf6ef';
-          textarea.style.color = '#2f261f';
-          textarea.style.fontFamily = 'inherit';
-          textarea.style.fontSize = '0.9rem';
-          textarea.style.resize = 'vertical';
-          
-          var hint = document.createElement('div');
-          hint.style.fontSize = '0.78rem';
-          hint.style.color = '#8a7a50';
-          hint.style.textAlign = 'right';
-          hint.style.marginTop = '0.2rem';
-          hint.textContent = savedVal ? '已填寫' : '未填寫';
-          
-          textarea.addEventListener('input', function () {
-            var val = textarea.value;
-            if (val.trim()) {
-              localStorage.setItem(storageKey, val);
-              hint.textContent = '已儲存';
-              hint.style.color = '#2e7d32';
-              setTimeout(function () {
-                hint.textContent = '已填寫';
-                hint.style.color = '#8a7a50';
-              }, 1000);
-            } else {
-              localStorage.removeItem(storageKey);
-              hint.textContent = '未填寫';
+  function initQA() {
+    var lists = document.querySelectorAll('.question-list');
+    lists.forEach(function (list, roundIdx) {
+      var roundKey = 'r' + (roundIdx + 1); // r1 or r2
+      var lis = list.querySelectorAll('li');
+      lis.forEach(function (li, qIdx) {
+        var qid = roundKey + 'q' + (qIdx + 1); // e.g. r1q1, r1q2, r2q1
+        var storageKey = 'kou-xia-qa__' + SLUG + '__' + qid;
+        var savedVal = localStorage.getItem(storageKey) || '';
+        
+        var wrapper = document.createElement('div');
+        wrapper.className = 'inline-answer-wrap';
+        wrapper.style.marginTop = '0.5rem';
+        wrapper.style.marginBottom = '0.8rem';
+        
+        var textarea = document.createElement('textarea');
+        textarea.className = 'inline-answer-input';
+        textarea.placeholder = '請在此輸入您的回答...';
+        textarea.value = savedVal;
+        textarea.style.width = '100%';
+        textarea.style.minHeight = '60px';
+        textarea.style.padding = '0.5rem';
+        textarea.style.borderRadius = '5px';
+        textarea.style.border = '1px solid #c8b89a';
+        textarea.style.background = '#faf6ef';
+        textarea.style.color = '#2f261f';
+        textarea.style.fontFamily = 'inherit';
+        textarea.style.fontSize = '0.9rem';
+        textarea.style.resize = 'vertical';
+        
+        var hint = document.createElement('div');
+        hint.style.fontSize = '0.78rem';
+        hint.style.color = '#8a7a50';
+        hint.style.textAlign = 'right';
+        hint.style.marginTop = '0.2rem';
+        hint.textContent = savedVal ? '已填寫' : '未填寫';
+        
+        textarea.addEventListener('input', function () {
+          var val = textarea.value;
+          if (val.trim()) {
+            localStorage.setItem(storageKey, val);
+            hint.textContent = '已儲存';
+            hint.style.color = '#2e7d32';
+            setTimeout(function () {
+              hint.textContent = '已填寫';
               hint.style.color = '#8a7a50';
-            }
-          });
-          
-          wrapper.appendChild(textarea);
-          wrapper.appendChild(hint);
-          li.appendChild(wrapper);
-        });
-        
-        var submitBtn = document.createElement('button');
-        submitBtn.textContent = '📤 遞交此階段答案給 GM';
-        submitBtn.style.background = '#2e7d32';
-        submitBtn.style.color = '#fff';
-        submitBtn.style.border = 'none';
-        submitBtn.style.padding = '0.55rem 1rem';
-        submitBtn.style.borderRadius = '6px';
-        submitBtn.style.cursor = 'pointer';
-        submitBtn.style.fontSize = '0.88rem';
-        submitBtn.style.fontWeight = 'bold';
-        submitBtn.style.fontFamily = 'inherit';
-        submitBtn.style.marginTop = '0.8rem';
-        submitBtn.style.display = 'block';
-        submitBtn.style.transition = 'opacity 0.15s';
-        
-        var submitMsg = document.createElement('div');
-        submitMsg.style.fontSize = '0.82rem';
-        submitMsg.style.fontWeight = 'bold';
-        submitMsg.style.marginTop = '0.4rem';
-        submitMsg.style.display = 'none';
-        
-        submitBtn.addEventListener('click', function () {
-          submitBtn.disabled = true;
-          submitBtn.textContent = '⏳ 遞交中…';
-          submitMsg.style.display = 'block';
-          submitMsg.style.color = '#8a7a50';
-          submitMsg.textContent = '正在與後端連線…';
-          
-          var allAnswers = {};
-          for (var i = 1; i <= 10; i++) {
-            var val = localStorage.getItem('kou-xia-qa__' + SLUG + '__r1q' + i);
-            if (val !== null) allAnswers['r1q' + i] = val;
-            var val2 = localStorage.getItem('kou-xia-qa__' + SLUG + '__r2q' + i);
-            if (val2 !== null) allAnswers['r2q' + i] = val2;
+            }, 1000);
+          } else {
+            localStorage.removeItem(storageKey);
+            hint.textContent = '未填寫';
+            hint.style.color = '#8a7a50';
           }
-          
-          fetch('/api/kou-xia/submit-answers', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              characterId: SLUG,
-              answers: allAnswers
-            })
-          })
-          .then(function (res) {
-            if (!res.ok) throw new Error('Static Fallback');
-            return res.json();
-          })
-          .then(function (data) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = '📤 遞交此階段答案給 GM';
-            if (data.success) {
-              submitMsg.style.color = '#2e7d32';
-              submitMsg.textContent = '🎉 答案已成功遞交給 GM！';
-            } else {
-              submitMsg.style.color = '#c04040';
-              submitMsg.textContent = '❌ 遞交失敗：' + data.message;
-            }
-          })
-          .catch(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = '📤 遞交此階段答案給 GM';
-            submitMsg.style.color = '#a07a00';
-            submitMsg.textContent = '💡 靜態網頁模式：您的答案已自動儲存於本機瀏覽器，無須上傳。';
-          });
         });
         
-        list.parentNode.insertBefore(submitBtn, list.nextSibling);
-        list.parentNode.insertBefore(submitMsg, submitBtn.nextSibling);
+        wrapper.appendChild(textarea);
+        wrapper.appendChild(hint);
+        li.appendChild(wrapper);
       });
+      
+      var submitBtn = document.createElement('button');
+      submitBtn.textContent = '📤 遞交此階段答案給 GM';
+      submitBtn.style.background = '#2e7d32';
+      submitBtn.style.color = '#fff';
+      submitBtn.style.border = 'none';
+      submitBtn.style.padding = '0.55rem 1rem';
+      submitBtn.style.borderRadius = '6px';
+      submitBtn.style.cursor = 'pointer';
+      submitBtn.style.fontSize = '0.88rem';
+      submitBtn.style.fontWeight = 'bold';
+      submitBtn.style.fontFamily = 'inherit';
+      submitBtn.style.marginTop = '0.8rem';
+      submitBtn.style.display = 'block';
+      submitBtn.style.transition = 'opacity 0.15s';
+      
+      var submitMsg = document.createElement('div');
+      submitMsg.style.fontSize = '0.82rem';
+      submitMsg.style.fontWeight = 'bold';
+      submitMsg.style.marginTop = '0.4rem';
+      submitMsg.style.display = 'none';
+      
+      submitBtn.addEventListener('click', function () {
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ 遞交中…';
+        submitMsg.style.display = 'block';
+        submitMsg.style.color = '#8a7a50';
+        submitMsg.textContent = '正在與後端連線…';
+        
+        var allAnswers = {};
+        for (var i = 1; i <= 10; i++) {
+          var val = localStorage.getItem('kou-xia-qa__' + SLUG + '__r1q' + i);
+          if (val !== null) allAnswers['r1q' + i] = val;
+          var val2 = localStorage.getItem('kou-xia-qa__' + SLUG + '__r2q' + i);
+          if (val2 !== null) allAnswers['r2q' + i] = val2;
+        }
+        
+        fetch('/api/kou-xia/submit-answers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            characterId: SLUG,
+            answers: allAnswers
+          })
+        })
+        .then(function (res) {
+          if (!res.ok) throw new Error('Static Fallback');
+          return res.json();
+        })
+        .then(function (data) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = '📤 遞交此階段答案給 GM';
+          if (data.success) {
+            submitMsg.style.color = '#2e7d32';
+            submitMsg.textContent = '🎉 答案已成功遞交給 GM！';
+          } else {
+            submitMsg.style.color = '#c04040';
+            submitMsg.textContent = '❌ 遞交失敗：' + data.message;
+          }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = '📤 遞交此階段答案給 GM';
+          submitMsg.style.color = '#a07a00';
+          submitMsg.textContent = '💡 靜態網頁模式：您的答案已自動儲存於本機瀏覽器，無須上傳。';
+        });
+      });
+      
+      list.parentNode.insertBefore(submitBtn, list.nextSibling);
+      list.parentNode.insertBefore(submitMsg, submitBtn.nextSibling);
     });
-  })();
+  }
 
   /* Init after gate opens (or immediately if already authenticated) */
+  function doInitAll() {
+    initChapterPages();
+    initDynamicState();
+    initPrivateMessages();
+    initQA();
+  }
+
   var pc = document.getElementById('protected-content');
   if(pc && pc.style.display === 'block'){
-    initChapterPages();
+    doInitAll();
   } else {
-    document.addEventListener('gate:unlocked', initChapterPages, {once: true});
+    document.addEventListener('gate:unlocked', doInitAll, {once: true});
   }
 })();
 </script>
