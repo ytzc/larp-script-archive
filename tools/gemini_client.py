@@ -55,8 +55,7 @@ def generate_npc_reply(system_instruction, chat_history, user_message):
     config_params = {
         "temperature": GEMINI_TEMPERATURE,
         "max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS,
-        "system_instruction": system_instruction,
-        "http_options": {"timeout": GEMINI_API_TIMEOUT_SECONDS}
+        "system_instruction": system_instruction
     }
     
     # Only configure thinking budget if explicitly requested and greater than 0
