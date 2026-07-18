@@ -541,14 +541,14 @@
         return res.json();
       })
       .then(function (data) {
-        // 1. Hide manual input rows in dynamic mode
+        // 1. Ensure manual input rows are visible in dynamic mode
         var urows = document.querySelectorAll('.unlock-row');
-        urows.forEach(function (el) { el.style.display = 'none'; });
+        urows.forEach(function (el) { el.style.display = 'flex'; });
 
-        // 2. Update hint to show active server connection
+        // 2. Update hint to show active server connection and prompt for password
         var hints = document.querySelectorAll('.lock-hint');
         hints.forEach(function (el) {
-          el.innerHTML = '🟢 系統已連線，請等待 GM 從主持人控制台開放此章節...';
+          el.innerHTML = '🟢 系統已連線，請輸入由 GM 提供的解鎖密碼以開啟此章節。';
         });
 
         // 3. Auto-unlock chapters based on backend states
