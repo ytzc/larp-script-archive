@@ -9,7 +9,9 @@ import json
 import sqlite3
 import socket
 import http.server
+import secrets
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from tools import npc_ai
 
 # Database location: root of the project to keep it secure from direct web access
 DB_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'kou_xia.db')
@@ -119,9 +121,53 @@ def init_db():
     except Exception as e:
         print(f"⚠️ Backfill migration failed (or columns already populated): {e}")
 
+    # Create AI Tasks table for background AI NPC job queue
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS ai_tasks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            message_id INTEGER UNIQUE NOT NULL,
+            status TEXT NOT NULL,
+            attempts INTEGER DEFAULT 0,
+            error TEXT,
+            locked_at TEXT,
+            worker_id TEXT,
+            reply_message_id INTEGER,
+            created_at TEXT,
+            processed_at TEXT,
+            FOREIGN KEY(message_id) REFERENCES private_messages(id),
+            FOREIGN KEY(reply_message_id) REFERENCES private_messages(id)
+        )
+    ''')
+
+    # Create User Sessions table for secure session authentication
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS user_sessions (
+            token TEXT PRIMARY KEY,
+            character_id TEXT NOT NULL,
+            created_at TEXT NOT NULL
+        )
+    ''')
+
+    # Enable WAL mode and set busy timeout for thread-safe concurrent access
+    try:
+        c.execute("PRAGMA journal_mode=WAL")
+        c.execute("PRAGMA busy_timeout=5000")
+    except Exception as e:
+        print(f"⚠️ Failed to set PRAGMA journal_mode/busy_timeout: {e}")
+
     conn.commit()
     conn.close()
     print("✅ 資料庫初始化完成。")
+
+def create_user_session(conn, character_id):
+    import secrets
+    import datetime
+    token = secrets.token_hex(16)
+    now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    c = conn.cursor()
+    c.execute("INSERT INTO user_sessions (token, character_id, created_at) VALUES (?, ?, ?)", (token, character_id, now_str))
+    conn.commit()
+    return token
 
 class DualStackServer(ThreadingHTTPServer):
     def server_bind(self):
@@ -391,12 +437,14 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         try:
                             c.execute("INSERT INTO users (character_id, player_name, password, created_at, last_login) VALUES (?, ?, ?, strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'), strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'))", (cid, player_name, password))
                             conn.commit()
+                            token = create_user_session(conn, cid)
                             res = {
                                 'success': True,
                                 'session': {
                                     'characterId': cid,
                                     'characterName': CHARACTERS[cid],
-                                    'playerName': player_name
+                                    'playerName': player_name,
+                                    'token': token
                                 }
                             }
                             print(f"🆕 玩家註冊成功: {CHARACTERS[cid]} ({player_name})")
@@ -408,13 +456,15 @@ class CustomHandler(SimpleHTTPRequestHandler):
                     password = data.get('password', '')
 
                     if username == 'gm' and password == 'gm':
+                        token = create_user_session(conn, 'gm')
                         res = {
                             'success': True,
                             'is_gm': True,
                             'session': {
                                 'characterId': 'gm',
                                 'characterName': 'GM',
-                                'playerName': 'GM'
+                                'playerName': 'GM',
+                                'token': token
                             }
                         }
                         print("🎲 GM 登入成功")
@@ -425,12 +475,14 @@ class CustomHandler(SimpleHTTPRequestHandler):
                             # Update last login time
                             c.execute("UPDATE users SET last_login = (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) WHERE character_id = ?", (username,))
                             conn.commit()
+                            token = create_user_session(conn, username)
                             res = {
                                 'success': True,
                                 'session': {
                                     'characterId': username,
                                     'characterName': CHARACTERS[username],
-                                    'playerName': row[0]
+                                    'playerName': row[0],
+                                    'token': token
                                 }
                             }
                             print(f"🔑 玩家登入成功: {CHARACTERS[username]} ({row[0]})")
@@ -545,24 +597,53 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         res = {'success': False, 'message': '修改失敗：GM 密碼錯誤'}
 
                 elif self.path == '/api/kou-xia/send-private-message':
-                    character_id = data.get('characterId', '')
-                    sender = data.get('sender', '')
+                    token = self.headers.get('X-Session-Token')
                     content = data.get('content', '').strip()
                     target_id = data.get('targetId', 'gm')
                     
-                    if not character_id or not sender or not content:
-                        res = {'success': False, 'message': '參數不完整'}
+                    if not content:
+                        res = {'success': False, 'message': '訊息內容不能為空'}
+                    elif not token:
+                        res = {'success': False, 'message': '未提供認證 Token，請重新登入'}
                     else:
-                        sender_id = 'gm' if sender == 'gm' else character_id
-                        recipient_id = character_id if sender == 'gm' else target_id
+                        # Securely resolve sender_id from token
+                        c.execute("SELECT character_id FROM user_sessions WHERE token = ?", (token,))
+                        session_row = c.fetchone()
                         
-                        import datetime
-                        now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                        c.execute("INSERT INTO private_messages (character_id, sender, content, created_at, sender_id, recipient_id) VALUES (?, ?, ?, ?, ?, ?)", 
-                                  (character_id, sender, content, now_str, sender_id, recipient_id))
-                        conn.commit()
-                        res = {'success': True, 'message': '私密留言傳送成功！'}
-                        print(f"✉️ 私密留言: [{sender_id} -> {recipient_id}] {content} 於 {now_str}")
+                        if not session_row:
+                            res = {'success': False, 'message': '認證無效或登入已過期，請重新登入'}
+                        else:
+                            sender_id = session_row[0]
+                            recipient_id = target_id
+                            
+                            # Validate recipient
+                            if recipient_id not in CHARACTERS and recipient_id != 'gm':
+                                res = {'success': False, 'message': '無效的收件者識別碼'}
+                            else:
+                                sender = 'gm' if sender_id == 'gm' else 'player'
+                                character_id = recipient_id if sender_id == 'gm' else sender_id
+                                
+                                import datetime
+                                now_str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                                
+                                try:
+                                    conn.execute("BEGIN TRANSACTION;")
+                                    # 1. Insert message
+                                    c.execute("INSERT INTO private_messages (character_id, sender, content, created_at, sender_id, recipient_id) VALUES (?, ?, ?, ?, ?, ?)", 
+                                              (character_id, sender, content, now_str, sender_id, recipient_id))
+                                    message_id = c.lastrowid
+                                    
+                                    # 2. If sending to zhang-meng and sender is not zhang-meng itself, enqueue AI task
+                                    if recipient_id == 'zhang-meng' and sender_id != 'zhang-meng':
+                                        c.execute("INSERT INTO ai_tasks (message_id, status, created_at) VALUES (?, 'pending', ?)", 
+                                                  (message_id, now_str))
+                                        
+                                    conn.commit()
+                                    res = {'success': True, 'message': '私密留言傳送成功！'}
+                                    print(f"✉️ [Secure] 私密留言: [{sender_id} -> {recipient_id}] {content[:30]} 於 {now_str}")
+                                except Exception as tx_err:
+                                    conn.rollback()
+                                    raise tx_err
 
                 elif self.path == '/api/kou-xia/heartbeat':
                     character_id = data.get('characterId', '')
@@ -601,6 +682,12 @@ def main():
 
     # Setup DB
     init_db()
+
+    # Start background AI worker thread
+    try:
+        npc_ai.start_worker()
+    except Exception as e:
+        print(f"⚠️ Failed to start NPC AI background worker: {e}", file=sys.stderr)
 
     try:
         server = DualStackServer(('0.0.0.0', port), CustomHandler)

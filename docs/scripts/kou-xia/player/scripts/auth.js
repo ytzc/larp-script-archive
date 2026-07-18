@@ -290,5 +290,32 @@
     });
   }());
 
+  // Override global window.fetch to automatically append session token to API requests
+  (function () {
+    var originalFetch = window.fetch;
+    window.fetch = function (url, options) {
+      options = options || {};
+      if (typeof url === 'string' && url.indexOf('/api/kou-xia/') !== -1) {
+        options.headers = options.headers || {};
+        try {
+          var raw = sessionStorage.getItem('kou-xia-char-session');
+          if (raw) {
+            var session = JSON.parse(raw);
+            if (session && session.token) {
+              if (options.headers instanceof Headers) {
+                options.headers.set('X-Session-Token', session.token);
+              } else {
+                options.headers['X-Session-Token'] = session.token;
+              }
+            }
+          }
+        } catch (e) {
+          console.error('Failed to append X-Session-Token header:', e);
+        }
+      }
+      return originalFetch(url, options);
+    };
+  }());
+
   global.CharAuth = CharAuth;
 }(window));

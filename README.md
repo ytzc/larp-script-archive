@@ -131,105 +131,99 @@ cp -r docs/scripts/kou-xia docs/scripts/<new-script-slug>
 
 ---
 
+## 🤖 AI NPC (張猛) 智能扮演與背景服務
+
+本專案支援使用 **Gemini API** 自動扮演「張猛」NPC。當玩家在私訊系統中與張猛對話時，後端背景 Worker 定期輪詢並非同步呼叫 AI 產生回覆，前端免改代碼即能享有高沉浸感的互動。
+
+### 1. 核心技術特點
+*   **非同步持久化佇列 (SQLite Job Queue)**：私訊寫入時，後端原子性地在 `ai_tasks` 表寫入 pending 任務並立即返回成功。背景單一 Worker 執行緒依序處理並呼叫 Gemini，避免前端請求卡死或阻塞 Web 伺服器。
+*   **安全認證與防偽造 (X-Session-Token)**：後端完全由 Token 逆向推導真實身分，徹底防止偽造與越權。前端 `auth.js` 自動攔截 Fetch 請求並注入 `X-Session-Token` header。
+*   **SQLite 執行緒安全與併發 (WAL Mode)**：資料庫初始化時會自動啟用 WAL 模式並設定 `PRAGMA busy_timeout=5000`（5秒等待），確保背景 Worker 執行緒與 Web 請求執行緒安全併發寫入。
+*   **分幕次知識白名單隔離**：根據 `game_state` 解鎖進度（如 `act1_unlocked`, `act2_unlocked`）動態讀取分幕知識庫（如 `act1_knowledge.md`），物理隔離未來劇情，防範 any 劇透與 System Prompt 注入。
+*   **過期任務重新申領與 Fallback 降級**：具備 `locked_at` 狀態，當任務因 worker 當機遺失超過 60 秒後，自動重新 pending。API 失敗重試 3 次後，自動寫入一則人設定義的 Fallback 系統提示私訊，任務標為 `failed`。
+
+### 2. 環境變數配置
+AI NPC 的金鑰與參數皆透過環境變數管理。請先複製範例設定檔並填入您的 Gemini API Key：
+```bash
+# 複製範例設定檔 (.env 已在 .gitignore 中，切勿 commit)
+cp .env.example .env
+```
+編輯 `.env` 並填入您的金鑰與自訂配置：
+```ini
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.5-flash
+GEMINI_TEMPERATURE=0.7
+GEMINI_THINKING_BUDGET=0
+GEMINI_API_TIMEOUT_SECONDS=10
+GEMINI_MAX_OUTPUT_TOKENS=300
+NPC_AI_ENABLED=true
+NPC_AI_POLL_INTERVAL_SECONDS=1
+NPC_AI_STALE_TASK_SECONDS=60
+NPC_AI_HISTORY_LIMIT=10
+```
+
+### 3. 資料庫自動升級 (Auto-Migration)
+當啟動新版 `server.py` 時，系統的 `init_db()` 方法會**自動執行增量升級**，無須手動跑 migration 腳本：
+*   自動建立 `user_sessions` 與 `ai_tasks` 資料表。
+*   自動執行 `PRAGMA journal_mode=WAL` 及設定超時鎖定。
+*   此程序完全向下相容，原有玩家的註冊、答題與對話資料將**完整保留**。
+
+---
+
 ## 本地端測試與託管 (Local Hosting)
 
 當您在本地修改或新增劇本後，本專案支援以兩種方式在本地端區域網路 (LAN) 啟動一個輕量的 Web 伺服器，使本機電腦、手機、平板皆可連入測試。
 
 ---
 
-### 💻 方式一：使用 Docker Desktop for Windows (Windows 平台最佳推薦)
+### 💻 方式一：使用 Docker (生產與 Staging 推薦)
 
-在 Windows 系統下，使用 **Docker Desktop for Windows** 搭配 WSL2 是最簡便、最穩定的本地部署方式。**它會自動處理 Windows 與 WSL 之間的 Port Forwarding 網路轉發，完全免去複雜的 `netsh` 網路指令設定！**
+為了避免整個 repository 的 bind-mount 覆蓋容器（Container）內部的程式碼（導致 Rollback 降版時容器內仍執行 Host 上新代碼的問題），**正式部署與測試應優先僅掛載必要持久化資料與設定檔**。
 
-#### 1. 建置 Docker 映像檔 (僅需在專案修改後執行)
-打開 PowerShell 並進入專案根目錄，執行以下指令：
-```powershell
-docker build -t larp-script-archive -f Dockerfile .
-```
-
-#### 2. 一鍵啟動容器
-
-您可以使用以下幾種方式啟動容器，其中**標準作法 A** 完全不需建立 `.env` 設定檔，開箱即用：
-
-##### 🚀 標準作法 A：直接輸入參數啟動 (開箱即用，免設定檔)
-在終端機（PowerShell / Linux Bash）輸入以下指令，直接指定 Port `8787` 與掛載目錄：
+#### 1. 建置 Docker 映像檔
+進入專案根目錄，執行以下指令重新 Build 最新 Image：
 ```bash
-docker run -it --rm -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive "8787" "docs"
-```
-*(本指令會將本地工作目錄掛載進容器中，確保資料庫 `kou_xia.db` 的更新能正常同步並持久化保存到本機。)*
-
-##### 👍 推薦作法 B：使用環境設定檔 (`.env`) ── 免打長參數
-在專案根目錄（`larp-script-archive/`）下建立一個名為 **`.env`** 的文字檔案，內容填入您的個人設定：
-```ini
-PORT=8787
-WEB_DIR=docs
-HOST_IP=10.0.0.78
-```
-之後啟動容器時，只要建立好 `.env`，**只需在終端機輸入這一行**，Docker 就會自動載入設定：
-```powershell
-docker run -it --rm --env-file .env -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
-```
-*(注意：如果您使用 `--env-file` 參數，請確保根目錄下**確實存在** `.env` 檔案，否則 Docker 會回報 `no such file or directory` 錯誤。`-p 0.0.0.0:8787:8787` 中的兩個 Port 號碼，請與您 `.env` 檔案中的 `PORT` 保持一致。)*
-
-##### 作法 C：使用行內環境變數 (Inline Env)
-若不想建立 `.env` 檔案，也可以直接在指令中用 `-e` 帶入變數：
-```powershell
-docker run -it --rm -e PORT=8787 -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
+docker build -t larp-script-archive:latest -f Dockerfile .
 ```
 
-##### 💡 傳統相容作法（CLI 參數）
-系統依然支援舊有參數方式。如果指令最後有帶參數，將會優先覆蓋環境變數與預設值：
-```powershell
-docker run -it --rm -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive 8787 docs
-```
-*(如果完全不帶任何參數與環境變數，系統將自動套用安全預設值：Port `8000` 與 `docs` 目錄。)*
+#### 2. 一鍵啟動容器 (正式/測試環境)
 
-> **💡 參數解析：**
-> - `-it`：允許您在終端機中看到即時的登入、註冊日誌，並可隨時按 `Ctrl + C` 停止伺服器。
-> - `-v "${PWD}:/workspace"`：將當前資料夾掛載進容器中，任何網頁或資料庫修改（`kou_xia.db`）皆會同步與持久化保存在本地。
-
-#### 3. 如何改在「背景執行」？(Detached Mode)
-
-如果您希望伺服器持續在背景執行，不佔用終端機視窗，可以將前述指令中的 `-it --rm` 改成 **`-d`** (Detached) 並加上 **`--name larp-server`** (命名容器為 `larp-server`)。
-
-##### 🚀 背景啟動指令（標準直接參數，最推薦，免設定檔）：
+啟動新版容器前，請先停止並刪除舊有容器：
 ```bash
-docker run -d --name larp-server -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive "8787" "docs"
+# 停止並刪除舊容器
+docker rm -f larp-server || true
 ```
 
-##### 📂 如果是使用 `.env` 檔案啟動：
+使用以下指令啟動，指定掛載環境變數檔、資料庫及 `materials/`，程式碼本體則直接打包並運行於 Image 內部：
 ```bash
-docker run -d --name larp-server --env-file .env -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
+docker run -d \
+  --name larp-server \
+  --restart always \
+  --env-file .env \
+  -p 8787:8000 \
+  -v "${PWD}/kou_xia.db:/workspace/kou_xia.db" \
+  -v "${PWD}/materials:/workspace/materials" \
+  larp-script-archive:latest
 ```
+*(本指令會將本地的資料庫 `kou_xia.db` 及劇本庫掛載進容器中，確保資料庫更新及劇本修改能持久化保存到本機，且不覆蓋容器內運行的 python 程式碼，完美支援 Image 回滾。)*
 
-##### ⚡ 背景啟動指令（行內環境變數範例）：
-```powershell
-docker run -d --name larp-server -e PORT=8787 -e HOST_IP=10.0.0.78 -p 0.0.0.0:8787:8787 -v "${PWD}:/workspace" larp-script-archive
-```
-
-##### 📊 背景管理實用指令：
-當容器在背景執行時，您可以透過以下三個超好用指令進行控管：
-
-* **看即時日誌（查誰登入、誰註冊）**：
-  ```powershell
-  docker logs -f larp-server
-  ```
-  *(按 `Ctrl + C` 可以隨時退出日誌畫面，背景服務依然在跑)*
-
-* **停止背景伺服器**：
-  ```powershell
-  docker stop larp-server
-  ```
-
-* **手動再次啟動（若之前被停止）**：
-  ```powershell
-  docker start larp-server
-  ```
-
-* **徹底刪除背景容器（更換 Port 或重置設定時需執行）**：
-  ```powershell
-  docker rm -f larp-server
-  ```
+##### 📊 容器管理實用指令：
+*   **查看即時日誌（查誰登入、誰註冊、AI 對話日誌）**：
+    ```bash
+    docker logs -f larp-server
+    ```
+*   **停止背景伺服器**：
+    ```bash
+    docker stop larp-server
+    ```
+*   **手動再次啟動**：
+    ```bash
+    docker start larp-server
+    ```
+*   **徹底刪除背景容器**：
+    ```bash
+    docker rm -f larp-server
+    ```
 
 ---
 
