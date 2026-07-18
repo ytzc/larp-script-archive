@@ -461,7 +461,7 @@ TEMPLATE = '''\
 </div><!-- /protected-content -->
 
 <script src="../../../../assets/js/version.js"></script>
-<script src="auth.js"></script>
+<script src="auth.js?v=2026071801"></script>
 <script>
   (function() {{
     var session = CharAuth.requireCharacter('{slug}', '../login.html');
