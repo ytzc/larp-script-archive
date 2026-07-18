@@ -302,15 +302,29 @@
           if (raw) {
             var session = JSON.parse(raw);
             if (session && session.token) {
+              // 1. Try appending to Headers (standard)
               if (options.headers instanceof Headers) {
                 options.headers.set('X-Session-Token', session.token);
               } else {
                 options.headers['X-Session-Token'] = session.token;
               }
+              
+              // 2. Try appending to JSON POST Body (Proxy/Cloudflare safe fallback)
+              if (options.body && typeof options.body === 'string') {
+                try {
+                  var bodyData = JSON.parse(options.body);
+                  if (bodyData && typeof bodyData === 'object' && !bodyData.token) {
+                    bodyData.token = session.token;
+                    options.body = JSON.stringify(bodyData);
+                  }
+                } catch (jsonErr) {
+                  // Not valid JSON, skip
+                }
+              }
             }
           }
         } catch (e) {
-          console.error('Failed to append X-Session-Token header:', e);
+          console.error('Failed to append X-Session-Token header/body:', e);
         }
       }
       return originalFetch(url, options);

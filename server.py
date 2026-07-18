@@ -597,8 +597,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
                         res = {'success': False, 'message': '修改失敗：GM 密碼錯誤'}
 
                 elif self.path == '/api/kou-xia/send-private-message':
-                    print(f"📋 [Headers Received]: {dict(self.headers)}")
-                    token = self.headers.get('X-Session-Token')
+                    token = self.headers.get('X-Session-Token') or data.get('token')
                     content = data.get('content', '').strip()
                     target_id = data.get('targetId', 'gm')
                     
