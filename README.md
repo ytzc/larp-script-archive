@@ -168,6 +168,34 @@ NPC_AI_HISTORY_LIMIT=10
 *   自動執行 `PRAGMA journal_mode=WAL` 及設定超時鎖定。
 *   此程序完全向下相容，原有玩家的註冊、答題與對話資料將**完整保留**。
 
+### 4. 🔄 舊版升級至新版 AI NPC 步驟
+若您的伺服器上正運行舊版容器（如 v1.1.8），請執行以下四步驟完成無損升級與 AI 啟用：
+
+1. **建立並設定環境變數**：
+   ```bash
+   cp .env.example .env
+   nano .env # 填入您的真實 GEMINI_API_KEY
+   ```
+2. **停止與刪除舊版容器**：
+   ```bash
+   docker rm -f larp-server
+   ```
+3. **重建 Docker 映像檔** (因引入了新版 google-genai 依賴)：
+   ```bash
+   docker build -t larp-script-archive:latest -f Dockerfile .
+   ```
+4. **啟動新版 AI 容器** (套用安全持久化掛載與環境變數載入)：
+   ```bash
+   docker run -d \
+     --name larp-server \
+     --restart always \
+     --env-file .env \
+     -p 8787:8000 \
+     -v "${PWD}/kou_xia.db:/workspace/kou_xia.db" \
+     -v "${PWD}/materials:/workspace/materials" \
+     larp-script-archive:latest
+   ```
+
 ---
 
 ## 本地端測試與託管 (Local Hosting)
