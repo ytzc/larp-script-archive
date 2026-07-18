@@ -11,6 +11,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source code and files into the image
 COPY . .
 
+# Ensure standard output and error are printed immediately in container logs
+ENV PYTHONUNBUFFERED=1
+
 # Define default environment variables
 ENV PORT=8000
 ENV WEB_DIR=docs
