@@ -169,31 +169,20 @@ NPC_AI_HISTORY_LIMIT=10
 *   此程序完全向下相容，原有玩家的註冊、答題與對話資料將**完整保留**。
 
 ### 4. 🔄 舊版升級至新版 AI NPC 步驟
-若您的伺服器上正運行舊版容器（如 v1.1.8），請執行以下四步驟完成無損升級與 AI 啟用：
+若您的伺服器上正運行舊版容器，現在可以使用 Docker Compose 進行無損的一鍵升級：
 
 1. **建立並設定環境變數**：
    ```bash
    cp .env.example .env
    nano .env # 填入您的真實 GEMINI_API_KEY
    ```
-2. **停止與刪除舊版容器**：
+2. **一鍵完成升級（停止舊版、重建並背景啟動新版）**：
    ```bash
-   docker rm -f larp-server
-   ```
-3. **重建 Docker 映像檔** (因引入了新版 google-genai 依賴)：
-   ```bash
-   docker build -t larp-script-archive:latest -f Dockerfile .
-   ```
-4. **啟動新版 AI 容器** (套用安全持久化掛載與環境變數載入)：
-   ```bash
-   docker run -d \
-     --name larp-server \
-     --restart always \
-     --env-file .env \
-     -p 8787:8000 \
-     -v "${PWD}/kou_xia.db:/workspace/kou_xia.db" \
-     -v "${PWD}/materials:/workspace/materials" \
-     larp-script-archive:latest
+   # 若先前使用原生 docker run 啟動，請先手動停止舊容器
+   docker rm -f larp-server || true
+
+   # 使用 Compose 一鍵拉起新服務
+   docker compose up -d --build
    ```
 
 ---
@@ -204,26 +193,53 @@ NPC_AI_HISTORY_LIMIT=10
 
 ---
 
-### 💻 方式一：使用 Docker (生產與 Staging 推薦)
+### 💻 方式一：使用 Docker & Docker Compose (生產與 Staging 推薦)
 
 為了避免整個 repository 的 bind-mount 覆蓋容器（Container）內部的程式碼（導致 Rollback 降版時容器內仍執行 Host 上新代碼的問題），**正式部署與測試應優先僅掛載必要持久化資料與設定檔**。
 
-#### 1. 建置 Docker 映像檔
-進入專案根目錄，執行以下指令重新 Build 最新 Image：
+我們已提供 `compose.yml` 設定檔，極力推薦使用 **Docker Compose** 來一鍵管理與啟動。
+
+#### 1. 使用 Docker Compose 啟動（最推薦，一鍵完成）
+
+在專案根目錄下，執行以下命令：
+```bash
+# 一鍵自動 Build Image、重置舊容器、並於背景啟動新容器
+docker compose up -d --build
+```
+*(此指令會依據 `compose.yml` 自動將 `server.py`、`tools/` 與網頁資料打包進 Image 內，同時掛載您的 `.env`、`kou_xia.db` 資料庫與 `materials/`，保障 AI 正常運行並支援無損退版)*
+
+##### 📊 Docker Compose 管理指令：
+*   **查看即時日誌（包含 AI 對話與心跳日誌）**：
+    ```bash
+    docker compose logs -f
+    ```
+*   **停止並刪除容器**：
+    ```bash
+    docker compose down
+    ```
+*   **重啟服務**：
+    ```bash
+    docker compose restart
+    ```
+
+---
+
+#### 2. 傳統相容作法：使用原生 Docker CLI 手動啟動
+
+若您的環境未安裝 Docker Compose，亦可使用原生 Docker 指令手動建置並啟動：
+
+##### ① 建置 Docker 映像檔
 ```bash
 docker build -t larp-script-archive:latest -f Dockerfile .
 ```
 
-#### 2. 一鍵啟動容器 (正式/測試環境)
-
-啟動新版容器前，請先停止並刪除舊有容器：
+##### ② 一鍵啟動容器
+啟動新容器前，請先停止並刪除舊容器：
 ```bash
 # 停止並刪除舊容器
 docker rm -f larp-server || true
-```
 
-使用以下指令啟動，指定掛載環境變數檔、資料庫及 `materials/`，程式碼本體則直接打包並運行於 Image 內部：
-```bash
+# 啟動新版容器
 docker run -d \
   --name larp-server \
   --restart always \
@@ -233,25 +249,12 @@ docker run -d \
   -v "${PWD}/materials:/workspace/materials" \
   larp-script-archive:latest
 ```
-*(本指令會將本地的資料庫 `kou_xia.db` 及劇本庫掛載進容器中，確保資料庫更新及劇本修改能持久化保存到本機，且不覆蓋容器內運行的 python 程式碼，完美支援 Image 回滾。)*
 
-##### 📊 容器管理實用指令：
-*   **查看即時日誌（查誰登入、誰註冊、AI 對話日誌）**：
-    ```bash
-    docker logs -f larp-server
-    ```
-*   **停止背景伺服器**：
-    ```bash
-    docker stop larp-server
-    ```
-*   **手動再次啟動**：
-    ```bash
-    docker start larp-server
-    ```
-*   **徹底刪除背景容器**：
-    ```bash
-    docker rm -f larp-server
-    ```
+##### 📊 原生 Docker 管理指令：
+*   **查看即時日誌**：`docker logs -f larp-server`
+*   **停止容器**：`docker stop larp-server`
+*   **重啟容器**：`docker start larp-server`
+*   **徹底刪除背景容器**：`docker rm -f larp-server`
 
 ---
 

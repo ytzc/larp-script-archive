@@ -1,0 +1,14 @@
+services:
+  larp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: larp-server
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8787:8000"
+    volumes:
+      - ./kou_xia.db:/workspace/kou_xia.db
+      - ./materials:/workspace/materials
