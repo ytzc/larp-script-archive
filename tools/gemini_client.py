@@ -8,7 +8,7 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 GEMINI_TEMPERATURE = float(os.environ.get("GEMINI_TEMPERATURE", "0.7"))
 GEMINI_THINKING_BUDGET = int(os.environ.get("GEMINI_THINKING_BUDGET", "0"))
-GEMINI_API_TIMEOUT_SECONDS = float(os.environ.get("GEMINI_API_TIMEOUT_SECONDS", "10"))
+GEMINI_API_TIMEOUT_SECONDS = float(os.environ.get("GEMINI_API_TIMEOUT_SECONDS", "30"))
 GEMINI_MAX_OUTPUT_TOKENS = int(os.environ.get("GEMINI_MAX_OUTPUT_TOKENS", "300"))
 
 def get_client():
