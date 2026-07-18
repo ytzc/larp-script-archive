@@ -8,6 +8,9 @@ WORKDIR /workspace
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy source code and files into the image
+COPY . .
+
 # Define default environment variables
 ENV PORT=8000
 ENV WEB_DIR=docs
