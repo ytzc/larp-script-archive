@@ -100,6 +100,28 @@ def process_single_task(conn, message_id):
     state = get_game_state(conn)
     system_instruction = build_system_instruction(state)
     
+    # Securely map player_id to Traditional Chinese name
+    CHARACTERS_MAP = {
+        'wang-si-han': '王思涵',
+        'jia-san-niang': '賈三娘',
+        'diao-wu-er': '刁五兒',
+        'yan-yi': '嚴逸',
+        'yan-shi': '嚴氏',
+        'wang-shun': '王順',
+        'nong-sou': '農叟',
+        'jin-si-dao': '金四刀',
+        'zhang-meng': '張猛'
+    }
+    player_name_ch = CHARACTERS_MAP.get(player_id, player_id)
+    
+    # Securely append current conversational partner identity context to the system instructions
+    context_instruction = (
+        f"\n\n--- ⚠️ 目前對話情境 ⚠️ ---\n"
+        f"當前正在與你進行一對一私聊密談的玩家是：【{player_name_ch}】(角色ID/Slug: '{player_id}')。\n"
+        f"請記住對方的身份，並嚴格遵循《情景一知識庫》中針對【{player_name_ch}】的專屬話術與引導任務（如身分認同、秘密透露、給義妹交付近衛軍兵符等）進行對答。如果是其他人，不可洩漏刁五兒或金四刀的祕密。"
+    )
+    full_system_instruction = system_instruction + context_instruction
+    
     # 3. Retrieve historical dialog context (excluding the prompt itself)
     c.execute("""
         SELECT sender_id, content 
@@ -116,7 +138,7 @@ def process_single_task(conn, message_id):
     
     # 4. Invoke Gemini API client
     try:
-        raw_reply = gemini_client.generate_npc_reply(system_instruction, chat_history, user_message)
+        raw_reply = gemini_client.generate_npc_reply(full_system_instruction, chat_history, user_message)
         reply_content = clean_ai_response(raw_reply)
         
         if not reply_content:
